@@ -1,5 +1,3 @@
-from msilib.schema import SelfReg
-from typing import Self
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Enum, ForeignKey, TIMESTAMP, text, DECIMAL
 from sqlalchemy.orm import relationship
