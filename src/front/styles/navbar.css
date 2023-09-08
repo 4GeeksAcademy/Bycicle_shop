@@ -1,0 +1,84 @@
+.navbar {
+    background-color: #484545;
+    height: 20%;
+    padding-left: 5vh;
+    padding-right: 5vh;
+}
+.btn {
+    background-color: #7C0514;
+    color: black;
+    padding: 3px;
+    font-weight: 500;
+}
+.icon {
+    color: black;
+    font-size: xx-large;
+}
+.dropdown-menu {
+    background-color: #7C0514;
+    border-radius: 6px;
+}
+li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.dropdown-item {
+    border-bottom: solid 1px black;
+    color: black;
+    padding-left: 0;
+}
+.language {
+    border-radius: 6px;
+    margin-left: 350px;
+}
+.navbar-toggler {
+    border-radius: 6px;
+    margin-left: 350px;
+}
+.img {
+    margin-top: 30px;
+    height: 250px;
+    width: 250px;
+}
+.menu {
+    width: 30vw;
+}
+/*css to make the site responsive*/
+@media screen and (max-width: 995px) {
+    .navbar {
+        padding: 0;
+    }
+    .img {
+        height: 100px;
+        width: 100px;
+        margin: auto;
+    }
+  }
+@media screen and (max-width: 600px) {
+    p {
+     font-size: 10px;
+     line-height: 0;
+     margin-left: 10px;
+    }
+    .language {
+        border-radius: 6px;
+        margin-left: 2rem;
+        font-size: small;
+    }
+    .navbar-toggler {
+        border-radius: 6px;
+        margin-left: 2rem;
+        font-size: small;
+    }
+}
+@media screen and (max-width: 550px) {
+    .language {
+        border-radius: 6px;
+        margin-left: 2rem;
+        font-size: xx-small;
+    }
+}@media screen and (max-width: 200px) {
+    .navbar {
+        height: 10%;
+    }
+}
