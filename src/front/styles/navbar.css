@@ -1,19 +1,28 @@
 .navbar {
     background-color: #484545;
-    height: 20%;
+    height: 18vh;
     padding-left: 5vh;
     padding-right: 5vh;
+    position: relative;
+}
+.menu {
+    display: grid;
+    justify-items: end;
 }
 .btn {
     background-color: #7C0514;
     color: black;
     padding: 3px;
     font-weight: 500;
+    margin-left: 20px;
+    padding: 2px 5px 2px 5px ;
 }
 .icon {
     color: black;
     font-size: xx-large;
+    margin-left: 20px;
 }
+
 .dropdown-menu {
     background-color: #7C0514;
     border-radius: 6px;
@@ -27,58 +36,74 @@ li {
     color: black;
     padding-left: 0;
 }
-.language {
+.btnlanguage {
     border-radius: 6px;
-    margin-left: 350px;
+    padding: 2px 5px 2px 5px ;
+}
+.language {
+    justify-content: end;
 }
 .navbar-toggler {
     border-radius: 6px;
     margin-left: 350px;
+    background-color: black;
+}
+.navbar-collapse {
+    justify-content: end;
 }
 .img {
-    margin-top: 30px;
-    height: 250px;
-    width: 250px;
+    margin-top: 5px;
+    height: 200px;
+    width: 200px;
 }
-.menu {
-    width: 30vw;
+figure {
+    margin: 0px;
+    position: absolute;
 }
+
 /*css to make the site responsive*/
-@media screen and (max-width: 995px) {
-    .navbar {
-        padding: 0;
+@media screen and (max-width: 1000px) {
+    .language {
+        border-radius: 6px;
+        margin-left: 2rem;
+        font-size: small;
     }
+    .navbar-nav {
+        background-color: #7C0514;
+        border-radius: 6px;
+        width: 25vh;
+        height: 28vh;
+    }
+    .link {
+        border-bottom: solid 1px black;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-weight: 500;
+    }
+    .icon {
+        margin: 0;
+        font-size: small;
+    }
+    .btn {
+        margin: 0;
+    }
+    .btn:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    .link:active {
+        color: #484545;
+    }
+  }
+@media screen and (max-width: 550px) {
     .img {
         height: 100px;
         width: 100px;
         margin: auto;
     }
-  }
-@media screen and (max-width: 600px) {
-    p {
-     font-size: 10px;
-     line-height: 0;
-     margin-left: 10px;
-    }
-    .language {
-        border-radius: 6px;
-        margin-left: 2rem;
-        font-size: small;
-    }
-    .navbar-toggler {
-        border-radius: 6px;
-        margin-left: 2rem;
-        font-size: small;
-    }
-}
-@media screen and (max-width: 550px) {
     .language {
         border-radius: 6px;
         margin-left: 2rem;
         font-size: xx-small;
-    }
-}@media screen and (max-width: 200px) {
-    .navbar {
-        height: 10%;
     }
 }
