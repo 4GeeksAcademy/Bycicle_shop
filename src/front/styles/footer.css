@@ -37,6 +37,9 @@ p {
     .fa-comment-dots {
        display: none;
     }
+    .link {
+        border: none;
+    }
 }
 @media screen and (max-width: 600px) {
     .container-fluid {
@@ -50,9 +53,6 @@ p {
     }
 }
 @media screen and (max-width: 400px) {
-    .footerLinks {
-        gap: 10px;
-    }
     .fa-regular {
         width: 20px;
     }

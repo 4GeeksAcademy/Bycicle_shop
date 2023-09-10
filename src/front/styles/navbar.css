@@ -36,6 +36,9 @@ li {
     color: black;
     padding-left: 0;
 }
+.dropdown-item:focus {
+    outline: none;
+  }
 .btnlanguage {
     border-radius: 6px;
     padding: 2px 6px 2px 6px;
@@ -84,33 +87,43 @@ figure {
         width: 25vh;
         height: 28vh;
     }
-    .link {
+    .link-collapse {
         border-bottom: solid 1px black;
         margin-left: 10px;
         margin-right: 10px;
         font-weight: 500;
-    }
+        text-decoration: none;
+        color: black;
+    }  
     .icon {
         margin: 0;
         font-size: small;
     }
     .btn {
-        margin: 0;
+        margin: 0px;
     }
     .btn:focus {
         outline: none;
         box-shadow: none;
       }
+    .menu {
+        width: 100%;
+    }
   }
 @media screen and (max-width: 550px) {
-    .img {
-        height: 100px;
-        width: 100px;
-        margin: auto;
-    }
     .language {
         border-radius: 6px;
         margin-left: 2rem;
         font-size: xx-small;
+    } 
+    .menu {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 375px) {
+    .img {
+        height: 100px;
+        width: 100px;
+        margin: auto;
     }
 }
