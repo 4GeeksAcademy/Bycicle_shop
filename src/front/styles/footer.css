@@ -32,6 +32,15 @@ p {
 .fa-copyright {
     margin-top: 18px;
 }
+.give {
+    background-color: #7C0514;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+    width: 27vh;
+    height: 3vh;
+    position: fixed;
+}
 /*css to make the site responsive*/
 @media screen and (max-width: 995px) {
     .fa-comment-dots {

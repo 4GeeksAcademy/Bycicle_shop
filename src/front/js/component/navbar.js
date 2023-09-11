@@ -20,9 +20,11 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-dark navbar-expand-lg fixed-top">
       <div className="container-fluid d-flex flex-row">
-        <figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
-          <img src={logo} className="img" alt="logo" />
-        </figure>
+	  	<figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
+	  		<Link to="/">
+				<img src={logo} className="img" alt="logo" />		
+			</Link>
+		</figure>
         <div className="menu col-sm-8 col-md-12 col-lg-12 col-xl-12">
           <div className="dropdown mb-3 language">
             <button
