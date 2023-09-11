@@ -31,7 +31,7 @@ export const Signup = () => {
 
 	return (
 		<div className="container">
-            <h1>
+            <h1 className="title">
                 Registration
             </h1>
             <form className="form my-form" onSubmit={handleClick}>

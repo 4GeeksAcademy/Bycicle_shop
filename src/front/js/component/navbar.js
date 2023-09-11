@@ -33,7 +33,7 @@ export const Navbar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              English - Euro <i class="fa-solid fa-chevron-down"></i>
+              English - Euro <i className="fa-solid fa-chevron-down"></i>
             </button>
             <ul className="dropdown-language dropdown-menu">
               <li>

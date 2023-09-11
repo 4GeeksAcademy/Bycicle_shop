@@ -1,0 +1,81 @@
+.hello {
+    color: white;
+}
+.profile {
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+.order-description {
+    display: flex;
+    gap: 50px;
+    width: 20%;
+}
+.order {
+    border: solid 1px black;
+    border-radius: 6px;
+    padding: 3px;
+    width: 70%;
+}
+.details {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px;
+    width: 100%;
+}
+.my-details {
+    margin-left: 40px;
+}
+.status {
+    margin-right: 40px;
+}
+.fa-chevron-down {
+    rotate: -90deg;
+}
+.btn-logout {
+    background-color: black;
+    color: #7C0514;
+    padding: 3px;
+    font-size: 36px;
+    font-weight: 500;
+    margin-left: 20px;
+    padding: 9px 41px 9px 41px;
+    border-radius: 6px;
+    border: 0px;
+    margin-top: 210px;
+}
+.return {
+    text-decoration: none;
+    color: black;
+}
+.return:hover {
+    outline: none;
+}
+.details-data {
+    padding: 3px;
+    width: 100%;
+}
+/*css to make the site responsive*/
+@media screen and (max-width: 500px) {
+    .btn-logout {
+        font-size: 16px;
+        padding: 6px 22px 6px 22px;
+        margin-top: 280px;
+    }
+    h4 {
+        font-size: small;
+    }
+    .fa-box-open  {
+        font-size: small;
+    }
+    .order-description {
+        gap: 20px;
+    }
+    .my-details {
+        margin-left: 20px;
+    }
+    .status {
+        margin-right: 20px;
+    }
+}

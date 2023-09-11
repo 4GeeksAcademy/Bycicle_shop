@@ -6,7 +6,7 @@ export const Terms= () => {
 	return (
 		<div className="container my-container">
             <br/> 
-            <h1>
+            <h1 className="title">
                 Terms and Conditions
             </h1>
             <br/>
@@ -106,6 +106,11 @@ export const Terms= () => {
                     <strong>Warehouse Address:</strong> No. 999 West Wen Yi Road, Yuhang District, Hangzhou, Zhejiang, China
                 </p>
             </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <br/>
         </div>   
 	);

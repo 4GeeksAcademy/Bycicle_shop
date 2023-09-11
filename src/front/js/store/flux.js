@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			token: null,
 			user: [],
 			demo: [
 				{
@@ -58,7 +59,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  alert("An error occurred while signing up");
 				}
 				return false;
-			  },	
+			  },
+			  //function that allows user to logout
+			  logout: () => {
+				sessionStorage.removeItem("token");
+				console.log("Log out");
+				setStore({token: null})
+			},	
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
