@@ -1,0 +1,80 @@
+.form {
+    background-color: black;
+    border-radius: 6px;
+    width: 80%;
+    height: 32rem;
+    margin: auto;
+}
+.control {
+    background-color: #484545;
+    color: #1A1919;
+    margin: 0px 20px 0px 20px;
+    width: 95%;
+    border-radius: 6px;
+    border: 0px;
+    height: 40px;
+}
+h1 {
+    text-align: center;
+    color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 2px;
+}
+.form-check {
+    margin-left: 20px;
+}
+.form-check-input {
+    background-color: #484545;
+}
+.btn-register {
+    background-color: #7C0514;
+    color: black;
+    padding: 3px;
+    font-weight: 700;
+    margin-left: 20px;
+    padding: 3px 7px 3px 7px;
+    border-radius: 6px;
+    border: 0px;
+}
+.row {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+} 
+
+/*css to make the site responsive*/
+@media screen and (max-width: 1000px) {
+    .control {
+        width: 92%
+    }
+    .btn-register {
+        width: 100%;
+    }
+    .row {
+        margin-top: 10px;
+    }
+    .cancel-btn {
+        margin-top: 10px;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .control {
+        width: 85%
+    }
+    .form-check-label {
+        font-size: small;
+    }
+    .form-check-label {
+        font-size: small;
+    }
+    .row {
+        margin: 5px;
+    }
+    .btn-register {
+        height: 30px;
+    }
+    .cancel-btn {
+        margin-top: 8px;
+    }
+  }
+  
