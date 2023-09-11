@@ -1,4 +1,4 @@
-.container-fluid {
+.big-box {
     background-color: #484545;
     color: black;
     height: 10vh;
@@ -6,6 +6,7 @@
     padding-right: 5vh;
     justify-content: space-around;
     align-items: center;
+    position: inherit;
 }
 .link {
     color: black;
@@ -29,7 +30,7 @@ p {
     display: flex;
     gap: 10px;
 }
-.fa-copyright {
+.my-fa-copyright {
     margin-top: 18px;
 }
 .give {
@@ -43,7 +44,7 @@ p {
 }
 /*css to make the site responsive*/
 @media screen and (max-width: 995px) {
-    .fa-comment-dots {
+    .my-fa-comment-dots {
        display: none;
     }
     .link {
@@ -51,10 +52,10 @@ p {
     }
 }
 @media screen and (max-width: 600px) {
-    .container-fluid {
+    .big-box {
         height: 8vh;
     }
-    .fa-copyright {
+    .my-fa-copyright {
         margin: 0px;
     }
     p {
@@ -62,7 +63,7 @@ p {
     }
 }
 @media screen and (max-width: 400px) {
-    .fa-regular {
+    .my-fa-copyright {
         width: 20px;
     }
 }

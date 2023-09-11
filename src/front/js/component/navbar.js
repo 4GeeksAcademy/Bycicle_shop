@@ -18,7 +18,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg fixed-top">
+    <nav className="navbar navbar-box navbar-dark navbar-expand-lg fixed-top">
       <div className="container-fluid d-flex flex-row">
 	  	<figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
 	  		<Link to="/">
@@ -33,15 +33,15 @@ export const Navbar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              English - Euro
+              English - Euro <i class="fa-solid fa-chevron-down"></i>
             </button>
             <ul className="dropdown-language dropdown-menu">
               <li>
-                <label className="form-label">Language</label>
+                <label className="form-label my-form-label">Language</label>
                 <input type="text" className="form-control mb-3" id="exampleFormControlInput1" />
               </li>
               <li>
-                <label className="form-label">Currency</label>
+                <label className="form-label my-form-label">Currency</label>
                 <input type="text" className="form-control" id="exampleFormControlInput1" />
               </li>
               <br />
@@ -55,7 +55,7 @@ export const Navbar = () => {
               toggleAdditionalButtons();
               hideButton();
             }}
-            className="navbar-toggler"
+            className="navbar-toggler my-navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNavAltMarkup"
@@ -65,60 +65,61 @@ export const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className={`collapse navbar-collapse justify-content-end ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
+          <div className={`collapse my-collapse navbar-collapse justify-content-end ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
             <div className="navbar-nav">
               <Link className="link-collapse" to="/">
-                <button className="btn toggler">
+                <button className="btn my-btn toggler">
                   Contact Us
                 </button>
               </Link>
               <Link className="link-collapse" to="/">
-                <button className="btn toggler">
+                <button className="btn my-btn toggler">
                   About Us
                 </button>
               </Link>
+              
               <div className="link-collapse dropdown">
                 <button
-                  className="btn dropdown-toggle toggler"
+                  className="btn my-btn dropdown-toggle toggler custom-dropdown-toggle"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Products
                 </button>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu my-dropdown-menu">
                   <li>
-                    <button className="dropdown-item">
+                    <button className="dropdown-item my-dropdown-item">
                       Road Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item">
+                    <button className="dropdown-item my-dropdown-item">
                       Mountain Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item">
+                    <button className="dropdown-item my-dropdown-item">
                       Hybrid Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item">
+                    <button className="dropdown-item my-dropdown-item">
                       Speciality Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item">
+                    <button className="dropdown-item my-dropdown-item">
                       BMX Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item">
+                    <button className="dropdown-item my-dropdown-item">
                       Kid's Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item">
+                    <button className="dropdown-item my-dropdown-item">
                       Other types
                     </button>
                   </li>

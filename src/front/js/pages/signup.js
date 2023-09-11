@@ -34,7 +34,7 @@ export const Signup = () => {
             <h1>
                 Registration
             </h1>
-            <form className="form" onSubmit={handleClick}>
+            <form className="form my-form" onSubmit={handleClick}>
                 <div>
                 <br />
                 <input className="control" type="text" placeholder="Full Name" aria-label="default input example" value={fullName} onChange={(e) => setFullName(e.target.value)} />
@@ -54,13 +54,13 @@ export const Signup = () => {
                 <br />
                 <div className="form-check">
                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={subscribe} onChange={(e) => setSubscribe(e.target.value)}/>
-                    <label className="form-check-label" >
+                    <label className="form-check-label my-form-check-label" >
                         Subscribe the Newsletter
                     </label>
                 </div>
                 <div className="form-check">
                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={privacy} onChange={(e) => setPrivacy(e.target.value)}/>
-                    <label className="form-check-label" >
+                    <label className="form-check-label my-form-check-label" >
                         I have read and accept the privacy policy
                     </label>
                 </div>
