@@ -67,18 +67,18 @@ export const Navbar = () => {
           </button>
           <div className={`collapse my-collapse navbar-collapse justify-content-end ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <Link className="link-collapse" to="/">
+              <Link className="link-collapse" to="/contact">
                 <button className="btn my-btn toggler">
                   Contact Us
                 </button>
               </Link>
-              <Link className="link-collapse" to="/">
+              <Link className="link-collapse" to="/about">
                 <button className="btn my-btn toggler">
                   About Us
                 </button>
               </Link>
               
-              <div className="link-collapse dropdown">
+              <div className="link-collapse dropdown" to="/bicycles">
                 <button
                   className="btn my-btn dropdown-toggle toggler custom-dropdown-toggle"
                   role="button"
@@ -143,7 +143,7 @@ export const Navbar = () => {
                   <Link className="link-collapse" to="/">
                     <i className="icon fa-solid fa-magnifying-glass"></i> Search
                   </Link>
-                  <Link className="link-collapse" to="/">
+                  <Link className="link-collapse" to="/login">
                     Login
                   </Link>
                   <Link className="link-collapse" to="/signup">

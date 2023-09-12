@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, Router, useNavigate, useParams } from "react-router-dom";
-// import { API_URL } from "../utils/config";
+import { API_URL } from "../config";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar } from "@fortawesome/free-solid-svg-icons";
 function ProductDetail(props) {

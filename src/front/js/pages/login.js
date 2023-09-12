@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+
 // import Button from "react-bootstrap/Button";
 // import Col from "react-bootstrap/Col";
 // import Form from "react-bootstrap/Form";
 // import Row from "react-bootstrap/Row";
-// import { API_URL } from "../utils/config";
+import { API_URL } from "../config";
 import { Link, Router, useNavigate } from "react-router-dom";
 function Login(props) {
   const navigate = useNavigate();
@@ -113,16 +114,20 @@ function Login(props) {
                   />
                 </div>
                 <div className="form-check d-flex justify-content-start mb-4">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="form1Example3"
-                  />
-                  <label className="form-check-label" htmlFor="form1Example3">
-                    {" "}
-                    Remember password{" "}
-                  </label>
+                  <div className="form-check-input-container">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="form1Example3"
+                    />
+                  </div>
+                  <div className="form-check-label-container">
+                    <label className="form-check-label labelRight" htmlFor="form1Example3">
+                      {" "}
+                      Remember password{" "}
+                    </label>
+                  </div>
                 </div>
                 {emailFlag || apiFlag || passwordFlag ? (
                   <p className="text-danger">{message}</p>
@@ -135,12 +140,22 @@ function Login(props) {
                     Login
                   </button>
                   <Link
-                    to="/register"
-                    className="btn btn-primary btn-lg btn-block"
+                    to="/signup"
+                    className="btn btn-primary btn-sm btn-block"
+                    style={{ fontSize: "20px", paddingTop: "8px" }}
                     type="submit"
                   >
                     Register
                   </Link>
+                  <Link
+                    to="/reset"
+                    className="btn btn-primary btn-sm btn-block"
+                    style={{ fontSize: "18px", paddingTop: "12px" }}
+                    type="submit"
+                  >
+                    Forgot Password?
+                  </Link>
+
                 </div>
                 <hr className="my-4" />
               </div>
@@ -151,5 +166,4 @@ function Login(props) {
     </section>
   );
 }
-
 export default Login;
