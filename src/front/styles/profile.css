@@ -5,7 +5,7 @@
     color: black;
     display: flex;
     justify-content: space-between;
-    margin: 0;
+    margin: 10px;
 }
 .order-description {
     display: flex;
@@ -33,17 +33,19 @@
 .fa-chevron-down {
     rotate: -90deg;
 }
+.fa-chevron-down:hover {
+    rotate: 0deg;
+}
 .btn-logout {
     background-color: black;
     color: #7C0514;
     padding: 3px;
     font-size: 36px;
     font-weight: 500;
-    margin-left: 20px;
     padding: 9px 41px 9px 41px;
     border-radius: 6px;
     border: 0px;
-    margin-top: 210px;
+    position: sticky;
 }
 .return {
     text-decoration: none;
@@ -52,6 +54,17 @@
 .return:hover {
     outline: none;
 }
+.big-title {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+.return-second {
+    text-decoration: none;
+    color: black;
+    padding: 3px;
+    width: 70%;
+}   
 .details-data {
     padding: 3px;
     width: 100%;

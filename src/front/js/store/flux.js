@@ -4,6 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			message: null,
 			token: null,
 			user: [],
+			orders: [], //??????????????
+			Products: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -65,7 +67,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				sessionStorage.removeItem("token");
 				console.log("Log out");
 				setStore({token: null})
-			},	
+			},
+			//function to add products to the cart	
+			addProduct: (newProduct) => {
+				const store = getStore();
+				const product = store.products.concat(newProduct);
+				setStore({ products: product });
+			},
+			//function to remove products to the cart	
+			removeProduct: (index) => {
+				const store = getStore();
+				const product = store.products.filter((c, i) => {
+					return index !== i
+				});
+				setStore({ products: product });
+			},
 			getMessage: async () => {
 				try{
 					// fetching data from the backend

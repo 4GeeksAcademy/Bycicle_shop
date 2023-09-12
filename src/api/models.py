@@ -184,7 +184,9 @@ class ShippingAddress(db.Model):
     user_id = db.Column(db.Integer, ForeignKey('Users.id'))
     userFirstName = db.Column(db.String)
     userLasttName = db.Column(db.String)
+    address = db.Column(db.String)
     country = db.Column(db.String)
+    city = db.Column(db.String)
     zipcode = db.Column(db.Integer)
     phone = db.Column(db.String)
  
