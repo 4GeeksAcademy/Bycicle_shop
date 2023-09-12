@@ -19,13 +19,11 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg fixed-top">
-      <div className="container-fluid d-flex flex-row">
-	  	<figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
+      <div className="container-fluid navbar-container d-flex">
 	  		<Link to="/">
 				<img src={logo} className="img" alt="logo" />		
 			</Link>
-		</figure>
-        <div className="menu col-sm-8 col-md-12 col-lg-12 col-xl-12">
+        <div className="menu">
           <div className="dropdown mb-3 language">
             <button
               className="btnlanguage dropdown-toggle"
@@ -49,7 +47,7 @@ export const Navbar = () => {
                 APPLY
               </button>
             </ul>
-          </div>
+          </div >
           <button
             onClick={() => {
               toggleAdditionalButtons();
@@ -65,8 +63,8 @@ export const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className={`collapse my-collapse navbar-collapse justify-content-end ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
-            <div className="navbar-nav">
+          <div className={`collapse my-collapse navbar-collapse justify-content-end dropdown ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
+            <div className="navbar-nav ">
               <Link className="link-collapse" to="/">
                 <button className="btn my-btn toggler">
                   Contact Us

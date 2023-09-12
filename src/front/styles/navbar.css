@@ -5,6 +5,10 @@
     padding-left: 5vh;
     padding-right: 5vh;
     position: relative;
+}   
+.navbar-container {
+    padding: 0; 
+    height: 20vh; 
 }
 .menu {
     display: grid;
@@ -69,18 +73,17 @@ li {
 }
 .img {
     margin-top: 5px;
-    height: 200px;
-    width: 200px;
-}
-figure {
-    margin: 0px;
-    position: absolute;
+    height:180px;
+    width: 200px; 
 }
 .custom-dropdown-toggle::after {
     border: 0 !important;
 }
 /*css to make the site responsive*/
 @media screen and (max-width: 1000px) {
+    .navbar-container {
+        padding: 0;
+    }
     .language {
         border-radius: 6px;
         margin-left: 2rem;
@@ -90,7 +93,8 @@ figure {
         background-color: #7C0514;
         border-radius: 6px;
         width: 23vh;
-        height: 28vh;
+        height: 26vh;
+        display: inline-block;
     }
     .link-collapse {
         border-bottom: solid 1px black;
@@ -112,9 +116,6 @@ figure {
         outline: none;
         box-shadow: none;
       }
-    .menu {
-        width: 100%;
-    }
   }
 @media screen and (max-width: 550px) {
     .language {
@@ -122,14 +123,14 @@ figure {
         margin-left: 2rem;
         font-size: xx-small;
     } 
-    .menu {
-        width: 100%;
-    }
 }
 @media screen and (max-width: 375px) {
+    .navbar-container {
+        display: flex;
+        flex-wrap: nowrap;
+    }
     .img {
         height: 100px;
         width: 100px;
-        margin: auto;
     }
 }

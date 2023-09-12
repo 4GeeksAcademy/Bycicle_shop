@@ -30,11 +30,11 @@
 .status {
     margin-right: 40px;
 }
-.fa-chevron-down {
-    rotate: -90deg;
+.profile-fa {
+    transform: rotate(-90deg);
 }
-.fa-chevron-down:hover {
-    rotate: 0deg;
+.profile-fa:active {
+    transform: rotate(0deg);
 }
 .btn-logout {
     background-color: black;
@@ -45,7 +45,6 @@
     padding: 9px 41px 9px 41px;
     border-radius: 6px;
     border: 0px;
-    position: sticky;
 }
 .return {
     text-decoration: none;
@@ -73,13 +72,9 @@
 @media screen and (max-width: 500px) {
     .btn-logout {
         font-size: 16px;
-        padding: 6px 22px 6px 22px;
-        margin-top: 280px;
+        padding: 6px 22px;
     }
-    h4 {
-        font-size: small;
-    }
-    .fa-box-open  {
+    h4, .fa-box-open  {
         font-size: small;
     }
     .order-description {

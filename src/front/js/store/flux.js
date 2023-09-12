@@ -5,7 +5,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null,
 			user: [],
 			orders: [], //??????????????
-			Products: [],
 			demo: [
 				{
 					title: "FIRST",

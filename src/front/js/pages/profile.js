@@ -74,9 +74,9 @@ export const Profile = () => {
                         <p>Orders</p>
                     </div>
                     <div>
-                        <p><i onClick={() => {toggleButtons1() }} className="fa-solid fa-chevron-down"></i></p>
-                        <p><i onClick={() => {toggleButtons2() }} className="fa-solid fa-chevron-down"></i></p>
-                        <p><i onClick={() => {toggleButtons3() }} className="fa-solid fa-chevron-down"></i></p>
+                        <p><i onClick={() => {toggleButtons1() }} className="profile-fa fa-solid fa-chevron-down"></i></p>
+                        <p><i onClick={() => {toggleButtons2() }} className="profile-fa fa-solid fa-chevron-down"></i></p>
+                        <p><i onClick={() => {toggleButtons3() }} className="profile-fa fa-solid fa-chevron-down"></i></p>
                     </div>
                 </div>
                 {hideData && (
@@ -88,7 +88,7 @@ export const Profile = () => {
                                 <p>Order: Nº{store.orders.id} </p>
                                 <p>Date: {store.orders.date} </p>
                                 <p>Price: {store.orders.price} </p>
-                                <p>Product: {/*{store.Bicycles.name} x {props.orderItem.quantity} */}</p>
+                                <p>Product: {/*{store.Bicycles.name} + "x" + {store.orderItem.quantity} */}</p>
                             </div>
                             <div className="status">
                                 <p>Status: {store.orders.status} </p>
@@ -102,7 +102,7 @@ export const Profile = () => {
                         <div className="order">
                             <h4>Personal Data</h4>
                             <div className="details-data">
-                                    <p>Full Name: {store.orders.userFirstName + store.orders.userLasttName } </p>
+                                    <p>Full Name: {store.orders.userFirstName + " " + store.orders.userLasttName } </p>
                                     <p>Username: {store.orders.username} </p>
                                     <p>Email: {store.orders.email}  </p>
                             </div>
@@ -139,7 +139,11 @@ export const Profile = () => {
                         </div>
                 )}
                 </div>
-            <button className="btn-logout" onClick={() => actions.logout()} type="submit">Logout</button>
+            <Link to="/">    
+                <button className="btn-logout" onClick={() => actions.logout()} type="submit">Logout</button>
+            </Link>  
+            <br />  
+            <br />  
 	    </div>
 	);
 };
