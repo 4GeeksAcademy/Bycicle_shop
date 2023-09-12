@@ -21,8 +21,8 @@ export const Navbar = () => {
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg fixed-top">
       <div className="container-fluid navbar-container d-flex">
 	  		<Link to="/">
-				<img src={logo} className="img" alt="logo" />		
-			</Link>
+          <img src={logo} className="img" alt="logo" />		
+        </Link>
         <div className="menu">
           <div className="dropdown mb-3 language">
             <button
