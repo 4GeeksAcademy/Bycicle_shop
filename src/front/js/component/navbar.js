@@ -5,7 +5,7 @@ import "../../styles/navbar.css";
 
 export const Navbar = () => {
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
-  const [hideButtons, sethideButtons] = useState(true);
+  const [hideButtons, setHideButtons] = useState(true);
 
   // Function to toggle the display of additional buttons
   const toggleAdditionalButtons = () => {
@@ -14,17 +14,17 @@ export const Navbar = () => {
 
   // Function to hide the previous buttons
   const hideButton = () => {
-    sethideButtons(!hideButtons);
+    setHideButtons(!hideButtons);
   };
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg fixed-top">
       <div className="container-fluid d-flex flex-row">
-	  	<figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
-	  		<Link to="/">
-				<img src={logo} className="img" alt="logo" />		
-			</Link>
-		</figure>
+        <figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
+          <Link to="/">
+            <img src={logo} className="img" alt="logo" />
+          </Link>
+        </figure>
         <div className="menu col-sm-8 col-md-12 col-lg-12 col-xl-12">
           <div className="dropdown mb-3 language">
             <button
@@ -33,7 +33,7 @@ export const Navbar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              English - Euro <i class="fa-solid fa-chevron-down"></i>
+              English - Euro <i className="fa-solid fa-chevron-down"></i>
             </button>
             <ul className="dropdown-language dropdown-menu">
               <li>
@@ -144,13 +144,13 @@ export const Navbar = () => {
                     <i className="icon fa-solid fa-magnifying-glass"></i> Search
                   </Link>
                   <Link className="link-collapse" to="/">
-				  	        Login
+                    Login
                   </Link>
                   <Link className="link-collapse" to="/signup">
-				  	        Register
+                    Register
                   </Link>
                   <Link className="link-collapse" to="/">
-				           <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i> Cart
+                    <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i> Cart
                   </Link>
                   <Link className="link-collapse" to="/">
                     Give us your feedback
