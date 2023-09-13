@@ -1,7 +1,7 @@
 from flask import Blueprint, request,jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem
-from .base import db
+from .models import db
 
 main = Blueprint('main', __name__)
 

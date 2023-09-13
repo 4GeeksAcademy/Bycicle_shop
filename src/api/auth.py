@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
-from .base import db
+from .models import db
 import json
 from datetime import datetime, timedelta, timezone
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \

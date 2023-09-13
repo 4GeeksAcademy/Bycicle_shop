@@ -15,7 +15,7 @@ import { Footer } from "./component/footer";
 import Login from "./pages/login"
 import Product from "./pages/products";
 import Profile from "./pages/profile";
-import ResetPassword from "./component/reset_password";
+import ResetPassword from "./pages/reset";
 
 //create your first component
 const Layout = () => {

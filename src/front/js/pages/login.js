@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-
-// import Button from "react-bootstrap/Button";
-// import Col from "react-bootstrap/Col";
-// import Form from "react-bootstrap/Form";
-// import Row from "react-bootstrap/Row";
+import { GoogleLogin } from 'react-google-login';
 import { API_URL } from "../config";
-import { Link, Router, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+
 function Login(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -15,6 +13,7 @@ function Login(props) {
   const [passwordFlag, setPasswordFlag] = useState(false);
   const [apiFlag, setAPIFlag] = useState(false);
   const [message, setMessage] = useState("Wrong credential");
+
   const onChangeEmail = (event) => {
     setEmailFlag(false);
     setEmail(event.target.value);
@@ -22,12 +21,43 @@ function Login(props) {
       setEmailFlag(true);
     }
   };
+
   const onChangePassword = (event) => {
     setPasswordFlag(false);
     setPassword(event.target.value);
     if (event.target.value === "") {
       setPasswordFlag(true);
     }
+  };
+
+  // Handle Google login success
+  const responseGoogleSuccess = (response) => {
+    const { tokenId } = response;
+    // Send the tokenId to your Flask server for authentication
+    axios
+      .post(`${API_URL}/google-login`, { tokenId })
+      .then((response) => {
+        console.log(response);
+        if (response.data.success === "true") {
+          console.log(response.data.access_token);
+          props.setToken(response.data.access_token);
+          navigate("/products");
+        } else {
+          setAPIFlag(true);
+          setMessage(response.data.msg);
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+        }
+      });
+  };
+
+  // Handle Google login failure
+  const responseGoogleFailure = (error) => {
+    console.error("Google login failed:", error);
+    // Handle the error as needed
   };
 
   function login(event) {
@@ -76,12 +106,15 @@ function Login(props) {
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
             <div className="card shadow-2-strong">
               <div className="card-body p-5 text-center">
-                <button
-                  className="btn btn-lg btn-block btn-primary bg-primary mb-3 form-control form-control-lg"
-                  type="submit"
-                >
-                  <i className="fab fa-google me-2"></i> Sign in with google
-                </button>
+                <div className="text-center mt-4">
+                  <GoogleLogin
+                    clientId="YOUR_GOOGLE_CLIENT_ID"
+                    buttonText="Sign in with Google"
+                    onSuccess={responseGoogleSuccess}
+                    onFailure={responseGoogleFailure}
+                    cookiePolicy={'single_host_origin'}
+                  />
+                </div>
                 or
                 <div className="form-outline mb-4">
                   <label
