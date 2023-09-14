@@ -7,42 +7,21 @@ import "../../styles/shoppingCart.css";
 import { useParams } from "react-router-dom";
 
 export const ShoppingCart = () => {
-  const [shoppingCartOneDetails, setShoppingCartOneDetails] = useState(true);
-  const [shoppingCartTowDetails, setShoppingCartTowDetails] = useState(false);
-  const [shoppingCartThreeDetails, setShoppingCartThreeDetails] = useState(false);
-  const [shoppingCartFourDetails, setShoppingCartFourDetails] = useState(false);
+  const [showShoopingCart, setShowShoppingCart] = useState('cartOne');
   const params = useParams();
-
-  // Function to handle the click event and show ShoppingCartTowDetails
-  const onCheckOutClick1 = () => {
-    setShoppingCartTowDetails(true);
-    setShoppingCartOneDetails(false);
-  };
-
-   // Function to handle the click event and show ShoppingCartTowDetails
-   const onCheckOutClick2 = () => {
-    setShoppingCartThreeDetails(true);
-    setShoppingCartTowDetails(false);
-  };
-
-  // Function to handle the click event and show ShoppingCartTowDetails
-  const onCheckOutClick3 = () => {
-    setShoppingCartFourDetails(true);
-    setShoppingCartThreeDetails(false);
-  };
 
   return (
     <div className="container">
-      {shoppingCartOneDetails ? (
-        <ShoppingCartOne onCheckOutClick1={onCheckOutClick1} />
+      {showShoopingCart == 'cartOne' ? (
+        <ShoppingCartOne onClick={() => setShowShoppingCart('cartTwo')} />
       ) : null}
-      {shoppingCartTowDetails ? 
-        <ShoppingCartTwo onCheckOutClick2={onCheckOutClick2} />
+      {showShoopingCart == 'cartTwo'  ? 
+        <ShoppingCartTwo onClick={() => setShowShoppingCart('cartThree')}  />
       : null}
-      {shoppingCartThreeDetails ? 
-      <ShoppingCartThree onCheckOutClick3={onCheckOutClick3} />
+      {showShoopingCart == 'cartThree' ? 
+      <ShoppingCartThree onClick={() => setShowShoppingCart('cartFour')}  />
       : null}
-      {shoppingCartFourDetails ? <ShoppingCartFour /> : null}
+      {showShoopingCart == 'cartFour'  ? <ShoppingCartFour /> : null}
     </div>
   );
 };

@@ -81,7 +81,7 @@ export const ShoppingCartTwo = (props) => {
 						</div>
 					</div>
 				</div>	
-				<div className="row mt-2">
+				<div className="row m-2">
 						<form className="col-6">
 							<div className="form-check shipping-form-check-label">
 								<input type="checkbox" className="form-check-input" id="save"/>
@@ -96,12 +96,17 @@ export const ShoppingCartTwo = (props) => {
 							<Link to="/shoppingCart">
 								<button className="btn-Check" type="submit" onClick={() => {
 									// Call the callback function passed from the parent component
-									props.onCheckOutClick2();
+									props.onClick();
 								}}>
 									Continue Shipping
 								</button>
 							</Link>
 						</div>	
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
 				</div>
 		</div>
 			);

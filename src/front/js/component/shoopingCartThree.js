@@ -78,18 +78,13 @@ export const ShoppingCartThree = (props) => {
 						<br />
 						<br />
 						<br />
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
 				</div>		
 				<div className="last-ship row">
 					<div className="btn-shipping col-6" >
 						<Link to="/shoppingCart">
 							<button className="btn-Check" type="submit" onClick={() => {
 								// Call the callback function passed from the parent component
-								props.onCheckOutClick3();
+								props.onClick();
 							}}>
 								Continue to payment
 							</button>

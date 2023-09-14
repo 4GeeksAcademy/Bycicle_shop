@@ -96,7 +96,7 @@ export const ShoppingCartOne = (props) => {
 						type="submit"
 						onClick={() => {
 							// Call the callback function passed from the parent component
-							props.onCheckOutClick1();
+							props.onClick();
 						  }}
 					>
 						Check Out
@@ -107,6 +107,7 @@ export const ShoppingCartOne = (props) => {
 				</Link>
 				</div>
 			</div>
+			<br/><br/><br/>
 		</div>
 	);
 };
