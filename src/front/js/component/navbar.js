@@ -131,7 +131,7 @@ export const Navbar = () => {
                   <Link className="link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
-                  <Link className="link-collapse" to="/">
+                  <Link className="link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>
                 </>
@@ -147,7 +147,7 @@ export const Navbar = () => {
                   <Link className="link-collapse" to="/signup">
 				  	        Register
                   </Link>
-                  <Link className="link-collapse" to="/">
+                  <Link className="link-collapse" to="/ShoppingCart">
 				           <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i> Cart
                   </Link>
                   <Link className="link-collapse" to="/">

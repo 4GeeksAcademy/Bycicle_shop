@@ -16,7 +16,7 @@
     border: solid 1px black;
     border-radius: 6px;
     padding: 3px;
-    width: 70%;
+    width: 65%;
 }
 .details {
     display: flex;
@@ -33,8 +33,12 @@
 .profile-fa {
     transform: rotate(-90deg);
 }
-.profile-fa:active {
+.profile-fa-active {
     transform: rotate(0deg);
+}
+.btn-container {
+    width: 100%;
+    margin-bottom: 20px;
 }
 .btn-logout {
     background-color: black;
@@ -46,13 +50,6 @@
     border-radius: 6px;
     border: 0px;
 }
-.return {
-    text-decoration: none;
-    color: black;
-}
-.return:hover {
-    outline: none;
-}
 .big-title {
     display: flex;
     justify-content: space-between;
@@ -62,11 +59,14 @@
     text-decoration: none;
     color: black;
     padding: 3px;
-    width: 70%;
-}   
+}  
+.return-second:hover {
+    outline: none;
+} 
 .details-data {
     padding: 3px;
     width: 100%;
+    position: static;
 }
 /*css to make the site responsive*/
 @media screen and (max-width: 500px) {
