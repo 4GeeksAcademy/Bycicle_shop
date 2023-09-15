@@ -18,6 +18,7 @@ import Profile from "./pages/profile";
 import ResetPassword from "./pages/reset";
 import ProductDetail from "./pages/product_detail";
 import ProfileRedirect from './component/ProfileRedirect';
+import { ShoppingCart } from "./pages/shoppingCart";
 
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -40,7 +41,11 @@ const Layout = () => {
                         <Route element={<Product />} path="/bicycles" />
                         <Route element={<ProductDetail />} path="/product/:id" />
                         <Route element={<Profile />} path="/profile" />
+                        <Route element={<Profile/>} path="/profile/:orders/:id " />
                         <Route element={<ResetPassword />} path="/reset" />
+                        <Route element={<ResetPassword/>} path="/resetPassword/:id" />
+                        <Route element={<ShoppingCart/>} path="/shoppingCart" />
+                        <Route element={<ShoppingCart/>} path="/shoppingCart/:orders/:id" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
