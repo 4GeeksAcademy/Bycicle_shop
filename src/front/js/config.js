@@ -1,1 +1,1 @@
-export const API_URL = "http://127.0.0.1:5000";
+export const serverURL = "https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/";

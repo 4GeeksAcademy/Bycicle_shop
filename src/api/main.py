@@ -1,67 +1,26 @@
 from flask import Blueprint, request,jsonify
+from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token
+from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
 from .models import db
+from flask import Flask, jsonify
 
 main = Blueprint('main', __name__)
 
-@main.route('/products')
-def products():
-    bicycles = Bicycle.query.all()
-    response_body = {
-        "success": "true",
-        "bicycles": [
-            {
-                "id": bicycle.id,
-                "name": bicycle.name,
-                "manufacturer": bicycle.manufacturer,
-                "material": bicycle.material,
-                "gender": bicycle.gender,
-                "type": bicycle.type,
-                "color": bicycle.color,
-                "weight": bicycle.weight,
-                "price": bicycle.price,
-                "instock": bicycle.instock,
-            }
-            for bicycle in bicycles
-        ]
-    }
-    return response_body
-@main.route('/product')
-@jwt_required()
-def product():
-    bicycle_id = request.args.get("id", None)
-    bicycle = Bicycle.query.filter_by(id=bicycle_id).first() # if this returns a user, then the email already exists in database
-    bicycle_reviews = BicycleReview.query.filter_by(bicycle_id=bicycle_id)
-    response_body = {
-        "success": "true",
-        "bicycle": 
-            {
-                "id": bicycle.id,
-                "name": bicycle.name,
-                "manufacturer": bicycle.manufacturer,
-                "material": bicycle.material,
-                "gender": bicycle.gender,
-                "type": bicycle.type,
-                "color": bicycle.color,
-                "weight": bicycle.weight,
-                "price": bicycle.price,
-                "instock": bicycle.instock,
-        },
-        "bicycle_reviews": [
-            {
-                "id": review.id,
-                "user_id": review.user_id,
-                "bicycle_id": review.bicycle_id,
-                "rating": review.rating,
-                "title": review.title,
-                "review_text": review.review_text,
-            }
-            for review in bicycle_reviews
-        ]
-        
-    }
-    return response_body
+@main.route('/api/products', methods=['GET'])
+def get_all_products():
+    all_bicycles = Bicycle.query.all()
+    bicycles_list = [bicycle.serialize() for bicycle in all_bicycles]
+    return jsonify({'success': 'true', 'bicycles': bicycles_list})
+
+@main.route('/api/products/<int:id>', methods=['GET'])
+def get_product_by_id(id):
+    bicycle = Bicycle.query.get(id)
+    if bicycle is None:
+        return jsonify({'success': 'false', 'message': 'Product not found'}), 404
+    return jsonify({'success': 'true', 'bicycle': bicycle.serialize()})
 
 @main.route('/cart', methods=['POST'])
 @jwt_required()
@@ -143,7 +102,6 @@ def review_post():
 @jwt_required()
 def user_carts():
     user_id = get_jwt_identity()
-    # code to validate and add user to database goes here
     cart = ShoppingCart.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
     if cart:
         cartItems = ShoppingCartItem.query.filter_by(cart_id=cart.id) # if this returns a user, then the email already exists in database
@@ -172,6 +130,39 @@ def user_carts():
                 "shooping_cart_item":{
         }}
         return response
+    
+@main.route('/api/create-user', methods=['POST'])
+@cross_origin(origin='https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev')
+def create_user():
+    data = request.json
+
+    email = data.get('email')
+    password = data.get('password')
+    username = data.get('username')
+    fullName = data.get('fullName')
+    # You can also include subscribe and privacy data if you want to store those
+
+    # Validation to check if the email already exists
+    existing_user = User.query.filter_by(email=email).first()
+    if existing_user:
+        return jsonify({'success': 'false', 'message': 'Email already exists'}), 409
+
+    # Hash the password for security
+    hashed_password = generate_password_hash(password, method='sha256')
+
+    # Create a new user object
+    new_user = User(
+        email=email,
+        password=hashed_password,
+        username=username
+       
+    )
+
+    # Save the new user object to the database
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({'success': 'true', 'message': 'User created successfully'}), 201
 
 @main.route('/profile')
 @jwt_required()

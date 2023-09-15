@@ -11,45 +11,69 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST'])
 def login_post():
-    # login code goes here
     email = request.json.get('email')
     password = request.json.get('password')
-    #remember = True if request.json.get('remember') else False
 
+    # Debugging: Print received email and password
+    print(f"Received email: {email}")
+    print(f"Received password: {password}")
+
+    # Find the user in the database
     user = User.query.filter_by(email=email).first()
 
-    # check if the user actually exists
-    # take the user-supplied password, hash it, and compare it to the hashed password in the database
-    if not user or not check_password_hash(user.password, password):
-        return {"success":"false", "msg" :"Wrong credential"}# if the user doesn't exist or password is wrong, reload the page
+    if user:
+        # Debugging: Print stored password hash
+        print(f"Stored password hash: {user.password}")
 
-    access_token = create_access_token(identity=user.id)
-    response = {"success":"true","access_token":access_token}
-    return response
-    # if the above check passes, then we know the user has the right credentials
+        # Check the password
+        if check_password_hash(user.password, password):
+            # Debugging: Print success message
+            print("Password matches")
+
+            # Create an access token
+            access_token = create_access_token(identity=user.id)
+            return {"success": "true", "access_token": access_token}
+        else:
+            # Debugging: Print failure message
+            print("Password does not match")
+            return {"success": "false", "msg": "Wrong credentials"}
+    else:
+        # Debugging: Print user not found message
+        print("User not found")
+        return {"success": "false", "msg": "User not found"}
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
-    # code to validate and add user to database goes here
     email = request.json.get('email')
     username = request.json.get('username')
     password = request.json.get('password')
-    print(password)
-    user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
+    
+    # Debugging: print received password
+    print(f"Received password during signup: {password}")
 
-    if user: # if a user is found, we want to redirect back to signup page so user can try again
-        return {'success': 'false','msg':"user already exist"}
+    # Check if user already exists
+    user = User.query.filter_by(email=email).first()
+    if user:
+        return {'success': 'false', 'msg': "user already exists"}
 
-    # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(email=email, username=username, password=generate_password_hash(password, method='sha256'))
+    # Hash the password using PBKDF2 with SHA-256 and 20,000 iterations
+    hashed_password = generate_password_hash(password, method='pbkdf2:sha256:20000')
+    
+    # Debugging: print hashed password
+    print(f"Hashed password: {hashed_password}")
 
-    # add the new user to the database
+    # Create the new user
+    new_user = User(email=email, username=username, password=hashed_password)
+
+    # Add the new user to the database
     db.session.add(new_user)
     db.session.commit()
+
+    # Create access token
     user = User.query.filter_by(email=email).first()
     access_token = create_access_token(identity=user.id)
-    response = {'success': 'true', "access_token":access_token}
-    return response
+
+    return {'success': 'true', "access_token": access_token}
 
 @auth.route("/logout", methods=["POST"])
 def logout():

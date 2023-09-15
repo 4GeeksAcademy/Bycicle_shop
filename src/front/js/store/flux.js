@@ -1,3 +1,5 @@
+import { serverURL } from "../config";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -17,57 +19,205 @@ const getState = ({ getStore, getActions, setStore }) => {
 			]
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
+			onChangeName: (name, setNameFlag, setName, value) => {
+				setNameFlag(false);
+				setName(value);
+				if (value === "") {
+				  setNameFlag(true);
+				}
+			  },
+			
+			  onChangeTitle: (title, setTitleFlag, setTitle, value) => {
+				setTitleFlag(false);
+				setTitle(value);
+				if (value === "") {
+				  setTitleFlag(true);
+				}
+			  },
+			
+			  onChangeReview: (review, setReviewFlag, setReview, value) => {
+				setReviewFlag(false);
+				setReview(value);
+				if (value === "") {
+				  setReviewFlag(true);
+				}
+			  },
+			
+			  plusQuantity: (quantity, setQuantity) => {
+				setQuantity(quantity + 1);
+			  },
+			
+			  minusQuantity: (quantity, setQuantity) => {
+				if (quantity < 2) return;
+				setQuantity(quantity - 1);
+			  },
+			
+			  onChangeQuantity: (setQuantity, value) => {
+				setQuantity(value);
+			  },
+			
+			  addToCart: (id, quantity, props, navigate) => {
+				const payload = {
+				  bicycle_id: id,
+				  quantity: quantity,
+				};
+				axios
+				  .post(`${API_URL}/cart`, payload, {
+					headers: { Authorization: `Bearer ${props.token}` },
+				  })
+				  .then((response) => {
+					console.log(response);
+					if (response.data.success === "true") {
+					  console.log(response.data.access_token);
+					  navigate("/products");
+					} else {
+					}
+				  })
+				  .catch((error) => {
+					if (error.response) {
+					  console.log(error.response);
+					}
+				  });
+			  },
+			
+			  submitReview: (name, title, review, id, props, setMessage, setReview, setTitle, setName, getData) => {
+				let flag = true;
+				if (name === "") {
+				  flag = false;
+				  setNameFlag(true);
+				}
+				if (title === "") {
+				  flag = false;
+				  setTitleFlag(true);
+				}
+				if (review === "") {
+				  flag = false;
+				  setReviewFlag(true);
+				}
+				if (!flag) {
+				  setMessage("Please fill all fields");
+				  return;
+				}
+				const payload = {
+				  rating: rating,
+				  name: name,
+				  title: title,
+				  review: review,
+				  bicycle_id: id,
+				};
+				axios
+				  .post(`${serverURL}/review`, payload, {
+					headers: { Authorization: `Bearer ${props.token}` },
+				  })
+				  .then((response) => {
+					console.log(response);
+					if (response.data.success === "true") {
+					  console.log(response.data.access_token);
+					  setReview("");
+					  setTitle("");
+					  setName("");
+					  getData();
+					} else {
+					}
+				  })
+				  .catch((error) => {
+					if (error.response) {
+					  console.log(error.response);
+					}
+				  });
+			  },
+			
+			  changeRating: (setRating, value) => {
+				setRating(value);
+			  },
+			
+			  addToCart: (id, quantity, props, navigate) => {
+				const payload = {
+				  bicycle_id: id,
+				  quantity: quantity,
+				};
+				axios
+				  .post(`${serverURL}/cart`, payload, {
+					headers: { Authorization: `Bearer ${props.token}` },
+				  })
+				  .then((response) => {
+					console.log(response);
+					if (response.data.success === "true") {
+					  console.log(response.data.access_token);
+					  navigate("/products");
+					} else {
+					}
+				  })
+				  .catch((error) => {
+					if (error.response) {
+					  console.log(error.response);
+					}
+				  });
+			  },
+			getData: async (id) => {
+				try {
+				  const resp = await fetch(`/api/products/${id}`);
+				  const data = await resp.json();
+				  setStore({
+					product: data.bicycle,
+					reviewList: data.bicycle_reviews,
+				  });
+				} catch (error) {
+				  console.log("Error loading product data from backend", error);
+				}
+			  },
+			
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			//create the function that's allows to create a new user
-			signup: async (fullName, username, email, password, subscribe, privacy)  => {
+			
+			signup: async (fullName, username, email, password, subscribe, privacy) => {
 				const opts = {
-				  method: 'POST',
+				  method: "POST",
+				  mode: "cors",
 				  headers: {
-					"Content-Type": "application/json"
+					"Content-Type": "application/json",
 				  },
 				  body: JSON.stringify({
-					"Full Name": fullName,
-					"Username": username,
-					"Email": email,
-					"Password": password,
-					"Subscibe": subscribe,
-					"Privacy": privacy
-				  })
+					full_name: fullName,
+					username: username,
+					email: email,
+					password: password,
+					subscribe: subscribe,
+					privacy: privacy,
+				  }),
 				};
-			  
+		
 				try {
-				  const resp = await fetch('https://ubiquitous-space-rotary-phone-7jxpv6jj4j4hrvjw-3001.app.github.dev/api/create-user', opts);
-			  
+				  const resp = await fetch(
+					"https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/api/create-user",
+					opts
+				  );
+				  const data = await resp.json();
+		
 				  if (resp.status === 201) {
-					const data = await resp.json();
 					console.log("User created successfully", data);
-					// Store the authentication token or user ID in a more secure way
-					// Update the UI with the logged-in user
 					return true;
-				  } else if (resp.status === 400) {
-					const errorData = await resp.json();
-					alert(`Error: ${errorData.message}`);
 				  } else {
-					alert("An unexpected error occurred");
+					alert(`Error: ${data.message}`);
 				  }
 				} catch (error) {
 				  console.error("An error occurred while signing up", error);
-				  alert("An error occurred while signing up");
+				  console.error("Error name:", error.name);
+				  console.error("Error message:", error.message);
 				}
 				return false;
-			  },	
+			  },
+				
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
-					// don't forget to return something, that is how the async resolves
+					
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
@@ -75,8 +225,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//get the store
 				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
 				const demo = store.demo.map((elm, i) => {
 					if (i === index) elm.background = color;
 					return elm;

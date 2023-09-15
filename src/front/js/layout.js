@@ -16,6 +16,7 @@ import Login from "./pages/login"
 import Product from "./pages/products";
 import Profile from "./pages/profile";
 import ResetPassword from "./pages/reset";
+import ProductDetail from "./pages/product_detail";
 
 //create your first component
 const Layout = () => {
@@ -37,6 +38,7 @@ const Layout = () => {
                         <Route element={<Terms/>} path="/terms" />
                         <Route element={<Login/>} path="/login" />
                         <Route element={<Product/>} path="/bicycles" />
+                        <Route element={<ProductDetail />} path="/product/:id" />
                         <Route element={<Profile/>} path="/profile" />
                         <Route element={<ResetPassword/>} path="/reset" />
                         <Route element={<Single />} path="/single/:theid" />

@@ -24,11 +24,26 @@ class Bicycle(db.Model):
     instock = db.Column(db.String(100))
     reviews = db.relationship('BicycleReview', backref='bicycle')
 
+
+def serialize(self):
+    return {
+        'id': self.id,
+        'name': self.name,
+        'manufacturer': self.manufacturer,
+        'material': self.material,
+        'gender': self.gender,
+        'type': self.type,
+        'color': self.color,
+        'weight': self.weight,
+        'price': str(self.price),  
+        'instock': self.instock
+    }
+
 class BicycleReview(db.Model):
     __tablename__ = 'bicycle_review' 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    bicycle_id = db.Column(db.Integer, db.ForeignKey('bicycles.id'))  # Assuming 'bicycles' is the name of the Bicycle table
+    bicycle_id = db.Column(db.Integer, db.ForeignKey('bicycles.id'))  
     rating = db.Column(db.Integer)
     title = db.Column(db.String(100))
     review_text = db.Column(db.String(1000))

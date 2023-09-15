@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
-import { API_URL } from "../config";
+import { serverURL } from "../config";
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -35,7 +35,7 @@ function Login(props) {
     const { tokenId } = response;
     // Send the tokenId to your Flask server for authentication
     axios
-      .post(`${API_URL}/google-login`, { tokenId })
+      .post(`/google-login`, { tokenId })
       .then((response) => {
         console.log(response);
         if (response.data.success === "true") {
@@ -79,7 +79,7 @@ function Login(props) {
       password: password,
     };
     axios
-      .post(`${API_URL}/login`, payload)
+      .post(`${serverURL}/login`, payload)
       .then((response) => {
         console.log(response);
         if (response.data.success === "true") {

@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from "react"; 
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../config";
+import { setProducts } from "../config";
 function Product(props) {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   function getData() {
     axios
-      .get(`${API_URL}/products`)
+      .get(`/api/products`)  
       .then((response) => {
-        console.log(response);
         if (response.data.success === "true") {
-          console.log(response.data.access_token);
           setProducts(response.data.bicycles);
-        } else {
         }
       })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        }
-      });
+      
   }
+  
   useEffect(() => {
     if (!props.token && props.token !== "" && props.token !== undefined) {
       navigate("/login");

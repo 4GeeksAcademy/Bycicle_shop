@@ -1,154 +1,25 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, Router, useNavigate, useParams } from "react-router-dom";
-import { API_URL } from "../config";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useStoreActions, useStoreState } from "../store/flux"; 
+
 function ProductDetail(props) {
   const { id } = useParams();
-  const [name, setName] = useState("");
-  const [nameFlag, setNameFlag] = useState(false);
-  const [title, setTitle] = useState("");
-  const [titleFlag, setTitleFlag] = useState(false);
-  const [review, setReview] = useState("");
-  const [reviewFlag, setReviewFlag] = useState(false);
-  const [rating, setRating] = useState(1);
-  const navigate = useNavigate();
-  const [profileData, setProfileData] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("Please fill all fields");
-  const [reviewList, setReviewList] = useState([]);
-  const [product, setProduct] = useState({});
-  const onChangeName = (event) => {
-    setNameFlag(false);
-    setName(event.target.value);
-    if (event.target.value === "") {
-      setNameFlag(true);
-    }
-  };
-  const onChangeTitle = (event) => {
-    setTitleFlag(false);
-    setTitle(event.target.value);
-    if (event.target.value === "") {
-      setTitleFlag(true);
-    }
-  };
-  const onChangeReview = (event) => {
-    setReviewFlag(false);
-    setReview(event.target.value);
-    if (event.target.value === "") {
-      setReviewFlag(true);
-    }
-  };
-  const plusQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-  const minusQuantity = () => {
-    if (quantity < 2) return;
-    setQuantity(quantity - 1);
-  };
-  const onChangeQuantity = (e) => {
-    setQuantity(e.target.value);
-  };
-  useEffect(() => {
-    if (!props.token && props.token !== "" && props.token !== undefined) {
-      navigate("/login");
-    }
-    getData();
-  }, []);
+  const navigate = useNavigate();
 
-  function getData() {
-    axios
-      .get(`${API_URL}/product?id=${id}`, {
-        headers: { Authorization: `Bearer ${props.token}` },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.data.success === "true") {
-          console.log(response.data.access_token);
-          setProduct(response.data.bicycle);
-          setReviewList(response.data.bicycle_reviews);
-        } else {
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        }
-      });
-  }
-  const addToCart = () => {
-    const payload = {
-      bicycle_id: id,
-      quantity: quantity,
-    };
-    axios
-      .post(`${API_URL}/cart`, payload, {
-        headers: { Authorization: `Bearer ${props.token}` },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.data.success === "true") {
-          console.log(response.data.access_token);
-          navigate("/products");
-        } else {
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        }
-      });
-  };
-  const submitReview = () => {
-    let flag = true;
-    if (name === "") {
-      flag = false;
-      setNameFlag(true);
-    }
-    if (title === "") {
-      flag = false;
-      setTitleFlag(true);
-    }
-    if (review === "") {
-      flag = false;
-      setReviewFlag(true);
-    }
-    if (!flag) {
-      setMessage("Please fill all fields");
-      return;
-    }
-    const payload = {
-      rating: rating,
-      name: name,
-      title: title,
-      review: review,
-      bicycle_id: id,
-    };
-    axios
-      .post(`${API_URL}/review`, payload, {
-        headers: { Authorization: `Bearer ${props.token}` },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.data.success === "true") {
-          console.log(response.data.access_token);
-          setReview("");
-          setTitle("");
-          setName("");
-          getData();
-        } else {
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        }
-      });
-  };
-  const changeRating = (value) => {
-    setRating(value);
-  };
+  const {
+    onChangeName,
+    onChangeTitle,
+    onChangeReview,
+    plusQuantity,
+    minusQuantity,
+    onChangeQuantity,
+    addToCart,
+    submitReview,
+    changeRating,
+    
+  } = useStoreActions((actions) => actions);
   return (
     <section className="h-100 h-custom bg-danger">
       <div className="container  py-5 bg-danger">

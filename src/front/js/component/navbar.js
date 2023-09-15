@@ -5,7 +5,7 @@ import "../../styles/navbar.css";
 
 export const Navbar = () => {
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
-  const [hideButtons, setHideButtons] = useState(true);
+  const [hideButtons, sethideButtons] = useState(true);
 
   // Function to toggle the display of additional buttons
   const toggleAdditionalButtons = () => {
@@ -14,17 +14,17 @@ export const Navbar = () => {
 
   // Function to hide the previous buttons
   const hideButton = () => {
-    setHideButtons(!hideButtons);
+    sethideButtons(!hideButtons);
   };
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg fixed-top">
       <div className="container-fluid d-flex flex-row">
-        <figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
-          <Link to="/">
-            <img src={logo} className="img" alt="logo" />
-          </Link>
-        </figure>
+	  	<figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
+	  		<Link to="/">
+				<img src={logo} className="img" alt="logo" />		
+			</Link>
+		</figure>
         <div className="menu col-sm-8 col-md-12 col-lg-12 col-xl-12">
           <div className="dropdown mb-3 language">
             <button
@@ -67,18 +67,18 @@ export const Navbar = () => {
           </button>
           <div className={`collapse my-collapse navbar-collapse justify-content-end ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <Link className="link-collapse" to="/contact">
+              <Link className="link-collapse" to="/">
                 <button className="btn my-btn toggler">
                   Contact Us
                 </button>
               </Link>
-              <Link className="link-collapse" to="/about">
+              <Link className="link-collapse" to="/">
                 <button className="btn my-btn toggler">
                   About Us
                 </button>
               </Link>
               
-              <div className="link-collapse dropdown" to="/bicycles">
+              <div className="link-collapse dropdown">
                 <button
                   className="btn my-btn dropdown-toggle toggler custom-dropdown-toggle"
                   role="button"
@@ -143,14 +143,14 @@ export const Navbar = () => {
                   <Link className="link-collapse" to="/">
                     <i className="icon fa-solid fa-magnifying-glass"></i> Search
                   </Link>
-                  <Link className="link-collapse" to="/login">
-                    Login
+                  <Link className="link-collapse" to="/">
+				  	        Login
                   </Link>
                   <Link className="link-collapse" to="/signup">
-                    Register
+				  	        Register
                   </Link>
                   <Link className="link-collapse" to="/">
-                    <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i> Cart
+				           <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i> Cart
                   </Link>
                   <Link className="link-collapse" to="/">
                     Give us your feedback

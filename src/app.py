@@ -35,7 +35,11 @@ def create_app():
     jwt = JWTManager(app)
 
     # Initialize CORS
-    CORS(app)
+    #CORS(app)
+    CORS(app, origins=["https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev"], 
+         methods=['GET', 'POST', 'PUT', 'DELETE'], 
+         allow_headers=['Content-Type', 'Authorization'],
+         supports_credentials=True)
 
     # Register blueprints
     app.register_blueprint(api_blueprint)
@@ -55,7 +59,7 @@ def create_app():
         with open(json_file, 'r') as file:
             data = json.load(file)
 
-        # Assuming you have a SQLAlchemy model for bicycles (Bicycle)
+        
         from api.models import Bicycle
 
         # Iterate over the JSON data and create Bicycle objects
@@ -78,16 +82,15 @@ def create_app():
 
     @app.route('/')
     def sitemap():
-        return "This is the home page"  # You can replace this with your sitemap generator if you have one
+        return "This is the home page"  
 
-    # any other endpoint will try to serve it like a static file
     static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
     @app.route('/<path:path>', methods=['GET'])
     def serve_any_other_file(path):
         if not os.path.isfile(os.path.join(static_file_dir, path)):
             path = 'index.html'
         response = send_from_directory(static_file_dir, path)
-        response.cache_control.max_age = 0  # avoid cache memory
+        response.cache_control.max_age = 0  
         return response
 
     return app
