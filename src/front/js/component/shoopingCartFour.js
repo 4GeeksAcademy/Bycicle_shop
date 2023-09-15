@@ -311,6 +311,7 @@ export const ShoppingCartFour = (props) => {
 											<input type="text" className="form-control" id="phone" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 										</div>
 									</form>
+									<br/>
 							</div>
 						</div>
 					</div>
@@ -348,18 +349,18 @@ export const ShoppingCartFour = (props) => {
 				<div className="last-ship row mt-3">
 					<div className="btn-shipping col-6 m-0" >
 						<Link to="/shoppingCart">
-							<button className="btn-Check" type="submit" onClick={() => {
-							// Call the callback function passed from the parent component
-							props.onClick();
-						  }}>
-								Pay
+						<button className="btn-Check" type="submit" onClick={() => {
+									// Call the callback function passed from the parent component
+									props.onClick();
+								}}>
+										Pay
 							</button>
 						</Link>
 					</div>	
 					<div className="return-second col-6">
-						<Link  className="return-second" to="/shoopingCart">
+						<div className="return-second" onClick={() => props.onPreviousClick()} >
 							<i className="fa-solid fa-arrow-left"></i> Previous Page
-						</Link>
+						</div>
 					</div>  
 				</div>
 				<br />

@@ -8,31 +8,31 @@ import "../../styles/shoppingCart.css";
 import { useParams } from "react-router-dom";
 
 export const ShoppingCart = () => {
-  const [showShoppingCart, setShowShoppingCart] = useState('cartOne'); // Corrected variable name
+  const [showShoppingCart, setShowShoppingCart] = useState('cartOne');
   const params = useParams();
 
   // Function to return the previous page
-  const PreviousPage = () => {
-    if (showShoppingCart === 'cartThree') { // Corrected condition
-      setShowShoppingCart('cartTow');
-    } else if (showShoppingCart === 'cartFour') {
-      setShowShoppingCart('cartThree');
+  const handlePreviousClick = () => {
+    if (showShoppingCart === 'cartThree') {
+      setShowShoppingCart('cartTwo');
+      } else if (showShoppingCart === 'cartFour') {
+        setShowShoppingCart('cartThree');
     }
   };
 
   return (
     <div className="container">
       {showShoppingCart === 'cartOne' ? (
-        <ShoppingCartOne onClick={() => setShowShoppingCart('cartTwo')} />
+        <ShoppingCartOne onClick={() => setShowShoppingCart('cartTwo')}  />
       ) : null}
       {showShoppingCart === 'cartTwo' ? (
         <ShoppingCartTwo onClick={() => setShowShoppingCart('cartThree')} />
       ) : null}
       {showShoppingCart === 'cartThree' ? (
-        <ShoppingCartThree onClick={() => setShowShoppingCart('cartFour')} />
+        <ShoppingCartThree onClick={() => setShowShoppingCart('cartFour')} onPreviousClick={() => handlePreviousClick()} />
       ) : null}
       {showShoppingCart === 'cartFour' ? (
-        <ShoppingCartFour onClick={() => setShowShoppingCart('thanksMessage')} />
+        <ShoppingCartFour onClick={() => setShowShoppingCart('thanksMessage')} onPreviousClick={() => handlePreviousClick()} />
       ) : null}
       {showShoppingCart === 'thanksMessage' ? <ThanksMessage /> : null}
     </div>

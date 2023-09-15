@@ -102,9 +102,9 @@ export const ShoppingCartThree = (props) => {
 						</Link>
 					</div>	
 					<div className="return-second col-6">
-						<Link  className="return-second" to="/shoopingCart">
+						<div className="return-second" onClick={() => { props.onPreviousClick()}} >
 							<i className="fa-solid fa-arrow-left"></i> Previous Page
-						</Link>
+						</div>
 					</div>  
 				</div>
 		</div>

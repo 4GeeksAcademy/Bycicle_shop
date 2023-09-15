@@ -179,22 +179,22 @@
 }
 .shipping-dropdown-toggle {
     border: none;
-    accent-color: white;
+    padding: 0;
+    background-color: #ffffff;
 }
 .shipping-dropdown-toggle::after {
-    outline: none;
     border: 0 !important;
 }
 .shipping-collapse {
     background-color: #B1AFAF;
-    position: sticky;
+    z-index: 3;
 }
 .shipping-collapse-payment {
     height: 60px;
     justify-content: center;
 }
 .shipping-form {
-    font-size: 8px;
+    font-size: 16px;
 }
 .thanks {
     background-image: url(https://images.pexels.com/photos/386024/pexels-photo-386024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
