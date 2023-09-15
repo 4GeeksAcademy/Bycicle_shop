@@ -4,8 +4,23 @@ import { Link } from "react-router-dom";
 
 export const ShoppingCartTwo = (props) => {
     const { store } = useContext(Context);
-	
+	const [firstName, setFirstName] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [address, setAddress] = useState("");
+	const [city, setCity] = useState("");
+    const [zipcode, setZipcode] = useState("");
+	const [phone, setPhone] = useState("");
+	const [email, setEmail] = useState("");
+    const [save, setSave] = useState(false);
+    const [textMe, setTextMe] = useState(false);
 
+	//function to send the data form the input to the ShiipingAddress table
+    const shippingClick = (event) => {
+        // prevent the default form submission behavior
+        event.preventDefault();
+        //actions. (firstName, lastname, email, address, city, zipcode, phone, save, textMe) 
+    };
+	
 	return (
 		<div className="row mt-3">
 			<div className="col-6">
@@ -15,38 +30,38 @@ export const ShoppingCartTwo = (props) => {
 				</div>
 			<div className="shipping-container my-3">
 				<h1>Shipping address</h1>
-					<form>
+					<form onSubmit={shippingClick}>
 						<div className=" row my-3">
 							<div className="col-6">
 								<label className="form-label">First Name</label>
-								<input type="email" className="form-control" id="firstName" aria-describedby="emailHelp" required/>
+								<input type="text" className="form-control" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required/>
 							</div>
 							<div className="col-6">
 								<label className="form-label">Last Name</label>
-								<input type="password" className="form-control" id="lastName" required/>
+								<input type="text" className="form-control" id="lastName" value={lastname} onChange={(e) => setLastname(e.target.value)} required/>
 							</div>
 						</div>
 						<div className="mb-3">
 							<label className="form-label">Address</label>
-							<input type="password" className="form-control" id="address" required/>
+							<input type="text" className="form-control" id="address" value={address} onChange={(e) => setAddress(e.target.value)} required/>
 						</div>
 						<div className="row my-3">
 							<div className="col-6">
 								<label className="form-label">Zip code</label>
-								<input type="password" className="form-control" id="zipCode" required/>
+								<input type="text" className="form-control" id="zipCode" value={zipcode} onChange={(e) => setZipcode(e.target.value)}required/>
 							</div>
 							<div className="col-6">
 								<label className="form-label">City</label>
-								<input type="password" className="form-control" id="city" required/>
+								<input type="text" className="form-control" id="city" value={city} onChange={(e) => setCity(e.target.value)} required/>
 							</div>
 						</div>
 						<div className="mb-3">
 							<label className="form-label">Phone</label>
-							<input type="password" className="form-control" id="phone" required/>
+							<input type="text" className="form-control" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 						</div>
 						<div className="mb-3">
 							<label className="form-label">Email</label>
-							<input type="password" className="form-control" id="email" required/>
+							<input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
 						</div>
 					</form>
 				</div>
@@ -82,13 +97,13 @@ export const ShoppingCartTwo = (props) => {
 					</div>
 				</div>	
 				<div className="row m-2">
-						<form className="col-6">
+						<form className="col-6" onSubmit={shippingClick}>
 							<div className="form-check shipping-form-check-label">
-								<input type="checkbox" className="form-check-input" id="save"/>
+								<input type="checkbox" className="form-check-input" id="save" checked={save} onChange={(e) => setSave(e.target.value)}/>
 								<label className="form-check-label">Save this information for the next time</label>
 							</div>
 							<div className="mb-3 form-check shipping-form-check-label">	
-								<input type="checkbox" className="form-check-input" id="textMe"/>
+								<input type="checkbox" className="form-check-input" id="textMe" checked={textMe} onChange={(e) => setTextMe(e.target.value)}/>
 								<label className="form-check-label">Text me with news and offers</label>
 							</div>
 						</form>
@@ -101,13 +116,11 @@ export const ShoppingCartTwo = (props) => {
 									Continue Shipping
 								</button>
 							</Link>
+							<br/>
+						<br/>
 						</div>	
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
 				</div>
+				<br/>
 		</div>
 			);
 		};

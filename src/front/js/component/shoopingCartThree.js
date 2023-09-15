@@ -4,8 +4,16 @@ import { Link } from "react-router-dom";
 
 export const ShoppingCartThree = (props) => {
     const { store } = useContext(Context);
-	
+	const [subscribe, setSubscribe] = useState(false);
+    const [privacy, setPrivacy] = useState(false);
 
+	//function to send the data form the input to the database
+    const handleClick = (event) => {
+        // prevent the default form submission behavior
+        event.preventDefault();
+        actions.signup(fullName, username, email, password, subscribe, privacy) 
+    };
+	
 	return (
 		<div className="row mt-3">
 			<div className="col-6">
@@ -75,6 +83,9 @@ export const ShoppingCartThree = (props) => {
 							<br />
 							<br />
 						</div>
+						<br />
+						<br />
+						<br />
 						<br />
 						<br />
 						<br />

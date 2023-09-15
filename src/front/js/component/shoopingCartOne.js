@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export const ShoppingCartOne = (props) => {
     const { store, actions } = useContext(Context);
 	const [quantity, setQuantity] = useState(1);
+	const [textarea, setTextarea] = useState("");
 
 	const plusQuantity = () => {
 		setQuantity(quantity + 1);
@@ -18,6 +19,13 @@ export const ShoppingCartOne = (props) => {
 	const onChangeQuantity = (e) => {
 		setQuantity(e.target.value);
 	};
+
+	//function to send the textarea text from the input to the order table
+	const textareaClick = (event) => {
+        // prevent the default form submission behavior
+        event.preventDefault();
+		// actions.
+    };
 
 	return (
 		<div className="container">
@@ -76,11 +84,11 @@ export const ShoppingCartOne = (props) => {
 				<p>Subtotal:</p>
 			</div>
 			<div className="row">
-				<form className="col-sm-6 col-md-6 col-lg-6">
+				<form className="col-sm-6 col-md-6 col-lg-6" onSubmit={textareaClick}>
 					<div className="cart-form">
 						<label>Add a note to your order:</label>
 						<br />
-						<textarea className="form-control mt-2" id="exampleFormControlTextarea1" rows="4"></textarea>
+						<textarea className="form-control mt-2" id="exampleFormControlTextarea1" rows="4"  value={textarea} onChange={(e) => setTextarea(e.target.value)}></textarea>
 					</div>
 					<div className=" form-check cart-form-check mt-2">
 						<input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
@@ -106,8 +114,9 @@ export const ShoppingCartOne = (props) => {
 					<button className="btn-Check col-sm-6 col-md-6 col-lg-12" type="submit">Continue Shopping</button>
 				</Link>
 				</div>
+				<br/>
+				<br/>
 			</div>
-			<br/><br/><br/>
 		</div>
 	);
 };

@@ -18,7 +18,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-box navbar-dark navbar-expand-lg fixed-top">
+    <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
       <div className="container-fluid navbar-container d-flex">
 	  		<Link to="/">
           <img src={logo} className="img" alt="logo" />		
@@ -75,17 +75,22 @@ export const Navbar = () => {
                   About Us
                 </button>
               </Link>
-              
-              <div className="link-collapse dropdown">
-                <button
-                  className="btn my-btn dropdown-toggle toggler custom-dropdown-toggle"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Products
-                </button>
-                <ul className="dropdown-menu my-dropdown-menu">
+              <div>
+               </div> 
+						<div className="link-collapse dropdow">
+							<button
+								className="btn my-btn toggler custom-dropdown-toggle"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#collapseProducts"
+								aria-expanded="false"
+								aria-controls="collapseExample"
+							>
+								Products
+							</button>
+						</div>
+						<div className="collapse" id="collapseProducts">
+                <ul className="card card-body my-dropdown-menu">
                   <li>
                     <button className="dropdown-item my-dropdown-item">
                       Road Bikes

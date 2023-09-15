@@ -4,7 +4,6 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Signup } from "./pages/signup";
 import { Terms } from "./pages/terms";
 import { Profile } from "./pages/profile";
 import { ShoppingCart } from "./pages/shoppingCart";
@@ -29,7 +28,6 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Signup/>} path="/signup" />
                         <Route element={<Profile/>} path="/profile" />
                         <Route element={<Profile/>} path="/profile/:orders/:id " />
                         <Route element={<ResetPassword/>} path="/resetPassword" />
