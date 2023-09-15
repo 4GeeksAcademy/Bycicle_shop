@@ -13,9 +13,6 @@ export const ThanksMessage = () => {
                     <p>You will receive an email with purchase confirmation and invoice.</p>
                 </div>
             </div>
-            <br/>
-            <br/>
-            <br/>
 		</div>
 	);
 };

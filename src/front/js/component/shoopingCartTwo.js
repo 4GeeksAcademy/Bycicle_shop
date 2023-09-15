@@ -66,7 +66,7 @@ export const ShoppingCartTwo = (props) => {
 					</form>
 				</div>
 			</div>
-				<div className="col-6">
+				<div className="col-6 ">
 					<div className="shipping-order row">
 						<h2>Your order</h2>
 						<div className="shipping-details shipping-details-title row">
@@ -99,28 +99,23 @@ export const ShoppingCartTwo = (props) => {
 				<div className="row m-2">
 						<form className="col-6" onSubmit={shippingClick}>
 							<div className="form-check shipping-form-check-label">
-								<input type="checkbox" className="form-check-input" id="save" checked={save} onChange={(e) => setSave(e.target.value)}/>
+								<input type="checkbox" className="ship-check-input form-check-input" id="save" checked={save} onChange={(e) => setSave(e.target.value)}/>
 								<label className="form-check-label">Save this information for the next time</label>
 							</div>
 							<div className="mb-3 form-check shipping-form-check-label">	
-								<input type="checkbox" className="form-check-input" id="textMe" checked={textMe} onChange={(e) => setTextMe(e.target.value)}/>
+								<input type="checkbox" className="ship-check-input form-check-input" id="textMe" checked={textMe} onChange={(e) => setTextMe(e.target.value)}/>
 								<label className="form-check-label">Text me with news and offers</label>
 							</div>
 						</form>
 						<div className="btn-shipping col-6" >
-							<Link to="/shoppingCart">
 								<button className="btn-Check" type="submit" onClick={() => {
 									// Call the callback function passed from the parent component
 									props.onClick();
 								}}>
 									Continue Shipping
 								</button>
-							</Link>
-							<br/>
-						<br/>
 						</div>	
 				</div>
-				<br/>
 		</div>
 			);
 		};

@@ -106,10 +106,10 @@
     color: #7C0514;
     padding: 3px;
     font-weight: 500;
-    margin-left: 20px;
     padding: 6px 21px 6px 21px;
     border-radius: 6px;
     border: 0px;
+    height: auto;
 }
 .btn-set-check {
     display: grid;
@@ -164,8 +164,7 @@
     padding: 5px;
 }
 .ship-check-input {
-    background-color: white;
-    border: solid 1px black;
+    background-color: #484545;
 }
 .ship-check-label {
     display: flex;
@@ -179,23 +178,27 @@
 }
 .shipping-dropdown-toggle {
     border: none;
-    accent-color: white;
+    padding: 0;
+    background-color: #ffffff;
 }
 .shipping-dropdown-toggle::after {
-    outline: none;
     border: 0 !important;
 }
 .shipping-collapse {
     background-color: #B1AFAF;
-    position: sticky;
+    z-index: 3;
 }
 .shipping-collapse-payment {
     height: 60px;
     justify-content: center;
 }
 .shipping-form {
-    font-size: 8px;
+    font-size: 16px;
 }
+.return-shipping {
+    cursor: pointer;
+    color: black;
+}    
 .thanks {
     background-image: url(https://images.pexels.com/photos/386024/pexels-photo-386024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
     background-repeat: no-repeat;
@@ -205,7 +208,7 @@
     box-shadow: 10px 10px 10px rgba(0,0,0,0.15);
     width: 100%;
     height: 80vh;
-    margin: auto;
+    padding-top: 30vh;
 }
 .thanks-message {
     text-align: center;
@@ -216,7 +219,7 @@
     font-size: 20px;
     font-weight: 500;
     width: 50%;
-    margin: 170px 0 0 210px;
+    margin: auto;
 }
 /*css to make the site responsive*/
 @media screen and (max-width: 500px) {

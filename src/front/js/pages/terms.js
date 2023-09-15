@@ -4,7 +4,7 @@ import "../../styles/terms.css";
 export const Terms= () => {
 
 	return (
-		<div className="container my-container">
+		<div className="min-height-100 container my-container">
             <br/> 
             <h1 className="title">
                 Terms and Conditions
@@ -106,11 +106,6 @@ export const Terms= () => {
                     <strong>Warehouse Address:</strong> No. 999 West Wen Yi Road, Yuhang District, Hangzhou, Zhejiang, China
                 </p>
             </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
             <br/>
         </div>   
 	);

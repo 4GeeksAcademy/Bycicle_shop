@@ -1,6 +1,5 @@
 import React, {  useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
 
 export const ShoppingCartFour = (props) => {
     const { store, actions } = useContext(Context);
@@ -20,7 +19,7 @@ export const ShoppingCartFour = (props) => {
 		<div className="shipping-main row mt-3">
 			<div className="col-6">
 				<br />
-				<div className="shipping-container my-3">
+				<div className="shipping-container">
 					<h1>Payment method</h1>
 					<div className="shipping-check row mt-5">
 					<div className="col-1">
@@ -311,12 +310,13 @@ export const ShoppingCartFour = (props) => {
 											<input type="text" className="form-control" id="phone" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
 										</div>
 									</form>
+									<br/>
 							</div>
 						</div>
 					</div>
 					</div>	
-				<div className="col-6">
-						<div className="shipping-order row">
+				<div className="col-6 mt-5">
+						<div className="shipping-order row m-0">
 							<h2>Your order</h2>
 							<div className="shipping-details shipping-details-title row">
 								<p className="col-6">Product</p>
@@ -345,29 +345,21 @@ export const ShoppingCartFour = (props) => {
 							</div>
 						</div>
 				</div>		
-				<div className="last-ship row mt-3">
+				<div className="last-ship row m-3">
 					<div className="btn-shipping col-6 m-0" >
-						<Link to="/shoppingCart">
-							<button className="btn-Check" type="submit" onClick={() => {
-							// Call the callback function passed from the parent component
-							props.onClick();
-						  }}>
-								Pay
+						<button className="btn-Check" type="submit" onClick={() => {
+									// Call the callback function passed from the parent component
+									props.onClick();
+								}}>
+										Pay
 							</button>
-						</Link>
 					</div>	
-					<div className="return-second col-6">
-						<Link  className="return-second" to="/shoopingCart">
+					<div className="return-shipping col-6">
+						<div onClick={() => props.onPreviousClick()} >
 							<i className="fa-solid fa-arrow-left"></i> Previous Page
-						</Link>
+						</div>
 					</div>  
 				</div>
-				<br />
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
 		</div>
 			);
 		};

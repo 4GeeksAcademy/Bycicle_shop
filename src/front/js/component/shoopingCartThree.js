@@ -1,6 +1,5 @@
 import React, {  useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
 
 export const ShoppingCartThree = (props) => {
     const { store } = useContext(Context);
@@ -18,7 +17,7 @@ export const ShoppingCartThree = (props) => {
 		<div className="row mt-3">
 			<div className="col-6">
 				<br />
-				<div className="shipping-container my-3">
+				<div className="shipping-container m-0'">
 					<h1>Shipping method</h1>
 					<div className="shipping-check row mt-5">
 						<div className="col-1">
@@ -52,7 +51,7 @@ export const ShoppingCartThree = (props) => {
 					</div>	
 				</div>
 			</div>
-					<div className="col-6">
+					<div className="col-6 mt-5">
 						<div className="shipping-order row">
 							<h2>Your order</h2>
 							<div className="shipping-details shipping-details-title row">
@@ -80,31 +79,24 @@ export const ShoppingCartThree = (props) => {
 									<p>(includes VAT)</p>
 								</div>
 							</div>
-							<br />
-							<br />
 						</div>
-						<br />
-						<br />
-						<br />
 						<br />
 						<br />
 						<br />
 				</div>		
 				<div className="last-ship row">
 					<div className="btn-shipping col-6" >
-						<Link to="/shoppingCart">
 							<button className="btn-Check" type="submit" onClick={() => {
 								// Call the callback function passed from the parent component
 								props.onClick();
 							}}>
 								Continue to payment
 							</button>
-						</Link>
 					</div>	
-					<div className="return-second col-6">
-						<Link  className="return-second" to="/shoopingCart">
+					<div className="return-shipping col-6">
+						<div className="return-second" onClick={() => { props.onPreviousClick()}} >
 							<i className="fa-solid fa-arrow-left"></i> Previous Page
-						</Link>
+						</div>
 					</div>  
 				</div>
 		</div>
