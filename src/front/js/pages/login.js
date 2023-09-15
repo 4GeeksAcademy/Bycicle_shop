@@ -40,11 +40,13 @@ function Login(props) {
         console.log(response);
         if (response.data.success === "true") {
           console.log(response.data.access_token);
+          console.log("Login successful");
           props.setToken(response.data.access_token);
           navigate("/products");
         } else {
           setAPIFlag(true);
           setMessage(response.data.msg);
+          console.log("Login failed");
         }
       })
       .catch((error) => {
@@ -83,12 +85,18 @@ function Login(props) {
       .then((response) => {
         console.log(response);
         if (response.data.success === "true") {
-          console.log(response.data.access_token);
-          props.setToken(response.data.access_token);
-          navigate("/products");
+          // Store the received access token in local storage
+          localStorage.setItem('access_token', response.data.access_token);
+          console.log("Login successful");
+          
+          console.log(localStorage.getItem('access_token'));
+          
+          console.log("Navigating to profile"); // to check if Navigation function is called
+          navigate("/profile");
         } else {
           setAPIFlag(true);
           setMessage(response.data.msg);
+          console.log("Login failed");
         }
       })
       .catch((error) => {

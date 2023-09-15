@@ -1,8 +1,20 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 function Profile(props) {
   const [profileData, setProfileData] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    // Automatically fetch data when component mounts
+    getData(token);
+  }, []);
   function getData() {
     axios({
       method: "GET",
