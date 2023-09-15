@@ -18,14 +18,12 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-box navbar-dark navbar-expand-lg fixed-top">
-      <div className="container-fluid d-flex flex-row">
-	  	<figure className="col-sm-4 col-md-3 col-lg-1 col-xl-1">
+    <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
+      <div className="container-fluid navbar-container d-flex">
 	  		<Link to="/">
-				<img src={logo} className="img" alt="logo" />		
-			</Link>
-		</figure>
-        <div className="menu col-sm-8 col-md-12 col-lg-12 col-xl-12">
+          <img src={logo} className="img" alt="logo" />		
+        </Link>
+        <div className="menu">
           <div className="dropdown mb-3 language">
             <button
               className="btnlanguage dropdown-toggle"
@@ -33,7 +31,7 @@ export const Navbar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              English - Euro <i class="fa-solid fa-chevron-down"></i>
+              English - Euro <i className="fa-solid fa-chevron-down"></i>
             </button>
             <ul className="dropdown-language dropdown-menu">
               <li>
@@ -49,7 +47,7 @@ export const Navbar = () => {
                 APPLY
               </button>
             </ul>
-          </div>
+          </div >
           <button
             onClick={() => {
               toggleAdditionalButtons();
@@ -65,8 +63,8 @@ export const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className={`collapse my-collapse navbar-collapse justify-content-end ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
-            <div className="navbar-nav">
+          <div className={`collapse my-collapse navbar-collapse justify-content-end dropdown ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
+            <div className="navbar-nav ">
               <Link className="link-collapse" to="/">
                 <button className="btn my-btn toggler">
                   Contact Us
@@ -77,17 +75,22 @@ export const Navbar = () => {
                   About Us
                 </button>
               </Link>
-              
-              <div className="link-collapse dropdown">
-                <button
-                  className="btn my-btn dropdown-toggle toggler custom-dropdown-toggle"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Products
-                </button>
-                <ul className="dropdown-menu my-dropdown-menu">
+              <div>
+               </div> 
+						<div className="link-collapse dropdow">
+							<button
+								className="btn my-btn toggler custom-dropdown-toggle"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#collapseProducts"
+								aria-expanded="false"
+								aria-controls="collapseExample"
+							>
+								Products
+							</button>
+						</div>
+						<div className="collapse" id="collapseProducts">
+                <ul className="card card-body my-dropdown-menu">
                   <li>
                     <button className="dropdown-item my-dropdown-item">
                       Road Bikes
@@ -130,10 +133,10 @@ export const Navbar = () => {
                   <Link className="link-collapse" to="/">
                     <i className="icon fa-solid fa-magnifying-glass"></i>
                   </Link>
-                  <Link className="link-collapse" to="/">
+                  <Link className="link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
-                  <Link className="link-collapse" to="/">
+                  <Link className="link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>
                 </>
@@ -149,7 +152,7 @@ export const Navbar = () => {
                   <Link className="link-collapse" to="/signup">
 				  	        Register
                   </Link>
-                  <Link className="link-collapse" to="/">
+                  <Link className="link-collapse" to="/ShoppingCart">
 				           <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i> Cart
                   </Link>
                   <Link className="link-collapse" to="/">
