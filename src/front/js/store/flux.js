@@ -1,5 +1,7 @@
 import { serverURL } from "../config";
 import { useStoreActions } from '../pages/product_detail';
+import axios from 'axios';
+
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -57,13 +59,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setQuantity(value);
 			},
 
+			setUserProfile: (profileData) => {
+				setStore({ user: profileData });
+			},
+
 			addToCart: (id, quantity, props, navigate) => {
 				const payload = {
 					bicycle_id: id,
 					quantity: quantity,
 				};
 				axios
-					.post(`${API_URL}/cart`, payload, {
+					.post(`${serverURL}/cart`, payload, {
 						headers: { Authorization: `Bearer ${props.token}` },
 					})
 					.then((response) => {
@@ -132,6 +138,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setRating(value);
 			},
 
+			getUserProfile: async (token) => {
+				console.log("Token before API call: ", token); 
+				if (!token) {
+					console.error("No token provided");
+					return null;
+				}
+				try {
+					console.log("Attempting to fetch profile with token:", token);
+					console.log("Headers being sent: ", {
+						Authorization: "Bearer " + token
+					});
+					console.log("About to make API call");
+					const response = await axios.get("https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/profile", 
+					{
+						headers: {
+							Authorization: "Bearer " + token
+						}
+						
+					});
+					console.log("Response data: ", response.data);
+					if (response.data) {
+						console.log("Setting user profile in store:", response.data);
+						setStore({ user: response.data });
+					} else {
+						console.log("Received empty response.data from API");
+					}
+					return response.data;
+				} catch (error) {
+					console.error("Full error:", JSON.stringify(error, null, 2));
+					console.error("An error occurred while fetching the profile:", error);
+					return null;
+				}
+			},
+
+
+
 			addToCart: (id, quantity, props, navigate) => {
 				const payload = {
 					bicycle_id: id,
@@ -155,6 +197,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 			},
+
 			getData: async (id) => {
 				try {
 					const resp = await fetch(`/api/products/${id}`);

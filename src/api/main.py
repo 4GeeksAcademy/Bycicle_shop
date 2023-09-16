@@ -164,12 +164,24 @@ def create_user():
 
     return jsonify({'success': 'true', 'message': 'User created successfully'}), 201
 
-@main.route('/profile')
+@main.route('/profile', methods=['GET'])
 @jwt_required()
+@cross_origin(origin='https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev')
 def my_profile():
+    print("Profile route hit")
+    print("Headers: ", request.headers)
+    current_user_id = get_jwt_identity()
+    print("Current User ID: ", current_user_id)
+    user = User.query.filter_by(id=current_user_id).first()
+
+    if not user:
+        return jsonify({'success': 'false', 'message': 'User not found'}), 404
+
     response_body = {
-        "name": "Nagato",
-        "about" :"Hello! I'm a full stack developer that loves python and javascript"
+        "name": user.username,
+        "email": user.email
+        
     }
 
-    return response_body
+    return jsonify(response_body), 200
+

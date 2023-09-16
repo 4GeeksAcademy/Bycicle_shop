@@ -14,9 +14,11 @@ const Profile = () => {
   const [showClass3, setShowClass3] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
+  const token = localStorage.getItem('access_token');
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
+    console.log(localStorage)
+    // const token = localStorage.getItem('access_token');
     if (!token) {
       navigate('/login');
       return;
@@ -25,31 +27,29 @@ const Profile = () => {
     // Automatically fetch data when component mounts
     getData(token);
   }, []);
+  // fetch profile
   function getData() {
+    console.log("getData called with token:", token);  
     axios({
       method: "GET",
-      url: "/profile",
+      url: "https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/profile",
       headers: {
-        Authorization: "Bearer " + props.token,
+        //Authorization: "Bearer " + token, 
+        Authorization: `Bearer ${token}`
       },
     })
-      .then((response) => {
+    .then((response) => {
         const res = response.data;
-        res.access_token && props.setToken(res.access_token);
-        setProfileData({
-          profile_name: res.name,
-          about_me: res.about,
-        });
-      })
-      .catch((error) => {
+        console.log("Profile Data:", res); 
+        actions.setUserProfile(res);  
+    })
+    .catch((error) => {
+        console.error("An error occurred in getData:", error);  
         if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          console.log("Error details:", error.response);  
         }
-      });
+    });
   }
-
   return (
     <div className="container-fluid my-5">
       <div className="row">
@@ -97,7 +97,6 @@ const Profile = () => {
           <div className="order">
             <h4>Personal Data</h4>
             <div className="details-data">
-              <p>Full Name: {store.user.fullName} </p>
               <p>Username: {store.user.username} </p>
               <p>Email: {store.user.email} </p>
             </div>
