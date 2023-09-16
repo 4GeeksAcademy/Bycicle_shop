@@ -106,12 +106,6 @@ export const Terms= () => {
                     <strong>Warehouse Address:</strong> No. 999 West Wen Yi Road, Yuhang District, Hangzhou, Zhejiang, China
                 </p>
             </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
         </div>   
 	);
 };
