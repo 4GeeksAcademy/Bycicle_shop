@@ -146,7 +146,7 @@ export const Navbar = () => {
                   <Link className="link-collapse" to="/">
                     <i className="icon fa-solid fa-magnifying-glass"></i> Search
                   </Link>
-                  <Link className="link-collapse" to="/">
+                  <Link className="link-collapse" to="/login">
 				  	        Login
                   </Link>
                   <Link className="link-collapse" to="/signup">
