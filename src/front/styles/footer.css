@@ -2,11 +2,11 @@
     background-color: #484545;
     color: black;
     height: 10vh;
+    width: 100%;
     padding-left: 5vh;
     padding-right: 5vh;
     justify-content: space-around;
     align-items: center;
-    position: inherit;
 }
 .link {
     color: black;

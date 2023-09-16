@@ -4,9 +4,9 @@ import "../../styles/terms.css";
 export const Terms= () => {
 
 	return (
-		<div className="container my-container">
+		<div className="min-height-100 container my-container">
             <br/> 
-            <h1>
+            <h1 className="title">
                 Terms and Conditions
             </h1>
             <br/>
