@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/signup.css";
+//import "../../styles/signup.css";
 
 export const Signup = () => {
     const { actions } = useContext(Context);
@@ -53,7 +53,7 @@ export const Signup = () => {
                 <input className="control" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 <br />
                 <br />
-                <input className="control" type="password" placeholder="Confirm Passsword" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                <input className="control" type="password" placeholder="Confirm Password" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 </div>
                 <br />
                 <div className="form-check">
