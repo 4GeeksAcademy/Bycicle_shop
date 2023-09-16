@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import ScrollToTop from "./component/scrollToTop";
+import { ArrowToTop } from "./component/arrowToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
 import { Signup } from "./pages/signup";
+import { AboutUs } from "./pages/aboutus";
+import { ContactUs } from "./pages/contactus";
 import { Terms } from "./pages/terms";
 import injectContext from "./store/appContext";
 
@@ -32,6 +35,8 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Signup />} path="/signup" />
+                        <Route element={<AboutUs />} path="/aboutus" />
+                        <Route element={<ContactUs />} path="/contactus" />
                         <Route element={<Terms />} path="/terms" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<ProfileRedirect />} path="/profile" />
@@ -45,6 +50,7 @@ const Layout = () => {
                         <Route element={<ShoppingCart/>} path="/shoppingCart/:orders/:id" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
+                    <ArrowToTop />
                     <Footer />
                 </ScrollToTop>
             </BrowserRouter>

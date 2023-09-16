@@ -5,7 +5,7 @@ import { serverURL } from "../config";
 import { Link, useNavigate } from "react-router-dom";
 
 
-function Login(props) {
+export function Login (props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailFlag, setEmailFlag] = useState(false);
@@ -107,7 +107,7 @@ function Login(props) {
     event.preventDefault();
   }
   return (
-    <section className="bg-danger">
+    <section className="container-fluid min-height-100 ">
       <h1 className="pb-2 text-white pt-2">Login</h1>
       <div className="container pb-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
@@ -207,4 +207,4 @@ function Login(props) {
     </section>
   );
 }
-export default Login;
+
