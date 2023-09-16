@@ -1,6 +1,5 @@
 import React, {  useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
 
 export const ShoppingCartThree = (props) => {
     const { store } = useContext(Context);
@@ -80,26 +79,16 @@ export const ShoppingCartThree = (props) => {
 									<p>(includes VAT)</p>
 								</div>
 							</div>
-							<br />
-							<br />
 						</div>
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
 				</div>		
 				<div className="last-ship row">
 					<div className="btn-shipping col-6" >
-						<Link to="/shoppingCart">
 							<button className="btn-Check" type="submit" onClick={() => {
 								// Call the callback function passed from the parent component
 								props.onClick();
 							}}>
 								Continue to payment
 							</button>
-						</Link>
 					</div>	
 					<div className="return-second col-6">
 						<div className="return-second" onClick={() => { props.onPreviousClick()}} >

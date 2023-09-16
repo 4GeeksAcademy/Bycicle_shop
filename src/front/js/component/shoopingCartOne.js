@@ -91,14 +91,13 @@ export const ShoppingCartOne = (props) => {
 						<textarea className="form-control mt-2" id="exampleFormControlTextarea1" rows="4"  value={textarea} onChange={(e) => setTextarea(e.target.value)}></textarea>
 					</div>
 					<div className=" form-check cart-form-check mt-2">
-						<input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+						<input className="ship-check-input form-check-input" type="checkbox" value="" id="flexCheckDefault" />
 						<label className="form-check-label my-form-check-label">
 							I approve terms and conditions
 						</label>
 					</div>
 				</form>
 				<div className="btn-set-check col-sm-6 col-md-6 col-lg-6">
-				<Link to="/shoppingCart">
 					<button
 						className="btn-Check col-sm-6 col-md-6 col-lg-12 mb-3"
 						type="submit"
@@ -109,13 +108,10 @@ export const ShoppingCartOne = (props) => {
 					>
 						Check Out
 					</button>
-				</Link>
 				<Link to="/">
 					<button className="btn-Check col-sm-6 col-md-6 col-lg-12" type="submit">Continue Shopping</button>
 				</Link>
 				</div>
-				<br/>
-				<br/>
 			</div>
 		</div>
 	);

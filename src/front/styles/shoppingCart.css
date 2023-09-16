@@ -117,6 +117,9 @@
     padding: 0;
     justify-content: end;
 }
+.return-second {
+    cursor: pointer;
+}
 .shipping-container {
    color: black;
 }
@@ -164,6 +167,9 @@
     padding: 5px;
 }
 .ship-check-input {
+    background-color: #484545;
+}
+.ship-check-radio {
     background-color: white;
     border: solid 1px black;
 }
@@ -172,6 +178,7 @@
     justify-content: space-between;
 }
 .last-ship {
+    margin-top: 35vh;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -179,22 +186,22 @@
 }
 .shipping-dropdown-toggle {
     border: none;
-    padding: 0;
-    background-color: #ffffff;
+    background-color: white;
 }
 .shipping-dropdown-toggle::after {
+    outline: none;
     border: 0 !important;
 }
 .shipping-collapse {
     background-color: #B1AFAF;
-    z-index: 3;
+    position: sticky;
 }
 .shipping-collapse-payment {
     height: 60px;
     justify-content: center;
 }
 .shipping-form {
-    font-size: 16px;
+    font-size: 8px;
 }
 .thanks {
     background-image: url(https://images.pexels.com/photos/386024/pexels-photo-386024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
@@ -206,6 +213,7 @@
     width: 100%;
     height: 80vh;
     margin: auto;
+    padding-top: 30vh;
 }
 .thanks-message {
     text-align: center;
@@ -216,7 +224,7 @@
     font-size: 20px;
     font-weight: 500;
     width: 50%;
-    margin: 170px 0 0 210px;
+    margin: auto;
 }
 /*css to make the site responsive*/
 @media screen and (max-width: 500px) {

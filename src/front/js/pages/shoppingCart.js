@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShoppingCartOne } from "../component/shoopingCartOne";
 import { ShoppingCartTwo } from "../component/shoopingCartTwo";
 import { ShoppingCartThree } from "../component/shoopingCartThree";
@@ -20,8 +20,12 @@ export const ShoppingCart = () => {
     }
   };
 
+  useEffect(() => {
+    setShowShoppingCart('cartOne')
+  }, [])
+
   return (
-    <div className="container">
+    <div className="min-height-100 container">
       {showShoppingCart === 'cartOne' ? (
         <ShoppingCartOne onClick={() => setShowShoppingCart('cartTwo')}  />
       ) : null}

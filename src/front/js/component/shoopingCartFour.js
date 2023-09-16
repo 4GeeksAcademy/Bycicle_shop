@@ -1,6 +1,5 @@
 import React, {  useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
 
 export const ShoppingCartFour = (props) => {
     const { store, actions } = useContext(Context);
@@ -32,7 +31,7 @@ export const ShoppingCartFour = (props) => {
 							aria-expanded="false"
 							aria-controls="collapseExample"
 						>
-							<input className="ship-check-input" type="radio" name="flexRadioDefault" />
+							<input className="ship-check-radio" type="radio" name="flexRadioDefault" />
 						</button>
 					</div>
 					<div className="col-11">
@@ -71,7 +70,7 @@ export const ShoppingCartFour = (props) => {
 											aria-expanded="false"
 											aria-controls="collapseExample"
 										>
-											<input className="ship-check-input" type="radio" name="flexRadioDefault" />
+											<input className="ship-check-radio" type="radio" name="flexRadioDefault" />
 										</button>
 									</div>
 									<div className="col-11">
@@ -103,7 +102,7 @@ export const ShoppingCartFour = (props) => {
 											aria-expanded="false"
 											aria-controls="collapseExample"
 										>
-											<input className="ship-check-input" type="radio" name="flexRadioDefault" />
+											<input className="ship-check-radio" type="radio" name="flexRadioDefault" />
 										</button>
 									</div>
 									<div className="col-11">
@@ -134,7 +133,7 @@ export const ShoppingCartFour = (props) => {
 											aria-expanded="false"
 											aria-controls="collapseExample"
 										>
-											<input className="ship-check-input" type="radio" name="flexRadioDefault" />
+											<input className="ship-check-radio" type="radio" name="flexRadioDefault" />
 										</button>
 									</div>
 									<div className="col-11">
@@ -165,7 +164,7 @@ export const ShoppingCartFour = (props) => {
 											aria-expanded="false"
 											aria-controls="collapseExample"
 										>
-											<input className="ship-check-input" type="radio" name="flexRadioDefault" />
+											<input className="ship-check-radio" type="radio" name="flexRadioDefault" />
 										</button>
 									</div>
 									<div className="col-11">
@@ -196,7 +195,7 @@ export const ShoppingCartFour = (props) => {
 											aria-expanded="false"
 											aria-controls="collapseExample"
 										>
-											<input className="ship-check-input" type="radio" name="flexRadioDefault" />
+											<input className="ship-check-radio" type="radio" name="flexRadioDefault" />
 										</button>
 									</div>
 									<div className="col-11">
@@ -348,14 +347,12 @@ export const ShoppingCartFour = (props) => {
 				</div>		
 				<div className="last-ship row mt-3">
 					<div className="btn-shipping col-6 m-0" >
-						<Link to="/shoppingCart">
 						<button className="btn-Check" type="submit" onClick={() => {
 									// Call the callback function passed from the parent component
 									props.onClick();
 								}}>
 										Pay
 							</button>
-						</Link>
 					</div>	
 					<div className="return-second col-6">
 						<div className="return-second" onClick={() => props.onPreviousClick()} >
@@ -363,12 +360,6 @@ export const ShoppingCartFour = (props) => {
 						</div>
 					</div>  
 				</div>
-				<br />
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
 		</div>
 			);
 		};

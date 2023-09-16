@@ -15,7 +15,7 @@ export const Footer = () => {
   };
 
 	return (
-		<div className="container-fluid big-box fixed-bottom d-flex">
+		<div className="container-fluid big-box d-flex">
 			<div className="col-sm-8 col-md-8 col-lg-9">
 				<div className="develop">
 					<div>

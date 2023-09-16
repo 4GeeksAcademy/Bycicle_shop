@@ -16,7 +16,7 @@ export const ResetPassword = () => {
   };
 
   return (
-        <div className="container reset-big-box">
+        <div className="min-height-100 container reset-big-box">
          {/* Modal */}
           {showModal && (
                   <div className="my-modal">
