@@ -6,8 +6,6 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Signup } from "./pages/signup";
 import { Terms } from "./pages/terms";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -15,7 +13,7 @@ import { Footer } from "./component/footer";
 import Login from "./pages/login"
 import Product from "./pages/products";
 import Profile from "./pages/profile";
-import ResetPassword from "./pages/resetPassword";
+import {ResetPassword} from "./pages/resetPassword";
 import ProductDetail from "./pages/product_detail";
 import ProfileRedirect from './component/ProfileRedirect';
 import { ShoppingCart } from "./pages/shoppingCart";
@@ -33,7 +31,6 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Terms />} path="/terms" />
                         <Route element={<Login />} path="/login" />
@@ -46,7 +43,6 @@ const Layout = () => {
                         <Route element={<ResetPassword/>} path="/resetPassword/:id" />
                         <Route element={<ShoppingCart/>} path="/shoppingCart" />
                         <Route element={<ShoppingCart/>} path="/shoppingCart/:orders/:id" />
-                        <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

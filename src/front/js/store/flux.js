@@ -1,4 +1,5 @@
 import { serverURL } from "../config";
+import { useStoreActions } from '../pages/product_detail';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
