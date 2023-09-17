@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShoppingCartOne } from "../component/shoopingCartOne";
 import { ShoppingCartTwo } from "../component/shoopingCartTwo";
 import { ShoppingCartThree } from "../component/shoopingCartThree";
@@ -19,6 +19,10 @@ export const ShoppingCart = () => {
         setShowShoppingCart('cartThree');
     }
   };
+
+  useEffect(() => {
+    setShowShoppingCart('cartOne')
+  }, [])
 
   return (
     <div className="container">

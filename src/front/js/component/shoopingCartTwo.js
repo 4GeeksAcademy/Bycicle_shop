@@ -118,6 +118,7 @@ export const ShoppingCartTwo = (props) => {
 							</Link>
 							<br/>
 						<br/>
+						<br/><br/>
 						</div>	
 				</div>
 				<br/>

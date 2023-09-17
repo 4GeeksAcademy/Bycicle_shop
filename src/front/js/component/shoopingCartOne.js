@@ -28,7 +28,7 @@ export const ShoppingCartOne = (props) => {
     };
 
 	return (
-		<div className="container">
+		<div className="container min-height-100">
 			<br />
 			<div>
               	<h1 className="cart-title">Shopping Cart</h1>

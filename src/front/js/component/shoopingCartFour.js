@@ -20,7 +20,7 @@ export const ShoppingCartFour = (props) => {
 		<div className="shipping-main row mt-3">
 			<div className="col-6">
 				<br />
-				<div className="shipping-container my-3">
+				<div className="shipping-container">
 					<h1>Payment method</h1>
 					<div className="shipping-check row mt-5">
 					<div className="col-1">
@@ -317,7 +317,7 @@ export const ShoppingCartFour = (props) => {
 					</div>
 					</div>	
 				<div className="col-6">
-						<div className="shipping-order row">
+						<div className="shipping-order row m-0">
 							<h2>Your order</h2>
 							<div className="shipping-details shipping-details-title row">
 								<p className="col-6">Product</p>
@@ -357,8 +357,8 @@ export const ShoppingCartFour = (props) => {
 							</button>
 						</Link>
 					</div>	
-					<div className="return-second col-6">
-						<div className="return-second" onClick={() => props.onPreviousClick()} >
+					<div className="return-shipping col-6">
+						<div onClick={() => props.onPreviousClick()} >
 							<i className="fa-solid fa-arrow-left"></i> Previous Page
 						</div>
 					</div>  

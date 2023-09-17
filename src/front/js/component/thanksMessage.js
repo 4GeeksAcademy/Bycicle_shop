@@ -4,7 +4,11 @@ import { Context } from "../store/appContext";
 export const ThanksMessage = () => {
     const { store, actions } = useContext(Context);
 
-
+ //useEfect /
+ //navigate to main page
+ //useEffect(() => {
+  //  setTimeout(() => { navigate('/') }, 3000)
+//}, [])
 	return (
 		<div className="container">
 			<div className="thanks">

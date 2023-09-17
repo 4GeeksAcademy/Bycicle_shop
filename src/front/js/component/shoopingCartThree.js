@@ -18,7 +18,7 @@ export const ShoppingCartThree = (props) => {
 		<div className="row mt-3">
 			<div className="col-6">
 				<br />
-				<div className="shipping-container my-3">
+				<div className="shipping-container m-0'">
 					<h1>Shipping method</h1>
 					<div className="shipping-check row mt-5">
 						<div className="col-1">
@@ -92,16 +92,14 @@ export const ShoppingCartThree = (props) => {
 				</div>		
 				<div className="last-ship row">
 					<div className="btn-shipping col-6" >
-						<Link to="/shoppingCart">
 							<button className="btn-Check" type="submit" onClick={() => {
 								// Call the callback function passed from the parent component
 								props.onClick();
 							}}>
 								Continue to payment
 							</button>
-						</Link>
 					</div>	
-					<div className="return-second col-6">
+					<div className="return-shipping col-6">
 						<div className="return-second" onClick={() => { props.onPreviousClick()}} >
 							<i className="fa-solid fa-arrow-left"></i> Previous Page
 						</div>
