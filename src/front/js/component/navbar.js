@@ -20,10 +20,10 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
       <div className="container-fluid navbar-container d-flex">
-	  		<Link to="/">
+	  		<Link className="col-sm-1 col-md-1 col-lg-4 col-xl-4" to="/">
           <img src={logo} className="img" alt="logo" />		
         </Link>
-        <div className="menu">
+        <div className="menu col-sm-11 col-md-11 col-lg-8 col-xl-8">
           <div className="dropdown mb-3 language">
             <button
               className="btnlanguage dropdown-toggle"

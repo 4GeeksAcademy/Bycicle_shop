@@ -1,0 +1,36 @@
+
+  .parallax-description {
+    padding-top: 20px;
+  }
+  .parallax-title {
+    color: #7C0514;
+    font-weight: 500;
+    border-bottom: solid 1px #7C0514;
+    width: 17vh;
+    padding: 0 10px;
+  }
+
+/* Turn off parallax scrolling for all tablets and phones, because this property does not work in all devices. Increase/decrease the pixels if needed */
+@media only screen and (max-device-width: 1366px) {
+    .parallax1 {
+        background-attachment: scroll;
+    }
+    .parallax2 {
+        background-attachment: scroll;
+    }
+    .parallax3 {
+        background-attachment: scroll;
+    }
+    .parallax4 {
+        background-attachment: scroll;
+    }
+    .parallax5 {
+        background-attachment: scroll;
+    }
+    .parallax6 {
+        background-attachment: scroll;
+    }
+    .parallax7 {
+        background-attachment: scroll;
+    }
+}

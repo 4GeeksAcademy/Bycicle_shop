@@ -17,7 +17,7 @@ export const ShoppingCartThree = (props) => {
 		<div className="row mt-3">
 			<div className="col-6">
 				<br />
-				<div className="shipping-container my-3">
+				<div className="shipping-container m-0'">
 					<h1>Shipping method</h1>
 					<div className="shipping-check row mt-5">
 						<div className="col-1">
@@ -90,7 +90,7 @@ export const ShoppingCartThree = (props) => {
 								Continue to payment
 							</button>
 					</div>	
-					<div className="return-second col-6">
+					<div className="return-shipping col-6">
 						<div className="return-second" onClick={() => { props.onPreviousClick()}} >
 							<i className="fa-solid fa-arrow-left"></i> Previous Page
 						</div>

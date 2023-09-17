@@ -1,8 +1,12 @@
 body {
     background-color: #7C0514;
+<<<<<<< HEAD
     margin: 0;
     -webkit-font-smothing: antialiased;
     -moz-osx-font-smothing: grayscale;
+=======
+    
+>>>>>>> ab14ff5 (adding the scrooling)
 }
 .min-height-100 {
     min-height: 100vh;

@@ -73,7 +73,7 @@ li {
     background-color: black;
 }
 .img {
-    margin-top: 5px;
+    margin-top: 2px;
     height:180px;
     width: 200px; 
 }
@@ -94,8 +94,8 @@ li {
     .my-collapse {
         background-color: #7C0514;
         border-radius: 6px;
-        width: 28vh;
-        height: 32vh;
+        width: 24vh;
+        height: 23vh;
         display: inline-block;
         position: fixed;
     }
@@ -126,14 +126,24 @@ li {
         margin-left: 2rem;
         font-size: xx-small;
     } 
+    .img {
+        height: 100px;
+        width: 100px;
+    }
+    .my-collapse {
+        height: 27vh;
+    }
 }
 @media screen and (max-width: 375px) {
     .navbar-container {
         display: flex;
         flex-wrap: nowrap;
     }
-    .img {
-        height: 100px;
-        width: 100px;
+    .my-collapse {
+        font-size: small;
+        height: 26vh;
+    }
+    .my-btn {
+        font-size: small;
     }
 }

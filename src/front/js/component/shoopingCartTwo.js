@@ -114,6 +114,13 @@ export const ShoppingCartTwo = (props) => {
 								}}>
 									Continue Shipping
 								</button>
+<<<<<<< HEAD
+=======
+							</Link>
+							<br/>
+						<br/>
+						<br/><br/>
+>>>>>>> ab14ff5 (adding the scrooling)
 						</div>	
 				</div>
 				<br/>

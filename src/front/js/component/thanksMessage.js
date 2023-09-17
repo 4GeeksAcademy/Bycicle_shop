@@ -6,6 +6,7 @@ export const ThanksMessage = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate()
 
+<<<<<<< HEAD
     //function to return to main page after showing the thanks messsage after 4 seconds
     useEffect(() => {
         setTimeout(() => {
@@ -13,6 +14,13 @@ export const ThanksMessage = () => {
         }, 4000)
       }, [])
 
+=======
+ //useEfect /
+ //navigate to main page
+ //useEffect(() => {
+  //  setTimeout(() => { navigate('/') }, 3000)
+//}, [])
+>>>>>>> ab14ff5 (adding the scrooling)
 	return (
 		<div className="container">
 			<div className="thanks">
