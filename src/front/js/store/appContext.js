@@ -29,7 +29,28 @@ const injectContext = PassedComponent => {
 			 * you should do your ajax requests or fetch api requests here. Do not use setState() to save data in the
 			 * store, instead use actions, like this:
 			 **/
-			 // <---- calling this function from the flux.js actions
+			// <---- calling this function from the flux.js actions
+			const token = localStorage.getItem('access_token');
+			if (token) {
+				console.log("Found token in local storage:", token);  
+
+				state.actions.getUserProfile(token).then(profile => {
+					if (profile) {
+						console.log("Profile fetched successfully:", profile);
+					} else {
+						console.log("Received null or undefined profile");  
+					}
+				}).catch(error => {
+					console.error("An error occurred while fetching the profile:", error);
+					if (error.response) {
+					  console.error("Error Status:", error.response.status);
+					  console.error("Error Data:", error.response.data);
+					}
+					console.error("Error details:", error.response || error.message || error);
+				  })
+				  ;
+			}
+
 		}, []);
 
 		// The initial value for the context is not null anymore, but the current state of this component,
