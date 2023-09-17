@@ -19,7 +19,7 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
-      <div className="container-fluid navbar-container d-flex">
+      <div className="container-fluid navbar-container row d-flex">
 	  		<Link to="/">
           <img src={logo} className="img" alt="logo" />		
         </Link>
@@ -65,12 +65,12 @@ export const Navbar = () => {
           </button>
           <div className={`collapse my-collapse navbar-collapse justify-content-end dropdown ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
             <div className="navbar-nav ">
-              <Link className="link-collapse" to="/">
+              <Link className="link-collapse" to="/contactus">
                 <button className="btn my-btn toggler">
                   Contact Us
                 </button>
               </Link>
-              <Link className="link-collapse" to="/">
+              <Link className="link-collapse" to="/aboutus">
                 <button className="btn my-btn toggler">
                   About Us
                 </button>
@@ -133,7 +133,7 @@ export const Navbar = () => {
                   <Link className="link-collapse" to="/">
                     <i className="icon fa-solid fa-magnifying-glass"></i>
                   </Link>
-                  <Link className="link-collapse" to="/profile">
+                  <Link className="link-collapse" to="/login">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
                   <Link className="link-collapse" to="/ShoppingCart">

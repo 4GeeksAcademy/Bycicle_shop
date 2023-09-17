@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -9,7 +8,6 @@ export const Home = () => {
 		<div className="min-height-100 text-center mt-5">
 			<h1>Hello Rigo!!</h1>
 			<p>
-				<img src={rigoImageUrl} />
 			</p>
 			<div className="alert alert-info">
 				{store.message || "Loading message from the backend (make sure your python backend is running)..."}

@@ -1,160 +1,81 @@
-import { useState } from "react";
-import axios from "axios";
-// import Button from "react-bootstrap/Button";
-// import Col from "react-bootstrap/Col";
-// import Form from "react-bootstrap/Form";
-// import Row from "react-bootstrap/Row";
-// import { Link } from "react-router-dom";
-function Login(props) {
-  const [loginForm, setloginForm] = useState({
-    email: "",
-    password: "",
-  });
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
+import "../../styles/contactus.css";
 
-  function logMeIn(event) {
-    axios({
-      method: "POST",
-      url: "/token",
-      data: {
-        email: loginForm.email,
-        password: loginForm.password,
-      },
-    })
-      .then((response) => {
-        props.setToken(response.data.access_token);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
+export const ContactUs = () => {
+  const { actions } = useContext(Context);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [issue, setIssue] = useState("");
+  const [description, setDescription] = useState("");
 
-    setloginForm({
-      email: "",
-      password: "",
-    });
+  //function to send the data form the input to the database
+  const handleClick = (event) => {
+      // prevent the default form submission behavior
+      event.preventDefault();
+      actions.signup(fullName, username, email, password, subscribe, privacy) 
+  };
 
-    event.preventDefault();
-  }
-
-  function handleChange(event) {
-    const { value, name } = event.target;
-    setloginForm((prevNote) => ({
-      ...prevNote,
-      [name]: value,
-    }));
-  }
-  const gotoRegister = () => {};
+  //function to reset the form
+  const resetForm = () => {
+      setFullName("");
+      setEmail("");
+      setPassword("");
+      setSubscribe(false);
+      setPrivacy(false);
+  };
   return (
-    <section class="bg-danger">
-      <h1 class="pb-2 text-white pt-2">Send us a message</h1>
-      <h5 class=" text-white pt-2">
-        We'd happy to answer your questions! Fill out the form bellow with your
-        contact details and contact us.
-      </h5>
-      <div class="container py-2 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card shadow-2-strong">
-              <div class="card-body p-4 text-center">
-                <div class="form-outline mb-2">
-                  <label
-                    class="form-label d-flex justify-content-start"
-                    for="fullname"
-                  >
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="fullname"
-                    class="form-control form-control-lg"
-                  />
-                </div>
-                <div class="form-outline mb-2">
-                  <label
-                    class="form-label d-flex justify-content-start"
-                    for="typeEmailX-2"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="typeEmailX-2"
-                    class="form-control form-control-lg"
-                  />
-                </div>
-                <div class="form-outline mb-2">
-                  <label
-                    class="form-label d-flex justify-content-start"
-                    for="phone"
-                  >
-                    Phone
-                  </label>
-                  <input
-                    type="text"
-                    id="phone"
-                    class="form-control form-control-lg"
-                  />
-                </div>
-                <div class="form-outline mb-2">
-                  <label
-                    class="form-label d-flex justify-content-start"
-                    for="phone"
-                  >
-                    The issue/problem
-                  </label>
-                  <input
-                    type="text"
-                    id="phone"
-                    class="form-control form-control-lg"
-                  />
-                </div>
-                <div class="form-outline mb-2">
-                  <label
-                    class="form-label d-flex justify-content-start"
-                    for="phone"
-                  >
-                    Description
-                  </label>
-                  <textarea
-                    type="text"
-                    rows={2}
-                    id="phone"
-                    class="form-control form-control-lg"
-                  />
-                </div>
-                <div className="d-flex justify-content-center">
-                  <button
-                    class="btn btn-primary btn-lg btn-block"
-                    type="submit"
-                  >
-                    Submit
-                  </button>
-                </div>
+          <div className="min-height-100 container-fluid">
+            <div className="text-center m-2">
+              <h1 className="title-contactus">Send us a message</h1>
+              <h5 className="subtitle-contactus">
+                We'd happy to answer your questions! Fill out the form bellow with your
+                contact details and contact us.
+              </h5>
+              <br />
+              <form className="form my-form" onSubmit={handleClick}>
+                  <div>
+                  <br />
+                  <input className="control-contact" type="text" placeholder="Full Name" aria-label="default input example" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                  <br />
+                  <br />
+                  <input className="control-contact" type="text" placeholder="Email" aria-label="default input example" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <br />
+                  <br />
+                  <input className="control-contact" type="text" placeholder="Phone" aria-label="default input example" value={phone} onChange={(e) => setPhone(e.target.value)}/>
+                  <br />
+                  <br />
+                  <input className="control-contact" type="text" placeholder="The issue/problem" aria-label="default input example" value={issue} onChange={(e) => setIssue(e.target.value)} />
+                  <br />
+                  <br />
+                  <textarea className="textarea-contact" name="story" rows="4" placeholder="Description"  value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                  </div>
+                  <div className="row me-3">
+                      <div >
+                          <button className="btn-contact" onClick={resetForm} >Send</button>
+                      </div>
+                  </div>
+              </form>
               </div>
-            </div>
-          </div>
+              <br/ >
+              <br/ >
+              <div>
+                <h1 className="title-contactus text-center">Our Contacts</h1>
+                <div className="our-contacts"> 
+                  <p>
+                    <b>Email:</b> aleksander.kleinn@gmail.com / mariana.placito@gmail.com
+                  </p>
+                  <p>
+                    <b>Telephone:</b> *************
+                  </p>
+                  <p>
+                    <b>warehouse address:</b>{" "}
+                    jNo. 999 West Wen Yi Road, Yuhang District, Hangzhou, Zhejiang, China
+                  </p>
+              </div>
+              </div>
+            <br/ >
         </div>
-      </div>
-      <h1 class="pb-2 text-white pt-2">Our Contacts</h1>
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-          <p class=" text-dark pt-2 d-flex justify-content-start">
-            <b>Email:</b> bicycle@shop.com
-          </p>
-          <p class=" text-dark pt-2 d-flex justify-content-start">
-            <b>Telephone:</b> *************
-          </p>
-          <p class=" text-dark pt-2 d-flex justify-content-start">
-            <b>warehouse address:</b>{" "}
-            wehwrthjsrhsdrhqersrtjdtykdrthjsrthsrhsrehszdfg
-          </p>
-        </div>
-      </div>
-    </section>
   );
 }
-
-export default Login;

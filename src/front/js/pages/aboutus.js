@@ -1,81 +1,37 @@
-import { useState } from "react";
-import axios from "axios";
-// import Button from "react-bootstrap/Button";
-// import Col from "react-bootstrap/Col";
-// import Form from "react-bootstrap/Form";
-// import Row from "react-bootstrap/Row";
-// import { Link } from "react-router-dom";
-function Login(props) {
-  const [loginForm, setloginForm] = useState({
-    email: "",
-    password: "",
-  });
+import React from "react";
+import desk from "../../img/desk.jpg";
+import bike11 from "../../img/bike11.jpg";
+import "../../styles/aboutus.css";
 
-  function logMeIn(event) {
-    axios({
-      method: "POST",
-      url: "/token",
-      data: {
-        email: loginForm.email,
-        password: loginForm.password,
-      },
-    })
-      .then((response) => {
-        props.setToken(response.data.access_token);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
+export const AboutUs = () => {
 
-    setloginForm({
-      email: "",
-      password: "",
-    });
-
-    event.preventDefault();
-  }
-
-  function handleChange(event) {
-    const { value, name } = event.target;
-    setloginForm((prevNote) => ({
-      ...prevNote,
-      [name]: value,
-    }));
-  }
-  const gotoRegister = () => {};
-  return (
-    <section class="vh-100 bg-danger">
-      <div class="container py-5 h-100">
-        <div class="row d-flex align-items-center justify-content-center h-100">
-          <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-            <h1>About Us</h1>
-            <hr />
-            <p class="text-start fw-bold mx-3 mb-0 text-white">
-              ILorem ipsum dolor sit amet, consectetur adipiscing elit. In erat
-              quam, pellentesq ILorem ipsum dolor sit amet, consectetur
-              adipiscing elit. In erat quam, pellentesq ILorem ipsum dolor sit
-              amet, consectetur adipiscing elit. In erat quam, pellentesq ILorem
-              ipsum dolor sit amet, consectetur adipiscing elit. In erat quam,
-              pellentesq ILorem ipsum dolor sit amet, consectetur adipiscing
-              elit. In erat quam, pellentesq ILorem ipsum dolor sit amet,
-              consectetur adipiscing elit. In erat quam, pellentesq
-            </p>
-          </div>
-          <div class="col-md-8 col-lg-7 col-xl-6">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-              class="img-fluid"
-              alt="Phone image"
-            />
+    return (
+        <div className="min-height-100 container aboutus-container">
+          <div className="row d-flex align-items-center justify-content-center ">
+            <div className="col-6">
+                <h1 className="aboutus-title" >About Us</h1>
+              <div className="about-line"></div>
+              <p className="text-start mx-3 mb-0 text-white">
+              lLorem ipsum dolor sit amet, consectetur adipiscing elit. In erat quam, pellentesque vitae ultricies et, dapibus a magna. Duis et lectus nec sem rhoncus vehicula. Aliquam malesuada erat eget iaculis volutpat. Donec lobortis, urna et accumsan varius, nibh nulla feugiat odio, sed ultrices arcu elit vel magna. Nulla vitae pellentesque purus, vitae pellentesque nisl. Praesent ligula nibh, rutrum quis tellus et, tempus porta orci. Nulla lacus sapien, fringilla eget viverra in, posuere sit amet nulla. Donec posuere ligula justo, ac cursus nisl dictum eget.
+              </p>
+            </div>
+            <div className="col-6 p-5">
+              <img
+                src={bike11}
+                className="aboutus-img-1"
+                alt="Bike image"
+              />
+              <img
+                src={desk}
+                className="aboutus-img-2"
+                alt="Desk image"
+              />
+              <div
+                className="aboutus-square"
+                alt="Black Sqare">
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
   );
-}
-
-export default Login;
+};
