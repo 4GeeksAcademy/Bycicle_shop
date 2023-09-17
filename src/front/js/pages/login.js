@@ -62,7 +62,8 @@ function Login(props) {
     // Handle the error as needed
   };
 
-  function login(event) {
+  async function login(event) {
+    event.preventDefault();
     let flag = true;
     if (email === "") {
       flag = false;
@@ -80,33 +81,36 @@ function Login(props) {
       email: email,
       password: password,
     };
-    axios
-      .post(`${serverURL}/login`, payload)
-      .then((response) => {
-        console.log(response);
-        if (response.data.success === "true") {
-          // Store the received access token in local storage
-          localStorage.setItem('access_token', response.data.access_token);
-          console.log("Login successful");
-          
-          console.log(localStorage.getItem('access_token'));
-          
-          console.log("Navigating to profile"); // to check if Navigation function is called
+    try {
+      const response = await axios.post(`${serverURL}/login`, payload);
+      console.log(response);
+  
+      if (response.data.success === "true") {
+        // Store access token in local storage
+        localStorage.setItem('access_token', response.data.access_token);
+        console.log("Login successful");
+  
+        console.log(localStorage.getItem('access_token'));
+  
+        console.log("Navigating to profile"); // to check if Navigation function is called
+  
+        if (localStorage.getItem('access_token')) {
           navigate("/profile");
+          //window.location.reload();
         } else {
-          setAPIFlag(true);
-          setMessage(response.data.msg);
-          console.log("Login failed");
+          console.log("Token not set");
         }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        }
-      });
-    event.preventDefault();
-  }
-  return (
+      } else {
+        setAPIFlag(true);
+        setMessage(response.data.msg);
+        console.log("Login failed");
+      }
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response);
+      }
+    }
+  }  return (
     <section className="bg-danger">
       <h1 className="pb-2 text-white pt-2">Login</h1>
       <div className="container pb-5 h-100">

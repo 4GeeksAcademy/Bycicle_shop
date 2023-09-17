@@ -1,3 +1,4 @@
+
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Order } from "../component/order";
@@ -17,39 +18,49 @@ const Profile = () => {
   const token = localStorage.getItem('access_token');
 
   useEffect(() => {
-    console.log(localStorage)
-    // const token = localStorage.getItem('access_token');
-    if (!token) {
-      navigate('/login');
-      return;
+    const fetchData = async () => {
+      try {
+        const data = await getData(token);
+        console.log("Data fetched:", data);
+      } catch (error) {
+        console.log("An error occurred:", error);
+      }
     }
 
-    // Automatically fetch data when component mounts
-    getData(token);
-  }, []);
-  // fetch profile
-  function getData() {
-    console.log("getData called with token:", token);  
-    axios({
-      method: "GET",
-      url: "https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/profile",
-      headers: {
-        //Authorization: "Bearer " + token, 
-        Authorization: `Bearer ${token}`
-      },
-    })
-    .then((response) => {
-        const res = response.data;
-        console.log("Profile Data:", res); 
-        actions.setUserProfile(res);  
-    })
-    .catch((error) => {
-        console.error("An error occurred in getData:", error);  
-        if (error.response) {
-          console.log("Error details:", error.response);  
-        }
+    fetchData();
+  }, [token]);  // if token changes
+
+  const getData = (token) => {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: "GET",
+        url: "https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/profile",
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      })
+
+
+        .then((response) => {
+          const res = response.data;
+          console.log("Profile Data:", res);
+          console.log('Token in Profile:', token);
+          actions.setUserProfile(res);
+          resolve(res);
+        })
+        .catch((error) => {
+          console.error("An error occurred in getData:", error);
+          if (error.response) {
+            console.log("Error details:", error.response);
+          }
+          reject(error);
+        });
     });
   }
+  console.log("Rendering Profile component");
+  console.log("Current show value:", show);
+  console.log("Current store.user:", store.user);
+  console.log("Current store.orders:", store.orders);
   return (
     <div className="container-fluid my-5">
       <div className="row">
@@ -93,7 +104,7 @@ const Profile = () => {
           </div>
         )}
 
-        {show === 'personal_data' && (
+        {show === 'personal_data' ? (
           <div className="order">
             <h4>Personal Data</h4>
             <div className="details-data">
@@ -101,6 +112,8 @@ const Profile = () => {
               <p>Email: {store.user.email} </p>
             </div>
           </div>
+        ) : (
+          <p>Load the data...</p>
         )}
         {show === 'shipping_data' && (
           <div className="order">
