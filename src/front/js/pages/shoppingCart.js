@@ -25,7 +25,7 @@ export const ShoppingCart = () => {
   }, [])
 
   return (
-    <div className="container">
+    <div className="min-height-100 container">
       {showShoppingCart === 'cartOne' ? (
         <ShoppingCartOne onClick={() => setShowShoppingCart('cartTwo')}  />
       ) : null}

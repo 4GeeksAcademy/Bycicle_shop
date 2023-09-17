@@ -17,7 +17,7 @@ export const Profile = () => {
     }, [params.id, actions]);*/
 
     return (
-        <div className="container-fluid my-5">
+        <div className="min-height-100 container-fluid my-5">
             <div className="row">
                 <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, </h1>
             {show !== 'last_order' &&
