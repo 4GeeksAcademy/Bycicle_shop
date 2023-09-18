@@ -1,9 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
 
 export const Navbar = () => {
+const [searchBar, setSearchBar] = useState(false);
+  /*const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const [combinedAutocompleteData, setCombinedAutocompleteData] = useState([]);
+  const navigate = useNavigate();
+
+  const handleChange = (value) => {
+    setInput(value);
+    if (value.trim() === "") {
+      setCombinedAutocompleteData([]);
+      setShowAutocomplete(false);
+    } else {
+      const fetchCharacters = fetch(`https://www.swapi.tech/api/people?`);
+      const fetchPlanets = fetch(`https://www.swapi.tech/api/planets?`);
+
+      Promise.all([fetchCharacters, fetchPlanets])
+        .then((responses) =>
+          Promise.all(responses.map((response) => response.json()))
+        )
+        .then(([charactersData, planetsData]) => {
+          const combinedData = [
+            ...charactersData.results.filter((result) =>
+              result.name.toLowerCase().includes(value.toLowerCase())
+            ),
+            ...planetsData.results.filter((result) =>
+              result.name.toLowerCase().includes(value.toLowerCase())
+            ),
+          ];
+          setCombinedAutocompleteData(combinedData);
+          console.log(combinedData)
+          setShowAutocomplete(true);
+        })
+        .catch((error) => {
+          console.log("Looks like there was a problem: \n", error);
+        });
+    }
+  };
+
+  const selectedItemType = (item) => {
+    return item.url && item.url.toLowerCase().includes("people")
+      ? "characters"
+      : "planets";
+  };
+
+  const handleSelectAutocomplete = (selectedItem) => {
+    setInput(selectedItem.name);
+    setShowAutocomplete(false);
+    console.log(`/details/${selectedItemType(selectedItem)}/${selectedItem.uid}`)
+    navigate(`/details/${selectedItemType(selectedItem)}/${selectedItem.uid}`);
+  };*/
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
@@ -113,10 +162,15 @@ export const Navbar = () => {
                 </ul>
               </div>
                 <>
-                  <Link className="show-buttons link-collapse" to="/">
+                  <div className="show-buttons link-collapse" onClick={() => setSearchBar(true)}>
                     <i className="icon fa-solid fa-magnifying-glass"></i>
-                  </Link>
-                  <Link className="link-collapse" to="/profile">
+                    {searchBar && ( 
+                      <form className="form-inline search my-2 my-lg-0">
+                        <input className="form-search" type="search" placeholder="&#xe521; Search... " aria-label="Search" />
+                      </form>
+                      )}
+                  </div>
+                  <Link className="show-buttons link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
@@ -125,7 +179,12 @@ export const Navbar = () => {
                 </>
                 <>
                   <Link className="hide-buttons link-collapse" to="/">
-                    <div className="my-hide-buttons">
+                    <div className="my-hide-buttons" onClick={() => setSearchBar(true)}>
+                    {searchBar && ( 
+                      <form className="form-inline search my-2 my-lg-0">
+                        <input className="form-search" type="search" placeholder="&#xe521; Search... " aria-label="Search" />
+                      </form>
+                      )}
                       <i className=" icon fa-solid fa-magnifying-glass"></i> Search
                     </div>
                   </Link>

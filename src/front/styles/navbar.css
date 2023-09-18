@@ -1,6 +1,6 @@
 .navbar-box {
     background-color: #484545;
-    height: 23vh;
+    height: 21vh;
     width: 100%;
     padding-left: 5vh;
     padding-right: 5vh;
@@ -58,6 +58,7 @@ li {
 }
 .show-buttons {
     visibility: visible;
+    cursor: pointer;
 }
 .btnlanguage {
     border-radius: 6px;
@@ -92,7 +93,18 @@ li {
     height:180px;
     width: 200px; 
 }
-
+.search {
+    position: absolute;
+    display:flex;
+}
+.form-search {
+    background-color: white;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: large;
+    border-radius: 36px;
+    padding-left: 10px;
+}
 .custom-dropdown-toggle::after {
     border: 0 !important;
 }
@@ -114,7 +126,7 @@ li {
         background-color: #7C0514;
         border-radius: 6px;
         width: 24vh;
-        height: 24vh;
+        height: 22vh;
         display: inline-block;
         position: fixed;
     }
@@ -157,9 +169,6 @@ li {
         height: 100px;
         width: 100px;
     }
-    .my-collapse {
-        height: 27vh;
-    }
     .menu {
         margin-right: 40px;
     }
@@ -171,7 +180,7 @@ li {
     }
     .my-collapse {
         font-size: small;
-        height: 26vh;
+        height: 25vh;
     }
     .my-btn {
         font-size: small;

@@ -1,33 +1,21 @@
-.parallax1 {
-    background-attachment: scroll;
+.parallax {
+  /* Set a specific height */
+  min-height: 100vh;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.parallax2 {
-    background-attachment: scroll;
-}
-.parallax3 {
-    background-attachment: scroll;
-}
-.parallax4 {
-    background-attachment: scroll;
-}
-.parallax5 {
-    background-attachment: scroll;
-}
-.parallax6 {
-    background-attachment: scroll;
-}
-.parallax7 {
-    background-attachment: scroll;
-}
-  .parallax-description {
-    padding-top: 20px;
-  }
   .parallax-title {
+    text-align: center;
     color: #7C0514;
-    font-weight: 500;
-    border-bottom: solid 1px #7C0514;
-    width: 17vh;
-    padding: 0 10px;
+    font-size: 50px;
+    font-weight: 800;
+    border-bottom: solid 3px #7C0514;
+    width: 39vh;
+    margin:auto;
   }
 
 /* Turn off parallax scrolling for all tablets and phones, because this property does not work in all devices. Increase/decrease the pixels if needed */
