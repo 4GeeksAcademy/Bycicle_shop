@@ -10,7 +10,8 @@
     height: 40px;
     background-color: black;
     z-index: 3;
-     box-shadow: 2px 2px 2px rgba(0,0,0,0.15);
+     box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+     perspective: 5.5cm;
 }
 .my-fa-solid {
   padding: 3px;
