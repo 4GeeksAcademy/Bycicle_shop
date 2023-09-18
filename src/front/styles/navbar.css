@@ -160,6 +160,9 @@ li {
     .my-collapse {
         height: 27vh;
     }
+    .menu {
+        margin-right: 40px;
+    }
 }
 @media screen and (max-width: 375px) {
     .navbar-container {
