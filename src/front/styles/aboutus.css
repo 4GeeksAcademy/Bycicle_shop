@@ -1,0 +1,78 @@
+.aboutus-container {
+    position: relative;
+}
+.aboutus-title{
+    color: black;
+    margin-left: 10px;
+}
+.about-line {
+    height: 1px;
+    width: 30%;
+    border: solid 1px black;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.15);
+    margin: 15px 0 15px 0;
+}
+.aboutus-img-1 {
+    border-radius: 16%;
+    transform: rotate(45deg);
+    height: 160px;
+    width: 200px;
+    margin: 20px 0 40px 0;
+    z-index: 0;
+    
+}
+.aboutus-img-2 {
+    border-radius: 16%;
+    transform: rotate(45deg);
+    height: 210px;
+    width: 230px;
+    z-index: 1;
+    margin: 0 40px 40px 0;
+}
+.aboutus-square {
+    border-radius: 16%;
+    transform: rotate(45deg);
+    height: 120px;
+    width: 120px;
+    background-color: black;
+    opacity: 0.9;
+    position: absolute;
+    left: 113vh;
+    top: 18vh;
+}
+/*css to make the site responsive*/
+@media screen and (max-width: 1500px) {
+    .aboutus-square {
+        left: 125vh;
+        top: 24vh;
+    }
+  }
+@media screen and (max-width: 1000px) {
+    .aboutus-img-2 {
+        position: absolute;
+        left: 83vh;
+        top: 8vh;
+    }
+    .aboutus-square {
+        display: none;
+    }
+  }
+  @media screen and (max-width: 400px) {
+   .aboutus-title{
+        font-size: small;
+    }
+    .aboutus-img-1 {
+        height: 70px;
+        width: 50px;
+    }
+    .aboutus-img-2 {
+        position: absolute;
+        height: 90px;
+        width: 60px;
+        left: 44vh;
+        top: 16vh;
+    }
+    .aboutus-square {
+        display: none;
+    }
+  }

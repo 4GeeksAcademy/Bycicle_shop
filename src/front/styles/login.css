@@ -1,0 +1,9 @@
+.form-check-input-container {
+   margin-right: 10px;
+  }
+  
+  .form-check-label-container {
+    display: flex;
+    align-items: center;
+  }
+  

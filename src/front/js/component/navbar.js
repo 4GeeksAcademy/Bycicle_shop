@@ -8,7 +8,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
       <div className="container-fluid navbar-container d-flex">
-	  		<Link className="col-sm-1 col-md-1 col-lg-4 col-xl-4" to="/">
+	  		<Link to="/">
           <img src={logo} className="img" alt="logo" />		
         </Link>
         <div className="menu col-sm-11 col-md-11 col-lg-8 col-xl-8">
@@ -49,12 +49,12 @@ export const Navbar = () => {
           </button>
           <div className='collapse my-collapse navbar-collapse' id="navbarNavAltMarkup">
             <div className="navbar-nav ">
-              <Link className="link-collapse" to="/">
+              <Link className="link-collapse" to="/contactus">
                 <button className="btn my-btn toggler">
                   Contact Us
                 </button>
               </Link>
-              <Link className="link-collapse" to="/">
+              <Link className="link-collapse" to="/aboutus">
                 <button className="btn my-btn toggler">
                   About Us
                 </button>
@@ -116,7 +116,7 @@ export const Navbar = () => {
                   <Link className="show-buttons link-collapse" to="/">
                     <i className="icon fa-solid fa-magnifying-glass"></i>
                   </Link>
-                  <Link className="show-buttons link-collapse" to="/login">
+                  <Link className="link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
@@ -129,10 +129,8 @@ export const Navbar = () => {
                       <i className=" icon fa-solid fa-magnifying-glass"></i> Search
                     </div>
                   </Link>
-                  <Link className="hide-buttons link-collapse" to="/">
-                    <div className="my-hide-buttons">
-                      Login
-                    </div>
+                  <Link className="link-collapse" to="/">
+				  	        Login
                   </Link>
                   <Link className="hide-buttons link-collapse" to="/login">
                   </Link>

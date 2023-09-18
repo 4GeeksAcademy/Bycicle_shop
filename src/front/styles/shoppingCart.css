@@ -106,10 +106,10 @@
     color: #7C0514;
     padding: 3px;
     font-weight: 500;
-    margin-left: 20px;
     padding: 6px 21px 6px 21px;
     border-radius: 6px;
     border: 0px;
+    height: auto;
 }
 .btn-set-check {
     display: grid;
@@ -170,8 +170,7 @@
     background-color: #484545;
 }
 .ship-check-radio {
-    background-color: white;
-    border: solid 1px black;
+    background-color: #484545;
 }
 .ship-check-label {
     display: flex;
@@ -189,19 +188,18 @@
     background-color: white;
 }
 .shipping-dropdown-toggle::after {
-    outline: none;
     border: 0 !important;
 }
 .shipping-collapse {
     background-color: #B1AFAF;
-    position: sticky;
+    z-index: 3;
 }
 .shipping-collapse-payment {
     height: 60px;
     justify-content: center;
 }
 .shipping-form {
-    font-size: 8px;
+    font-size: 16px;
 }
 .return-shipping {
     cursor: pointer;

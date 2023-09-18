@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import "../../styles/home.css";
+=======
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
+>>>>>>> origin/develop
 
 export const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // Initial image index
@@ -24,6 +29,7 @@ export const Home = () => {
   ];
   const rotationSpeed = 3000; // Time interval between rotations in milliseconds
 
+<<<<<<< HEAD
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) =>
@@ -61,3 +67,22 @@ export const Home = () => {
     </div>
   );
 };
+=======
+	return (
+		<div className="min-height-100 text-center mt-5">
+			<h1>Hello Rigo!!</h1>
+			<p>
+			</p>
+			<div className="alert alert-info">
+				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
+			</div>
+			<p>
+				This boilerplate comes with lots of documentation:{" "}
+				<a href="https://start.4geeksacademy.com/starters/react-flask">
+					Read documentation
+				</a>
+			</p>
+		</div>
+	);
+};
+>>>>>>> origin/develop

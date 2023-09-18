@@ -24,7 +24,7 @@ export const ArrowToTop = () => {
     };
 
     return (
-        <div className="container-fluid contentDiv mb-5">
+        <div className="container-fluid contentDiv">
             {showButton && (
                 <button className="back-to-top" type="button" onClick={handleScrollToTop}><i className="my-fa-solid fa-solid fa-arrow-up"></i></button>
             )}
