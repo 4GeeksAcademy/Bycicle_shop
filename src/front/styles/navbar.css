@@ -107,6 +107,7 @@ li {
         font-size: small;
     }
     .my-collapse {
+        margin-top: 70px;
         background-color: #7C0514;
         border-radius: 6px;
         width: 24vh;

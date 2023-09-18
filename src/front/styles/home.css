@@ -1,4 +1,24 @@
-
+.parallax1 {
+    background-attachment: scroll;
+}
+.parallax2 {
+    background-attachment: scroll;
+}
+.parallax3 {
+    background-attachment: scroll;
+}
+.parallax4 {
+    background-attachment: scroll;
+}
+.parallax5 {
+    background-attachment: scroll;
+}
+.parallax6 {
+    background-attachment: scroll;
+}
+.parallax7 {
+    background-attachment: scroll;
+}
   .parallax-description {
     padding-top: 20px;
   }
@@ -33,4 +53,12 @@
     .parallax7 {
         background-attachment: scroll;
     }
+    .parallax-title {
+        color: #7C0514;
+        font-weight: 500;
+        border-bottom: solid 1px #7C0514;
+        width: 12vh;
+        padding: 0 10px;
+      }
+    
 }
