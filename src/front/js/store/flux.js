@@ -1,7 +1,7 @@
 import { serverURL } from "../config";
 import axios from 'axios';
 import { useStoreActions } from '../pages/product_detail';
-import axios from 'axios';
+
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -218,41 +218,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			signup: async (fullName, username, email, password, subscribe, privacy) => {
 				const opts = {
-					method: "POST",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						full_name: fullName,
-						username: username,
-						email: email,
-						password: password,
-						subscribe: subscribe,
-						privacy: privacy,
-					}),
+				  method: "POST",
+				  mode: "cors",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				  body: JSON.stringify({
+					full_name: fullName,
+					username: username,
+					email: email,
+					password: password,
+					subscribe: subscribe,
+					privacy: privacy,
+				  }),
 				};
 
 				try {
-					const resp = await fetch(
-						"https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/api/create-user",
-						opts
-					);
-					const data = await resp.json();
+				  const resp = await fetch(
+					"https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/api/create-user",
+					opts
+				  );
+				  const data = await resp.json();
 
-					if (resp.status === 201) {
-						console.log("User created successfully", data);
-						return true;
-					} else {
-						alert(`Error: ${data.message}`);
-					}
+				  if (resp.status === 201) {
+					console.log("User created successfully", data);
+					return true;
+				  } else {
+					alert(`Error: ${data.message}`);
+				  }
 				} catch (error) {
-					console.error("An error occurred while signing up", error);
-					console.error("Error name:", error.name);
-					console.error("Error message:", error.message);
+				  console.error("An error occurred while signing up", error);
+				  console.error("Error name:", error.name);
+				  console.error("Error message:", error.message);
 				}
 				return false;
-			},
+			  },
 
 			getMessage: async () => {
 				try {

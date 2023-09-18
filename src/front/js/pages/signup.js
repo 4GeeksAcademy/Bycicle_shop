@@ -9,6 +9,7 @@ export const Signup = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState(""); 
     const [subscribe, setSubscribe] = useState(false);
     const [privacy, setPrivacy] = useState(false);
 
@@ -16,7 +17,7 @@ export const Signup = () => {
     const handleClick = (event) => {
         // prevent the default form submission behavior
         event.preventDefault();
-        actions.signup(fullName, username, email, password, subscribe, privacy) 
+        actions.signup(fullName, username, email, password, subscribe, confirmPassword, privacy) 
     };
 
     //function to reset the form
@@ -25,13 +26,13 @@ export const Signup = () => {
         setUsername("");
         setEmail("");
         setPassword("");
+        setConfirmPassword(""); 
         setSubscribe(false);
         setPrivacy(false);
     };
 
-
-	return (
-		<div className="container min-height-100">
+    return (
+        <div className="container min-height-100">
             <h1 className="title">
                 Registration
             </h1>
@@ -50,17 +51,17 @@ export const Signup = () => {
                 <input className="control" type="text" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 <br />
                 <br />
-                <input className="control" type="text" placeholder="Confirm Passsword" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input className="control" type="text" placeholder="Confirm Password" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 </div>
                 <br />
                 <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={subscribe} onChange={(e) => setSubscribe(e.target.value)}/>
+                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={subscribe} onChange={(e) => setSubscribe(e.target.checked)}/>
                     <label className="form-check-label my-form-check-label" >
-                        Subscribe the Newsletter
+                        Subscribe to the Newsletter
                     </label>
                 </div>
                 <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={privacy} onChange={(e) => setPrivacy(e.target.value)}/>
+                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={privacy} onChange={(e) => setPrivacy(e.target.checked)}/>
                     <Link className="link-collapse" to="/terms">
                         <label className="form-check-label my-form-check-label" >
                             I have read and accept the privacy policy
@@ -76,7 +77,6 @@ export const Signup = () => {
                     </div>
                 </div>
             </form>
-		
-		</div>
-	);
+        </div>
+    );
 };

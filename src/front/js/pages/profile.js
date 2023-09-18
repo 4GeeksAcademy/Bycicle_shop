@@ -15,23 +15,17 @@ const Profile = () => {
   const [showClass3, setShowClass3] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem('access_token');
+  //const token = localStorage.getItem('access_token');
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getData(token);
-        console.log("Data fetched:", data);
-      } catch (error) {
-        console.log("An error occurred:", error);
-      }
-    }
-
-    fetchData();
-  }, [token]);  // if token changes
+    const token = localStorage.getItem('access_token');
+    console.log(token, "blla")
+      if (token) getData(token);
+         
+  }, []);  // if token changes
 
   const getData = (token) => {
-    return new Promise((resolve, reject) => {
+    
       axios({
         method: "GET",
         url: "https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/profile",
@@ -46,16 +40,16 @@ const Profile = () => {
           console.log("Profile Data:", res);
           console.log('Token in Profile:', token);
           actions.setUserProfile(res);
-          resolve(res);
+          
         })
         .catch((error) => {
           console.error("An error occurred in getData:", error);
           if (error.response) {
             console.log("Error details:", error.response);
           }
-          reject(error);
+          
         });
-    });
+    
   }
   console.log("Rendering Profile component");
   console.log("Current show value:", show);
@@ -64,7 +58,7 @@ const Profile = () => {
   return (
     <div className="container-fluid my-5">
       <div className="row">
-        <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, </h1>
+        <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, {store.user.name} </h1>
         {show !== 'last_order' &&
           <div className="return-second col-sm-10 col-md-10 col-lg-8 col-xl-8">
             <Link onClick={() => setShow('last_order')} className="return-second" to="/profile">
