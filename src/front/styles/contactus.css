@@ -1,0 +1,69 @@
+.title-contactus {
+    color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 2px;
+    font-size: 60px;
+}
+.subtitle-contactus {
+    font-size: medium;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #484545;
+}
+.my-form {
+    background-color: black;
+    border-radius: 6px;
+    width: 80%;
+    height: 32rem;
+    margin: auto;
+  }
+  .control-contact {
+    background-color: #484545;
+    color: #1A1919;
+    padding: 0px 10px 0px 10px;
+    width: 95%;
+    border-radius: 6px;
+    border: 0px;
+    height: 40px;
+  }
+  .textarea-contact {
+    background-color: #484545;
+    color: #1A1919;
+    padding: 0px 10px 0px 10px;
+    border-radius: 6px;
+    width: 95%;
+    border: 0px;
+  }
+  .btn-contact {
+    background-color: #7C0514;
+    color: black;
+    padding: 3px;
+    font-weight: 700;
+    margin-left: 20px;
+    padding: 3px 7px 3px 7px;
+    border-radius: 6px;
+    border: 0px;
+    margin-top: 10vh;
+  }
+  .our-contacts {
+    color: black;
+    width: 50%;
+    margin: auto;
+  }
+  /*css to make the site responsive*/
+  @media screen and (max-width: 1000px) {
+    .control-contact {
+        width: 92%
+    }
+    .btn-contact {
+        width: 100%;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .control-contact {
+        width: 85%
+    }
+    .btn-contact {
+        height: 30px;
+    }
+  }
+  

@@ -1,21 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
 
 export const Navbar = () => {
-  const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
-  const [hideButtons, sethideButtons] = useState(true);
-
-  // Function to toggle the display of additional buttons
-  const toggleAdditionalButtons = () => {
-    setShowAdditionalButtons(!showAdditionalButtons);
-  };
-
-  // Function to hide the previous buttons
-  const hideButton = () => {
-    sethideButtons(!hideButtons);
-  };
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
@@ -23,7 +11,7 @@ export const Navbar = () => {
 	  		<Link to="/">
           <img src={logo} className="img" alt="logo" />		
         </Link>
-        <div className="menu">
+        <div className="menu col-sm-11 col-md-11 col-lg-8 col-xl-8">
           <div className="dropdown mb-3 language">
             <button
               className="btnlanguage dropdown-toggle"
@@ -49,10 +37,6 @@ export const Navbar = () => {
             </ul>
           </div >
           <button
-            onClick={() => {
-              toggleAdditionalButtons();
-              hideButton();
-            }}
             className="navbar-toggler my-navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -63,14 +47,14 @@ export const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className={`collapse my-collapse navbar-collapse justify-content-end dropdown ${showAdditionalButtons ? "active" : ""}`} id="navbarNavAltMarkup">
+          <div className='collapse my-collapse navbar-collapse' id="navbarNavAltMarkup">
             <div className="navbar-nav ">
-              <Link className="link-collapse" to="/">
+              <Link className="link-collapse" to="/contactus">
                 <button className="btn my-btn toggler">
                   Contact Us
                 </button>
               </Link>
-              <Link className="link-collapse" to="/">
+              <Link className="link-collapse" to="/aboutus">
                 <button className="btn my-btn toggler">
                   About Us
                 </button>
@@ -128,38 +112,39 @@ export const Navbar = () => {
                   </li>
                 </ul>
               </div>
-              {hideButtons && (
                 <>
-                  <Link className="link-collapse" to="/">
+                  <Link className="show-buttons link-collapse" to="/">
                     <i className="icon fa-solid fa-magnifying-glass"></i>
                   </Link>
-                  <Link className="link-collapse" to="/profile">
+                  <Link className="show-buttons link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
-                  <Link className="link-collapse" to="/ShoppingCart">
+                  <Link className="show-buttons link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>
                 </>
-              )}
-              {showAdditionalButtons && (
                 <>
-                  <Link className="link-collapse" to="/">
-                    <i className="icon fa-solid fa-magnifying-glass"></i> Search
+                  <Link className="hide-buttons link-collapse" to="/">
+                    <div className="my-hide-buttons">
+                      <i className=" icon fa-solid fa-magnifying-glass"></i> Search
+                    </div>
                   </Link>
-                  <Link className="link-collapse" to="/">
-				  	        Login
+                  <Link className="hide-buttons link-collapse" to="/login">
+                    <div className="my-hide-buttons">
+                      Login
+                    </div>
                   </Link>
-                  <Link className="link-collapse" to="/signup">
-				  	        Register
+                  <Link className="hide-buttons link-collapse" to="/ShoppingCart">
+                    <div className="my-hide-buttons">
+                      <i className="icon fa-solid fa-cart-shopping"></i> Cart
+                    </div>
                   </Link>
-                  <Link className="link-collapse" to="/ShoppingCart">
-				           <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i> Cart
-                  </Link>
-                  <Link className="link-collapse" to="/">
-                    Give us your feedback
+                  <Link className="hide-buttons link-collapse" to="/">
+                    <div className="my-hide-buttons">
+                      Give us your feedback
+                    </div>
                   </Link>
                 </>
-              )}
             </div>
           </div>
         </div>

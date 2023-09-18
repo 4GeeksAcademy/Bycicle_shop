@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 import "../../styles/signup.css";
 
 export const Signup = () => {
@@ -10,16 +11,12 @@ export const Signup = () => {
     const [password, setPassword] = useState("");
     const [subscribe, setSubscribe] = useState(false);
     const [privacy, setPrivacy] = useState(false);
-    const [confirmPassword, setConfirmPassword] = useState(""); 
 
+    //function to send the data form the input to the database
     const handleClick = (event) => {
+        // prevent the default form submission behavior
         event.preventDefault();
-        if (password !== confirmPassword) {
-            // Show an error message or alert that passwords don't match
-            alert('Passwords do not match');
-            return;
-        }
-        actions.signup(fullName, username, email, password, subscribe, privacy);
+        actions.signup(fullName, username, email, password, subscribe, privacy) 
     };
 
     //function to reset the form
@@ -34,8 +31,8 @@ export const Signup = () => {
 
 
 	return (
-		<div className="container">
-            <h1>
+		<div className="container min-height-100">
+            <h1 className="title">
                 Registration
             </h1>
             <form className="form my-form" onSubmit={handleClick}>
@@ -50,10 +47,10 @@ export const Signup = () => {
                 <input className="control" type="text" placeholder="Email" aria-label="default input example" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 <br />
                 <br />
-                <input className="control" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <input className="control" type="text" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 <br />
                 <br />
-                <input className="control" type="password" placeholder="Confirm Passsword" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                <input className="control" type="text" placeholder="Confirm Passsword" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <br />
                 <div className="form-check">
@@ -63,10 +60,12 @@ export const Signup = () => {
                     </label>
                 </div>
                 <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={privacy} onChange={(e) => setPrivacy(e.target.checked)}/>
-                    <label className="form-check-label my-form-check-label" >
-                        I have read and accept the privacy policy
-                    </label>
+                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={privacy} onChange={(e) => setPrivacy(e.target.value)}/>
+                    <Link className="link-collapse" to="/terms">
+                        <label className="form-check-label my-form-check-label" >
+                            I have read and accept the privacy policy
+                        </label>
+                    </Link>    
                 </div>
                 <div className="row me-3">
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">

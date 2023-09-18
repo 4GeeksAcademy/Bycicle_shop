@@ -1,8 +1,4 @@
 import { serverURL } from "../config";
-import axios from 'axios';
-import { useStoreActions } from '../pages/product_detail';
-
-
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -138,42 +134,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			changeRating: (setRating, value) => {
 				setRating(value);
 			},
-
-			getUserProfile: async (token) => {
-				console.log("Token before API call: ", token);
-				if (!token) {
-					console.error("No token provided");
-					return null;
-				}
-				try {
-					console.log("Attempting to fetch profile with token:", token);
-					console.log("Headers being sent: ", {
-						Authorization: "Bearer " + token
-					});
-					console.log("About to make API call");
-					const response = await axios.get("https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/profile",
-						{
-							headers: {
-								Authorization: "Bearer " + token
-							}
-
-						});
-					console.log("Response data: ", response.data);
-					if (response.data) {
-						console.log("Setting user profile in store:", response.data);
-						setStore({ user: response.data });
-					} else {
-						console.log("Received empty response.data from API");
-					}
-					return response.data;
-				} catch (error) {
-					console.error("Full error:", JSON.stringify(error, null, 2));
-					console.error("An error occurred while fetching the profile:", error);
-					return null;
-				}
-			},
-
-
 
 			addToCart: (id, quantity, props, navigate) => {
 				const payload = {

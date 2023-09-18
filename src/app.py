@@ -1,70 +1,100 @@
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
+from flask import Flask, jsonify, send_from_directory
 import os
-from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
-from flask_swagger import swagger
 from flask_cors import CORS
-from api.utils import APIException, generate_sitemap
+from flask_jwt_extended import JWTManager
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import json
+
+# Importing configurations
+from api.config import Config
+
+# Importing blueprints
+from api.routes import api as api_blueprint
+from api.main import main as main_blueprint
+from api.auth import auth as auth_blueprint
+
+# Importing models
 from api.models import db
-from api.routes import api
-from api.admin import setup_admin
-from api.commands import setup_commands
 
-#from models import Person
+# Load environment variables
+load_dotenv()
 
-ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
-static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
-app = Flask(__name__)
-app.url_map.strict_slashes = False
+def create_app():
+    app = Flask(__name__)
+    
+    # Load configurations
+    app.config.from_object(Config)
 
-# database condiguration
-db_url = os.getenv("DATABASE_URL")
-if db_url is not None:
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://")
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
+    # Initialize database
+    db.init_app(app)
+    migrate = Migrate(app, db)
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-MIGRATE = Migrate(app, db, compare_type = True)
-db.init_app(app)
+    # Initialize JWT
+    jwt = JWTManager(app)
 
-# Allow CORS requests to this API
-CORS(app)
+    # Initialize CORS
+    #CORS(app)
+    CORS(app, origins=["https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev"], 
+         methods=['GET', 'POST', 'PUT', 'DELETE'], 
+         allow_headers=['Content-Type', 'Authorization'],
+         supports_credentials=True)
 
-# add the admin
-setup_admin(app)
+    # Register blueprints
+    app.register_blueprint(api_blueprint)
+    app.register_blueprint(main_blueprint)
+    app.register_blueprint(auth_blueprint)
 
-# add the admin
-setup_commands(app)
+    @app.route('/import-data', methods=['POST'])
+    def import_data():
+        try:
+            import_data_from_json('bicycles.json')
+            return jsonify({'message': 'Data imported successfully'}), 200
+        except Exception as e:
+            return jsonify({'message': 'Error importing data', 'error': str(e)}), 500
 
-# Add all endpoints form the API with a "api" prefix
-app.register_blueprint(api, url_prefix='/api')
+    def import_data_from_json(json_file):
+        # Open and read the JSON file
+        with open(json_file, 'r') as file:
+            data = json.load(file)
 
-# Handle/serialize errors like a JSON object
-@app.errorhandler(APIException)
-def handle_invalid_usage(error):
-    return jsonify(error.to_dict()), error.status_code
+        
+        from api.models import Bicycle
 
-# generate sitemap with all your endpoints
-@app.route('/')
-def sitemap():
-    if ENV == "development":
-        return generate_sitemap(app)
-    return send_from_directory(static_file_dir, 'index.html')
+        # Iterate over the JSON data and create Bicycle objects
+        for item in data:
+            bicycle = Bicycle(
+                name=item['name'],
+                manufacturer=item['manufacturer'],
+                material=item['material'],
+                gender=item['gender'],
+                type=item['type'],
+                color=item['color'],
+                weight=item['weight'],
+                price=item['price'],
+                instock=item['instock']
+            )
+            db.session.add(bicycle)
 
-# any other endpoint will try to serve it like a static file
-@app.route('/<path:path>', methods=['GET'])
-def serve_any_other_file(path):
-    if not os.path.isfile(os.path.join(static_file_dir, path)):
-        path = 'index.html'
-    response = send_from_directory(static_file_dir, path)
-    response.cache_control.max_age = 0 # avoid cache memory
-    return response
+        # Commit the changes to the database
+        db.session.commit()
 
+    @app.route('/')
+    def sitemap():
+        return "This is the home page"  
 
-# this only runs if `$ python src/main.py` is executed
+    static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
+    @app.route('/<path:path>', methods=['GET'])
+    def serve_any_other_file(path):
+        if not os.path.isfile(os.path.join(static_file_dir, path)):
+            path = 'index.html'
+        response = send_from_directory(static_file_dir, path)
+        response.cache_control.max_age = 0  
+        return response
+
+    return app
+
 if __name__ == '__main__':
-    PORT = int(os.environ.get('PORT', 3001))
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    app = create_app()
+    app.run()

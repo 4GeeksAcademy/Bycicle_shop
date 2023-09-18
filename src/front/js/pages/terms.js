@@ -1,7 +1,7 @@
 import React  from "react";
 import "../../styles/terms.css";
 
-export const Terms= () => {
+export const Terms = () => {
 
 	return (
 		<div className="min-height-100 container my-container">
