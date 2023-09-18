@@ -129,10 +129,10 @@ export const Navbar = () => {
                       <i className=" icon fa-solid fa-magnifying-glass"></i> Search
                     </div>
                   </Link>
-                  <Link className="link-collapse" to="/">
-				  	        Login
-                  </Link>
                   <Link className="hide-buttons link-collapse" to="/login">
+                    <div className="my-hide-buttons">
+                      Login
+                    </div>
                   </Link>
                   <Link className="hide-buttons link-collapse" to="/ShoppingCart">
                     <div className="my-hide-buttons">

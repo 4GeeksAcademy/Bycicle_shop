@@ -98,6 +98,9 @@ li {
 }
 /*css to make the site responsive*/
 @media screen and (max-width: 1000px) {
+    .menu {
+        width: 20%;
+    }
     .navbar-container {
         margin: auto;
     }
@@ -169,5 +172,8 @@ li {
     }
     .my-btn {
         font-size: small;
+    }
+    .menu {
+        margin-right: 40px;
     }
 }
