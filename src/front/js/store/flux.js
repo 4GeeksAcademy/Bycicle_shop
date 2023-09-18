@@ -2,7 +2,6 @@ import { serverURL } from "../config";
 import axios from 'axios';
 import { useStoreActions } from '../pages/product_detail';
 
-
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {

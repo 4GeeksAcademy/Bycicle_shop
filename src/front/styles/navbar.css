@@ -12,6 +12,7 @@
 .menu {
     display: grid;
     justify-items: end;
+    position: relative;
 }
 .my-btn {
     background-color: #7C0514;
@@ -29,7 +30,7 @@
 .my-dropdown-menu {
     background-color: #7C0514;
     border-radius: 6px;
-    position: fixed;
+    position: absolute;
 }
 li {
     margin-left: 5px;
@@ -44,6 +45,20 @@ li {
 .my-dropdown-item:focus {
     outline: none;
   }
+.hide-buttons {
+    display: none;
+    visibility: hidden;
+  }
+.my-hide-buttons {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 0;
+    border-bottom: solid 1px black;
+    color: black;
+}
+.show-buttons {
+    visibility: visible;
+}
 .btnlanguage {
     border-radius: 6px;
     padding: 2px 6px 2px 6px;
@@ -73,7 +88,7 @@ li {
     background-color: black;
 }
 .img {
-    margin-top: 5px;
+    margin-top: 2px;
     height:180px;
     width: 200px; 
 }
@@ -83,6 +98,9 @@ li {
 }
 /*css to make the site responsive*/
 @media screen and (max-width: 1000px) {
+    .menu {
+        width: 20%;
+    }
     .navbar-container {
         margin: auto;
     }
@@ -92,10 +110,11 @@ li {
         font-size: small;
     }
     .my-collapse {
+        margin-top: 70px;
         background-color: #7C0514;
         border-radius: 6px;
-        width: 28vh;
-        height: 32vh;
+        width: 24vh;
+        height: 24vh;
         display: inline-block;
         position: fixed;
     }
@@ -119,6 +138,14 @@ li {
         outline: none;
         box-shadow: none;
       }
+    .hide-buttons {
+        display: contents;
+        visibility: visible;
+      }
+    .show-buttons {
+        display: none;
+        visibility: hidden;
+    }
   }
 @media screen and (max-width: 550px) {
     .language {
@@ -126,14 +153,27 @@ li {
         margin-left: 2rem;
         font-size: xx-small;
     } 
+    .img {
+        height: 100px;
+        width: 100px;
+    }
+    .my-collapse {
+        height: 27vh;
+    }
 }
 @media screen and (max-width: 375px) {
     .navbar-container {
         display: flex;
         flex-wrap: nowrap;
     }
-    .img {
-        height: 100px;
-        width: 100px;
+    .my-collapse {
+        font-size: small;
+        height: 26vh;
+    }
+    .my-btn {
+        font-size: small;
+    }
+    .menu {
+        margin-right: 40px;
     }
 }
