@@ -19,12 +19,12 @@ export const Home = () => {
               className="d-block equal-height-img"
               alt="Bike 1"
             />
-            <div class="carousel-caption d-none d-md-block">
+            <div className="carousel-caption d-none d-md-block">
               <p className="carousel-text">Road Bikes</p>
             </div>
           </div>
           <div className="carousel-item " data-bs-interval="2000"> 
-            <div class="carousel-caption d-none d-md-block">
+            <div className="carousel-caption d-none d-md-block">
               <p className="carousel-text">Mountain Bikes</p>
             </div>
             <img
@@ -39,7 +39,7 @@ export const Home = () => {
               className="d-block equal-height-img"
               alt="Bike 3"
             />
-            <div class="carousel-caption d-none d-md-block">
+            <div className="carousel-caption d-none d-md-block">
               <p className="carousel-text">Hybrid Bikes</p>
             </div>
           </div>
@@ -49,7 +49,7 @@ export const Home = () => {
               className="d-block equal-height-img"
               alt="Bike 4"
             />
-            <div class="carousel-caption d-none d-md-block">
+            <div className="carousel-caption d-none d-md-block">
               <p className="carousel-text">Speciality Bikes</p>
             </div>
           </div>
@@ -59,12 +59,12 @@ export const Home = () => {
               className="d-block equal-height-img"
               alt="Bike 5"
             />
-            <div class="carousel-caption d-none d-md-block">
+            <div className="carousel-caption d-none d-md-block">
               <p className="carousel-text">BMX Bikes</p>
             </div>
           </div>
           <div className="carousel-item" data-bs-interval="6000">
-            <div class="carousel-caption d-none d-md-block">
+            <div className="carousel-caption d-none d-md-block">
               <p className="carousel-text">Kids Bikes</p>
             </div>
             <img
@@ -79,7 +79,7 @@ export const Home = () => {
               className="d-block equal-height-img"
               alt="Bike 7"
             />
-            <div class="carousel-caption d-none d-md-block">
+            <div className="carousel-caption d-none d-md-block">
               <p className="carousel-text">News</p>
             </div>
           </div>
