@@ -25,8 +25,8 @@ class Bicycle(db.Model):
     reviews = db.relationship('BicycleReview', backref='bicycle')
 
 
-def serialize(self):
-    return {
+    def serialize(self):
+        return {
         'id': self.id,
         'name': self.name,
         'manufacturer': self.manufacturer,
@@ -36,8 +36,9 @@ def serialize(self):
         'color': self.color,
         'weight': self.weight,
         'price': str(self.price),  
-        'instock': self.instock
-    }
+        'instock': self.instock,
+        'image_url': '' 
+        }
 
 class BicycleReview(db.Model):
     __tablename__ = 'bicycle_review' 

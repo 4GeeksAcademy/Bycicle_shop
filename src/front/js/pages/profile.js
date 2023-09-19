@@ -19,7 +19,7 @@ const Profile = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
-    console.log(token, "blla")
+    
       if (token) getData(token);
          
   }, []);  // if token changes
