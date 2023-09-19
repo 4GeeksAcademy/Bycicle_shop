@@ -4,8 +4,8 @@ import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
 
 export const Navbar = () => {
-const [searchBar, setSearchBar] = useState(false);
-  /*const [showAutocomplete, setShowAutocomplete] = useState(false);
+/*const [searchBar, setSearchBar] = useState(false);
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [combinedAutocompleteData, setCombinedAutocompleteData] = useState([]);
   const navigate = useNavigate();
 
