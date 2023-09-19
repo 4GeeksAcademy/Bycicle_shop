@@ -1,64 +1,37 @@
-.parallax1 {
-    background-attachment: scroll;
+.home-container {
+    display: grid;
+    align-items: baseline;
+    justify-items: center;
+    margin-top: 10px;
 }
-.parallax2 {
-    background-attachment: scroll;
-}
-.parallax3 {
-    background-attachment: scroll;
-}
-.parallax4 {
-    background-attachment: scroll;
-}
-.parallax5 {
-    background-attachment: scroll;
-}
-.parallax6 {
-    background-attachment: scroll;
-}
-.parallax7 {
-    background-attachment: scroll;
-}
-  .parallax-description {
-    padding-top: 20px;
+.carousel-text {
+      text-align: center;
+      color: #7C0514;
+      font-size: 50px;
+      font-weight: 800;
+      border-bottom: solid 3px #7C0514;
+      width: 39vh;
+      margin:auto;
+    }
+ .carousel-container {
+    border-radius: 6px;
+    width: 80%;
+    height: 90vh;
+    margin: auto;
+    padding-top: 25px;
+ }  
+ .equal-height-img {
+    object-fit: cover;
   }
-  .parallax-title {
-    color: #7C0514;
+ .btn-ai {
+    background-color: black;
+    color: white;
+    border-radius: 6px;
     font-weight: 500;
-    border-bottom: solid 1px #7C0514;
-    width: 17vh;
-    padding: 0 10px;
-  }
-
-/* Turn off parallax scrolling for all tablets and phones, because this property does not work in all devices. Increase/decrease the pixels if needed */
-@media only screen and (max-device-width: 1366px) {
-    .parallax1 {
-        background-attachment: scroll;
-    }
-    .parallax2 {
-        background-attachment: scroll;
-    }
-    .parallax3 {
-        background-attachment: scroll;
-    }
-    .parallax4 {
-        background-attachment: scroll;
-    }
-    .parallax5 {
-        background-attachment: scroll;
-    }
-    .parallax6 {
-        background-attachment: scroll;
-    }
-    .parallax7 {
-        background-attachment: scroll;
-    }
-    .parallax-title {
-        color: #7C0514;
-        font-weight: 500;
-        border-bottom: solid 1px #7C0514;
-        width: 12vh;
-        padding: 0 10px;
-      }
-    
-}
+    padding: 0;
+    width: 58vh;
+ }
+ .ai-icon {
+    height: 60px;
+    width: 90px;
+ }

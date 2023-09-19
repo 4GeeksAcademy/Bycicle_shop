@@ -3,7 +3,7 @@ import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
 import { serverURL } from "../config";
 import { Link, useNavigate } from "react-router-dom";
-
+import "../../styles/login.css";
 
 export function Login (props) {
   const navigate = useNavigate();
@@ -111,104 +111,92 @@ export function Login (props) {
       }
     }
   }  return (
-    <section className="container-fluid min-height-100 ">
-      <h1 className="pb-2 text-white pt-2">Login</h1>
-      <div className="container pb-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div className="card shadow-2-strong">
-              <div className="card-body p-5 text-center">
-                <div className="text-center mt-4">
+          <div className="container-fluid min-height-100 ">
+              <h1 className="text-login">Login</h1>
+              <div className="container my-login">
+                <div className="btn-login-google">
                   <GoogleLogin
                     clientId="YOUR_GOOGLE_CLIENT_ID"
-                    buttonText="Sign in with Google"
+                    buttonText="LOGIN WITH GOOGLE "
                     onSuccess={responseGoogleSuccess}
                     onFailure={responseGoogleFailure}
                     cookiePolicy={'single_host_origin'}
+                    className="btn-login-google"
                   />
                 </div>
-                or
+                <div className="row mt-5 text-center">
+                  <div className="col-5 line-login"></div>
+                  <div className="col-2 p-0">or</div>
+                  <div className="col-5 line-login"></div>
+                </div>
+                <br />
                 <div className="form-outline mb-4">
-                  <label
-                    className="form-label d-flex justify-content-start"
-                    htmlFor="typeEmailX-2"
-                  >
-                    Email
-                  </label>
                   <input
                     type="email"
                     value={email}
                     onChange={onChangeEmail}
                     id="typeEmailX-2"
-                    className="form-control form-control-lg"
+                    className="form-control form-control-lg form-input-login"
+                    placeholder="Email"
                   />
                 </div>
                 <div className="form-outline mb-4">
-                  <label
-                    className="form-label d-flex justify-content-start"
-                    htmlFor="typePasswordX-2"
-                  >
-                    Password
-                  </label>
                   <input
                     type="password"
                     value={password}
                     onChange={onChangePassword}
                     id="typePasswordX-2"
-                    className="form-control form-control-lg"
+                    className="form-control form-control-lg form-input-login"
+                    placeholder="Password"
                   />
                 </div>
-                <div className="form-check d-flex justify-content-start mb-4">
-                  <div className="form-check-input-container">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="form1Example3"
-                    />
+                <div className="form-check d-flex row mt-4 p-0 ms-0">
+                  <div className="d-flex ">
+                    <div className=" d-flex col-6 ">
+                      <input
+                        className="form-check-input-login me-2"
+                        type="checkbox"
+                        value=""
+                        id="form1Example3"
+                      />
+                        <label className="form-check-label" htmlFor="form1Example3">
+                          {" "}
+                          Remember password{" "}
+                        </label>
                   </div>
-                  <div className="form-check-label-container">
-                    <label className="form-check-label labelRight" htmlFor="form1Example3">
-                      {" "}
-                      Remember password{" "}
-                    </label>
-                  </div>
+                  <Link
+                    className="forgot-link col-6"
+                    to="/resetPassoword"
+                    type="submit"
+                  >
+                    Forgot Password?
+                  </Link>
                 </div>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
                 {emailFlag || apiFlag || passwordFlag ? (
                   <p className="text-danger">{message}</p>
                 ) : null}
                 <div className="d-flex justify-content-between">
                   <button
                     onClick={login}
-                    className="btn btn-primary btn-lg btn-block"
+                    className="btn-login"
                   >
                     Login
                   </button>
-                  <Link
+                  <button
                     to="/signup"
-                    className="btn btn-primary btn-sm btn-block"
-                    style={{ fontSize: "20px", paddingTop: "8px" }}
+                    className="btn-login"
                     type="submit"
                   >
                     Register
-                  </Link>
-                  <Link
-                    to="/reset"
-                    className="btn btn-primary btn-sm btn-block"
-                    style={{ fontSize: "18px", paddingTop: "12px" }}
-                    type="submit"
-                  >
-                    Forgot Password?
-                  </Link>
-
+                  </button>
                 </div>
-                <hr className="my-4" />
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }
 
