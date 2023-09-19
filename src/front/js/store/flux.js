@@ -1,6 +1,6 @@
 import { serverURL } from "../config";
 import axios from 'axios';
-import { useStoreActions } from '../pages/product_detail';
+// import { useStoreActions } from '../pages/product_detail';
 
 
 

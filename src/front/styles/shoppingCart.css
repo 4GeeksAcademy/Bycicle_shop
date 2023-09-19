@@ -117,6 +117,9 @@
     padding: 0;
     justify-content: end;
 }
+.return-second {
+    cursor: pointer;
+}
 .shipping-container {
    color: black;
 }
@@ -166,11 +169,15 @@
 .ship-check-input {
     background-color: #484545;
 }
+.ship-check-radio {
+    background-color: #484545;
+}
 .ship-check-label {
     display: flex;
     justify-content: space-between;
 }
 .last-ship {
+    margin-top: 35vh;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -178,8 +185,7 @@
 }
 .shipping-dropdown-toggle {
     border: none;
-    padding: 0;
-    background-color: #ffffff;
+    background-color: white;
 }
 .shipping-dropdown-toggle::after {
     border: 0 !important;
@@ -208,6 +214,7 @@
     box-shadow: 10px 10px 10px rgba(0,0,0,0.15);
     width: 100%;
     height: 80vh;
+    margin: auto;
     padding-top: 30vh;
 }
 .thanks-message {

@@ -10,12 +10,14 @@ from flask import Flask, jsonify
 main = Blueprint('main', __name__)
 
 @main.route('/api/products', methods=['GET'])
+@cross_origin(origin='https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev')
 def get_all_products():
     all_bicycles = Bicycle.query.all()
     bicycles_list = [bicycle.serialize() for bicycle in all_bicycles]
     return jsonify({'success': 'true', 'bicycles': bicycles_list})
 
 @main.route('/api/products/<int:id>', methods=['GET'])
+@cross_origin(origin='https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev')
 def get_product_by_id(id):
     bicycle = Bicycle.query.get(id)
     if bicycle is None:
