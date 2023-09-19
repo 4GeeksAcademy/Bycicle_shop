@@ -164,13 +164,8 @@ const [searchBar, setSearchBar] = useState(false);
                 <>
                   <div className="show-buttons link-collapse" onClick={() => setSearchBar(true)}>
                     <i className="icon fa-solid fa-magnifying-glass"></i>
-                    {searchBar && ( 
-                      <form className="form-inline search my-2 my-lg-0">
-                        <input className="form-search" type="search" placeholder="&#xe521; Search... " aria-label="Search" />
-                      </form>
-                      )}
-                  </div>
-                  <Link className="show-buttons link-collapse" to="/login">
+                  </Link>
+                  <Link className="link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
