@@ -2,71 +2,51 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { serverURL } from "../config";
+
 function Product(props) {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  
   function getData() {
+    console.log("getData called");
     axios
-      .get(`/api/products`)  
+      .get(`https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/api/products`)  
       .then((response) => {
+        console.log("Response received: ", response.data); 
         if (response.data.success === "true") {
           setProducts(response.data.bicycles);
+          console.log("Fetched products: ", response.data.bicycles);
         }
       })
-      
   }
   
   useEffect(() => {
+    console.log("useEffect called"); // For debugging
     if (!props.token && props.token !== "" && props.token !== undefined) {
       navigate("/login");
     }
     getData();
   }, []);
+  
   return (
-    <div className="row row-cols-1 row-cols-md-3 g-4 p-5 bg-danger">
-      {products && products.length > 0
-        ? products.map((item) => (
-            <div className="col">
-              <div className="card mx-2">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
-                  className="card-img-top p-2 pb-0"
-                  alt="Hollywood Sign on The Hill"
-                />
-                <div className="card-body pb-0">
-                  <div className="d-flex justify-content-between">
-                    <div>
-                      <div className="d-flex flex-row justify-content-end mt-1  text-danger">
-                        <i className="fas fa-star"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body pb-0">
-                  <div className="d-flex justify-content-start">
-                    <a href="#!" className="text-dark">
-                      {item.name}
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="d-flex justify-content-between align-items-centermb-1">
-                    <a href="#!" className="text-dark fw-bold">
-                      ${item.price}
-                    </a>
-                    <Link
-                      to={`/product_detail/${item.id}`}
-                      type="button"
-                      className="btn btn-primary"
-                    >
-                      Buy now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))
-        : null}
+    <div>
+      <h1>Product List</h1>
+      <div className="product-container">
+        {Array.isArray(products) && products.map((product, index) => (
+          <div key={index} className="product-card">
+            <img src={product.image_url || "placeholder-image-url.jpg"} alt={product.name} />
+            <h2>{product.name}</h2>
+            <p>Manufacturer: {product.manufacturer}</p>
+            <p>Material: {product.material}</p>
+            <p>Gender: {product.gender}</p>
+            <p>Price: ${product.price}</p>
+            <p>Color: {product.color}</p>
+            <p>Weight: {product.weight}</p>
+            <p>Type: {product.type}</p>
+            <p>In stock: {product.instock}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
