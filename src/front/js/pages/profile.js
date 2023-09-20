@@ -15,8 +15,7 @@ const Profile = () => {
   const [showClass3, setShowClass3] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
-  //const token = localStorage.getItem('access_token');
-
+  
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     
