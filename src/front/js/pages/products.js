@@ -21,7 +21,7 @@ function Product(props) {
   }
   
   useEffect(() => {
-    console.log("useEffect called"); // For debugging
+    console.log("useEffect called"); 
     if (!props.token && props.token !== "" && props.token !== undefined) {
       navigate("/login");
     }
