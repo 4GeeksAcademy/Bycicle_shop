@@ -1,0 +1,21 @@
+.main-ai_resp{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+.conteiner-ai_resp {
+    padding: 20px;
+    text-align: center;
+    color: #7C0514;
+    background-color: black;
+    border-radius: 6px;
+    width: 40%;
+    height: 65vh;
+}
+.conteiner-ai_resp2 {
+    background-color: black;
+    border-radius: 6px;
+    width: 40%;
+    height: 20vh;
+    margin-bottom: 20px;
+}

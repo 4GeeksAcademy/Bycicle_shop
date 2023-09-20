@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
 
 export const Navbar = () => {
-/*const [searchBar, setSearchBar] = useState(false);
-  const [showAutocomplete, setShowAutocomplete] = useState(false);
-  const [combinedAutocompleteData, setCombinedAutocompleteData] = useState([]);
+  const [searchBar, setSearchBar] = useState(false);
   const navigate = useNavigate();
+ /* const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const [combinedAutocompleteData, setCombinedAutocompleteData] = useState([]);
+ 
 
   const handleChange = (value) => {
     setInput(value);
@@ -53,7 +54,6 @@ export const Navbar = () => {
     console.log(`/details/${selectedItemType(selectedItem)}/${selectedItem.uid}`)
     navigate(`/details/${selectedItemType(selectedItem)}/${selectedItem.uid}`);
   };*/
-  const navigate = useNavigate();
 
   const bicycle_list = () => {
     navigate('/products');
@@ -117,7 +117,6 @@ export const Navbar = () => {
               </div>
               <div className="link-collapse dropdown">
                 <button
-                  onClick={bicycle_list}
                   className="btn my-btn toggler custom-dropdown-toggle"
                   type="button"
                   data-bs-toggle="collapse"
@@ -131,46 +130,53 @@ export const Navbar = () => {
               <div className="collapse" id="collapseProducts">
                 <ul className="card card-body my-dropdown-menu">
                   <li>
-                    <button className="dropdown-item my-dropdown-item">
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
                       Road Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item">
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
                       Mountain Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item">
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
                       Hybrid Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item">
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
                       Speciality Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item">
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
                       BMX Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item">
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
                       Kid's Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item">
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
                       Other types
                     </button>
                   </li>
                 </ul>
               </div>
               <>
-                <Link className="show-buttons link-collapse" to="/">
-                  <i className="icon fa-solid fa-magnifying-glass"></i>
-                </Link>
+              <div>
+              <div className="show-buttons link-collapse" onClick={() => setSearchBar(true)}>
+                    <i className="icon fa-solid fa-magnifying-glass"></i>
+                    {searchBar && ( 
+                      <form className="form-inline search my-2 my-lg-0">
+                        <input className="form-search" type="search" placeholder="&#xe521; Search... " aria-label="Search" />
+                      </form>
+                      )}
+                  </div>
+                  </div>
                 <Link className="show-buttons link-collapse" to="/login">
                   <i className="icon fa-regular fa-user"></i>
                 </Link>
@@ -179,11 +185,16 @@ export const Navbar = () => {
                 </Link>
               </>
               <>
-                <Link className="hide-buttons link-collapse" to="/">
-                  <div className="my-hide-buttons">
+                <div className="hide-buttons link-collapse">
+                  <div className="my-hide-buttons" onClick={() => setSearchBar(true)}>
+                    {searchBar && ( 
+                      <form className="form-inline search my-2 my-lg-0" >
+                        <input className="form-search" type="search" placeholder="&#xe521; Search... " aria-label="Search" />
+                      </form>
+                      )}
                     <i className=" icon fa-solid fa-magnifying-glass"></i> Search
                   </div>
-                </Link>
+                </div>
                 <Link className="hide-buttons link-collapse" to="/login">
                   <div className="my-hide-buttons">
                     Login

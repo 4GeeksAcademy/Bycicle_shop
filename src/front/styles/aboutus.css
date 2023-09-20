@@ -41,6 +41,12 @@
     top: 18vh;
 }
 /*css to make the site responsive*/
+@media screen and (max-width: 2000px) {
+    .aboutus-square {
+        left: 149vh;
+        top: 24vh;
+    }
+  }
 @media screen and (max-width: 1500px) {
     .aboutus-square {
         left: 125vh;

@@ -1,0 +1,19 @@
+.contentDiv {
+    display: flex;
+    position: absolute;
+  }
+  .back-to-top{
+      border-radius: 50%;
+      border: none;
+      width: 40px;
+      height: 40px;
+      background-color: black;
+      z-index: 3;
+       box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+       perspective: 5.5cm;
+  }
+  .my-fa-solid {
+    padding: 3px;
+    color: #7C0514;
+  }
+  

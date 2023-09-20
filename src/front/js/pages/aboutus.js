@@ -1,6 +1,4 @@
 import React from "react";
-import desk from "../../img/desk.jpg";
-import bike11 from "../../img/bike11.jpg";
 import "../../styles/aboutus.css";
 
 export const AboutUs = () => {
@@ -17,12 +15,12 @@ export const AboutUs = () => {
             </div>
             <div className="col-6 p-5">
               <img
-                src={bike11}
+                src="https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 className="aboutus-img-1"
                 alt="Bike image"
               />
               <img
-                src={desk}
+                src="https://images.pexels.com/photos/57690/pexels-photo-57690.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 className="aboutus-img-2"
                 alt="Desk image"
               />

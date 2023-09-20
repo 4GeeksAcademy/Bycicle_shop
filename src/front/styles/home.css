@@ -7,21 +7,24 @@
 .carousel-text {
       text-align: center;
       color: #7C0514;
-      font-size: 50px;
-      font-weight: 800;
+      font-size: 30px;
+      font-weight: 600;
       border-bottom: solid 3px #7C0514;
       width: 39vh;
       margin:auto;
+      position: absolute;
+      text-decoration: none;
+    }
+    .carousel-text:hover {
+      color: black;
     }
  .carousel-container {
     border-radius: 6px;
-    width: 80%;
-    height: 90vh;
     margin: auto;
-    padding-top: 25px;
  }  
  .equal-height-img {
-    object-fit: cover;
+   width: fit-content;
+   block-size: fit-content;
   }
  .btn-ai {
     background-color: black;
@@ -34,4 +37,42 @@
  .ai-icon {
     height: 60px;
     width: 90px;
+ }
+/*css to make the site responsive*/
+@media screen and (max-width: 2000px) {
+   .btn-ai {
+      font-size: small;
+      width: 70vh;
+   }
+   .carousel-container {
+      width: 80%;
+      height: 80vh;
+   } 
+ }
+ /*css to make the site responsive*/
+@media screen and (max-width: 1000px) {
+   .btn-ai {
+      font-size: 10px;
+      width: 45vh;
+      font-weight: 100;
+   }
+   .ai-icon {
+      height: 30px;
+      width: 45px;
+   }
+ }
+ @media screen and (max-width: 500px) {
+   .btn-ai {
+      font-size: 10px;
+      width: 45vh;
+      font-weight: 100;
+   }
+   .ai-icon {
+      height: 30px;
+      width: 45px;
+   }
+   .arrow-control {
+      position: inherit;
+      bottom: 60vh;
+   }
  }
