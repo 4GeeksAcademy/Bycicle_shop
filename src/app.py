@@ -18,7 +18,7 @@ from api.main import main as main_blueprint
 from api.auth import auth as auth_blueprint
 
 # Importing admin setup function
-from api.admin import setup_admin  # <-- Import this
+from api.admin import setup_admin  
 
 # Importing models
 from api.models import db

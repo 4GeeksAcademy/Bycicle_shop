@@ -5,7 +5,7 @@ import { serverURL } from "../config";
 import { Link, useNavigate } from "react-router-dom";
 
 
-export function Login (props) {
+export function Login(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailFlag, setEmailFlag] = useState(false);
@@ -59,7 +59,7 @@ export function Login (props) {
   // Handle Google login failure
   const responseGoogleFailure = (error) => {
     console.error("Google login failed:", error);
-    // Handle the error as needed
+
   };
 
   async function login(event) {
@@ -84,19 +84,19 @@ export function Login (props) {
     try {
       const response = await axios.post(`${serverURL}/login`, payload);
       console.log(response);
-  
+
       if (response.data.success === "true") {
         // Store access token in local storage
         localStorage.setItem('access_token', response.data.access_token);
         console.log("Login successful");
-  
+
         console.log(localStorage.getItem('access_token'));
-  
+
         console.log("Navigating to profile"); // to check if Navigation function is called
-  
+
         if (localStorage.getItem('access_token')) {
           navigate("/profile");
-          //window.location.reload();
+
         } else {
           console.log("Token not set");
         }
@@ -110,7 +110,7 @@ export function Login (props) {
         console.log(error.response);
       }
     }
-  }  return (
+  } return (
     <section className="container-fluid min-height-100 ">
       <h1 className="pb-2 text-white pt-2">Login</h1>
       <div className="container pb-5 h-100">
