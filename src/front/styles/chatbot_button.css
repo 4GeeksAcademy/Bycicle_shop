@@ -1,19 +1,47 @@
-.contentDiv {
+.contentChat {
     display: flex;
-    position: absolute;
+    flex-wrap: nowrap;
+    float: left;
+    position: relative;
+    z-index: 3;
   }
-  .back-to-top{
+  .chatbot-btn {
+      display: grid;
       border-radius: 50%;
-      border: none;
+      border: solid 1px black;
       width: 40px;
       height: 40px;
-      background-color: black;
-      z-index: 3;
-       box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
-       perspective: 5.5cm;
+      background-color: #7C0514;
+      box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+      align-content: center;
   }
-  .my-fa-solid {
+  .dropup-charbot {
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+  }
+  .fa-chatbot {
     padding: 3px;
-    color: #7C0514;
+    color: black
   }
-  
+  .dropup-charbot {
+    border-radius: 6px;
+    border: solid 1px black;
+  }
+  .dropdown-toggle-chat::after {
+    border: 0 !important;
+}
+.chatbot-title {
+  color: black;
+  font-weight: 700;
+  font-size: 80px;
+  background-color: #7C0514;
+  text-align: center;
+  padding: 5px;
+  width: 100%;
+}
+.chatbot-control {
+  border-radius: 20px;
+  border: solid 1px #484545;
+  padding: 0 10px;
+  color:#484545; 
+  background-color: white;
+}

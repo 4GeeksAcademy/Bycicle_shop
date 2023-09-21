@@ -6,7 +6,7 @@ import "../../styles/navbar.css";
 export const Navbar = () => {
   const [searchBar, setSearchBar] = useState(false);
   const navigate = useNavigate();
- /* const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [combinedAutocompleteData, setCombinedAutocompleteData] = useState([]);
  
 
@@ -53,7 +53,7 @@ export const Navbar = () => {
     setShowAutocomplete(false);
     console.log(`/details/${selectedItemType(selectedItem)}/${selectedItem.uid}`)
     navigate(`/details/${selectedItemType(selectedItem)}/${selectedItem.uid}`);
-  };*/
+  };
 
   const bicycle_list = () => {
     navigate('/products');

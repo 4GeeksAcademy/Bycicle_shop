@@ -16,7 +16,6 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Chatbot_button} from "./component/chatbot_button";
-import { Chatbot } from "./pages/chatbot";
 import {Login} from "./pages/login"
 import Product from "./pages/products";
 import Profile from "./pages/profile";
@@ -45,7 +44,6 @@ const Layout = () => {
                         <Route element={<Login />} path="/login" />
                         <Route element={<Ai />} path="/ai" />
                         <Route element={<Ai_resp />} path="/ai_resp" />
-                        <Route element={<Chatbot />} path="/chatbot" />
                         <Route element={<Product />} path="/products" />
                         <Route element={<ProductDetail />} path="/product/:id" />
                         <Route element={<Profile />} path="/profile" />

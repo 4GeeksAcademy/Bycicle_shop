@@ -4,6 +4,9 @@
     justify-items: center;
     margin-top: 10px;
 }
+.my-carousel {
+   transition: transform .3s ease-in;
+}
 .carousel-text {
       text-align: center;
       color: #7C0514;
