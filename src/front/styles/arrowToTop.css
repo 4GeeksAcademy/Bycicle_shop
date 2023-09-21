@@ -3,7 +3,7 @@
   flex-wrap: nowrap;
   float: right;
   position: relative;
-  z-index: 3;
+  bottom: -17px;
 }
 .back-to-top{
     border-radius: 50%;

@@ -108,8 +108,26 @@ li {
 .custom-dropdown-toggle::after {
     border: 0 !important;
 }
+.fa-navbar {
+    color: #484545;
+    background-color: white;
+    position: absolute;
+    bottom: 8px;
+    left: 18vh;
+}
 /*css to make the site responsive*/
+@media screen and (max-width: 1800px) {
+    .navbar-box {
+        height: 20vh;
+    }  
+    .fa-navbar {
+        left: 23vh;
+    }
+  }
 @media screen and (max-width: 1000px) {
+    .navbar-box {
+        height: 18vh;
+    }   
     .menu {
         width: 20%;
     }
@@ -125,8 +143,8 @@ li {
         margin-top: 70px;
         background-color: #7C0514;
         border-radius: 6px;
-        width: 24vh;
-        height: 22vh;
+        width: 16vh;
+        height: 15vh;
         display: inline-block;
         position: absolute;
     }
@@ -158,6 +176,12 @@ li {
         display: none;
         visibility: hidden;
     }
+    .fa-navbar {
+        left: 12vh;
+    }
+    .chatbot-control {
+        width: 80%;
+    }
   }
 @media screen and (max-width: 550px) {
     .language {
@@ -172,8 +196,11 @@ li {
     .menu {
         margin-right: 40px;
     }
+    .fa-navbar {
+        left: 19vh;
+    }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 380px) {
     .navbar-container {
         display: flex;
         flex-wrap: nowrap;
@@ -187,5 +214,8 @@ li {
     }
     .menu {
         margin-right: 40px;
+    }
+    .fa-navbar {
+        left: 23vh;
     }
 }

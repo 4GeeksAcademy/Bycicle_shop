@@ -1,61 +1,54 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
 
 export const Navbar = () => {
-  const [searchBar, setSearchBar] = useState(false);
+  // State for controlling the search bar and results
+  const [bar, setBar] = useState(false);
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
-  const [combinedAutocompleteData, setCombinedAutocompleteData] = useState([]);
- 
 
-  const handleChange = (value) => {
-    setInput(value);
-    if (value.trim() === "") {
-      setCombinedAutocompleteData([]);
-      setShowAutocomplete(false);
-    } else {
-      const fetchCharacters = fetch(`https://www.swapi.tech/api/people?`);
-      const fetchPlanets = fetch(`https://www.swapi.tech/api/planets?`);
-
-      Promise.all([fetchCharacters, fetchPlanets])
-        .then((responses) =>
-          Promise.all(responses.map((response) => response.json()))
-        )
-        .then(([charactersData, planetsData]) => {
-          const combinedData = [
-            ...charactersData.results.filter((result) =>
-              result.name.toLowerCase().includes(value.toLowerCase())
-            ),
-            ...planetsData.results.filter((result) =>
-              result.name.toLowerCase().includes(value.toLowerCase())
-            ),
-          ];
-          setCombinedAutocompleteData(combinedData);
-          console.log(combinedData)
-          setShowAutocomplete(true);
-        })
-        .catch((error) => {
-          console.log("Looks like there was a problem: \n", error);
-        });
-    }
-  };
-
-  const selectedItemType = (item) => {
-    return item.url && item.url.toLowerCase().includes("people")
-      ? "characters"
-      : "planets";
-  };
-
-  const handleSelectAutocomplete = (selectedItem) => {
-    setInput(selectedItem.name);
+// Handle changes in the search input
+const handleChange = (value) => {
+  setSearch(value);
+  if (value.trim() === "") {
+    setSearchResults([]);
     setShowAutocomplete(false);
-    console.log(`/details/${selectedItemType(selectedItem)}/${selectedItem.uid}`)
-    navigate(`/details/${selectedItemType(selectedItem)}/${selectedItem.uid}`);
+  } else {
+    // Make an Axios request to fetch search results
+  console.log("getData called");
+  axios
+  .get(`https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev/api/products`)
+  .then((response) => {
+    console.log("Response received: ", response.data); 
+    if (response.data.success === true) {
+      const data = response.data.bicycles.filter((result) =>
+        result.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSearchResults(data);
+      setShowAutocomplete(true);
+      console.log("Fetched products: ", response.data.bicycles);
+    }
+  })
+  .catch((error) => {
+    console.error("Error occurred during the request:", error);
+  });
+  };
   };
 
-  const bicycle_list = () => {
+  // Handle selecting an autocomplete suggestion
+  const handleAutocompleteSelection = (selectedValue) => {
+    setSearch(selectedValue);
+    setShowAutocomplete(false);
+    navigate(`/products/${selectedValue}`);
+  };
+
+  // Navigate to the products page
+  const bicycleList = () => {
     navigate('/products');
   };
 
@@ -66,6 +59,7 @@ export const Navbar = () => {
           <img src={logo} className="img" alt="logo" />
         </Link>
         <div className="menu col-sm-11 col-md-11 col-lg-8 col-xl-8">
+          {/* Dropdown and navigation buttons */}
           <div className="dropdown mb-3 language">
             <button
               className="btnlanguage dropdown-toggle"
@@ -130,91 +124,117 @@ export const Navbar = () => {
               <div className="collapse" id="collapseProducts">
                 <ul className="card card-body my-dropdown-menu">
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
                       Road Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
                       Mountain Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
                       Hybrid Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
                       Speciality Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
                       BMX Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
                       Kid's Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycle_list}>
+                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
                       Other types
                     </button>
                   </li>
                 </ul>
               </div>
-              <>
               <div>
-              <div className="show-buttons link-collapse" onClick={() => setSearchBar(true)}>
-                    <i className="icon fa-solid fa-magnifying-glass"></i>
-                    {searchBar && ( 
-                      <form className="form-inline search my-2 my-lg-0">
-                        <input className="form-search" type="search" placeholder="&#xe521; Search... " aria-label="Search" />
-                      </form>
-                      )}
-                  </div>
-                  </div>
+              {/* Search bar */}
+              <div className="show-buttons link-collapse">
+                <i className="icon fa-solid fa-magnifying-glass" onClick={() => setBar(true)}></i>
+                {bar && ( 
+                  <form className="form-inline search my-lg-0">
+                    <input
+                      id="searchInput"
+                      className="form-search"
+                      type="search"
+                      placeholder="Search... "
+                      value={search}
+                      onChange={(e) => handleChange(e.target.value)}
+                    />
+                    <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
+                  </form>
+                )}
+                {showAutocomplete && (
+                  <ul className="autocomplete-results">
+                    gfhg
+                    {searchResults.map((result) => (
+                      <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
+                        {result.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <Link className="show-buttons link-collapse" to="/login">
                   <i className="icon fa-regular fa-user"></i>
                 </Link>
                 <Link className="show-buttons link-collapse" to="/ShoppingCart">
                   <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                 </Link>
-              </>
-              <>
-                <div className="hide-buttons link-collapse">
-                  <div className="my-hide-buttons" onClick={() => setSearchBar(true)}>
-                    {searchBar && ( 
-                      <form className="form-inline search my-2 my-lg-0" >
-                        <input className="form-search" type="search" placeholder="&#xe521; Search... " aria-label="Search" />
-                      </form>
-                      )}
-                    <i className=" icon fa-solid fa-magnifying-glass"></i> Search
+              </div> 
+              </div>
+              {/* Hidden buttons */}
+              <div className="hide-buttons link-collapse">
+                <div className="my-hide-buttons" onClick={() => setBar(true)}>
+                  {bar && ( 
+                    <form className="form-inline search my-lg-0">
+                      <input className="form-search" type="search" placeholder="Search... " aria-label="Search" />
+                      <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
+                    </form>
+                  )}
+                  {showAutocomplete && (
+                    <ul className="autocomplete-results">
+                      {searchResults.map((result) => (
+                        <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
+                          {result.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                         <i className="icon fa-solid fa-magnifying-glass"></i> Search
                   </div>
+                  <Link className="hide-buttons link-collapse" to="/login">
+                    <div className="my-hide-buttons">
+                      Login
+                    </div>
+                  </Link>
+                  <Link className="hide-buttons link-collapse" to="/ShoppingCart">
+                    <div className="my-hide-buttons">
+                      <i className="icon fa-solid fa-cart-shopping"></i> Cart
+                    </div>
+                  </Link>
+                  <Link className="hide-buttons link-collapse" to="/">
+                    <div className="my-hide-buttons">
+                      Give us your feedback
+                    </div>
+                  </Link>
                 </div>
-                <Link className="hide-buttons link-collapse" to="/login">
-                  <div className="my-hide-buttons">
-                    Login
-                  </div>
-                </Link>
-                <Link className="hide-buttons link-collapse" to="/ShoppingCart">
-                  <div className="my-hide-buttons">
-                    <i className="icon fa-solid fa-cart-shopping"></i> Cart
-                  </div>
-                </Link>
-                <Link className="hide-buttons link-collapse" to="/">
-                  <div className="my-hide-buttons">
-                    Give us your feedback
-                  </div>
-                </Link>
-              </>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-};
+              </div>
+              </div>
+              </div>
+          </div>       
+       </nav>
+    );
+  };

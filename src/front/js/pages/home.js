@@ -22,7 +22,7 @@ export const Home = () => {
                 </Link>
             <img
               src="https://images.pexels.com/photos/1595483/pexels-photo-1595483.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              className="d-block"
+              className="d-block equal-height-img"
               alt="Bike 1"
             />
             
@@ -33,7 +33,7 @@ export const Home = () => {
                 </Link>
             <img
               src="https://images.pexels.com/photos/90454/pexels-photo-90454.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              className="d-block "
+              className="d-block equal-height-img"
               alt="Bike 2"
           />  
           </div>
@@ -43,7 +43,7 @@ export const Home = () => {
                 </Link>
             <img
               src="https://images.pexels.com/photos/248559/pexels-photo-248559.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              className="d-block "
+              className="d-block equal-height-img"
               alt="Bike 3"
             />
           </div>
@@ -53,7 +53,7 @@ export const Home = () => {
                 </Link>
             <img
               src="https://images.pexels.com/photos/71104/utah-mountain-biking-bike-biking-71104.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              className="d-block "
+              className="d-block equal-height-img"
               alt="Bike 4"
             />
           </div>
@@ -63,7 +63,7 @@ export const Home = () => {
                 </Link>
             <img
               src="https://images.pexels.com/photos/3281020/pexels-photo-3281020.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              className="d-block "
+              className="d-block equal-height-img"
               alt="Bike 5"
             />
           </div>
@@ -73,7 +73,7 @@ export const Home = () => {
                 </Link>
             <img
               src="https://images.pexels.com/photos/5792902/pexels-photo-5792902.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              className="d-block "
+              className="d-block equal-height-img"
               alt="Bike 6"
             />
           </div>
@@ -83,7 +83,7 @@ export const Home = () => {
                 </Link>
             <img
               src="https://images.pexels.com/photos/2591990/pexels-photo-2591990.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              className="d-block "
+              className="d-block equal-height-img"
               alt="Bike 7"
             />
           </div>

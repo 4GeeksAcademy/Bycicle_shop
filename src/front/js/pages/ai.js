@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import robot from "../../img/robot.png";
+import baloon from "../../img/ballon.png";
 import "../../styles/ai.css";
 
 export const Ai = () => {
@@ -10,9 +11,8 @@ export const Ai = () => {
             <div>
             <div>
                 <img src={robot} className="img-generate" alt="logo" />
+                <img src={baloon} className="img-generate-ballon" alt="logo" />
                 <span className="paragraf-generate" >I'm going to help you...
-                <i className="fa-regular fa-comment fa-generate"></i>    
-                    
                 </span>
             </div>
             <form className="form my-form-generate" >

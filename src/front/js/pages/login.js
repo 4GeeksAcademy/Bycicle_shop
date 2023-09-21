@@ -121,7 +121,7 @@ export function Login(props) {
                     onSuccess={responseGoogleSuccess}
                     onFailure={responseGoogleFailure}
                     cookiePolicy={'single_host_origin'}
-                    className="btn-login-google"
+                    className="login-google"
                   />
                 </div>
                 <div className="row mt-5 text-center">
@@ -145,7 +145,7 @@ export function Login(props) {
                     type="password"
                     value={password}
                     onChange={onChangePassword}
-                    id="typePasswordX-2"
+                    id="typePasswordX"
                     className="form-control form-control-lg form-input-login"
                     placeholder="Password"
                   />

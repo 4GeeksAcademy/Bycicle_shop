@@ -1,9 +1,7 @@
 .contentChat {
-    display: flex;
-    flex-wrap: nowrap;
-    float: left;
-    position: relative;
-    z-index: 3;
+  position: absolute;
+  bottom: 8vh;
+  padding-left: 5vh;
   }
   .chatbot-btn {
       display: grid;
@@ -29,14 +27,17 @@
   .dropdown-toggle-chat::after {
     border: 0 !important;
 }
-.chatbot-title {
-  color: black;
-  font-weight: 700;
-  font-size: 80px;
+.chatbot-header {
   background-color: #7C0514;
   text-align: center;
   padding: 5px;
   width: 100%;
+}
+.chatbot-title {
+  color: black;
+  font-weight: 500;
+  font-size: 20px;
+  margin-left: 10px;
 }
 .chatbot-control {
   border-radius: 20px;
@@ -44,4 +45,26 @@
   padding: 0 10px;
   color:#484545; 
   background-color: white;
+}
+.fa-send {
+  color: black;
+  border: none;
+  background-color: white;
+  position: absolute;
+  bottom: 6px;
+  right: 5px;
+}
+@media screen and (max-width: 1000px) {
+  .contentChat {
+    bottom: 42px;
+    left: 12px;
+    margin: 0;
+    }
+  .chatbot-control{
+    width: 100%;
+  }
+  .chatbot-title {
+    font-size: 17px;
+    margin: 0;
+  }
 }

@@ -3,6 +3,8 @@
     align-items: baseline;
     justify-items: center;
     margin-top: 10px;
+    position: relative;
+    z-index: 1;
 }
 .my-carousel {
    transition: transform .3s ease-in;
@@ -45,11 +47,11 @@
 @media screen and (max-width: 2000px) {
    .btn-ai {
       font-size: small;
-      width: 70vh;
+      width: 80vh;
    }
    .carousel-container {
       width: 80%;
-      height: 80vh;
+      margin: auto;
    } 
  }
  /*css to make the site responsive*/
@@ -79,3 +81,20 @@
       bottom: 60vh;
    }
  }
+ @media screen and (max-width: 375px) {
+   .home-container {
+      display:flow-root;
+  }
+    .carousel-container {
+      margin-top: 10px;
+      height: 50vh;
+      width: 50vh;
+   }  
+   .btn-ai {
+      margin-left: 40px;
+   } 
+   .equal-height-img {
+      width: 100%;
+      height: 50vh;
+     }
+}

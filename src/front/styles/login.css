@@ -45,6 +45,11 @@
     border-radius: 6px;
     border: 0px;
   }
+  .login-google {
+    background-color: black;
+    padding: 0;
+
+  }
   .line-login {
     border: solid 1px #484545;
     height: 1px;

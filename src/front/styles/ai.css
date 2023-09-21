@@ -35,12 +35,12 @@
   .paragraf-generate {
     color: white;
     position: absolute;
+    font-size: medium;
     z-index: 3;
     display: grid;
-    width: 80vh;
-    height: 60vh;
-    margin-top: 40vh;
-    margin-left: 87%;
+    width: 13vh;
+    margin-top: 37vh;
+    margin-left: 95%;
   }
   .img-generate {
     position: absolute;
@@ -51,9 +51,66 @@
     margin-top: 40vh;
     margin-left: 68%;
   }
-  .fa-generate {
-    
+  .img-generate-ballon {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    width: 70vh;
+    height: 20vh;
+    margin-top: 29vh;
+    margin-left: 70%;
   }
   /*css to make the site responsive*/
+  @media screen and (max-width: 1800px) {
+    .img-generate {
+      margin-top: 60vh;
+      margin-left: 70%;
+    }
+    .paragraf-generate {
+      font-size: small;
+      margin-top: 55vh;
+      margin-left: 90%;
+    }
+    .img-generate-ballon {
+      margin-top: 50vh;
+      margin-left: 77%;
+    }
+  }
   @media screen and (max-width: 1000px) {
+    .img-generate {
+      margin-top: 50vh;
+      margin-left: 65%;
+    }
+    .paragraf-generate {
+      width: 10vh;
+      margin-top: 45vh;
+      margin-left: 90%;
+    }
+    .img-generate-ballon {
+      margin-top: 41vh;
+      margin-left: 74%;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .generate-control {
+      width: 90%;
+    }
+    .img-generate {
+      display: grid;
+      width: 40vh;
+      height: 30vh;
+      margin-top: 72vh;
+      margin-left: 50%;
+    }
+    .paragraf-generate {
+      font-size: xx-small;
+      margin-top: 68vh;
+      margin-left: 87%;
+    }
+    .img-generate-ballon {
+      width: 45vh;
+      height: 15vh;
+      margin-top: 63vh;
+      margin-left: 54%;
+    }
   }
