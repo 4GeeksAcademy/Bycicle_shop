@@ -6,6 +6,8 @@ from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import json
+from api.commands import setup_commands
+from api.utils import APIException, generate_sitemap
 
 # Importing configurations
 from api.config import Config
@@ -14,6 +16,9 @@ from api.config import Config
 from api.routes import api as api_blueprint
 from api.main import main as main_blueprint
 from api.auth import auth as auth_blueprint
+
+# Importing admin setup function
+from api.admin import setup_admin  
 
 # Importing models
 from api.models import db
@@ -35,11 +40,16 @@ def create_app():
     jwt = JWTManager(app)
 
     # Initialize CORS
-    #CORS(app)
     CORS(app, origins=["https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev"], 
          methods=['GET', 'POST', 'PUT', 'DELETE'], 
          allow_headers=['Content-Type', 'Authorization'],
          supports_credentials=True)
+
+    # Initialize Admin
+    setup_admin(app)  
+
+    # add the admin
+    setup_commands(app)
 
     # Register blueprints
     app.register_blueprint(api_blueprint)
@@ -80,9 +90,12 @@ def create_app():
         # Commit the changes to the database
         db.session.commit()
 
+    # generate sitemap with all your endpoints
     @app.route('/')
     def sitemap():
-        return "This is the home page"  
+        
+            return generate_sitemap(app)
+       
 
     static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
     @app.route('/<path:path>', methods=['GET'])
