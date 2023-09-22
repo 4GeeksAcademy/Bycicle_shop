@@ -69,11 +69,11 @@ export const Signup = () => {
                     </Link>    
                 </div>
                 <div className="row me-3">
-                    <Link to="/signup">
-                        <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <Link to="/signup">
                             <button className="btn-register" type="submit">REGISTER</button>
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-end cancel-btn">
                         <button className="btn-register"  onClick={resetForm} >CANCEL</button>
                     </div>
