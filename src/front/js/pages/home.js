@@ -6,14 +6,16 @@ import "../../styles/home.css";
 export const Home = () => {
 
   return (
-    <div className="
+    <div className="container
     home-container min-height-100">
-      <Link to="/ai">
-        <button type="button" className="btn btn-ai my-3">
-          <img src={openAI} className="ai-icon" alt="AI Icon" />
-          Do you want help choosing the perfect bike for you?
-        </button>
-      </Link>
+      <div className="text-center">
+        <Link to="/ai">
+          <button type="button" className="btn btn-ai my-3">
+            <img src={openAI} className="ai-icon" alt="AI Icon" />
+            Do you want help choosing the perfect bike for you?
+          </button>
+        </Link>
+      </div>
       <div id="carouselExampleAutoplaying" className="carousel carousel-dark slide" data-bs-ride="carousel">
         <div className="carousel-inner carousel-container">
           <div className="carousel-item my-carousel active" data-bs-interval="1000">

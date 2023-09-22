@@ -1,6 +1,4 @@
 .home-container {
-    display: grid;
-    align-items: baseline;
     justify-items: center;
     margin-top: 10px;
     position: relative;
@@ -26,6 +24,7 @@
  .carousel-container {
     border-radius: 6px;
     margin: auto;
+    height: 80vh;
     z-index: 0;
  }  
  .equal-height-img {
