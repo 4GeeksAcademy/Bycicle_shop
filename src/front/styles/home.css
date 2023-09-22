@@ -26,6 +26,7 @@
  .carousel-container {
     border-radius: 6px;
     margin: auto;
+    z-index: 0;
  }  
  .equal-height-img {
    width: fit-content;

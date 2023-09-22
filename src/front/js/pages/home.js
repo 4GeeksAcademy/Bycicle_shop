@@ -9,7 +9,7 @@ export const Home = () => {
     <div className="
     home-container min-height-100">
       <Link to="/ai">
-        <button type="button" className="btn btn-ai mt-3">
+        <button type="button" className="btn btn-ai my-3">
           <img src={openAI} className="ai-icon" alt="AI Icon" />
           Do you want help choosing the perfect bike for you?
         </button>

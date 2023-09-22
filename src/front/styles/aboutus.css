@@ -19,14 +19,13 @@
     width: 200px;
     margin: 20px 0 40px 0;
     z-index: 0;
-    
 }
 .aboutus-img-2 {
     border-radius: 16%;
     transform: rotate(45deg);
     height: 210px;
     width: 230px;
-    z-index: 1;
+    z-index: 0;
     margin: 0 40px 40px 0;
 }
 .aboutus-square {
@@ -49,36 +48,72 @@
   }
 @media screen and (max-width: 1500px) {
     .aboutus-square {
-        left: 125vh;
-        top: 24vh;
+        left: 145vh;
+        top: 25vh;
     }
   }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
+    .aboutus-square {
+        display: none;
+    }
     .aboutus-img-2 {
         position: absolute;
+        left: 110vh;
+        top: 2vh;
+        z-index: 0;
+    }
+    .aboutus-img-1 {
+        position: absolute;
+        z-index: 1;
         left: 83vh;
         top: 8vh;
     }
-    .aboutus-square {
-        display: none;
-    }
   }
-  @media screen and (max-width: 400px) {
-   .aboutus-title{
-        font-size: small;
-    }
+@media screen and (max-width: 1000px) {
     .aboutus-img-1 {
-        height: 70px;
-        width: 50px;
+        left: 60vh;
+        top: 18vh;
     }
     .aboutus-img-2 {
-        position: absolute;
-        height: 90px;
-        width: 60px;
+        left: 83vh;
+        top: 8vh;
+    }
+  }
+  @media screen and (max-width: 900px) {
+     .aboutus-img-1 {
+         left: 31vh;
+         top: 10vh;
+     }
+     .aboutus-img-2 {
+         left: 44vh;
+         top: 8vh;
+     }
+   }
+  @media screen and (max-width: 500px) {
+    .aboutus-title{
+         font-size: small;
+     }
+     .aboutus-img-1 {
+         height: 70px;
+         width: 70px;
+         left: 26vh;
+         top: 10vh;
+     }
+     .aboutus-img-2 {
+         position: absolute;
+         height: 90px;
+         width: 80px;
+         left: 34vh;
+         top: 10vh;
+     }
+   }
+  @media screen and (max-width: 400px) {
+    .aboutus-img-1 {
+        left: 35vh;
+        top: 15vh;
+    }
+    .aboutus-img-2 {
         left: 44vh;
         top: 16vh;
-    }
-    .aboutus-square {
-        display: none;
     }
   }

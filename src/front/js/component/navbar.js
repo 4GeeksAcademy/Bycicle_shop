@@ -225,11 +225,6 @@ const handleChange = (value) => {
                       <i className="icon fa-solid fa-cart-shopping"></i> Cart
                     </div>
                   </Link>
-                  <Link className="hide-buttons link-collapse" to="/">
-                    <div className="my-hide-buttons">
-                      Give us your feedback
-                    </div>
-                  </Link>
                 </div>
               </div>
               </div>
