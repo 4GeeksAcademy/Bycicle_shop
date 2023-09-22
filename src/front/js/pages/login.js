@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
-import { serverURL } from "../config";
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -82,7 +81,7 @@ export function Login(props) {
       password: password,
     };
     try {
-      const response = await axios.post(`${serverURL}/login`, payload);
+      const response = await axios.post(process.env.BACKEND_URL + "/login", payload);
       console.log(response);
 
       if (response.data.success === "true") {

@@ -40,11 +40,8 @@ def create_app():
     jwt = JWTManager(app)
 
     # Initialize CORS
-    CORS(app, origins=["https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev"], 
-         methods=['GET', 'POST', 'PUT', 'DELETE'], 
-         allow_headers=['Content-Type', 'Authorization'],
-         supports_credentials=True)
-
+    CORS(app, origins=[os.getenv("FRONTEND_URL")])
+    
     # Initialize Admin
     setup_admin(app)  
 
