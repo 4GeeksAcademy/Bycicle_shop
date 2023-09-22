@@ -64,7 +64,7 @@ export const ContactUs = () => {
                 <h1 className="title-contactus text-center">Our Contacts</h1>
                 <div className="our-contacts"> 
                   <p>
-                    <b>Email:</b> aleksander.kleinn@gmail.com / mariana.placito@gmail.com
+                    <b>Email:</b> aleksandr.klein@gmail.com / mariana.placito@gmail.com
                   </p>
                   <p>
                     <b>Telephone:</b> *************

@@ -27,7 +27,7 @@ const Profile = () => {
     
       axios({
         method: "GET",
-        url: "https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/profile",
+        url: process.env.BACKEND_URL + "/profile",
         headers: {
           Authorization: `Bearer ${token}`
         },
