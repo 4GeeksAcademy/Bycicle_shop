@@ -55,6 +55,10 @@
     text-align: end;
     padding-left: 20px;
   }
+  .forgot-link:hover {
+    color: #484545;
+    font-weight: 700;
+  }
   /*css to make the site responsive*/
 @media screen and (max-width: 1000px) {
   .text-login {

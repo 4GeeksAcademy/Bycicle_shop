@@ -227,6 +227,9 @@
     width: 50%;
     margin: auto;
 }
+.link-shopping {
+    cursor: pointer;
+}
 @media screen and (max-width: 500px) {
     .cart-title {
         font-size: 30px;

@@ -63,7 +63,7 @@ export const Signup = () => {
                 <div className="form-check">
                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={privacy} onChange={(e) => setPrivacy(e.target.checked)}/>
                     <Link className="link-collapse" to="/terms">
-                        <label className="form-check-label my-form-check-label" >
+                        <label className="form-check-label link-privacy my-form-check-label" >
                             I have read and accept the privacy policy
                         </label>
                     </Link>    

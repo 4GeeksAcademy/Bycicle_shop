@@ -165,8 +165,8 @@ export function Login(props) {
                         </label>
                   </div>
                   <Link
-                    className="forgot-link col-6"
-                    to="/resetPassoword"
+                    className="forgot-link link col-6"
+                    to="/resetPassword"
                     type="submit"
                   >
                     Forgot Password?
@@ -187,13 +187,14 @@ export function Login(props) {
                   >
                     Login
                   </button>
-                  <button
-                    to="/signup"
-                    className="btn-login"
-                    type="submit"
-                  >
-                    Register
-                  </button>
+                  <Link className="link" to="/signup">
+                    <button
+                      className="btn-login"
+                      type="submit"
+                    >
+                      Register
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
