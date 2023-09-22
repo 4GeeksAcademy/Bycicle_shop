@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { serverURL } from "../config";
 
 function Product(props) {
   const navigate = useNavigate();
@@ -10,7 +9,7 @@ function Product(props) {
   function getData() {
     console.log("getData called");
     axios
-      .get(`https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/api/products`)  
+      .get(process.env.BACKEND_URL + "/api/products")  
       .then((response) => {
         console.log("Response received: ", response.data); 
         if (response.data.success === "true") {

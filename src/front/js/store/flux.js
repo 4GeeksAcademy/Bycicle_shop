@@ -1,8 +1,4 @@
-import { serverURL } from "../config";
 import axios from 'axios';
-// import { useStoreActions } from '../pages/product_detail';
-
-
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -70,7 +66,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					quantity: quantity,
 				};
 				axios
-					.post(`${serverURL}/cart`, payload, {
+					.post(process.env.BACKEND_URL + "/cart", payload, {
 						headers: { Authorization: `Bearer ${props.token}` },
 					})
 					.then((response) => {
@@ -114,7 +110,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					bicycle_id: id,
 				};
 				axios
-					.post(`${serverURL}/review`, payload, {
+					.post(process.env.BACKEND_URL + "/review", payload, {
 						headers: { Authorization: `Bearer ${props.token}` },
 					})
 					.then((response) => {
@@ -151,7 +147,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						Authorization: "Bearer " + token
 					});
 					console.log("About to make API call");
-					const response = await axios.get("https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/profile",
+					const response = await axios.get(process.env.BACKEND_URL + "/profile",
 						{
 							headers: {
 								Authorization: "Bearer " + token
@@ -181,7 +177,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					quantity: quantity,
 				};
 				axios
-					.post(`${serverURL}/cart`, payload, {
+					.post(`${process.env.BACKEND_URL}/cart`, payload, {
 						headers: { Authorization: `Bearer ${props.token}` },
 					})
 					.then((response) => {
