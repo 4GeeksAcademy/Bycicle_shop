@@ -127,8 +127,8 @@ li {
   }
 @media screen and (max-width: 1000px) {
     .navbar-box {
-        height: 18vh;
-    }   
+        height: 22vh;
+    }  
     .menu {
         width: 20%;
     }

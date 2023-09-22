@@ -136,8 +136,9 @@ export function Login(props) {
                     value={email}
                     onChange={onChangeEmail}
                     id="typeEmailX-2"
-                    className="form-control form-control-lg form-input-login"
+                    className="form-control-lg form-input-login"
                     placeholder="Email"
+                    required
                   />
                 </div>
                 <div className="form-outline mb-4">
@@ -146,8 +147,9 @@ export function Login(props) {
                     value={password}
                     onChange={onChangePassword}
                     id="typePasswordX"
-                    className="form-control form-control-lg form-input-login"
+                    className="form-control-lg form-input-login"
                     placeholder="Password"
+                    required
                   />
                 </div>
                 <div className="form-check d-flex row mt-4 p-0 ms-0">

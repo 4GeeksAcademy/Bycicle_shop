@@ -40,7 +40,7 @@
     display: grid;
     width: 13vh;
     margin-top: 37vh;
-    margin-left: 95%;
+    margin-left: 97%;
   }
   .img-generate {
     position: absolute;
@@ -58,7 +58,7 @@
     width: 70vh;
     height: 20vh;
     margin-top: 29vh;
-    margin-left: 70%;
+    margin-left: 65%;
   }
   /*css to make the site responsive*/
   @media screen and (max-width: 1800px) {
