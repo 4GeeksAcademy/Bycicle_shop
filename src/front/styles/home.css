@@ -28,8 +28,7 @@
     z-index: 0;
  }  
  .equal-height-img {
-   width: fit-content;
-   block-size: fit-content;
+   width: 100%;
   }
  .btn-ai {
     background-color: black;
