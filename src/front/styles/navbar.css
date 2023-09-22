@@ -43,8 +43,9 @@ li {
     color: black;
     padding-left: 0;
 }
-.my-dropdown-item:focus {
-    outline: none;
+.my-dropdown-item:hover {
+    background-color: #7C0514;
+    font-weight: 500;
   }
 .hide-buttons {
     display: none;
