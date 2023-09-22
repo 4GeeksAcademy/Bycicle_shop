@@ -144,8 +144,8 @@ li {
         margin-top: 70px;
         background-color: #7C0514;
         border-radius: 6px;
-        width: 16vh;
-        height: 16vh;
+        width: 20vh;
+        height: 28vh;
         position: absolute;
         z-index: 3;
     }
@@ -154,6 +154,7 @@ li {
         margin-left: 10px;
         margin-right: 10px;
         font-weight: 500;
+        font-size: 16px;
         text-decoration: none;
         color: black;
     }  
@@ -191,6 +192,11 @@ li {
         font-size: xx-small;
         z-index: 3;
     } 
+    .my-collapse {
+        font-size: small;
+        height: 26vh;
+        z-index: 3;
+    }
     .img {
         height: 100px;
         width: 100px;
@@ -206,11 +212,6 @@ li {
     .navbar-container {
         display: flex;
         flex-wrap: nowrap;
-    }
-    .my-collapse {
-        font-size: small;
-        height: 25vh;
-        z-index: 3;
     }
     .my-btn {
         font-size: small;
