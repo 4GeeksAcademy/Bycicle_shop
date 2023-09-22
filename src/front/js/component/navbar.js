@@ -4,47 +4,49 @@ import axios from "axios";
 import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
 
-export const Navbar = () => {
+export const Navbar = (props) => {
   // State for controlling the search bar and results
   const [bar, setBar] = useState(false);
-  const [search, setSearch] = useState("");
+  const [input, setInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
 
 // Handle changes in the search input
 const handleChange = (value) => {
-  setSearch(value);
+  setInput(value);
   if (value.trim() === "") {
     setSearchResults([]);
     setShowAutocomplete(false);
   } else {
     // Make an Axios request to fetch search results
-  console.log("getData called");
-  axios
-  .get(`https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev/api/products`)
-  .then((response) => {
-    console.log("Response received: ", response.data); 
-    if (response.data.success === true) {
-      const data = response.data.bicycles.filter((result) =>
-        result.name.toLowerCase().includes(value.toLowerCase())
-      );
-      setSearchResults(data);
-      setShowAutocomplete(true);
-      console.log("Fetched products: ", response.data.bicycles);
-    }
-  })
-  .catch((error) => {
-    console.error("Error occurred during the request:", error);
-  });
-  };
-  };
+    // Make an Axios request to fetch search results
+    axios
+    .get(`https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/api/products`)
+    .then((response) => {
+      console.log("Response received: ", response.data);
+      if (response.data.success === true) {
+        const data = response.data.bicycles.filter((result) =>
+          result.name.toLowerCase().includes(value.toLowerCase())
+        );
+        console.log("ok");
+        setShowAutocomplete(true);
+        setSearchResults(data);
+        console.log("Fetched products: ", response.data.bicycles);
+      }
+    })
+    .catch((error) => {
+      console.error("Error occurred during the request:", error);
+    });
+}
+};
 
   // Handle selecting an autocomplete suggestion
   const handleAutocompleteSelection = (selectedValue) => {
-    setSearch(selectedValue);
+    console.log("handleAutocompleteSelection called with:", selectedValue);
+    setInput(selectedValue);
     setShowAutocomplete(false);
-    navigate(`/products/${selectedValue}`);
+    navigate(`/products/${selectedValue.id}`);
   };
 
   // Navigate to the products page
@@ -171,15 +173,15 @@ const handleChange = (value) => {
                       className="form-search"
                       type="search"
                       placeholder="Search... "
-                      value={search}
+                      value={input}
                       onChange={(e) => handleChange(e.target.value)}
                     />
                     <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
                   </form>
                 )}
+                
                 {showAutocomplete && (
                   <ul className="autocomplete-results">
-                    gfhg
                     {searchResults.map((result) => (
                       <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
                         {result.name}
@@ -199,20 +201,16 @@ const handleChange = (value) => {
               <div className="hide-buttons link-collapse">
                 <div className="my-hide-buttons" onClick={() => setBar(true)}>
                   {bar && ( 
-                    <form className="form-inline search my-lg-0">
-                      <input className="form-search" type="search" placeholder="Search... " aria-label="Search" />
+                    <form className="search my-lg-0">
+                      <input className="form-search" type="search" placeholder="Search... " aria-label="Search" value={input} onChange={(e) => handleChange(e.target.value)} />
                       <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
                     </form>
                   )}
-                  {showAutocomplete && (
-                    <ul className="autocomplete-results">
-                      {searchResults.map((result) => (
-                        <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
-                          {result.name}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                   {searchResults.map((result) => (
+                      <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
+                        {result.name}
+                      </li>
+                    ))}
                          <i className="icon fa-solid fa-magnifying-glass"></i> Search
                   </div>
                   <Link className="hide-buttons link-collapse" to="/login">
