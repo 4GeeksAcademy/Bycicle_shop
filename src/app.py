@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory
 import os
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import json
 from api.commands import setup_commands
 from api.utils import APIException, generate_sitemap
+from flask_mail import Mail, Message
 
 # Importing configurations
 from api.config import Config
@@ -29,6 +30,16 @@ load_dotenv()
 def create_app():
     app = Flask(__name__)
     
+   # SMTP credentials
+    app.config['MAIL_SERVER']='sandbox.smtp.mailtrap.io'
+    app.config['MAIL_PORT'] = 2525
+    app.config['MAIL_USERNAME'] = '5c824fb16674ab'
+    app.config['MAIL_PASSWORD'] = '562e49068d33bb'
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USE_SSL'] = False
+
+    mail = Mail(app)
+
     # Load configurations
     app.config.from_object(Config)
 
@@ -54,6 +65,27 @@ def create_app():
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
 
+    @app.route('/resetPassword', methods=['POST'])
+    def send_reset_email():
+        try:
+            email = request.json.get('email')
+
+            # Query the database to check if the email exists
+            user = User.query.filter_by(email=email).first()
+            message = Message(
+                subject='Password Reset Link',
+                recipients=['mariana.placito@gmail.com'],  # Replace with the recipient's email
+                sender='sandbox.smtp.mailtrap.io'  # Replace with your sender email
+            )
+            message.body = 'Hey, this is a link for reset the password.'
+            mail.send(message)
+            return jsonify({'message': 'Password reset email sent successfully'})
+        except Exception as e:
+            return jsonify({'message': 'Error sending reset email', 'error': str(e)})
+
+    if __name__ == '__main__':
+        app.run()
+    
     @app.route('/import-data', methods=['POST'])
     def import_data():
         try:

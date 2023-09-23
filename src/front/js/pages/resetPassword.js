@@ -1,29 +1,42 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import logo from "../../img/logo.png";
+import axios from "axios";
 import "../../styles/resetPassword.css";
 
 export const ResetPassword = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [hideContainer, setHideContainer] = useState(true);
+  const [resetStatus, setResetStatus] = useState(null);
 
-  // send an email to your account to reset button
-  const resetButton = () => {
-    setShowModal(true);
+  const handleResetPassword = async () => {
+    try {
+      // Send a POST request to your server to initiate the password reset process
+      const response = await axios.post("/resetPassword", { email }); // Use axios.post and include the email in the request body
+      
+      if (response.status === 200) {
+        setResetStatus("Check your email for a password reset!");
+      } else if (response.status === 404) {
+        setResetStatus("Your email does not exist.");
+      } else {
+        setResetStatus("Error sending reset email.");
+      }
+    } catch (error) {
+      setResetStatus("Error sending reset email.");
+    }
     setHideContainer(false);
   };
 
   return (
         <div className="min-height-100 container reset-big-box">
          {/* Modal */}
-          {showModal && (
-                  <div className="my-modal">
-                    <img src={logo} className="logo" alt="logo" />
-                    <p>Check your email for a password reset!</p>
-                  </div>
-          )}
+          {resetStatus && (
+            <div className="my-modal">
+              <img src={logo} className="logo" alt="logo" />
+              <p>{resetStatus}</p>
+            </div>
+         )}
           {hideContainer && (
             <>
               <div>
@@ -53,7 +66,7 @@ export const ResetPassword = () => {
                   <div>
                     {/* Button trigger modal and send email */}
                     <button
-                      onClick={resetButton}
+                      onClick={handleResetPassword}
                       className="btn-send"
                     >
                       Send
