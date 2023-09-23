@@ -1,14 +1,11 @@
-from flask import Blueprint, request,jsonify
+from flask import Blueprint, request, jsonify, current_app
 from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token
-from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
-from .models import db
-from flask import Flask, jsonify
+from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User, db
 
 main = Blueprint('main', __name__)
-
+        
 @main.route('/api/products', methods=['GET'])
 @cross_origin()
 def get_all_products():
@@ -98,6 +95,8 @@ def review_post():
             "title": new_review.title,
             "review_text": new_review.review_text,
     }}
+    if not request.is_json:
+        return jsonify({'message': 'Unsupported Media Type'}), 415
     return response
 
 @main.route('/cart')
