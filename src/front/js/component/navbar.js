@@ -21,23 +21,21 @@ const handleChange = (value) => {
   } else {
     // Make an Axios request to fetch search results
     axios
-    .get(`https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/api/products`)
-    .then((response) => {
-      console.log("Response received: ", response.data);
-      if (response.data.success === true) {
-        const data = response.data.bicycles.filter((result) =>
-          result.name.toLowerCase().includes(value.toLowerCase())
-        );
-        console.log("ok");
-        setShowAutocomplete(true);
-        setSearchResults(data);
-        console.log("Fetched products: ", response.data.bicycles);
-      }
-    })
-    .catch((error) => {
-      console.error("Error occurred during the request:", error);
-    });
-}
+      .get(process.env.BACKEND_URL + "/api/products")
+      .then((response) => {
+        if (response.data.success === "true") {
+          // Filter the results by name
+          const filteredResults = response.data.bicycles.filter((bike) =>
+            bike.name.toLowerCase().includes(value.toLowerCase())
+          );
+          setSearchResults(filteredResults);
+          setShowAutocomplete(true); // Show autocomplete suggestions
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }
 };
 
   // Handle selecting an autocomplete suggestion
@@ -175,7 +173,7 @@ const handleChange = (value) => {
                 )}
                 
                 {showAutocomplete && (
-                  <ul className="autocomplete-results">
+                  <ul className="autocomplete-results form-autocomplete">
                     {searchResults.map((result) => (
                       <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
                         {result.name}
