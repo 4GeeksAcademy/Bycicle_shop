@@ -7,7 +7,7 @@
 .subtitle-contactus {
     font-size: medium;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #484545;
+    color: black;
 }
 .my-form {
     background-color: black;
@@ -50,6 +50,12 @@
     margin: auto;
   }
   /*css to make the site responsive*/
+  @media screen and (max-width: 2000px) {
+    .btn-contact {
+        margin-top: 1vh;
+    }
+  }
+  
   @media screen and (max-width: 1000px) {
     .control-contact {
         width: 92%
@@ -64,6 +70,21 @@
     }
     .btn-contact {
         height: 30px;
+        margin-left: 3px;
+        margin-top: 10px;
     }
+    .title-contactus {
+      letter-spacing: 1px;
+      font-size: 30px;
+  }
+  .textarea-contact {
+    width: 86%;
+  }
+  .my-form {
+    height: 29rem;
+  }
+  .our-contacts {
+    width: 100%;
+  }
   }
   

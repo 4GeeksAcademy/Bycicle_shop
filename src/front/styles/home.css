@@ -1,64 +1,99 @@
-.parallax1 {
-    background-attachment: scroll;
+.home-container {
+    justify-items: center;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
 }
-.parallax2 {
-    background-attachment: scroll;
+.my-carousel {
+   transition: transform .3s ease-in;
 }
-.parallax3 {
-    background-attachment: scroll;
-}
-.parallax4 {
-    background-attachment: scroll;
-}
-.parallax5 {
-    background-attachment: scroll;
-}
-.parallax6 {
-    background-attachment: scroll;
-}
-.parallax7 {
-    background-attachment: scroll;
-}
-  .parallax-description {
-    padding-top: 20px;
+.carousel-text {
+      text-align: center;
+      color: #7C0514;
+      font-size: 30px;
+      font-weight: 600;
+      border-bottom: solid 3px #7C0514;
+      width: 39vh;
+      margin:auto;
+      position: absolute;
+      text-decoration: none;
+    }
+    .carousel-text:hover {
+      color: black;
+    }
+ .carousel-container {
+    border-radius: 6px;
+    margin: auto;
+    height: 80vh;
+    z-index: 0;
+ }  
+ .equal-height-img {
+   width: 100%;
   }
-  .parallax-title {
-    color: #7C0514;
+ .btn-ai {
+    background-color: black;
+    color: white;
+    border-radius: 6px;
     font-weight: 500;
-    border-bottom: solid 1px #7C0514;
-    width: 17vh;
-    padding: 0 10px;
+    padding: 0;
+    width: 58vh;
+ }
+ .ai-icon {
+    height: 60px;
+    width: 90px;
+ }
+/*css to make the site responsive*/
+@media screen and (max-width: 2000px) {
+   .btn-ai {
+      font-size: small;
+      width: 80vh;
+   }
+   .carousel-container {
+      width: 80%;
+      margin: auto;
+   } 
+ }
+ /*css to make the site responsive*/
+@media screen and (max-width: 1000px) {
+   .btn-ai {
+      font-size: 10px;
+      width: 45vh;
+      font-weight: 100;
+   }
+   .ai-icon {
+      height: 30px;
+      width: 45px;
+   }
+ }
+ @media screen and (max-width: 500px) {
+   .btn-ai {
+      font-size: 10px;
+      width: 45vh;
+      font-weight: 100;
+   }
+   .ai-icon {
+      height: 30px;
+      width: 45px;
+   }
+   .arrow-control {
+      position: inherit;
+      bottom: 60vh;
+   }
+ }
+ @media screen and (max-width: 375px) {
+   .home-container {
+      display:flow-root;
   }
-
-/* Turn off parallax scrolling for all tablets and phones, because this property does not work in all devices. Increase/decrease the pixels if needed */
-@media only screen and (max-device-width: 1366px) {
-    .parallax1 {
-        background-attachment: scroll;
-    }
-    .parallax2 {
-        background-attachment: scroll;
-    }
-    .parallax3 {
-        background-attachment: scroll;
-    }
-    .parallax4 {
-        background-attachment: scroll;
-    }
-    .parallax5 {
-        background-attachment: scroll;
-    }
-    .parallax6 {
-        background-attachment: scroll;
-    }
-    .parallax7 {
-        background-attachment: scroll;
-    }
-    .parallax-title {
-        color: #7C0514;
-        font-weight: 500;
-        border-bottom: solid 1px #7C0514;
-        width: 12vh;
-        padding: 0 10px;
-      }
-    
+    .carousel-container {
+      margin-top: 10px;
+      height: 50vh;
+      width: 50vh;
+   }  
+   .btn-ai {
+      margin-left: 40px;
+   } 
+   .equal-height-img {
+      width: 100%;
+      height: 50vh;
+     }
 }

@@ -5,6 +5,8 @@ import { ArrowToTop } from "./component/arrowToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
+import { Ai } from "./pages/ai";
+import { Ai_resp } from "./pages/ai_resp";
 import { Signup } from "./pages/signup";
 import { AboutUs } from "./pages/aboutus";
 import { ContactUs } from "./pages/contactus";
@@ -13,6 +15,7 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { Chatbot_button} from "./component/chatbot_button";
 import {Login} from "./pages/login"
 import Product from "./pages/products";
 import Profile from "./pages/profile";
@@ -39,17 +42,19 @@ const Layout = () => {
                         <Route element={<ContactUs />} path="/contactus" />
                         <Route element={<Terms />} path="/terms" />
                         <Route element={<Login />} path="/login" />
-                        
+                        <Route element={<Ai />} path="/ai" />
+                        <Route element={<Ai_resp />} path="/ai_resp" />
                         <Route element={<Product />} path="/products" />
                         <Route element={<ProductDetail />} path="/product/:id" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<Profile/>} path="/profile/:orders/:id " />
-                        <Route element={<ResetPassword />} path="/reset" />
+                        <Route element={<ResetPassword />} path="/resetPassword" />
                         <Route element={<ResetPassword/>} path="/resetPassword/:id" />
                         <Route element={<ShoppingCart/>} path="/shoppingCart" />
                         <Route element={<ShoppingCart/>} path="/shoppingCart/:orders/:id" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
+                    <Chatbot_button />
                     <ArrowToTop />
                     <Footer />
                 </ScrollToTop>

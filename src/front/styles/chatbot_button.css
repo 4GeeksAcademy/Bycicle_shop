@@ -1,0 +1,70 @@
+.contentChat {
+  position: absolute;
+  bottom: 8vh;
+  padding-left: 5vh;
+  }
+  .chatbot-btn {
+      display: grid;
+      border-radius: 50%;
+      border: solid 1px black;
+      width: 40px;
+      height: 40px;
+      background-color: #7C0514;
+      box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+      align-content: center;
+  }
+  .dropup-charbot {
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+  }
+  .fa-chatbot {
+    padding: 3px;
+    color: black
+  }
+  .dropup-charbot {
+    border-radius: 6px;
+    border: solid 1px black;
+  }
+  .dropdown-toggle-chat::after {
+    border: 0 !important;
+}
+.chatbot-header {
+  background-color: #7C0514;
+  text-align: center;
+  padding: 5px;
+  width: 100%;
+}
+.chatbot-title {
+  color: black;
+  font-weight: 500;
+  font-size: 20px;
+  margin-left: 10px;
+}
+.chatbot-control {
+  border-radius: 20px;
+  border: solid 1px #484545;
+  padding: 0 10px;
+  color:#484545; 
+  background-color: white;
+}
+.fa-send {
+  color: black;
+  border: none;
+  background-color: white;
+  position: absolute;
+  bottom: 6px;
+  right: 5px;
+}
+@media screen and (max-width: 1000px) {
+  .contentChat {
+    bottom: 42px;
+    left: 12px;
+    margin: 0;
+    }
+  .chatbot-control{
+    width: 100%;
+  }
+  .chatbot-title {
+    font-size: 17px;
+    margin: 0;
+  }
+}

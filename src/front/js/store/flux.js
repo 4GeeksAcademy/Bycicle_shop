@@ -215,7 +215,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			signup: async (fullName, username, email, password, subscribe, privacy) => {
 				const opts = {
 					method: "POST",
-					mode: "cors",
 					headers: {
 						"Content-Type": "application/json",
 					},
@@ -228,10 +227,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						privacy: privacy,
 					}),
 				};
-
+						console.log("hello")
 				try {
 					const resp = await fetch(
-						process.env.BACKEND_URL + "/api/create-user",
+						`https://${process.env.BACKEND_URL}/api/create-user`,
 						opts
 					);
 					const data = await resp.json();

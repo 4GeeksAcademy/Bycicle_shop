@@ -104,7 +104,6 @@
 .btn-Check {
     background-color: black;
     color: #7C0514;
-    padding: 3px;
     font-weight: 500;
     padding: 6px 21px 6px 21px;
     border-radius: 6px;
@@ -185,7 +184,7 @@
 }
 .shipping-dropdown-toggle {
     border: none;
-    background-color: white;
+    background-color: transparent;
 }
 .shipping-dropdown-toggle::after {
     border: 0 !important;
@@ -228,7 +227,9 @@
     width: 50%;
     margin: auto;
 }
-/*css to make the site responsive*/
+.link-shopping {
+    cursor: pointer;
+}
 @media screen and (max-width: 500px) {
     .cart-title {
         font-size: 30px;

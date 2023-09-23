@@ -55,7 +55,7 @@ const Profile = () => {
   console.log("Current store.user:", store.user);
   console.log("Current store.orders:", store.orders);
   return (
-    <div className="container-fluid my-5">
+    <div className="container-fluid min-height-100 my-5">
       <div className="row">
         <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, {store.user.name} </h1>
         {show !== 'last_order' &&

@@ -3,16 +3,6 @@ import { Link } from "react-router-dom";
 import "../../styles/footer.css";
 
 export const Footer = () => {
-	const [isHovering, setIsHovering] = useState(false);	
-
-	//function that allow the legend of the button appear when the mose passes ouver the button
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-//function that hide the legend of the button appear when the mose passes ouver the button
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
 
 	return (
 		<div className="container-fluid big-box d-flex">
@@ -28,14 +18,6 @@ export const Footer = () => {
 				</div>	
 			</div>
 			<div className="footerLinks col-sm-4 col-md-4 col-lg-3 d-flex">
-				<Link className="link" to="/">	
-					<i onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="fa-regular fa-comment-dots my-fa-comment-dots"></i>
-				</Link>
-				{ isHovering && (
-					<div className="give">
-						<p>Give us your feedback</p>
-					</div>
-				)}
 				<Link className="link" to="/terms">	
 					<p className="terms">terms & conditions</p>
 				</Link>

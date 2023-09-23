@@ -1,7 +1,9 @@
 .contentDiv {
   display: flex;
-  flex-direction: row-reverse;
-  position: absolute;
+  flex-wrap: nowrap;
+  float: right;
+  position: relative;
+  bottom: -17px;
 }
 .back-to-top{
     border-radius: 50%;
@@ -9,7 +11,6 @@
     width: 40px;
     height: 40px;
     background-color: black;
-    z-index: 3;
      box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
      perspective: 5.5cm;
 }

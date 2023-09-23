@@ -45,7 +45,9 @@
     display: flex;
     flex-direction: row;
   } 
-  
+  .link-privacy {
+    cursor: pointer;
+  }
   /*css to make the site responsive*/
   @media screen and (max-width: 1000px) {
     .control {
