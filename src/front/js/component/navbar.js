@@ -20,7 +20,6 @@ const handleChange = (value) => {
     setShowAutocomplete(false);
   } else {
     // Make an Axios request to fetch search results
-    // Make an Axios request to fetch search results
     axios
     .get(`https://cautious-carnival-xpqwxwxp9p4h65xp-3001.app.github.dev/api/products`)
     .then((response) => {
@@ -62,20 +61,16 @@ const handleChange = (value) => {
         </Link>
         <div className="menu col-sm-11 col-md-11 col-lg-8 col-xl-8">
           {/* Dropdown and navigation buttons */}
-          <div className="dropdown mb-3 language">
+          <div className="dropleft mb-3 language">
             <button
               className="btnlanguage dropdown-toggle"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              English - Euro <i className="fa-solid fa-chevron-down"></i>
+              Euro <i className="fa-solid fa-chevron-down"></i>
             </button>
             <ul className="dropdown-language dropdown-menu">
-              <li>
-                <label className="form-label my-form-label">Language</label>
-                <input type="text" className="form-control mb-3" id="exampleFormControlInput1" />
-              </li>
               <li>
                 <label className="form-label my-form-label">Currency</label>
                 <input type="text" className="form-control" id="exampleFormControlInput1" />
@@ -171,7 +166,6 @@ const handleChange = (value) => {
                     <input
                       id="searchInput"
                       className="form-search"
-                      type="search"
                       placeholder="Search... "
                       value={input}
                       onChange={(e) => handleChange(e.target.value)}
