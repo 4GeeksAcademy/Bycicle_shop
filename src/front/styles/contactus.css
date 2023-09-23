@@ -64,6 +64,12 @@
         width: 100%;
     }
   }
+  @media screen and (max-width: 980px) {
+  .textarea-contact {
+    width: 92%;
+  }
+  }
+  
   @media screen and (max-width: 450px) {
     .control-contact {
         width: 85%
