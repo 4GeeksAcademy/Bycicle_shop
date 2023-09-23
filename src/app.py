@@ -40,6 +40,7 @@ def create_app():
     jwt = JWTManager(app)
 
     # Initialize CORS
+    #CORS(app, origins="*")
     CORS(app, origins=[os.getenv("FRONTEND_URL")])
     
     # Initialize Admin

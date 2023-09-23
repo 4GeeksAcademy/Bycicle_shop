@@ -17,7 +17,9 @@ export const Signup = () => {
     const handleClick = (event) => {
         // prevent the default form submission behavior
         event.preventDefault();
+        console.log("hewllo")
         actions.signup(fullName, username, email, password, subscribe, confirmPassword, privacy) 
+        
     };
 
     //function to reset the form
@@ -39,19 +41,19 @@ export const Signup = () => {
             <form className="form my-form" onSubmit={handleClick}>
                 <div>
                 <br />
-                <input className="control" type="text" placeholder="Full Name" aria-label="default input example" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                <input className="control" type="text" placeholder="Full Name" aria-label="default input example" value={fullName} onChange={(e) => setFullName(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="text" placeholder="Username" aria-label="default input example" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                <input className="control" type="text" placeholder="Username" aria-label="default input example" value={username} onChange={(e) => setUsername(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="text" placeholder="Email" aria-label="default input example" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <input className="control" type="text" placeholder="Email" aria-label="default input example" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="text" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <input className="control" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.password)} required/>
                 <br />
                 <br />
-                <input className="control" type="text" placeholder="Confirm Password" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                <input className="control" type="password" placeholder="Confirm Password" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
                 </div>
                 <br />
                 <div className="form-check">
@@ -63,14 +65,14 @@ export const Signup = () => {
                 <div className="form-check">
                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={privacy} onChange={(e) => setPrivacy(e.target.checked)}/>
                     <Link className="link-collapse" to="/terms">
-                        <label className="form-check-label my-form-check-label" >
+                        <label className="form-check-label link-privacy my-form-check-label" >
                             I have read and accept the privacy policy
                         </label>
                     </Link>    
                 </div>
                 <div className="row me-3">
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <button className="btn-register" type="submit">REGISTER</button>
+                            <button className="btn-register" type="submit" >REGISTER</button>
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-end cancel-btn">
                         <button className="btn-register"  onClick={resetForm} >CANCEL</button>

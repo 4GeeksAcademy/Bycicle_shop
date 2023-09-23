@@ -92,9 +92,11 @@ export const ShoppingCartOne = (props) => {
 					</div>
 					<div className=" form-check cart-form-check mt-2">
 						<input className="ship-check-input form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-						<label className="form-check-label my-form-check-label">
-							I approve terms and conditions
-						</label>
+						<Link className="link" to="/terms">
+							<label className="form-check-label link-shopping my-form-check-label">
+								I approve terms and conditions
+							</label>
+						</Link>
 					</div>
 				</form>
 				<div className="btn-set-check col-sm-6 col-md-6 col-lg-6">
@@ -108,7 +110,7 @@ export const ShoppingCartOne = (props) => {
 					>
 						Check Out
 					</button>
-				<Link to="/">
+				<Link className="link-shopping" to="/">
 					<button className="btn-Check col-sm-6 col-md-6 col-lg-12" type="submit">Continue Shopping</button>
 				</Link>
 				</div>

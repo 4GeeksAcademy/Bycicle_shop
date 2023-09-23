@@ -107,8 +107,8 @@ export const ShoppingCartTwo = (props) => {
 								<label className="form-check-label">Text me with news and offers</label>
 							</div>
 						</form>
-						<div className="btn-shipping col-6" >
-								<button className="btn-Check" type="submit" onClick={() => {
+						<div className="btn-shipping h-25 col-6" >
+								<button className="btn-Check " type="submit" onClick={() => {
 									// Call the callback function passed from the parent component
 									props.onClick();
 								}}>

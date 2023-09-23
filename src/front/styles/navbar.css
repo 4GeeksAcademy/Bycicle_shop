@@ -1,6 +1,6 @@
 .navbar-box {
     background-color: #484545;
-    height: 23vh;
+    height: 21vh;
     width: 100%;
     padding-left: 5vh;
     padding-right: 5vh;
@@ -31,6 +31,7 @@
     background-color: #7C0514;
     border-radius: 6px;
     position: absolute;
+    z-index: 3;
 }
 li {
     margin-left: 5px;
@@ -42,8 +43,9 @@ li {
     color: black;
     padding-left: 0;
 }
-.my-dropdown-item:focus {
-    outline: none;
+.my-dropdown-item:hover {
+    background-color: #7C0514;
+    font-weight: 500;
   }
 .hide-buttons {
     display: none;
@@ -58,6 +60,7 @@ li {
 }
 .show-buttons {
     visibility: visible;
+    cursor: pointer;
 }
 .btnlanguage {
     border-radius: 6px;
@@ -73,6 +76,9 @@ li {
     background-color: white;
     color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-left: 63vh;
+    top: 0;
+    width: fit-content;
 }
 .form-btn {
     width: 90%;
@@ -92,12 +98,53 @@ li {
     height:180px;
     width: 200px; 
 }
-
+.search {
+    position: absolute;
+    display:flex;
+}
+.form-search {
+    background-color: white;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: large;
+    border-radius: 36px;
+    padding-left: 10px;
+}
+.form-autocomplete {
+    position:absolute;
+    z-index:4;
+    margin-top: 30px;
+    background-color: white;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 6px;
+    padding-left: 10px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+    border: 200px;
+}
 .custom-dropdown-toggle::after {
     border: 0 !important;
 }
+.fa-navbar {
+    color: #484545;
+    background-color: white;
+    position: absolute;
+    bottom: 8px;
+    left: 18vh;
+}
 /*css to make the site responsive*/
+@media screen and (max-width: 1800px) {
+    .navbar-box {
+        height: 20vh;
+    }  
+    .fa-navbar {
+        left: 20vh;
+    }
+  }
 @media screen and (max-width: 1000px) {
+    .navbar-box {
+        height: 22vh;
+    }  
     .menu {
         width: 20%;
     }
@@ -113,16 +160,17 @@ li {
         margin-top: 70px;
         background-color: #7C0514;
         border-radius: 6px;
-        width: 24vh;
-        height: 24vh;
-        display: inline-block;
-        position: fixed;
+        width: 20vh;
+        height: 20vh;
+        position: absolute;
+        z-index: 3;
     }
     .link-collapse {
         border-bottom: solid 1px black;
         margin-left: 10px;
         margin-right: 10px;
         font-weight: 500;
+        font-size: 16px;
         text-decoration: none;
         color: black;
     }  
@@ -146,37 +194,47 @@ li {
         display: none;
         visibility: hidden;
     }
+    .fa-navbar {
+        left: 12vh;
+    }
+    .chatbot-control {
+        width: 80%;
+    }
   }
 @media screen and (max-width: 550px) {
     .language {
         border-radius: 6px;
         margin-left: 2rem;
         font-size: xx-small;
+        z-index: 3;
     } 
+    .my-collapse {
+        font-size: small;
+        z-index: 3;
+    }
     .img {
         height: 100px;
         width: 100px;
     }
-    .my-collapse {
-        height: 27vh;
-    }
     .menu {
         margin-right: 40px;
     }
+    .fa-navbar {
+        left: 19vh;
+    }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 380px) {
     .navbar-container {
         display: flex;
         flex-wrap: nowrap;
     }
     .my-collapse {
-        font-size: small;
-        height: 26vh;
-    }
-    .my-btn {
-        font-size: small;
+        height: 24vh;
     }
     .menu {
         margin-right: 40px;
+    }
+    .fa-navbar {
+        left: 23vh;
     }
 }
