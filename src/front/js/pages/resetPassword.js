@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import logo from "../../img/logo.png";
-import axios from "axios";
 import "../../styles/resetPassword.css";
 
 export const ResetPassword = () => {
