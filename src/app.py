@@ -54,9 +54,6 @@ def create_app():
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
 
-    if __name__ == '__main__':
-        app.run()
-    
     @app.route('/import-data', methods=['POST'])
     def import_data():
         try:

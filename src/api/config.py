@@ -7,10 +7,3 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'fallback-jwt-secret-key')
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
-    # SMTP credentials
-    MAIL_SERVER = 'sandbox.smtp.mailtrap.io'
-    MAIL_PORT = 2525
-    MAIL_USERNAME = '5c824fb16674ab'
-    MAIL_PASSWORD = '562e49068d33bb'
-    MAIL_USE_TLS = True
-    MAIL_USE_SSL = False

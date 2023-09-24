@@ -1,20 +1,29 @@
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request,jsonify
 from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User, db
-from flask_mail import Mail, Message
+from flask_jwt_extended import create_access_token
+from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
+from .models import db
+from flask import Flask, jsonify
 
 main = Blueprint('main', __name__)
-
-mail = Mail(main) #add this line 
+from flask import request
 
 @main.route('/api/products', methods=['GET'])
 @cross_origin()
 def get_all_products():
-    all_bicycles = Bicycle.query.all()
+    bicycle_type = request.args.get('type')  # Get the bicycle type from the query parameters
+    if bicycle_type:
+        # Filter products : bicycle type
+        all_bicycles = Bicycle.query.filter_by(type=bicycle_type).all()
+    else:
+        # If no type is specified, send all products
+        all_bicycles = Bicycle.query.all()
+    
     bicycles_list = [bicycle.serialize() for bicycle in all_bicycles]
     return jsonify({'success': 'true', 'bicycles': bicycles_list})
+
 
 @main.route('/api/products/<int:id>', methods=['GET'])
 @cross_origin()
@@ -98,8 +107,6 @@ def review_post():
             "title": new_review.title,
             "review_text": new_review.review_text,
     }}
-    if not request.is_json:
-        return jsonify({'message': 'Unsupported Media Type'}), 415
     return response
 
 @main.route('/cart')
@@ -188,26 +195,3 @@ def my_profile():
     }
 
     return jsonify(response_body), 200
-
-#endpoint for reset password
-@main.route('/resetPassword', methods=['POST'])
-@cross_origin()
-def send_reset_email():
-    try:
-        email = request.json.get('email')
-
-        # Query the database to check if the email exists
-        user = User.query.filter_by(email=email).first()
-        if user:
-            message = Message(
-                subject='Password Reset Link',
-                recipients=[email],
-                sender=current_app.config['MAIL_USERNAME']  # Use your configured sender email
-            )
-            message.body = 'Hey, this is a link for reset the password.'
-            mail.send(message)
-            return jsonify({'message': 'Password reset email sent successfully'})
-        else:
-            return jsonify({'message': 'Email not found in the database.'}), 404
-    except Exception as e:
-        return jsonify({'message': 'Error sending reset email', 'error': str(e)}), 500
