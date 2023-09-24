@@ -29,8 +29,8 @@ function ProductDetail(props) {
     axios.get(`${process.env.BACKEND_URL}/api/products/${id}`)
       .then(response => {
         if (response.data.success === "true") {
-          setProduct(response.data.product);
-        }
+          setProduct(response.data.bicycle);
+      }
       })
       .catch(error => {
         console.error('Error fetching product details:', error);
@@ -85,7 +85,7 @@ function ProductDetail(props) {
                       Manufacturer: {product && product.manufacturer}
                     </h6>
                     <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
-                      Material: {product && product.Material}
+                      Material: {product && product.material}
                     </h6>
                     <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
                       Weight: {product && product.weight}
