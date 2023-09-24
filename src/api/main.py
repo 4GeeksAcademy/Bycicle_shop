@@ -8,13 +8,22 @@ from .models import db
 from flask import Flask, jsonify
 
 main = Blueprint('main', __name__)
+from flask import request
 
 @main.route('/api/products', methods=['GET'])
 @cross_origin()
 def get_all_products():
-    all_bicycles = Bicycle.query.all()
+    bicycle_type = request.args.get('type')  # Get the bicycle type from the query parameters
+    if bicycle_type:
+        # Filter products : bicycle type
+        all_bicycles = Bicycle.query.filter_by(type=bicycle_type).all()
+    else:
+        # If no type is specified, send all products
+        all_bicycles = Bicycle.query.all()
+    
     bicycles_list = [bicycle.serialize() for bicycle in all_bicycles]
     return jsonify({'success': 'true', 'bicycles': bicycles_list})
+
 
 @main.route('/api/products/<int:id>', methods=['GET'])
 @cross_origin()
