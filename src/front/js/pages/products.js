@@ -65,7 +65,9 @@ function Product(props) {
         {Array.isArray(products) && products.map((product, index) => (
           <div key={index} className="product-card">
             <img src={product.image_url || "placeholder-image-url.jpg"} alt={product.name} />
-            <h2>{product.name}</h2>
+            <Link to={`/product/${product.id}`}>
+              <h2>{product.name}</h2>
+            </Link>
             <p>Manufacturer: {product.manufacturer}</p>
             <p>Material: {product.material}</p>
             <p>Gender: {product.gender}</p>
