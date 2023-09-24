@@ -77,6 +77,7 @@ def signup_post():
 
 @auth.route("/logout", methods=["POST"])
 def logout():
+    print("Logout route hit")
     response = jsonify({"success":'true',"msg": "logout successful"})
     unset_jwt_cookies(response)
     return response
