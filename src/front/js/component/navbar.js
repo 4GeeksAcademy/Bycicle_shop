@@ -16,7 +16,7 @@ export const Navbar = (props) => {
 
   const bicycleList = (type) => {
     setSelectedType(type);
-    navigate('/products');
+    navigate('/products/id');
   };
 
   // Handle changes in the search input
@@ -50,7 +50,7 @@ export const Navbar = (props) => {
     console.log("handleAutocompleteSelection called with:", selectedValue);
     setInput(selectedValue);
     setShowAutocomplete(false);
-    navigate(`/products/${selectedValue.id}`);
+    navigate(`/products/${selectedValue.uid}`);
   };
 
 

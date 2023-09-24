@@ -1,0 +1,52 @@
+.produt-description {
+    color: black;
+}
+.btn-detail1 {
+    background-color: white;
+    color: black;
+    border-radius: 6px 0 0 6px;
+    border: solid 1px black;
+    text-align: center;
+}
+.btn-detail2 {
+    background-color: white;
+    color: black;
+    border: solid 1px black;
+    border-radius: 0 6px 6px 0;
+    text-align: center;
+}
+.btn-detail-middle {
+    background-color: white;
+    color: black;
+    border: solid 1px black;
+    width: 30px;
+    text-align: center;
+}
+.btn-detail-middle {
+    background-color: white;
+    color: black;
+    border: solid 1px black;
+    width: 30px;
+    text-align: center;
+}
+.btn-By {
+    background-color: #D9D9D9;
+    color: #7C0514;
+    padding: 6px 41px 6px 41px;
+    border-radius: 6px;
+    border: none;
+    text-align: center; 
+    margin-right: 30px;
+}
+.form-review {
+    background-color: #D9D9D9;
+    color: black;
+    border-radius: 6px;
+}
+.btn-review {
+    background-color: black;
+    color: #7C0514;
+    text-align: center;
+    padding: 3px 8px 3px 8px;
+    border-radius: 6px;
+}

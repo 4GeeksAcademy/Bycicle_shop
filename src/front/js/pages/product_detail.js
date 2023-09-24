@@ -1,9 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-//import minusQuantity from "../component/shoopingCartOne"
+import minusQuantity from "../component/shoopingCartOne"
 import reviewList from "../store/flux"
-//import onChangeQuantity from "../component/shoopingCartOne"
-//import plusQuantity from "../component/shoopingCartOne"
+import onChangeQuantity from "../component/shoopingCartOne"
+import plusQuantity from "../component/shoopingCartOne"
 import addToCart from "../store/flux"
 import rating from "../store/flux"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,6 +14,7 @@ import onChangeTitle from "../store/flux"
 import review from "../store/flux"
 import onChangeReview from "../store/flux"
 import submitReview from "../store/flux"
+import "../../styles/product_detail.css";
 
 
 import axios from "axios";
@@ -24,6 +25,10 @@ function ProductDetail(props) {
   const [message, setMessage] = useState("Please fill all fields");
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+    /*const [rating, setRating] = useState([]);
+    const [name, setName] = useState("");
+    const [title, setTitle] = useState("");
+    const [review, setReview] = useState(""); */
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/products/${id}`)
@@ -49,54 +54,74 @@ function ProductDetail(props) {
     changeRating,
     
   }= useStoreActions((actions) => actions);*/
+
+  /*function to cancel review
+  const cancelReview = () => {
+    setRating([]);
+    setName("");
+    setTitle("");
+    setReview("");
+  }*/
+
   return (
-    <section className="h-100 h-custom bg-danger">
-      <div className="container  py-5 bg-danger">
+    <div className="container-fluid min-height-100 ">
+      <div className="container  py-5 ">
         <div className="row d-flex justify-content-center align-items-center ">
           <div className="col ">
-            <div className="card bg-danger">
-              <div className="card-body text-black">
                 <div className="row">
                   <div className="col-lg-6 px-2 py-4">
                     <div className="d-flex align-items-center mb-5">
-                      <div className="flex-shrink-0">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
-                          className="img-fluid"
-                          style={{ width: "350px" }}
-                          alt="Generic placeholder image"
-                        />
-                      </div>
+                      <div className="d-flex align-items-center">
+                      <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+                        <div className="carousel-inner">
+                          <div className="carousel-item active">
+                            <img className="d-block w-100 img-fluid" src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" style={{ width: "350px" }} alt="First slide" />
+                          </div>
+                          <div className="carousel-item">
+                            <img className="d-block w-100" src="..." alt="Second slide"/>
+                          </div>
+                          <div className="carousel-item">
+                            <img className="d-block w-100" src="..." alt="Third slide" />
+                          </div>
+                        </div>
+                        <button classeName="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span className="sr-only">Previous</span>
+                        </button>
+                        <button className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span className="sr-only">Next</span>
+                        </button>
                     </div>
-
-                    {/* <hr
-                      className="mb-4"
-                      style="height: 2px; background-color: #1266f1; opacity: 1;"
-                    /> */}
+                    </div>
+                    </div>
                   </div>
-                  <div className="col-lg-6 px-5 py-4">
+                  <div className="produt-description col-lg-6 ">
                     <h2 className="mb-3 pt-2 text-start fw-bold text-uppercase">
-                      Name: {product && product.name}
+                      {product && product.name}
                     </h2>
-                    <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
+                    <h6>
                       Color: {product && product.color}
                     </h6>
-                    <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
+                    <h6>
                       Manufacturer: {product && product.manufacturer}
                     </h6>
-                    <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
+                    <h6>
                       Material: {product && product.material}
                     </h6>
-                    <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
+                    <h6>
                       Weight: {product && product.weight}
                     </h6>
-                    <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
+                    <h6>
                       price: {product && product.price}
                     </h6>
-                    *<h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
+                    <br/>
+                    <br/>
+                    <h6>
                       {reviewList.length} reviews
                     </h6>
-
+                    <br/>
+                    <br/>
                     <h6 className="d-flex justify-content-start  w-100">
                       Quantity
                     </h6>
@@ -107,7 +132,7 @@ function ProductDetail(props) {
                           style={{ maxWidth: "500px" }}
                         >
                           <button
-                            className="btn btn-primary px-3 me-2"
+                            className="btn-detail1"
                             onClick={minusQuantity}
                           >
                             -
@@ -120,14 +145,13 @@ function ProductDetail(props) {
                               name="quantity"
                               value={quantity}
                               onChange={onChangeQuantity}
-                              type="number"
-                              className="form-control"
-                              style={{ width: "50px" }}
+                              type="text"
+                              className="btn-detail-middle"
                             />
                           </div>
 
                           <button
-                            className="btn btn-primary px-3 ms-2"
+                            className="btn-detail2"
                             onClick={plusQuantity}
                           >
                             +
@@ -135,21 +159,28 @@ function ProductDetail(props) {
                         </div>
                       </div>
                     </div>
-                    <div className="d-flex  justify-content-between">
+                    <div className="d-flex">
                       <button
-                        className="btn btn-primary px-3 "
-                        onClick={addToCart}
+                        className="btn-By"
                       >
                         Add to Cart
                       </button>
+                      <Link to="/shoppingCart">
+                        <button
+                          className="btn-By"
+                        >
+                          Buy Now
+                        </button>
+                      </Link>  
                     </div>
                   </div>
                 </div>
                 <div className="row">
-                  <form className="p-5">
-                    <p className="text-center">
-                      <strong>How do you rate customer support:</strong>
-                    </p>
+                  <form className="form-review">
+                    <div className="text-center">
+                      <strong>Write a review</strong>
+                      <p>Rating</p>
+                    </div>
 
                     <div className="h2 d-flex  justify-content-center pb-3">
                       {[...Array(5)].map((_, index) => (
@@ -174,7 +205,7 @@ function ProductDetail(props) {
                     </div>
                     <div className="form-outline mb-2">
                       <label
-                        className="form-label d-flex justify-content-start"
+                        className="form-label d-flex text-center"
                         htmlFor="fullname"
                       >
                         Name (displayed publicly)
@@ -189,7 +220,7 @@ function ProductDetail(props) {
                     </div>
                     <div className="form-outline mb-2">
                       <label
-                        className="form-label d-flex justify-content-start"
+                        className="form-label d-flex text-center"
                         htmlFor="fullname"
                       >
                         Review Title
@@ -204,7 +235,7 @@ function ProductDetail(props) {
                     </div>
                     <div className="form-outline mb-2">
                       <label
-                        className="form-label d-flex justify-content-start"
+                        className="form-label d-flex text-center"
                         htmlFor="fullname"
                       >
                         Review
@@ -217,13 +248,19 @@ function ProductDetail(props) {
                         rows="4"
                       ></textarea>
                     </div>
-                    <button
-                      onClick={() => submitReview(name, title, review, id, props, setMessage, setReview, setTitle, setName, getData)}
-                      className="btn btn-primary btn-block mb-4"
-                    >
-                      Submit Review
-                    </button>
-
+                    <div className="d-flex justify-content-between mb-3">
+                      <button
+                        onClick={() => submitReview(name, title, review, id, props, setMessage, setReview, setTitle, setName, getData)}
+                        className="btn-review"
+                      >
+                        Submit Review
+                      </button>
+                      <button
+                        className="btn-review"
+                      >
+                        Cancel Review
+                      </button>
+                    </div>
                   </form>
                 </div>
                 {Array.isArray(reviewList) && reviewList.length > 0
@@ -249,8 +286,6 @@ function ProductDetail(props) {
             </div>
           </div>
         </div>
-      </div>
-    </section>
   );
 }
 
