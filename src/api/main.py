@@ -191,6 +191,7 @@ def my_profile():
 
 #endpoint for reset password
 @main.route('/resetPassword', methods=['POST'])
+@cross_origin()
 def send_reset_email():
     try:
         email = request.json.get('email')
