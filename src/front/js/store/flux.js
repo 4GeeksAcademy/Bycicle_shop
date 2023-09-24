@@ -227,7 +227,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						privacy: privacy,
 					}),
 				};
-						console.log("hello")
+				console.log("hello")
 				try {
 					const resp = await fetch(
 						`https://${process.env.BACKEND_URL}/api/create-user`,
