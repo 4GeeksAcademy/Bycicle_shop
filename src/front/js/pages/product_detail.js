@@ -1,13 +1,43 @@
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import minusQuantity from "../component/shoopingCartOne"
+import reviewList from "../store/flux"
+import onChangeQuantity from "../component/shoopingCartOne"
+import plusQuantity from "../component/shoopingCartOne"
+import addToCart from "../store/flux"
+import rating from "../store/flux"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import onChangeName from "../store/flux"
+import title from "../store/flux"
+import onChangeTitle from "../store/flux"
+import review from "../store/flux"
+import onChangeReview from "../store/flux"
+import submitReview from "../store/flux"
+
+
+import axios from "axios";
 
 function ProductDetail(props) {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("Please fill all fields");
   const navigate = useNavigate();
+  const [product, setProduct] = useState(null);
 
-  const {
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/products/${id}`)
+      .then(response => {
+        if (response.data.success === "true") {
+          setProduct(response.data.bicycle);
+      }
+      })
+      .catch(error => {
+        console.error('Error fetching product details:', error);
+      });
+  }, [id]);
+
+  /*const {
     onChangeName,
     onChangeTitle,
     onChangeReview,
@@ -18,7 +48,7 @@ function ProductDetail(props) {
     submitReview,
     changeRating,
     
-  } = useStoreActions((actions) => actions);
+  }= useStoreActions((actions) => actions);*/
   return (
     <section className="h-100 h-custom bg-danger">
       <div className="container  py-5 bg-danger">
@@ -55,7 +85,7 @@ function ProductDetail(props) {
                       Manufacturer: {product && product.manufacturer}
                     </h6>
                     <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
-                      Material: {product && product.Material}
+                      Material: {product && product.material}
                     </h6>
                     <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
                       Weight: {product && product.weight}
@@ -63,7 +93,7 @@ function ProductDetail(props) {
                     <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
                       price: {product && product.price}
                     </h6>
-                    <h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
+                    *<h6 className="mb-3 pt-2 text-start fw-bold text-uppercase">
                       {reviewList.length} reviews
                     </h6>
 
@@ -188,42 +218,32 @@ function ProductDetail(props) {
                       ></textarea>
                     </div>
                     <button
-                      onClick={submitReview}
+                      onClick={() => submitReview(name, title, review, id, props, setMessage, setReview, setTitle, setName, getData)}
                       className="btn btn-primary btn-block mb-4"
                     >
                       Submit Review
                     </button>
+
                   </form>
                 </div>
-                {reviewList && reviewList.length > 0
+                {Array.isArray(reviewList) && reviewList.length > 0
                   ? reviewList.map((item, index) => (
-                      <div
-                        key={index}
-                        className="row bg-primary text-start mb-3"
-                      >
-                        <div className="h2 d-flex  justify-content-center pb-3">
-                          {[...Array(5)].map((_, index) => (
-                            <div key={index}>
-                              {index < item.rating ? (
-                                <FontAwesomeIcon
-                                  key={index}
-                                  icon={faStar}
-                                  color="yellow"
-                                />
-                              ) : (
-                                <FontAwesomeIcon
-                                  key={index}
-                                  icon={faStar}
-                                  color="dark"
-                                />
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                        <div>{item.title}</div>
-                        <div>{item.review_text}</div>
+                    <div key={index} className="row bg-primary text-start mb-3">
+                      <div className="h2 d-flex  justify-content-center pb-3">
+                        {[...Array(5)].map((_, index) => (
+                          <div key={index}>
+                            {index < item.rating ? (
+                              <FontAwesomeIcon key={index} icon={faStar} color="yellow" />
+                            ) : (
+                              <FontAwesomeIcon key={index} icon={faStar} color="dark" />
+                            )}
+                          </div>
+                        ))}
                       </div>
-                    ))
+                      <div>{item.title}</div>
+                      <div>{item.review_text}</div>
+                    </div>
+                  ))
                   : null}
               </div>
             </div>

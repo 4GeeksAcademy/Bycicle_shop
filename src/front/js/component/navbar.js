@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
+import SelectedTypeContext from "../TypeContext";
 
 export const Navbar = (props) => {
   // State for controlling the search bar and results
@@ -11,32 +12,38 @@ export const Navbar = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const { setSelectedType } = useContext(SelectedTypeContext);
 
-// Handle changes in the search input
-const handleChange = (value) => {
-  setInput(value);
-  if (value.trim() === "") {
-    setSearchResults([]);
-    setShowAutocomplete(false);
-  } else {
-    // Make an Axios request to fetch search results
-    axios
-      .get(process.env.BACKEND_URL + "/api/products")
-      .then((response) => {
-        if (response.data.success === "true") {
-          // Filter the results by name
-          const filteredResults = response.data.bicycles.filter((bike) =>
-            bike.name.toLowerCase().includes(value.toLowerCase())
-          );
-          setSearchResults(filteredResults);
-          setShowAutocomplete(true); // Show autocomplete suggestions
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }
-};
+  const bicycleList = (type) => {
+    setSelectedType(type);
+    navigate('/products');
+  };
+
+  // Handle changes in the search input
+  const handleChange = (value) => {
+    setInput(value);
+    if (value.trim() === "") {
+      setSearchResults([]);
+      setShowAutocomplete(false);
+    } else {
+      // Make an Axios request to fetch search results
+      axios
+        .get(process.env.BACKEND_URL + "/api/products")
+        .then((response) => {
+          if (response.data.success === "true") {
+            // Filter the results by name
+            const filteredResults = response.data.bicycles.filter((bike) =>
+              bike.name.toLowerCase().includes(value.toLowerCase())
+            );
+            setSearchResults(filteredResults);
+            setShowAutocomplete(true); // Show autocomplete suggestions
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  };
 
   // Handle selecting an autocomplete suggestion
   const handleAutocompleteSelection = (selectedValue) => {
@@ -46,10 +53,6 @@ const handleChange = (value) => {
     navigate(`/products/${selectedValue.id}`);
   };
 
-  // Navigate to the products page
-  const bicycleList = () => {
-    navigate('/products');
-  };
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
@@ -119,107 +122,107 @@ const handleChange = (value) => {
               <div className="collapse" id="collapseProducts">
                 <ul className="card card-body my-dropdown-menu">
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('Road Bikes')}>
                       Road Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('Mountain Bikes')}>
                       Mountain Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('Hybrid Bikes')}>
                       Hybrid Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
-                      Speciality Bikes
+                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('City Bikes')}>
+                      City Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
-                      BMX Bikes
+                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('Cyclocross Bikes')}>
+                      Cyclocross Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList("Kid's Bikes")}>
                       Kid's Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={bicycleList}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('')}>
                       Other types
                     </button>
                   </li>
                 </ul>
               </div>
               <div>
-              {/* Search bar */}
-              <div className="show-buttons link-collapse">
-                <i className="icon fa-solid fa-magnifying-glass" onClick={() => setBar(true)}></i>
-                {bar && ( 
-                  <form className="form-inline search my-lg-0">
-                    <input
-                      id="searchInput"
-                      className="form-search"
-                      placeholder="Search... "
-                      value={input}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
-                    <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
-                  </form>
-                )}
-                
-                {showAutocomplete && (
-                  <ul className="autocomplete-results form-autocomplete">
-                    {searchResults.map((result) => (
-                      <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
-                        {result.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <Link className="show-buttons link-collapse" to="/login">
-                  <i className="icon fa-regular fa-user"></i>
-                </Link>
-                <Link className="show-buttons link-collapse" to="/ShoppingCart">
-                  <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
-                </Link>
-              </div> 
+                {/* Search bar */}
+                <div className="show-buttons link-collapse">
+                  <i className="icon fa-solid fa-magnifying-glass" onClick={() => setBar(true)}></i>
+                  {bar && (
+                    <form className="form-inline search my-lg-0">
+                      <input
+                        id="searchInput"
+                        className="form-search"
+                        placeholder="Search... "
+                        value={input}
+                        onChange={(e) => handleChange(e.target.value)}
+                      />
+                      <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
+                    </form>
+                  )}
+
+                  {showAutocomplete && (
+                    <ul className="autocomplete-results form-autocomplete">
+                      {searchResults.map((result) => (
+                        <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
+                          {result.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <Link className="show-buttons link-collapse" to="/login">
+                    <i className="icon fa-regular fa-user"></i>
+                  </Link>
+                  <Link className="show-buttons link-collapse" to="/ShoppingCart">
+                    <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
+                  </Link>
+                </div>
               </div>
               {/* Hidden buttons */}
               <div className="hide-buttons link-collapse">
                 <div className="my-hide-buttons" onClick={() => setBar(true)}>
-                  {bar && ( 
+                  {bar && (
                     <form className="search my-lg-0">
                       <input className="form-search" type="search" placeholder="Search... " aria-label="Search" value={input} onChange={(e) => handleChange(e.target.value)} />
                       <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
                     </form>
                   )}
-                   {searchResults.map((result) => (
-                      <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
-                        {result.name}
-                      </li>
-                    ))}
-                         <i className="icon fa-solid fa-magnifying-glass"></i> Search
-                  </div>
-                  <Link className="hide-buttons link-collapse" to="/login">
-                    <div className="my-hide-buttons">
-                      Login
-                    </div>
-                  </Link>
-                  <Link className="hide-buttons link-collapse" to="/ShoppingCart">
-                    <div className="my-hide-buttons">
-                      <i className="icon fa-solid fa-cart-shopping"></i> Cart
-                    </div>
-                  </Link>
+                  {searchResults.map((result) => (
+                    <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
+                      {result.name}
+                    </li>
+                  ))}
+                  <i className="icon fa-solid fa-magnifying-glass"></i> Search
                 </div>
+                <Link className="hide-buttons link-collapse" to="/login">
+                  <div className="my-hide-buttons">
+                    Login
+                  </div>
+                </Link>
+                <Link className="hide-buttons link-collapse" to="/ShoppingCart">
+                  <div className="my-hide-buttons">
+                    <i className="icon fa-solid fa-cart-shopping"></i> Cart
+                  </div>
+                </Link>
               </div>
-              </div>
-              </div>
-          </div>       
-       </nav>
-    );
-  };
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
