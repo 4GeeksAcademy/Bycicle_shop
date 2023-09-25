@@ -1,9 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import minusQuantity from "../component/shoopingCartOne"
+//import minusQuantity from "../component/shoopingCartOne"
 import reviewList from "../store/flux"
-import onChangeQuantity from "../component/shoopingCartOne"
-import plusQuantity from "../component/shoopingCartOne"
+//import onChangeQuantity from "../component/shoopingCartOne"
+//import plusQuantity from "../component/shoopingCartOne"
 import addToCart from "../store/flux"
 import rating from "../store/flux"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -84,9 +84,9 @@ function ProductDetail(props) {
                             <img className="d-block w-100" src="..." alt="Third slide" />
                           </div>
                         </div>
-                        <button classeName="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span className="sr-only">Previous</span>
+                          <span className="visually-hidden">Previous</span>
                         </button>
                         <button className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                           <span className="carousel-control-next-icon" aria-hidden="true"></span>
@@ -133,7 +133,7 @@ function ProductDetail(props) {
                         >
                           <button
                             className="btn-detail1"
-                            onClick={minusQuantity}
+                            //onClick={minusQuantity}
                           >
                             -
                           </button>
@@ -144,7 +144,7 @@ function ProductDetail(props) {
                               min="0"
                               name="quantity"
                               value={quantity}
-                              onChange={onChangeQuantity}
+                              //onChange={onChangeQuantity}
                               type="text"
                               className="btn-detail-middle"
                             />
@@ -152,7 +152,7 @@ function ProductDetail(props) {
 
                           <button
                             className="btn-detail2"
-                            onClick={plusQuantity}
+                            //onClick={plusQuantity}
                           >
                             +
                           </button>
@@ -179,7 +179,7 @@ function ProductDetail(props) {
                   <form className="form-review">
                     <div className="text-center">
                       <strong>Write a review</strong>
-                      <p>Rating</p>
+                      <p className="mt-2">Rating</p>
                     </div>
 
                     <div className="h2 d-flex  justify-content-center pb-3">
@@ -209,6 +209,7 @@ function ProductDetail(props) {
                         htmlFor="fullname"
                       >
                         Name (displayed publicly)
+                        <i className="fa-solid fa-chevron-down d-inline-flex ms-1 pt-1"></i>
                       </label>
                       <input
                         type="text"

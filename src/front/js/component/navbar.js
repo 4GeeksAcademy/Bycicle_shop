@@ -16,7 +16,7 @@ export const Navbar = (props) => {
 
   const bicycleList = (type) => {
     setSelectedType(type);
-    navigate('/products/id');
+    navigate('/products');
   };
 
   // Handle changes in the search input

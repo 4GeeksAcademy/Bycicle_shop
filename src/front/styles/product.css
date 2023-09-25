@@ -35,11 +35,14 @@
   /*css to make the site responsive*/
 @media screen and (max-width: 1800px) {
     .btn-product-card {
-        left: 42vh;
-        top: 43vh;
+        left: 43vh;
+        top: 42vh;
+      }
+      .card-producct-img {
+        width: 55vh;
       }
   }
-  @media screen and (max-width: 1300px) {
+  @media screen and (max-width: 1500px) {
     .row-card {
         margin-left: 60px;
     }
@@ -47,23 +50,39 @@
         width: 28%;
     }
     .card-producct-img {
-        width: 40vh;
+        width: 36vh;
       }
     .btn-product-card {
         left: 25vh;
       }
   }
-  @media screen and (max-width: 1200px) {
-    .card-producct-img {
-        width: 35vh;
-      }
-    .btn-product-card {
-        left: 20vh;
-      }
-  }
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1400px) {
     .card-producct-img {
         width: 33vh;
+      }
+    .btn-product-card {
+        left: 22vh;
+      }
+  }
+  @media screen and (max-width: 1300px) {
+    .card-producct-img {
+        width: 36vh;
+      }
+    .btn-product-card {
+        left: 25vh;
+      }
+  }
+  @media screen and (max-width: 1220px) {
+    .card-producct-img {
+        width: 30vh;
+      }
+    .btn-product-card {
+        left: 18vh;
+      }
+  }
+  @media screen and (max-width: 1110px) {
+    .card-producct-img {
+        width: 25vh;
       }
     .btn-product-card {
         left: 18vh;

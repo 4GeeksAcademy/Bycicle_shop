@@ -85,7 +85,7 @@ def product_post():
         return response
 
 @main.route('/review', methods=['POST'])
-@jwt_required()
+#@jwt_required()
 def review_post():
     user_id = get_jwt_identity()
     # code to validate and add user to database goes here
