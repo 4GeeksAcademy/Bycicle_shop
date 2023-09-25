@@ -1,9 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-//import minusQuantity from "../component/shoopingCartOne"
+import minusQuantity from "../component/shoopingCartOne"
 import reviewList from "../store/flux"
-//import onChangeQuantity from "../component/shoopingCartOne"
-//import plusQuantity from "../component/shoopingCartOne"
+import onChangeQuantity from "../component/shoopingCartOne"
+import plusQuantity from "../component/shoopingCartOne"
 import addToCart from "../store/flux"
 import rating from "../store/flux"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -133,7 +133,7 @@ function ProductDetail(props) {
                         >
                           <button
                             className="btn-detail1"
-                            //onClick={minusQuantity}
+                            onClick={minusQuantity}
                           >
                             -
                           </button>
@@ -144,7 +144,7 @@ function ProductDetail(props) {
                               min="0"
                               name="quantity"
                               value={quantity}
-                              //onChange={onChangeQuantity}
+                              onChange={onChangeQuantity}
                               type="text"
                               className="btn-detail-middle"
                             />
@@ -152,7 +152,7 @@ function ProductDetail(props) {
 
                           <button
                             className="btn-detail2"
-                            //onClick={plusQuantity}
+                            onClick={plusQuantity}
                           >
                             +
                           </button>
