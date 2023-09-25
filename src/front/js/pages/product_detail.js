@@ -1,9 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-//import minusQuantity from "../component/shoopingCartOne"
+import minusQuantity from "../component/shoopingCartOne"
 import reviewList from "../store/flux"
-//import onChangeQuantity from "../component/shoopingCartOne"
-//import plusQuantity from "../component/shoopingCartOne"
+import onChangeQuantity from "../component/shoopingCartOne"
+import plusQuantity from "../component/shoopingCartOne"
 import addToCart from "../store/flux"
 import rating from "../store/flux"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
