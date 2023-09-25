@@ -248,7 +248,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("hello")
 				try {
 					const resp = await fetch(
-						`https://${process.env.BACKEND_URL}/api/create-user`,
+						`${process.env.BACKEND_URL}/api/create-user`,
 						opts
 					);
 					const data = await resp.json();

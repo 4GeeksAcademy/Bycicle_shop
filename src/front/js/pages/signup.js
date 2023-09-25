@@ -17,7 +17,6 @@ export const Signup = () => {
     const handleClick = (event) => {
         // prevent the default form submission behavior
         event.preventDefault();
-        console.log("hewllo")
         actions.signup(fullName, username, email, password, subscribe, confirmPassword, privacy) 
         
     };
@@ -50,7 +49,7 @@ export const Signup = () => {
                 <input className="control" type="text" placeholder="Email" aria-label="default input example" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.password)} required/>
+                <input className="control" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 <br />
                 <br />
                 <input className="control" type="password" placeholder="Confirm Password" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
