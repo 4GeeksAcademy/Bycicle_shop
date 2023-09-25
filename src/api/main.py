@@ -1,4 +1,4 @@
-from flask import Blueprint, request,jsonify
+from flask import Blueprint, request, jsonify
 from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,9 +6,11 @@ from flask_jwt_extended import create_access_token
 from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
 from .models import db
 from flask import Flask, jsonify
+from flask_mail import Mail, Message
 
 main = Blueprint('main', __name__)
-from flask import request
+
+mail = Mail() 
 
 @main.route('/api/products', methods=['GET'])
 @cross_origin()
@@ -195,3 +197,25 @@ def my_profile():
     }
 
     return jsonify(response_body), 200
+
+#endpoint for send an email for reste the password
+@main.route('/resetPassword', methods=['POST'])
+def send_reset_email():
+    try:
+        email = request.json.get('email')
+
+        # Query the database to check if the email exists
+        user = User.query.filter_by(email=email).first()
+        if user:
+            message = Message(
+                subject='Password Reset Link',
+                recipients=[email],
+                sender=current_app.config['MAIL_USERNAME']  # Use your configured sender email
+            )
+            message.body = 'Hey, this is a link for reset the password.'
+            mail.send(message)
+            return jsonify({'message': 'Password reset email sent successfully'})
+        else:
+            return jsonify({'message': 'Email not found in the database.'}), 404
+    except Exception as e:
+        return jsonify({'message': 'Error sending reset email', 'error': str(e)}), 500
