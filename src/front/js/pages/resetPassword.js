@@ -11,8 +11,9 @@ export const ResetPassword = () => {
   //function to send the email to reset password 
 const handleResetPassword = async () => {
   const data = {
-    email: email
+    email: email,
   };
+  console.log(data)
 
   const opts = {
     method: "POST",

@@ -16,7 +16,7 @@ export const Navbar = (props) => {
 
   const bicycleList = (type) => {
     setSelectedType(type);
-    navigate('/products/id');
+    navigate('/products');
   };
 
   // Handle changes in the search input
@@ -46,11 +46,11 @@ export const Navbar = (props) => {
   };
 
   // Handle selecting an autocomplete suggestion
-  const handleAutocompleteSelection = (selectedValue) => {
+  const handleAutocompleteSelection = (type, selectedValue) => {
     console.log("handleAutocompleteSelection called with:", selectedValue);
     setInput(selectedValue);
     setShowAutocomplete(false);
-    navigate(`/products/${selectedValue.uid}`);
+    navigate(`/products/${type}`);
   };
 
 
