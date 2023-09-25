@@ -6,7 +6,6 @@ from flask_jwt_extended import create_access_token
 from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
 from .models import db
 from flask import Flask, jsonify
-from flask_mail import Mail
 from flask_mail import Mail, Message
 from flask import current_app
 
