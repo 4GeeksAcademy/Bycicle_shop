@@ -50,7 +50,7 @@ export const Signup = () => {
                 <input className="control" type="text" placeholder="Email" aria-label="default input example" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.password)} required/>
+                <input className="control" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 <br />
                 <br />
                 <input className="control" type="password" placeholder="Confirm Password" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>

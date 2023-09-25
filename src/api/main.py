@@ -152,6 +152,7 @@ def create_user():
 
     email = data.get('email')
     password = data.get('password')
+    print(f"Received password in create_user: {password}") 
     username = data.get('username')
     fullName = data.get('fullName')
     # You can also include subscribe and privacy data if you want to store those

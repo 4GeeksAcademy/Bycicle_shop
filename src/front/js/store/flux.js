@@ -60,6 +60,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ user: profileData });
 			},
 
+			logout: () => {
+				axios.post('/api/logout')
+					.then(response => {
+						if (response.data.success === 'true') {
+							console.log("Logout successful");
+						} else {
+							console.error('Logout failed:', response.data.msg);
+						}
+					})
+					.catch(error => {
+						console.error('Logout error:', error);
+					})
+					.finally(() => {
+						localStorage.removeItem('access_token'); // Always remove token
+
+					});
+			},
+
 			addToCart: (id, quantity, props, navigate) => {
 				const payload = {
 					bicycle_id: id,
@@ -231,7 +249,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("hello")
 				try {
 					const resp = await fetch(
-						`https://${process.env.BACKEND_URL}/api/create-user`,
+						`${process.env.BACKEND_URL}/api/create-user`,
 						opts
 					);
 					const data = await resp.json();

@@ -2,10 +2,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Order } from "../component/order";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
+import LogoutComponent from "../component/logout";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -15,40 +15,40 @@ const Profile = () => {
   const [showClass3, setShowClass3] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const token = localStorage.getItem('access_token');
-    
-      if (token) getData(token);
-         
+
+    if (token) getData(token);
+
   }, []);  // if token changes
 
   const getData = (token) => {
-    
-      axios({
-        method: "GET",
-        url: process.env.BACKEND_URL + "/profile",
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
+
+    axios({
+      method: "GET",
+      url: process.env.BACKEND_URL + "/profile",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    })
+
+
+      .then((response) => {
+        const res = response.data;
+        console.log("Profile Data:", res);
+        console.log('Token in Profile:', token);
+        actions.setUserProfile(res);
+
       })
+      .catch((error) => {
+        console.error("An error occurred in getData:", error);
+        if (error.response) {
+          console.log("Error details:", error.response);
+        }
 
+      });
 
-        .then((response) => {
-          const res = response.data;
-          console.log("Profile Data:", res);
-          console.log('Token in Profile:', token);
-          actions.setUserProfile(res);
-          
-        })
-        .catch((error) => {
-          console.error("An error occurred in getData:", error);
-          if (error.response) {
-            console.log("Error details:", error.response);
-          }
-          
-        });
-    
   }
   console.log("Rendering Profile component");
   console.log("Current show value:", show);
@@ -132,9 +132,11 @@ const Profile = () => {
         )}
       </div>
       <div className="btn-container">
-        <Link className="return-second" to="/">
-          <button className="btn-logout" onClick={() => actions.logout()} type="submit">Logout</button>
-        </Link>
+
+        <LogoutComponent onLogout={() => {
+          actions.logout();
+          navigate('/');
+        }} />
       </div>
     </div>
   );
