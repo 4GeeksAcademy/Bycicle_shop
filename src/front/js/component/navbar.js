@@ -46,11 +46,11 @@ export const Navbar = (props) => {
   };
 
   // Handle selecting an autocomplete suggestion
-  const handleAutocompleteSelection = (type, selectedValue) => {
+  const handleAutocompleteSelection = (selectedValue) => {
     console.log("handleAutocompleteSelection called with:", selectedValue);
     setInput(selectedValue);
     setShowAutocomplete(false);
-    navigate(`/products/${type}`);
+    bicycleList(selectedValue);
   };
 
 
@@ -171,7 +171,6 @@ export const Navbar = (props) => {
                         value={input}
                         onChange={(e) => handleChange(e.target.value)}
                       />
-                      <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
                     </form>
                   )}
 

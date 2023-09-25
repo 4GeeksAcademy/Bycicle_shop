@@ -126,13 +126,6 @@ li {
 .custom-dropdown-toggle::after {
     border: 0 !important;
 }
-.fa-navbar {
-    color: #484545;
-    background-color: white;
-    position: absolute;
-    bottom: 8px;
-    left: 18vh;
-}
 /*css to make the site responsive*/
 @media screen and (max-width: 1800px) {
     .navbar-box {
@@ -168,7 +161,7 @@ li {
         background-color: #7C0514;
         border-radius: 6px;
         width: 20vh;
-        height: 20vh;
+        height: 23vh;
         position: absolute;
         z-index: 3;
     }

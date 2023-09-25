@@ -11,7 +11,7 @@ export const ResetPassword = () => {
   //function to send the email to reset password 
 const handleResetPassword = async () => {
   const data = {
-    email: email,
+    'email': email,
   };
   console.log(data)
 
@@ -27,7 +27,7 @@ const handleResetPassword = async () => {
 
   try {
     // Send a POST request to your server to initiate the password reset process
-    const response = await axios.post(process.env.BACKEND_URL + "/resetPassword", opts);
+    const response = await axios.options(process.env.BACKEND_URL + "/resetPassword", opts);
     console.log("ok");
 
     if (response.status === 200) {

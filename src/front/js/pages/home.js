@@ -21,7 +21,7 @@ export const Home = () => {
       <div id="carouselExampleAutoplaying" className="carousel carousel-dark slide" data-bs-ride="carousel">
         <div className="carousel-inner carousel-container">
           <div className="carousel-item my-carousel active" data-bs-interval="1000">
-                <Link className="carousel-text" to={`/products/${store.products}`}>
+                <Link className="carousel-text" to={`/products`}>
                   <p>Road Bikes</p>
                 </Link>
             <img
@@ -32,7 +32,7 @@ export const Home = () => {
             
           </div>
           <div className="carousel-item my-carousel" data-bs-interval="2000"> 
-                <Link className="carousel-text" to={`/products/${store.products}`}>
+                <Link className="carousel-text" to={`/products`}>
                   <p>Mountain Bikes</p>
                 </Link>
             <img
@@ -42,7 +42,7 @@ export const Home = () => {
           />  
           </div>
           <div className="carousel-item my-carousel" data-bs-interval="3000">
-                <Link className="carousel-text" to={`/products/${store.products}`}>
+                <Link className="carousel-text" to={`/products`}>
                   <p>Hybrid Bikes</p>
                 </Link>
             <img
@@ -52,7 +52,7 @@ export const Home = () => {
             />
           </div>
           <div className="carousel-item my-carousel" data-bs-interval="4000">
-                <Link className="carousel-text" to={`/products/${store.products}`}>
+                <Link className="carousel-text" to={`/products`}>
                   <p>Speciality Bikes</p>
                 </Link>
             <img
@@ -62,7 +62,7 @@ export const Home = () => {
             />
           </div>
           <div className="carousel-item my-carousel" data-bs-interval="5000">
-                <Link className="carousel-text" to={`/products/${store.products}`}>
+                <Link className="carousel-text" to={`/products`}>
                   <p>BMX Bikes</p>
                 </Link>
             <img
@@ -72,7 +72,7 @@ export const Home = () => {
             />
           </div>
           <div className="carousel-item my-carousel" data-bs-interval="6000">
-                <Link className="carousel-text" to={`/products/${store.products}`}>
+                <Link className="carousel-text" to={`/products`}>
                   <p>Kids Bikes</p>
                 </Link>
             <img
@@ -82,7 +82,7 @@ export const Home = () => {
             />
           </div>
           <div className="carousel-item my-carousel" data-bs-interval="7000">
-                <Link className="carousel-text" to={`/products/${store.products}`}>
+                <Link className="carousel-text" to={`/products`}>
                   <p>News</p>
                 </Link>
             <img

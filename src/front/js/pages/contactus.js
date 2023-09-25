@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import axios from "axios"; 
 import { Context } from "../store/appContext";
 import "../../styles/contactus.css";
 
@@ -9,22 +10,44 @@ export const ContactUs = () => {
   const [phone, setPhone] = useState("");
   const [issue, setIssue] = useState("");
   const [description, setDescription] = useState("");
-
-  //function to send the data form the input to the database
-  const handleClick = (event) => {
-      // prevent the default form submission behavior
-      event.preventDefault();
-      actions.signup(fullName, username, email, password, subscribe, privacy) 
-  };
+  const [result, setResult ] = useState("");
 
   //function to reset the form
   const resetForm = () => {
       setFullName("");
       setEmail("");
-      setPassword("");
-      setSubscribe(false);
-      setPrivacy(false);
+      setPhone("");
+      setIssue("");
+      setDescription("");
   };
+
+
+  const handleSendEmail = async (event) => {
+    // prevent the default form submission behavior
+    event.preventDefault();
+    const data = {
+      email: email, // Replace with the sender's email
+      message: {
+        fullName: fullName,
+        phone: phone, 
+        issue: issue,
+        description: description,
+      }
+    };
+    console.log(data)
+    axios.options(process.env.BACKEND_URL + '/contactus', data)
+      .then((response) => {
+        console.log('Support email sent successfully:', response.data.message);
+        setResult('Support email sent successfully');
+        // Handle success
+      })
+      .catch((error) => {
+        console.error('Error sending support email:', error);
+        setResult('Error sending support email');
+      });
+    resetForm();
+  }
+
   return (
           <div className="min-height-100 container-fluid">
             <div className="text-center m-2">
@@ -34,7 +57,7 @@ export const ContactUs = () => {
                 contact details and contact us.
               </h5>
               <br />
-              <form className="form my-form" onSubmit={handleClick}>
+              <form className="form my-form" >
                   <div>
                   <br />
                   <input className="control-contact" type="text" placeholder="Full Name" aria-label="default input example" value={fullName} onChange={(e) => setFullName(e.target.value)} />
@@ -51,9 +74,11 @@ export const ContactUs = () => {
                   <br />
                   <textarea className="textarea-contact" name="story" rows="4" placeholder="Description"  value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                   </div>
+                  
                   <div className="row me-3">
+                  <p className="text-danger">{result}</p>
                       <div >
-                          <button className="btn-contact" onClick={resetForm} >Send</button>
+                        <button className="btn-contact" onClick={handleSendEmail}>Send</button>
                       </div>
                   </div>
               </form>

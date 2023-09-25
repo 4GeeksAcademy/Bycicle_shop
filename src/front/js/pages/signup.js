@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/signup.css";
 
 export const Signup = () => {
@@ -12,13 +12,15 @@ export const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState(""); 
     const [subscribe, setSubscribe] = useState(false);
     const [privacy, setPrivacy] = useState(false);
+    const navigate = useNavigate();
 
     //function to send the data form the input to the database
     const handleClick = (event) => {
         // prevent the default form submission behavior
         event.preventDefault();
         console.log("hewllo")
-        actions.signup(fullName, username, email, password, confirmPassword, subscribe,  privacy) 
+        actions.signup(fullName, username, email, password, confirmPassword, subscribe,  privacy);
+        navigate('/login');
         
     };
 
