@@ -13,6 +13,7 @@
     display: grid;
     justify-items: end;
     position: relative;
+    z-index: 3;
 }
 .my-btn {
     background-color: #7C0514;
@@ -76,9 +77,8 @@ li {
     background-color: white;
     color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 63vh;
-    top: 0;
-    width: fit-content;
+    margin-left: 110vh;
+    margin-top: 0;
 }
 .form-btn {
     width: 90%;
@@ -109,6 +109,7 @@ li {
     font-size: large;
     border-radius: 36px;
     padding-left: 10px;
+    
 }
 .form-autocomplete {
     position:absolute;
@@ -125,20 +126,19 @@ li {
 .custom-dropdown-toggle::after {
     border: 0 !important;
 }
-.fa-navbar {
-    color: #484545;
-    background-color: white;
-    position: absolute;
-    bottom: 8px;
-    left: 18vh;
-}
 /*css to make the site responsive*/
 @media screen and (max-width: 1800px) {
     .navbar-box {
         height: 20vh;
     }  
     .fa-navbar {
-        left: 20vh;
+        left: 23vh;
+    }
+    .dropdown-language {
+        position: absolute;
+        margin-left: 65vh;
+        margin-top: 0;
+        z-index: 4;
     }
   }
 @media screen and (max-width: 1000px) {
@@ -161,7 +161,7 @@ li {
         background-color: #7C0514;
         border-radius: 6px;
         width: 20vh;
-        height: 20vh;
+        height: 23vh;
         position: absolute;
         z-index: 3;
     }
@@ -194,11 +194,11 @@ li {
         display: none;
         visibility: hidden;
     }
-    .fa-navbar {
-        left: 12vh;
-    }
     .chatbot-control {
         width: 80%;
+    }
+    .dropdown-language {
+        margin-left: 0;
     }
   }
 @media screen and (max-width: 550px) {
@@ -219,9 +219,6 @@ li {
     .menu {
         margin-right: 40px;
     }
-    .fa-navbar {
-        left: 19vh;
-    }
 }
 @media screen and (max-width: 380px) {
     .navbar-container {
@@ -234,7 +231,8 @@ li {
     .menu {
         margin-right: 40px;
     }
-    .fa-navbar {
-        left: 23vh;
+    .dropdown-language {
+        left: 50rem;
+        top: 0;
     }
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import SelectedTypeContext from "../TypeContext";
+import "../../styles/product.css";
 
 function Product(props) {
   const navigate = useNavigate();
@@ -59,27 +60,28 @@ function Product(props) {
 
 
   return (
-    <div>
-      <h1>Product List</h1>
-      <div className="product-container">
+    <div className="container-fluid min-height-100 ">
+      <div className="row row-card">
         {Array.isArray(products) && products.map((product, index) => (
-          <div key={index} className="product-card">
-            <img src={product.image_url || "placeholder-image-url.jpg"} alt={product.name} />
-            <Link to={`/product/${product.id}`}>
-              <h2>{product.name}</h2>
-            </Link>
-            <p>Manufacturer: {product.manufacturer}</p>
-            <p>Material: {product.material}</p>
-            <p>Gender: {product.gender}</p>
-            <p>Price: ${product.price}</p>
-            <p>Color: {product.color}</p>
-            <p>Weight: {product.weight}</p>
-            <p>Type: {product.type}</p>
-            <p>In stock: {product.instock}</p>
-          </div>
+          <div className="card my-card " >
+            <div key={index} className="product-card my-product-card">
+              <div className="card-img-top card-producct-img" >
+                <img src={product.image_url || "placeholder-image-url.jpg"} alt={product.name} />
+              </div>
+              <div className="card-body">
+                  <h6>{product.name}</h6>
+                  <p className="card-paragraf"><strong>Color:</strong> {product.color}</p>
+                  <p className="card-paragraf"><strong>Price:</strong> $ {product.price}</p>
+                  <p className="card-paragraf"><strong>In stock:</strong> {product.instock}</p>
+            </div> 
+          </div>  
+          <Link to={`/product/${product.id}`}>
+            <button tipe="button" className="btn-product-card">See details</button>
+          </Link>
+      </div> 
         ))}
-      </div>
-    </div>
+        </div>
+  </div>
   );
 }
 

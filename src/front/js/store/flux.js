@@ -230,7 +230,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			signup: async (fullName, username, email, password, subscribe, privacy) => {
+			signup: async (fullName, username, email, password, confirmePassword, subscribe, privacy) => {
 				const opts = {
 					method: "POST",
 					headers: {
@@ -241,6 +241,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						username: username,
 						email: email,
 						password: password,
+						confirmePassword: confirmePassword,
 						subscribe: subscribe,
 						privacy: privacy,
 					}),

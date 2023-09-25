@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/signup.css";
 
 export const Signup = () => {
@@ -12,12 +12,15 @@ export const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState(""); 
     const [subscribe, setSubscribe] = useState(false);
     const [privacy, setPrivacy] = useState(false);
+    const navigate = useNavigate();
 
     //function to send the data form the input to the database
     const handleClick = (event) => {
         // prevent the default form submission behavior
         event.preventDefault();
-        actions.signup(fullName, username, email, password, subscribe, confirmPassword, privacy) 
+        console.log("hewllo")
+        actions.signup(fullName, username, email, password, confirmPassword, subscribe,  privacy);
+        navigate('/login');
         
     };
 
@@ -71,7 +74,7 @@ export const Signup = () => {
                 </div>
                 <div className="row me-3">
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                            <button className="btn-register" type="submit" >REGISTER</button>
+                        <button className="btn-register" type="submit" >REGISTER</button>
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-end cancel-btn">
                         <button className="btn-register"  onClick={resetForm} >CANCEL</button>
