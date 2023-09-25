@@ -18,7 +18,7 @@ export const Signup = () => {
         // prevent the default form submission behavior
         event.preventDefault();
         console.log("hewllo")
-        actions.signup(fullName, username, email, password, subscribe, confirmPassword, privacy) 
+        actions.signup(fullName, username, email, password, confirmPassword, subscribe,  privacy) 
         
     };
 
