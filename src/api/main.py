@@ -6,7 +6,6 @@ from flask_jwt_extended import create_access_token
 from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
 from .models import db
 from flask import Flask, jsonify
-from flask_mail import Mail
 from flask_mail import Mail, Message
 from flask import current_app
 
@@ -202,9 +201,9 @@ def my_profile():
 
     return jsonify(response_body), 200
 
-#endpoint for send an email for reste the password
+#endpoint for send an email for reset the password
 @main.route('/resetPassword', methods=['OPTIONS'])
-@cross_origin()
+@cross_origin(origin="process.env.FRONTEND_URL")
 def send_reset_email(email):
     try:
         email = request.json.get('email')
@@ -214,17 +213,21 @@ def send_reset_email(email):
         if user:
             message = Message(
                 subject='Password Reset Link',
-                recipients=['mariana.placito@gmail.com'],  # Replace with your support email address
-                sender=current_app.config['MAIL_USERNAME'] 
+                recipients=[email], 
+                sender=current_app.config['MAIL_USERNAME'], 
+                body = 'Hey, this is a link for reset the password.',
+                html="reset yor password with this link: <a herf="">Link</a>"
             )
-            message.body = 'Hey, this is a link for reset the password.'
+
             mail.send(message)
             return jsonify({'message': 'Password reset email sent successfully'})
         else:
             return jsonify({'message': 'Email not found in the database.'}), 404
     except Exception as e:
-        return jsonify({'message': 'Error sending reset email', 'error': str(e)}), 500
+        return jsonify({'message': 'User with this email do not exist', 'error': str(e)}), 500
 
+
+    
 #endpoint for sending an email for support
 @main.route('/contactus', methods=['OPTIONS'])
 @cross_origin()
@@ -248,3 +251,4 @@ def send_support_email():
         return jsonify({'message': 'Support email sent successfully'})
     except Exception as e:
         return jsonify({'message': 'Error sending support email', 'error': str(e)}), 500
+    

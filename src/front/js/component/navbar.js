@@ -50,7 +50,7 @@ export const Navbar = (props) => {
     console.log("handleAutocompleteSelection called with:", selectedValue);
     setInput(selectedValue);
     setShowAutocomplete(false);
-    bicycleList(selectedValue);
+    navigate(`/products`);
   };
 
 

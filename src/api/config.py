@@ -10,7 +10,7 @@ class Config:
      # SMTP credentials
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
-    MAIL_USERNAME = 'mariana.placito@gmail.com'
-    MAIL_PASSWORD = 'Mp.3558p'
+    MAIL_USERNAME = 'teest4geeks12@gmail.com'
+    MAIL_PASSWORD = 'ahyz rgmy igtb yclg'
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True

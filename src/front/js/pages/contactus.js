@@ -26,7 +26,7 @@ export const ContactUs = () => {
     // prevent the default form submission behavior
     event.preventDefault();
     const data = {
-      email: email, // Replace with the sender's email
+      email: email, 
       message: {
         fullName: fullName,
         phone: phone, 
