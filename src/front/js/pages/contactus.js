@@ -26,7 +26,7 @@ export const ContactUs = () => {
     // prevent the default form submission behavior
     event.preventDefault();
     const data = {
-      email: email, // Replace with the sender's email
+      email: email, 
       message: {
         fullName: fullName,
         phone: phone, 
@@ -35,9 +35,9 @@ export const ContactUs = () => {
       }
     };
     console.log(data)
-    axios.options(process.env.BACKEND_URL + '/contactus', data)
+    axios.options(process.env.BACKEND_URL + '/api/contactus', data)
       .then((response) => {
-        console.log('Support email sent successfully:', response.data.message);
+        console.log('Support email sent successfully:', response);
         setResult('Support email sent successfully');
         // Handle success
       })

@@ -89,6 +89,7 @@
 		"react-paralax": "^1.0.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
-		"react-scroll-parallax": "^3.4.2"
+		"react-scroll-parallax": "^3.4.2",
+		"stripe": "^13.7.0"
 	}
 }

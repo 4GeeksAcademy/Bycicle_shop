@@ -8,43 +8,49 @@ export const ResetPassword = () => {
   const [hideContainer, setHideContainer] = useState(true);
   const [resetStatus, setResetStatus] = useState(null);
 
-  //function to send the email to reset password 
-const handleResetPassword = async () => {
-  const data = {
-    'email': email,
-  };
-  console.log(data)
-
-  const opts = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: JSON.stringify(data), // Use the 'data' option for the JSON payload
-  };
-
-  console.log(opts);
-
-  try {
-    // Send a POST request to your server to initiate the password reset process
-    const response = await axios.options(process.env.BACKEND_URL + "/resetPassword", opts);
-    console.log("ok");
-
-    if (response.status === 200) {
-      setResetStatus("Check your email for a password reset!");
-    } else if (response.status === 404) {
-      setResetStatus("Your email does not exist.");
-    } else {
+  const handleResetPassword = async () => {
+    const data = {
+      email: email
+    };
+console.log(data)
+      /*Step 1: Prepare the Request Data
+      const jsonString = JSON.stringify(data, (key, value) => {
+        if (typeof value === 'object' && value !== null) {
+          // Handle circular references by setting them to null
+          return key === 'email' ? value : null;
+        }
+        return value;
+      });*/
+    
+    try {
+      // Step 1: Send a POST request to your server to initiate the password reset process
+      const response = await axios.options(process.env.BACKEND_URL + "/resetPassword", data, {
+        headers: {
+          "Content-Type": "application/json",
+          //Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      // Step 2: Debugging - Inspect the Response Data
+      console.log("Response Data:", response);
+  
+      // Step 3: Handle Different Response Statuses
+      if (response.status === 200) {
+        setResetStatus("Check your email for a password reset!");
+      } else if (response.status === 404) {
+        setResetStatus("User with this email does not exist.");
+      } else {
+        setResetStatus("Error sending reset email.");
+      }
+    } catch (error) {
+      // Step 4: Handle Errors
+      console.error("Error sending reset email:", error);
       setResetStatus("Error sending reset email.");
     }
-  } catch (error) {
-    console.error("Error sending reset email:", error);
-    setResetStatus("Error sending reset email.");
-  }
-
-  setHideContainer(false);
-};
-
+  
+    // Step 5: Update the UI
+    setHideContainer(false);
+  };
 
   return (
     <div className="min-height-100 container reset-big-box">

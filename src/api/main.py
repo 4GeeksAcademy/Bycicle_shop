@@ -201,31 +201,62 @@ def my_profile():
 
     return jsonify(response_body), 200
 
-#endpoint for send an email for reste the password
 @main.route('/resetPassword', methods=['OPTIONS'])
-@cross_origin()
-def send_reset_email(email):
+@cross_origin(origin="process.env.FRONTEND_URL")
+def send_reset_email():
     try:
         email = request.json.get('email')
-        print(email)
+        
         # Query the database to check if the email exists
         user = User.query.filter_by(email=email).first()
-        if user:
-            message = Message(
-                subject='Password Reset Link',
-                recipients=['mariana.placito@gmail.com'],  # Replace with your support email address
-                sender=current_app.config['MAIL_USERNAME'] 
-            )
-            message.body = 'Hey, this is a link for reset the password.'
-            mail.send(message)
-            return jsonify({'message': 'Password reset email sent successfully'})
-        else:
-            return jsonify({'message': 'Email not found in the database.'}), 404
-    except Exception as e:
-        return jsonify({'message': 'Error sending reset email', 'error': str(e)}), 500
+        print(user)
+        if user is None:
+            return jsonify({"msg": "User with this email does not exist."}), 404
+        
+        # Generate an access token
+        #token = create_access_token(identity=user.email)
 
+        # Construct the reset link
+        #link = f"https://example.com/newPassword?token={token}"  
+        
+        message = Message(
+            subject='Password Reset Link',
+            sender=current_app.config['MAIL_USERNAME'], 
+            recipients=[email], 
+            body='Hey, this is a link for resetting the password.',
+            html=f"Reset your password with this link: <a href=''>Link</a>"
+        )
+
+        mail.send(message)
+        return jsonify({'message': 'Password reset email sent successfully'}), 200
+    except Exception as e:
+        return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
+    
+#endpoint for the link of the password
+#@main.route('/newPassword', methods=['PUT'])
+#@cross_origin(origin="process.env.FRONTEND_URL")
+#def reset_password():
+ #   try:
+  #      email = request.json.geet("email", None)
+   #     password = request.json.get("password", None)
+
+        # Query the database to check if the email exists
+    #    user = User.query.filter_by(email=email).first()
+     #   if user is None:
+      #      return jsonify({"msg": "User with this email does not exist."}), 404
+        
+        # Update the user's password
+       # user.password = password
+
+        # Commit the changes to the database
+        #db.session.commit()
+        
+        #return jsonify({"msg": "Password reset successful."}), 200
+    #except Exception as e:
+     #   return jsonify({"msg": "An error occurred", "error": str(e)}), 500
+    
 #endpoint for sending an email for support
-@main.route('/contactus', methods=['OPTIONS'])
+@main.route('/api/contactus', methods=['OPTIONS'])
 @cross_origin()
 def send_support_email():
     try:
@@ -237,9 +268,9 @@ def send_support_email():
         message = Message(
             subject='Support Request',
             recipients=['mariana.placito@gmail.com'],  # Replace with your support email address
-            sender=current_app.config['MAIL_USERNAME'] 
+            sender=current_app.config['MAIL_USERNAME'],
+            body= f"Support request from: {email_address}\n\n{email_data.get('message')}"
         )
-        message.body = f"Support request from: {email_address}\n\n{email_data.get('message')}"
 
         # Send the email
         mail.send(message)
@@ -247,3 +278,4 @@ def send_support_email():
         return jsonify({'message': 'Support email sent successfully'})
     except Exception as e:
         return jsonify({'message': 'Error sending support email', 'error': str(e)}), 500
+    

@@ -19,6 +19,7 @@ import { Chatbot_button} from "./component/chatbot_button";
 import {Login} from "./pages/login"
 import Product from "./pages/products";
 import Profile from "./pages/profile";
+import { NewPassword } from './pages/newPassword';
 import {ResetPassword} from "./pages/resetPassword";
 import ProductDetail from "./pages/product_detail";
 import ProfileRedirect from './component/ProfileRedirect';
@@ -44,6 +45,7 @@ const Layout = () => {
                         <Route element={<ContactUs />} path="/contactus" />
                         <Route element={<Terms />} path="/terms" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<NewPassword />} path="/newPassword" />
                         <Route element={<Ai />} path="/ai" />
                         <Route element={<Ai_resp />} path="/ai_resp" />
                         <Route element={<Product />} path="/products" />
