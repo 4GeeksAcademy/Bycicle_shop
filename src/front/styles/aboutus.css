@@ -36,20 +36,22 @@
     background-color: black;
     opacity: 0.9;
     position: absolute;
-    left: 144vh;
-    top: 23vh;
+    left: 117vh;
+    top: 22vh;
 }
 /*css to make the site responsive*/
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1800px) {
     .aboutus-square {
-        left: 170vh;
-        top: 27vh;
+        left: 145vh;
+        top: 25vh;
     }
   }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1500px) {
     .aboutus-square {
         display: none;
     }
+  }
+@media screen and (max-width: 1200px) {
     .aboutus-img-2 {
         position: absolute;
         left: 110vh;

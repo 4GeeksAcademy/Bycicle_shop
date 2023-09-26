@@ -22,7 +22,7 @@ export const ContactUs = () => {
   };
 
 
-  const handleSendEmail = async (event, email, fullName, phone, issue, description) => {
+  const handleSendEmail = async (event) => {
     // prevent the default form submission behavior
     event.preventDefault();
     const data = {
@@ -37,7 +37,7 @@ export const ContactUs = () => {
     console.log(data)
     axios.options(process.env.BACKEND_URL + '/api/contactus', data)
       .then((response) => {
-        console.log('Support email sent successfully:', response.data.message);
+        console.log('Support email sent successfully:', response);
         setResult('Support email sent successfully');
         // Handle success
       })

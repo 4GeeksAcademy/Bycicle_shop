@@ -201,7 +201,7 @@ def my_profile():
 
     return jsonify(response_body), 200
 
-@main.route('/resetPassword', methods=['POST'])
+@main.route('/resetPassword', methods=['OPTIONS'])
 @cross_origin(origin="process.env.FRONTEND_URL")
 def send_reset_email():
     try:

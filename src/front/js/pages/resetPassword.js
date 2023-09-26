@@ -9,7 +9,6 @@ export const ResetPassword = () => {
   const [resetStatus, setResetStatus] = useState(null);
 
   const handleResetPassword = async () => {
-    console.log(email)
     const data = {
       email: email
     };
@@ -25,7 +24,7 @@ console.log(data)
     
     try {
       // Step 1: Send a POST request to your server to initiate the password reset process
-      const response = await axios.post(process.env.BACKEND_URL + "/resetPassword", data, {
+      const response = await axios.options(process.env.BACKEND_URL + "/resetPassword", data, {
         headers: {
           "Content-Type": "application/json",
           //Authorization: `Bearer ${token}`,
@@ -33,7 +32,7 @@ console.log(data)
       });
   
       // Step 2: Debugging - Inspect the Response Data
-      console.log("Response Data:", response.data);
+      console.log("Response Data:", response);
   
       // Step 3: Handle Different Response Statuses
       if (response.status === 200) {
