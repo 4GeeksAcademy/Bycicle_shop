@@ -106,15 +106,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let flag = true;
 				if (name === "") {
 					flag = false;
-					setNameFlag(true);
+					setName(true);
 				}
 				if (title === "") {
 					flag = false;
-					setTitleFlag(true);
+					setTitle(true);
 				}
 				if (review === "") {
 					flag = false;
-					setReviewFlag(true);
+					setReview(true);
 				}
 				if (!flag) {
 					setMessage("Please fill all fields");
@@ -122,7 +122,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				const payload = {
 					rating: rating,
-					name: name,
 					title: title,
 					review: review,
 					bicycle_id: id,
@@ -133,7 +132,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.then((response) => {
 						console.log(response);
-						if (response.data.success === "true") {
+						if (response.data.success === true) {
 							console.log(response.data.access_token);
 							setReview("");
 							setTitle("");
@@ -144,7 +143,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch((error) => {
 						if (error.response) {
-							console.log(error.response);
+							console.log(error.response.data);
+							setMessage(error.response.data.error || 'An error occurred');
+						} else {
+							console.error(error); // log the error object if no response
+							setMessage('An error occurred'); // display a generic error message to the user
 						}
 					});
 			},
