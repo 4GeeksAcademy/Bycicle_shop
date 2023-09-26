@@ -14,3 +14,5 @@ class Config:
     MAIL_PASSWORD = 'ahyz rgmy igtb yclg'
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
+    # Stripe key
+    SECRET_KEY='sk_test_51NuJE8BQV4wKuzoZSh21SCxrw0naH6tIETz7Uut69IahYTU3UaJPzPS4gs2ANWRiAQJZTJU62vxepIrqVplkm5iG00BZCwAVLG'

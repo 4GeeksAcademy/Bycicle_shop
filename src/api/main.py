@@ -4,7 +4,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
-from .models import db
+from .models import db 
 from flask import Flask, jsonify
 from flask_mail import Mail, Message
 from flask import current_app
@@ -201,7 +201,7 @@ def my_profile():
 
     return jsonify(response_body), 200
 
-@main.route('/resetPassword', methods=['POST'])
+@main.route('/resetPassword', methods=['OPTIONS'])
 @cross_origin(origin="process.env.FRONTEND_URL")
 def send_reset_email():
     try:
@@ -209,21 +209,22 @@ def send_reset_email():
         
         # Query the database to check if the email exists
         user = User.query.filter_by(email=email).first()
+        print(user)
         if user is None:
             return jsonify({"msg": "User with this email does not exist."}), 404
         
         # Generate an access token
-        token = create_access_token(identity=user.email)
+        #token = create_access_token(identity=user.email)
 
         # Construct the reset link
-        link = f"https://example.com/newPassword?token={token}"  # Replace with your actual URL
+        #link = f"https://example.com/newPassword?token={token}"  
         
         message = Message(
             subject='Password Reset Link',
             sender=current_app.config['MAIL_USERNAME'], 
             recipients=[email], 
             body='Hey, this is a link for resetting the password.',
-            html=f"Reset your password with this link: <a href='{link}'>Link</a>"
+            html=f"Reset your password with this link: <a href=''>Link</a>"
         )
 
         mail.send(message)
@@ -232,27 +233,27 @@ def send_reset_email():
         return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
     
 #endpoint for the link of the password
-@main.route('/newPassword', methods=['PUT'])
-@cross_origin(origin="process.env.FRONTEND_URL")
-def reset_password():
-    try:
-        email = request.json.geet("email", None)
-        password = request.json.get("password", None)
+#@main.route('/newPassword', methods=['PUT'])
+#@cross_origin(origin="process.env.FRONTEND_URL")
+#def reset_password():
+ #   try:
+  #      email = request.json.geet("email", None)
+   #     password = request.json.get("password", None)
 
         # Query the database to check if the email exists
-        user = User.query.filter_by(email=email).first()
-        if user is None:
-            return jsonify({"msg": "User with this email does not exist."}), 404
+    #    user = User.query.filter_by(email=email).first()
+     #   if user is None:
+      #      return jsonify({"msg": "User with this email does not exist."}), 404
         
         # Update the user's password
-        user.password = password
+       # user.password = password
 
         # Commit the changes to the database
-        db.session.commit()
+        #db.session.commit()
         
-        return jsonify({"msg": "Password reset successful."}), 200
-    except Exception as e:
-        return jsonify({"msg": "An error occurred", "error": str(e)}), 500
+        #return jsonify({"msg": "Password reset successful."}), 200
+    #except Exception as e:
+     #   return jsonify({"msg": "An error occurred", "error": str(e)}), 500
     
 #endpoint for sending an email for support
 @main.route('/api/contactus', methods=['OPTIONS'])

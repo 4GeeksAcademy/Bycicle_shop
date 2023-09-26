@@ -8,33 +8,34 @@ export const ResetPassword = () => {
   const [hideContainer, setHideContainer] = useState(true);
   const [resetStatus, setResetStatus] = useState(null);
 
-  const handleResetPassword = async (email, token) => {
+  const handleResetPassword = async () => {
+    console.log(email)
     const data = {
-      email: email,
+      email: email
     };
-  
-    // Step 1: Prepare the Request Data
-    const jsonString = JSON.stringify(data, (key, value) => {
-      if (typeof value === 'object' && value !== null) {
-        // Handle circular references by setting them to null
-        return key === 'email' ? value : null;
-      }
-      return value;
-    });
-  
+console.log(data)
+      /*Step 1: Prepare the Request Data
+      const jsonString = JSON.stringify(data, (key, value) => {
+        if (typeof value === 'object' && value !== null) {
+          // Handle circular references by setting them to null
+          return key === 'email' ? value : null;
+        }
+        return value;
+      });*/
+    
     try {
-      // Step 2: Send a POST request to your server to initiate the password reset process
-      const response = await axios.post(process.env.BACKEND_URL + "/resetPassword", jsonString, {
+      // Step 1: Send a POST request to your server to initiate the password reset process
+      const response = await axios.options(process.env.BACKEND_URL + "/resetPassword", {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          //Authorization: `Bearer ${token}`,
         },
       });
   
-      // Step 3: Debugging - Inspect the Response Data
-      console.log("Response Data:", response.data);
+      // Step 2: Debugging - Inspect the Response Data
+      console.log("Response Data:", response);
   
-      // Step 4: Handle Different Response Statuses
+      // Step 3: Handle Different Response Statuses
       if (response.status === 200) {
         setResetStatus("Check your email for a password reset!");
       } else if (response.status === 404) {
@@ -43,12 +44,12 @@ export const ResetPassword = () => {
         setResetStatus("Error sending reset email.");
       }
     } catch (error) {
-      // Step 5: Handle Errors
+      // Step 4: Handle Errors
       console.error("Error sending reset email:", error);
       setResetStatus("Error sending reset email.");
     }
   
-    // Step 6: Update the UI
+    // Step 5: Update the UI
     setHideContainer(false);
   };
 
