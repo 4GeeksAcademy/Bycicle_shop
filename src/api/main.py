@@ -4,7 +4,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
-from .models import db 
+from .models import db
 from flask import Flask, jsonify
 from flask_mail import Mail, Message
 from flask import current_app
@@ -170,8 +170,8 @@ def create_user():
     new_user = User(
         email=email,
         password=hashed_password,
-        username=username,
-        fullName=fullName
+        username=username
+       
     )
 
     # Save the new user object to the database
@@ -201,7 +201,7 @@ def my_profile():
 
     return jsonify(response_body), 200
 
-@main.route('/resetPassword', methods=['OPTIONS'])
+@main.route('/resetPassword', methods=['POST'])
 @cross_origin(origin="process.env.FRONTEND_URL")
 def send_reset_email():
     try:

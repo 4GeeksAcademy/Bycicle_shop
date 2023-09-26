@@ -72,29 +72,31 @@ function ProductDetail(props) {
                   <div className="col-lg-6 px-2 py-4">
                     <div className="d-flex align-items-center mb-5">
                       <div className="d-flex align-items-center">
-                      <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-                        <div className="carousel-inner">
-                          <div className="carousel-item active">
-                            <img className="d-block w-100 img-fluid" src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" style={{ width: "350px" }} alt="First slide" />
-                          </div>
-                          <div className="carousel-item">
-                            <img className="d-block w-100" src="..." alt="Second slide"/>
-                          </div>
-                          <div className="carousel-item">
-                            <img className="d-block w-100" src="..." alt="Third slide" />
-                          </div>
+                    <div id="carouselExampleIndicators" className="carousel slide">
+                      <div className="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                      </div>
+                      <div className="carousel-inner">
+                        <div className="carousel-item active">
+                          <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" className="d-block w-100" alt="..." />
                         </div>
-                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span className="visually-hidden">Previous</span>
-                        </button>
-                        <button className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span className="sr-only">Next</span>
-                        </button>
+                        <div className="carousel-item">
+                          <img src="https://images.pexels.com/photos/1010546/pexels-photo-1010546.jpeg?auto=compress&cs=tinysrgb&w=1600" className="d-block w-100" alt="..."/>
+                        </div>
+                      </div>
+                      <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="visually-hidden">Previous</span>
+                      </button>
+                      <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="visually-hidden">Next</span>
+                      </button>
                     </div>
-                    </div>
-                    </div>
+                  </div>
+                  </div>
                   </div>
                   <div className="produt-description col-lg-6 ">
                     <h2 className="mb-3 pt-2 text-start fw-bold text-uppercase">

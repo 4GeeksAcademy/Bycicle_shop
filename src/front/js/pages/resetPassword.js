@@ -25,7 +25,7 @@ console.log(data)
     
     try {
       // Step 1: Send a POST request to your server to initiate the password reset process
-      const response = await axios.options(process.env.BACKEND_URL + "/resetPassword", {
+      const response = await axios.post(process.env.BACKEND_URL + "/resetPassword", data, {
         headers: {
           "Content-Type": "application/json",
           //Authorization: `Bearer ${token}`,
@@ -33,7 +33,7 @@ console.log(data)
       });
   
       // Step 2: Debugging - Inspect the Response Data
-      console.log("Response Data:", response);
+      console.log("Response Data:", response.data);
   
       // Step 3: Handle Different Response Statuses
       if (response.status === 200) {
