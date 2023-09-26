@@ -90,6 +90,7 @@ def product_post():
 @main.route('/review', methods=['POST'])
 @jwt_required()
 def review_post():
+    print("Received Review: ", request.json)
     user_id = get_jwt_identity()
     
     # Extracting JSON data

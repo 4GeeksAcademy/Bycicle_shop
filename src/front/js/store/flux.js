@@ -102,7 +102,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-			submitReview: (name, title, review, id, props, setMessage, setReview, setTitle, setName, getData) => {
+			submitReview: (name, title, review, id, setMessage, setReview, setTitle, setName, getData) => {
+				if (!name || !title || !review) {
+				  setMessage("Please fill all fields");
+				  return;
+				}
 				let flag = true;
 				if (name === "") {
 					flag = false;
@@ -126,6 +130,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					review: review,
 					bicycle_id: id,
 				};
+				props.submitReview(
+					name, 
+					title, 
+					review, 
+					id, 
+					props,
+					setMessage, 
+					setReview, 
+					setTitle, 
+					setName, 
+					getData
+				);
+				console.log("Submitting Review: ", payload); // see the data of review to be sent
 				axios
 					.post(process.env.BACKEND_URL + "/review", payload, {
 						headers: { Authorization: `Bearer ${props.token}` },
@@ -137,7 +154,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							setReview("");
 							setTitle("");
 							setName("");
-							getData();
+							getData && getData();
 						} else {
 						}
 					})
@@ -146,8 +163,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.log(error.response.data);
 							setMessage(error.response.data.error || 'An error occurred');
 						} else {
-							console.error(error); // log the error object if no response
-							setMessage('An error occurred'); // display a generic error message to the user
+							console.error(error);
+							setMessage('An error occurred'); 
 						}
 					});
 			},

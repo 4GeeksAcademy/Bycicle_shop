@@ -15,6 +15,7 @@ import review from "../store/flux"
 import onChangeReview from "../store/flux"
 import submitReview from "../store/flux"
 import "../../styles/product_detail.css";
+import changeRating from "../store/flux"
 
 
 import axios from "axios";
@@ -26,18 +27,32 @@ function ProductDetail(props) {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
-  /*const [rating, setRating] = useState([]);
+  const [rating, setRating] = useState([]);
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
-  const [review, setReview] = useState(""); */
+  const onChangeName = (e) => setName(e.target.value);
+  const onChangeTitle = (e) => setTitle(e.target.value);
+  const changeRating = (value) => setRating(value);
+  const [reviewText, setReviewText] = useState("");
+  const onChangeReview = (e) => setReviewText(e.target.value);
+
+  const submitReview = () => {
+    if (!name || !title || !reviewText) {
+      setMessage("Please fill all fields");
+      return;
+    }
+    props.submitReviewAction(name, title, reviewText, id, setMessage, setReviewText, setTitle, setName, props.getData);
+  };
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/products/${id}`)
       .then(response => {
-        if (response.data.success === "true") {
-          setProduct(response.data.bicycle);
-        }
-      })
+      if (response.data.success === "true") {
+        setProduct(response.data.bicycle);
+        console.log('ID:', id);
+        console.log('URL:', `${process.env.BACKEND_URL}/product/${id}`);
+      }
+    })
       .catch(error => {
         console.error('Error fetching product details:', error);
       });
@@ -233,7 +248,7 @@ function ProductDetail(props) {
                   <textarea
                     className="form-control"
                     id="form4Example3"
-                    value={review}
+                    value={reviewText}
                     onChange={onChangeReview}
                     rows="4"
                   ></textarea>
