@@ -5,43 +5,53 @@ import "../../styles/resetPassword.css";
 export const NewPassword = () => {
     const [password, setPassword] = useState("");
     const [confermePassword, setConfermePassword] = useState("");
+    const [passResult, setPassResult] = useState("");
 
-  //function to send the email to reset password 
-const NewPass = async () => {
-  const data = {
-    'password': password,
-  };
-  console.log(data)
-
-  const opts = {
-    method: "OPTIONS",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: JSON.stringify(data), // Use the 'data' option for the JSON payload
-  };
-
-  console.log(opts);
-
-  try {
-    // Send a OPTIONS request to your server to initiate the password reset process
-    const response = await axios.options(process.env.BACKEND_URL + "/api/resetPassword", opts);
-    console.log("ok");
-
-    if (response.status === 200) {
-      setResetStatus("Check your email for a password reset!");
-    } else if (response.status === 404) {
-      setResetStatus("Your email does not exist.");
-    } else {
-      setResetStatus("Error sending reset email.");
-    }
-  } catch (error) {
-    console.error("Error sending reset email:", error);
-    setResetStatus("Error sending reset email.");
-  }
-
-  setHideContainer(false);
-};
+    const NewPass = async () => {
+      // Check if passwords match on the client side
+      if (password !== confermePassword) {
+        setPassResult("Passwords do not match.");
+        return; // Don't proceed with the request
+      }
+    
+      const data = {
+        'password': password,
+        'confermePassword': confermePassword,
+      };
+    
+      const jsonString = JSON.stringify(data, (key, value) => {
+        if (typeof value === 'object' && value !== null) {
+          if (value === data) {
+            return undefined; // Exclude the circular reference
+          }
+        }
+        return value;
+      });
+    
+      const opts = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: jsonString, // Send the JSON string in the request body
+      };
+    
+      try {
+        // Send a PUT request to your server to update the password
+        const response = await axios.put(process.env.BACKEND_URL + "/newPassword", data, opts);
+    
+        if (response.status === 200) {
+          setPassResult("Password changed successfully");
+        } else if (response.status === 404) {
+          setPassResult("User not found.");
+        } else {
+          setPassResult("Something went wrong.");
+        }
+      } catch (error) {
+        console.error("Something went wrong:", error);
+        setPassResult("Something went wrong.");
+      }
+    };
 
 
   return (
@@ -73,6 +83,7 @@ const NewPass = async () => {
               <button onClick={NewPass} className="btn-pass">
                 Send
               </button>
+              <p className="text-danger">{passResult}</p>
             </div>
          </div>   
   );
