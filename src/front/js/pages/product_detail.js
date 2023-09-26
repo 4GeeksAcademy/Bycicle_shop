@@ -191,7 +191,7 @@ function ProductDetail(props) {
                             <FontAwesomeIcon
                               key={index}
                               icon={faStar}
-                              color="yellow"
+                              className="rating-color"
                               onClick={() => changeRating(index + 1)}
                             />
                           ) : (
@@ -268,12 +268,12 @@ function ProductDetail(props) {
                 </div>
                 {Array.isArray(reviewList) && reviewList.length > 0
                   ? reviewList.map((item, index) => (
-                    <div key={index} className="row bg-primary text-start mb-3">
+                    <div key={index} className="row review-color text-start mb-3">
                       <div className="h2 d-flex  justify-content-center pb-3">
                         {[...Array(5)].map((_, index) => (
                           <div key={index}>
                             {index < item.rating ? (
-                              <FontAwesomeIcon key={index} icon={faStar} color="yellow" />
+                              <FontAwesomeIcon key={index} icon={faStar} className="rating-color" />
                             ) : (
                               <FontAwesomeIcon key={index} icon={faStar} color="dark" />
                             )}
