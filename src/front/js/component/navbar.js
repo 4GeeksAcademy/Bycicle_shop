@@ -30,11 +30,13 @@ export const Navbar = (props) => {
       axios
         .get(process.env.BACKEND_URL + "/api/products")
         .then((response) => {
+          console.log(response.data); // search function log
           if (response.data.success === "true") {
             // Filter the results by name
             const filteredResults = response.data.bicycles.filter((bike) =>
               bike.name.toLowerCase().includes(value.toLowerCase())
             );
+            console.log(filteredResults); // search function log
             setSearchResults(filteredResults);
             setShowAutocomplete(true); // Show autocomplete suggestions
           }
@@ -53,6 +55,24 @@ export const Navbar = (props) => {
     bicycleList(selectedValue);
   };
 
+  // Handle rendering of the autocomplete dropdown
+  const renderAutocompleteDropdown = () => {
+    if (showAutocomplete && searchResults.length > 0) {
+      return (
+        <ul className="autocomplete-results form-autocomplete">
+          {searchResults.map((result) => (
+            <li key={result.id}>
+              <Link to={`/product/${result.id}`}>
+                {result.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      );
+    }
+    return null;
+  };
+  
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
@@ -173,16 +193,9 @@ export const Navbar = (props) => {
                       />
                     </form>
                   )}
+                  {renderAutocompleteDropdown()}
 
-                  {showAutocomplete && (
-                    <ul className="autocomplete-results form-autocomplete">
-                      {searchResults.map((result) => (
-                        <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
-                          {result.name}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+
                   <Link className="show-buttons link-collapse" to="/login">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
