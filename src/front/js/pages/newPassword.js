@@ -7,6 +7,14 @@ export const NewPassword = () => {
   const [password, setPassword] = useState("");
   const [confermePassword, setConfermePassword] = useState("");
 
+  //function to send the data form the input to the database
+  const handleNewPassword = (event) => {
+    // prevent the default form submission behavior
+    event.preventDefault();
+    //call function resetPassword from flux
+    actions.newPass(password, confermePassword);  
+};
+
   return (
           <div className="container-fluid min-height-100">
             <br />
@@ -33,7 +41,7 @@ export const NewPassword = () => {
             <br />
             <div >
               {/* Button trigger modal and send email */}
-              <button onClick={NewPass} className="btn-pass">
+              <button onClick={handleNewPassword} className="btn-pass">
                 Send
               </button>
               <p className="text-danger" id="newMessage"></p>

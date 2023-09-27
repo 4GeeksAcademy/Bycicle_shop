@@ -12,7 +12,7 @@ from flask import current_app
 main = Blueprint('main', __name__)
 from flask import request
 
-mail = Mail() 
+mail=Mail()
 
 @main.route('/api/products', methods=['GET'])
 @cross_origin()
@@ -222,15 +222,15 @@ def send_reset_email():
             return jsonify({"msg": "User with this email does not exist."}), 404
         else:
             # Generate an access token and construct the reset link
-            #token = create_access_token(identity=user.email)
-            #link = f"https://example.com/newPassword?token={token}"
+            token = create_access_token(identity=user.email)
+            link = f"https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev/newPassword?token={token}"
             
             message = Message(
                 subject='Password Reset Link',
                 sender=current_app.config['MAIL_USERNAME'], 
                 recipients=[email], 
                 body='Hey, this is a link for resetting the password.',
-                #html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>"
+                html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>"
             )
 
             mail.send(message)
@@ -238,7 +238,7 @@ def send_reset_email():
     except Exception as e:
         return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
     
-#endpoint for the link of the password
+# Endpoint for the link to reset the password
 @main.route('/newPassword', methods=['PUT'])
 @cross_origin(origin="process.env.FRONTEND_URL")
 def reset_password():
@@ -248,7 +248,7 @@ def reset_password():
 
         # Query the database to check if the email exists
         user = User.query.filter_by(email=email).first()
-        print(user)
+
         if user is None:
             return jsonify({"msg": "User with this email does not exist."}), 404
         
@@ -269,16 +269,16 @@ def send_support_email():
     try:
         # Get the email address from the request JSON data
         email_data = request.json  # Get the entire JSON object
-        email_address = email_data.get('email')
+        email = request.json.get("email")
 
         print(email_data)
-        print(email_address)
+        print(email)
         # Create a support email message
         message = Message(
             subject='Support Request',
             recipients=['mariana.placito@gmail.com'],  # Replace with your support email address
             sender=current_app.config['MAIL_USERNAME'],
-            body= f"Support request from: {email_address}"
+            body= f"Support request from: {email} \n {email_data}"
         )
 
         # Send the email
