@@ -62,7 +62,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			logout: () => {
-				axios.post('/api/logout')
+				axios.post('/logout')
 					.then(response => {
 						if (response.data.success === 'true') {
 							console.log("Logout successful");

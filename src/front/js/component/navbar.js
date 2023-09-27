@@ -14,6 +14,7 @@ export const Navbar = (props) => {
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const { setSelectedType } = useContext(SelectedTypeContext);
+  const [token, setToken] = useState("");
 
   const bicycleList = (type) => {
     setSelectedType(type);
@@ -46,13 +47,13 @@ export const Navbar = (props) => {
     }
   };
 
-  // Handle selecting an autocomplete suggestion
-  const handleAutocompleteSelection = (selectedValue) => {
-    console.log("handleAutocompleteSelection called with:", selectedValue);
-    setInput(selectedValue);
-    setShowAutocomplete(false);
-    navigate(`/products`);
-  };
+// Handle selecting an autocomplete suggestion
+const handleAutocompleteSelection = (selectedValue) => {
+  console.log("handleAutocompleteSelection called with:", selectedValue);
+  setInput(selectedValue);
+  setShowAutocomplete(false);
+  bicycleList(`/products/${selectedValue}`);
+};
 
 
   return (
@@ -184,13 +185,12 @@ export const Navbar = (props) => {
                       ))}
                     </ul>
                   )}
-                  
-                  {/*{store.token ? <Link className="show-buttons link-collapse" to="/profile">
+                  {token ? <Link className="show-buttons link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
-                  : */}<Link className="show-buttons link-collapse" to="/login">
+                  : <Link className="show-buttons link-collapse" to="/login">
                   <i className="icon fa-regular fa-user"></i>
-                </Link>
+                </Link>}
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>

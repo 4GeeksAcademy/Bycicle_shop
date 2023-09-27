@@ -217,6 +217,7 @@ li {
     .my-collapse {
         font-size: small;
         z-index: 3;
+        height: 27vh;
     }
     .img {
         height: 100px;
