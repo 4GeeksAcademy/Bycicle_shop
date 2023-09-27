@@ -9,6 +9,7 @@ import json
 from api.commands import setup_commands
 from api.utils import APIException, generate_sitemap
 from flask_mail import Mail, Message
+#import stripe
 
 # Importing configurations
 from api.config import Config

@@ -292,39 +292,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 					document.getElementById("resetMessage").textContent = "Error sending reset email.";
 				}
 			},
-			
-			// Function to change the old password that you don0t remenber for a new one
-			newPass: async (password, confermePassword) => {
+			// Function to change the old password that you don't remember for a new one
+			newPass: async (password, confirmPassword, token) => {
 				// Check if passwords match on the client side
-				if (password !== confermePassword) {
-					document.getElementById("newMessage").textContent = "Passwords do not match.";
-				  return; // Don't proceed with the request
+				if (password !== confirmPassword) {
+				document.getElementById("newMessage").textContent = "Passwords do not match.";
+				return; // Don't proceed with the request
+				}
+			
+				// Check if password is empty
+				if (!password) {
+				document.getElementById("newMessage").textContent = "Password cannot be empty.";
+				return;
 				}
 			
 				const opts = {
-				  method: "PUT",
-				  headers: {
+				method: "PUT",
+				headers: {
 					"Content-Type": "application/json",
-				  },
-				  body: JSON.stringify({ password: password, confermePassword: confermePassword}),
+				},
+				body: JSON.stringify({ password: password, confirmPassword: confirmPassword }),
 				};
-			  
+			
 				try {
-				  // Send a PUT request to your server to update the password
-				  const response = await axios.put(process.env.BACKEND_URL + "/newPassword", opts);
-			  
-				  if (response.status === 200) {
-					document.getElementById("newMessage").textContent ="Password changed successfully";
-				  } else if (response.status === 404) {
-					document.getElementById("newMessage").textContent ="User not found.";
-				  } else {
-					document.getElementById("newMessage").textContent ="Something went wrong.";
-				  }
-				} catch (error) {
-				  console.error("Something went wrong:", error);
-				  document.getElementById("newMessage").textContent ="Something went wrong.";
+				// Send a PUT request to your server to update the password
+				const response = await axios.put(`${process.env.BACKEND_URL}/newPassword/${token}`, opts);
+			
+				if (response.status === 200) {
+					document.getElementById("newMessage").textContent = "Password changed successfully";
+				} else if (response.status === 404) {
+					document.getElementById("newMessage").textContent = "User not found.";
+				} else {
+					document.getElementById("newMessage").textContent = "Something went wrong.";
 				}
-			  },
+				} catch (error) {
+				console.error("Something went wrong:", error);
+				document.getElementById("newMessage").textContent = "Something went wrong.";
+				}
+			},
 			getMessage: async () => {
 				try {
 					// fetching data from the backend

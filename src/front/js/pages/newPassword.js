@@ -6,13 +6,14 @@ export const NewPassword = () => {
   const { actions } = useContext(Context);
   const [password, setPassword] = useState("");
   const [confermePassword, setConfermePassword] = useState("");
+  const [token, setToken] = useState("");
 
   //function to send the data form the input to the database
   const handleNewPassword = (event) => {
     // prevent the default form submission behavior
     event.preventDefault();
     //call function resetPassword from flux
-    actions.newPass(password, confermePassword);  
+    actions.newPass(password, confermePassword, token);  
 };
 
   return (
