@@ -265,34 +265,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to send a POST request to your server to initiate the password reset process
-			resetPassword: (token, email) => {
+			resetPassword: async (token, email) => {
 				const opts = {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
+						"Authorization": `Bearer ${token}`, // Include the token in headers if needed
 					},
 					body: JSON.stringify({ email: email }),
 				};
-			
-				fetch(process.env.BACKEND_URL + "/resetPassword", opts)
-					.then((response) => {
-						console.log(response);
-			
-						if (response.status === 200) {
-							document.getElementById("resetMessage").textContent = "Check your email for a password reset!";
-						} else if (response.status === 404) {
-							document.getElementById("resetMessage").textContent = "User with this email does not exist.";
-						} else {
-							document.getElementById("resetMessage").textContent = 'Error sending email';
-						}
-					})
-					.catch((error) => {
-						// Handle network errors or other issues
-						console.error("Error sending reset email:", error);
-						document.getElementById("resetMessage").textContent = "Error sending reset email.";
-					});
+				console.log(email);
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + '/resetPassword', opts);
+					const data = await resp.json();
+					console.log(data);
+					if (resp.status === 200) {
+						document.getElementById("resetMessage").textContent = "Check your email for a password reset!";
+					} else if (resp.status === 404) {
+						document.getElementById("resetMessage").textContent = "User with this email does not exist.";
+					} else {
+						document.getElementById("resetMessage").textContent = 'Error sending email';
+					}
+				} catch (error) {
+					// Handle network errors or other issues
+					console.error("Error sending reset email:", error);
+					document.getElementById("resetMessage").textContent = "Error sending reset email.";
+				}
 			},
+			
 			// Function to change the old password that you don0t remenber for a new one
 			newPass: async (password, confermePassword) => {
 				// Check if passwords match on the client side

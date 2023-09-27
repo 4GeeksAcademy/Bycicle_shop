@@ -21,7 +21,6 @@ export const ContactUs = () => {
       setDescription("");
   };
 
-
   const handleSendEmail = async (event) => {
     // prevent the default form submission behavior
     event.preventDefault();
@@ -30,7 +29,13 @@ export const ContactUs = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ fullName: fullName, email: email, phone: phone, issue: issue, descrption: description}),
+      body: JSON.stringify({
+        fullName: fullName,
+        email: email,
+        phone: phone,
+        issue: issue,
+        description: description, 
+      }),
     };
     
     console.log(opts)

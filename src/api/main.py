@@ -8,7 +8,6 @@ from .models import db
 from flask import Flask, jsonify
 from flask_mail import Mail, Message
 from flask import current_app
-from flask_mail import Mail
 
 main = Blueprint('main', __name__)
 from flask import request
@@ -223,19 +222,19 @@ def send_reset_email():
             return jsonify({"msg": "User with this email does not exist."}), 404
         else:
             # Generate an access token and construct the reset link
-            token = create_access_token(identity=user.email)
-            link = f"https://example.com/newPassword?token={token}"
+            #token = create_access_token(identity=user.email)
+            #link = f"https://example.com/newPassword?token={token}"
             
             message = Message(
                 subject='Password Reset Link',
                 sender=current_app.config['MAIL_USERNAME'], 
                 recipients=[email], 
                 body='Hey, this is a link for resetting the password.',
-                html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>"
+                #html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>"
             )
 
             mail.send(message)
-            return jsonify({'message': 'Password reset email sent successfully'}), 500
+            return jsonify({'message': 'Password reset email sent successfully'}), 200
     except Exception as e:
         return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
     

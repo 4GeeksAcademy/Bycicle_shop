@@ -184,12 +184,13 @@ export const Navbar = (props) => {
                       ))}
                     </ul>
                   )}
-                  {store.token ? <Link className="show-buttons link-collapse" to="/profile">
+                  
+                  {/*{store.token ? <Link className="show-buttons link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
-                  : <Link className="show-buttons link-collapse" to="/login">
+                  : */}<Link className="show-buttons link-collapse" to="/login">
                   <i className="icon fa-regular fa-user"></i>
-                </Link>}
+                </Link>
                   
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
