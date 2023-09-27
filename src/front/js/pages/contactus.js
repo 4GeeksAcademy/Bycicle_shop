@@ -30,7 +30,7 @@ export const ContactUs = () => {
       headers: {
       "Content-Type": "application/json",
       },
-      body: JSON.stringify({ fullName: fullName, email: email, phone: phone, isuue: issue, descrption: description}),
+      body: JSON.stringify({ fullName: fullName, email: email, phone: phone, issue: issue, descrption: description}),
     };
     
     console.log(opts)

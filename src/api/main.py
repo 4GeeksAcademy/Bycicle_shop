@@ -223,15 +223,15 @@ def send_reset_email():
             return jsonify({"msg": "User with this email does not exist."}), 404
         else:
             # Generate an access token and construct the reset link
-            token = create_access_token(identity=user.email)
-            link = f"https://example.com/newPassword?token={token}"
+            #token = create_access_token(identity=user.email)
+            #link = f"https://example.com/newPassword?token={token}"
             
             message = Message(
                 subject='Password Reset Link',
                 sender=current_app.config['MAIL_USERNAME'], 
                 recipients=[email], 
                 body='Hey, this is a link for resetting the password.',
-                html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>"
+                #html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>"
             )
 
             mail.send(message)
@@ -244,11 +244,12 @@ def send_reset_email():
 @cross_origin(origin="process.env.FRONTEND_URL")
 def reset_password():
     try:
-        email = request.json.geet("email", None)
+        email = request.json.get("email", None)
         password = request.json.get("password", None)
 
         # Query the database to check if the email exists
         user = User.query.filter_by(email=email).first()
+        print(user)
         if user is None:
             return jsonify({"msg": "User with this email does not exist."}), 404
         
@@ -268,15 +269,17 @@ def reset_password():
 def send_support_email():
     try:
         # Get the email address from the request JSON data
-        email_data = request.json
+        email_data = request.json  # Get the entire JSON object
         email_address = email_data.get('email')
 
+        print(email_data)
+        print(email_address)
         # Create a support email message
         message = Message(
             subject='Support Request',
             recipients=['mariana.placito@gmail.com'],  # Replace with your support email address
             sender=current_app.config['MAIL_USERNAME'],
-            body= f"Support request from: {email_address}\n\n{email_data.get('message')}"
+            body= f"Support request from: {email_address}"
         )
 
         # Send the email

@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			user: [],
+			toke: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -264,38 +265,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to send a POST request to your server to initiate the password reset process
-			resetPassword: async (token, email) => {
+			resetPassword: (token, email) => {
 				const opts = {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify({ email: email }),
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						//Authorization: `Bearer ${token}`,
+					},
+					body: JSON.stringify({ email: email }),
 				};
-				console.log(opts)
-				try {
-				const response = await fetch(process.env.BACKEND_URL + "/resetPassword", opts);
 			
-				// Debugging - Inspect the Response Data
-				console.log("Response Data:", response);
+				fetch(process.env.BACKEND_URL + "/resetPassword", opts)
+					.then((response) => {
+						console.log(response);
 			
-				// Handle Different Response Statuses
-				if (response.status === 200) {
-					// Display a success message in the div
-					document.getElementById("resetMessage").textContent = "Check your email for a password reset!";
-				} else if (response.status === 404) {
-					// Display an error message in the div
-					document.getElementById("resetMessage").textContent = "User with this email does not exist.";
-				} else {
-					// Handle other response statuses here
-				}
-				} catch (error) {
-				// Handle Errors
-				console.error("Error sending reset email:", error), 500;
-				// Display an error message in the div
-				document.getElementById("resetMessage").textContent = "Error sending reset email.";
-				}
+						if (response.status === 200) {
+							document.getElementById("resetMessage").textContent = "Check your email for a password reset!";
+						} else if (response.status === 404) {
+							document.getElementById("resetMessage").textContent = "User with this email does not exist.";
+						} else {
+							document.getElementById("resetMessage").textContent = 'Error sending email';
+						}
+					})
+					.catch((error) => {
+						// Handle network errors or other issues
+						console.error("Error sending reset email:", error);
+						document.getElementById("resetMessage").textContent = "Error sending reset email.";
+					});
 			},
 			// Function to change the old password that you don0t remenber for a new one
 			newPass: async (password, confermePassword) => {
