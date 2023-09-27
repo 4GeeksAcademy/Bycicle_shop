@@ -21,21 +21,25 @@ export const ContactUs = () => {
       setDescription("");
   };
 
-
   const handleSendEmail = async (event) => {
     // prevent the default form submission behavior
     event.preventDefault();
-    const data = {
-      email: email, 
-      message: {
+    const opts = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         fullName: fullName,
-        phone: phone, 
+        email: email,
+        phone: phone,
         issue: issue,
-        description: description,
-      }
+        description: description, 
+      }),
     };
-    console.log(data)
-    axios.options(process.env.BACKEND_URL + '/api/contactus', data)
+    
+    console.log(opts)
+    axios.post(process.env.BACKEND_URL + '/contactus', opts)
       .then((response) => {
         console.log('Support email sent successfully:', response);
         setResult('Support email sent successfully');

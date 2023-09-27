@@ -1,56 +1,25 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 import logo from "../../img/logo.png";
 import "../../styles/resetPassword.css";
 
 export const ResetPassword = () => {
+  const { actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [hideContainer, setHideContainer] = useState(true);
-  const [resetStatus, setResetStatus] = useState(null);
+  const [resetStatus, setResetStatus] = useState(false);
+  const [token, setToken] = useState("");
 
-  const handleResetPassword = async () => {
-    const data = {
-      email: email
-    };
-console.log(data)
-      /*Step 1: Prepare the Request Data
-      const jsonString = JSON.stringify(data, (key, value) => {
-        if (typeof value === 'object' && value !== null) {
-          // Handle circular references by setting them to null
-          return key === 'email' ? value : null;
-        }
-        return value;
-      });*/
-    
-    try {
-      // Step 1: Send a POST request to your server to initiate the password reset process
-      const response = await axios.options(process.env.BACKEND_URL + "/resetPassword", data, {
-        headers: {
-          "Content-Type": "application/json",
-          //Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      // Step 2: Debugging - Inspect the Response Data
-      console.log("Response Data:", response);
-  
-      // Step 3: Handle Different Response Statuses
-      if (response.status === 200) {
-        setResetStatus("Check your email for a password reset!");
-      } else if (response.status === 404) {
-        setResetStatus("User with this email does not exist.");
-      } else {
-        setResetStatus("Error sending reset email.");
-      }
-    } catch (error) {
-      // Step 4: Handle Errors
-      console.error("Error sending reset email:", error);
-      setResetStatus("Error sending reset email.");
-    }
-  
-    // Step 5: Update the UI
-    setHideContainer(false);
-  };
+  //function to send the data form the input to the database
+  const handleResetPassword = (event) => {
+    // prevent the default form submission behavior
+    event.preventDefault();
+    //call function resetPassword from flux
+    actions.resetPassword(token, email);  
+      setResetStatus(true) 
+     // Update the UI
+     setHideContainer(false);
+};
 
   return (
     <div className="min-height-100 container reset-big-box">
@@ -58,7 +27,7 @@ console.log(data)
       {resetStatus && (
         <div className="my-modal">
           <img src={logo} className="logo" alt="logo" />
-          <p>{resetStatus}</p>
+          <div id="resetMessage"></div>
         </div>
       )}
       {hideContainer && (

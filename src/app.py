@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import json
 from api.commands import setup_commands
 from api.utils import APIException, generate_sitemap
+from flask_mail import Mail, Message
 
 # Importing configurations
 from api.config import Config
@@ -48,6 +49,9 @@ def create_app():
 
     # add the admin
     setup_commands(app)
+
+    #inatialize mail instance
+    mail = Mail(app) 
 
     # Register blueprints
     app.register_blueprint(api_blueprint)

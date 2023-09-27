@@ -12,7 +12,7 @@ from flask import current_app
 main = Blueprint('main', __name__)
 from flask import request
 
-mail = Mail() 
+mail=Mail()
 
 @main.route('/api/products', methods=['GET'])
 @cross_origin()
@@ -90,6 +90,7 @@ def product_post():
 
 @main.route('/review', methods=['POST'])
 @jwt_required()
+@cross_origin(origin="process.env.FRONTEND_URL")
 def review_post():
     user_id = get_jwt_identity()
     # code to validate and add user to database goes here
@@ -201,75 +202,83 @@ def my_profile():
 
     return jsonify(response_body), 200
 
-@main.route('/resetPassword', methods=['OPTIONS'])
+#endpoint for send an email with a link to reset password
+@main.route('/resetPassword', methods=['POST'])
 @cross_origin(origin="process.env.FRONTEND_URL")
 def send_reset_email():
     try:
+        # Ensure that the request has the correct Content-Type header
+        if request.headers['Content-Type'] != 'application/json':
+            return jsonify({"error": "415 Unsupported Media Type: Content-Type must be 'application/json'"}), 415
+
         email = request.json.get('email')
+        print(email)
         
         # Query the database to check if the email exists
         user = User.query.filter_by(email=email).first()
         print(user)
+        
         if user is None:
             return jsonify({"msg": "User with this email does not exist."}), 404
-        
-        # Generate an access token
-        #token = create_access_token(identity=user.email)
+        else:
+            # Generate an access token and construct the reset link
+            token = create_access_token(identity=user.email)
+            link = f"https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev/newPassword?token={token}"
+            
+            message = Message(
+                subject='Password Reset Link',
+                sender=current_app.config['MAIL_USERNAME'], 
+                recipients=[email], 
+                body='Hey, this is a link for resetting the password.',
+                html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>"
+            )
 
-        # Construct the reset link
-        #link = f"https://example.com/newPassword?token={token}"  
-        
-        message = Message(
-            subject='Password Reset Link',
-            sender=current_app.config['MAIL_USERNAME'], 
-            recipients=[email], 
-            body='Hey, this is a link for resetting the password.',
-            html=f"Reset your password with this link: <a href=''>Link</a>"
-        )
-
-        mail.send(message)
-        return jsonify({'message': 'Password reset email sent successfully'}), 200
+            mail.send(message)
+            return jsonify({'message': 'Password reset email sent successfully'}), 200
     except Exception as e:
         return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
     
-#endpoint for the link of the password
-#@main.route('/newPassword', methods=['PUT'])
-#@cross_origin(origin="process.env.FRONTEND_URL")
-#def reset_password():
- #   try:
-  #      email = request.json.geet("email", None)
-   #     password = request.json.get("password", None)
+# Endpoint for the link to reset the password
+@main.route('/newPassword', methods=['PUT'])
+@cross_origin(origin="process.env.FRONTEND_URL")
+def reset_password():
+    try:
+        email = request.json.get("email", None)
+        password = request.json.get("password", None)
 
         # Query the database to check if the email exists
-    #    user = User.query.filter_by(email=email).first()
-     #   if user is None:
-      #      return jsonify({"msg": "User with this email does not exist."}), 404
+        user = User.query.filter_by(email=email).first()
+
+        if user is None:
+            return jsonify({"msg": "User with this email does not exist."}), 404
         
         # Update the user's password
-       # user.password = password
+        user.password = password
 
         # Commit the changes to the database
-        #db.session.commit()
+        db.session.commit()
         
-        #return jsonify({"msg": "Password reset successful."}), 200
-    #except Exception as e:
-     #   return jsonify({"msg": "An error occurred", "error": str(e)}), 500
+        return jsonify({"msg": "Password reset successful."}), 200
+    except Exception as e:
+        return jsonify({"msg": "An error occurred", "error": str(e)}), 500
     
 #endpoint for sending an email for support
-@main.route('/api/contactus', methods=['OPTIONS'])
+@main.route('/contactus', methods=['POST'])
 @cross_origin()
 def send_support_email():
     try:
         # Get the email address from the request JSON data
-        email_data = request.json
-        email_address = email_data.get('email')
+        email_data = request.json  # Get the entire JSON object
+        email = request.json.get("email")
 
+        print(email_data)
+        print(email)
         # Create a support email message
         message = Message(
             subject='Support Request',
             recipients=['mariana.placito@gmail.com'],  # Replace with your support email address
             sender=current_app.config['MAIL_USERNAME'],
-            body= f"Support request from: {email_address}\n\n{email_data.get('message')}"
+            body= f"Support request from: {email} \n {email_data}"
         )
 
         # Send the email
