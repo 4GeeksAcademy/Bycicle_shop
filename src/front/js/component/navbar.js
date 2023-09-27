@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../img/logo.png";
@@ -6,7 +7,7 @@ import "../../styles/navbar.css";
 import SelectedTypeContext from "../TypeContext";
 
 export const Navbar = (props) => {
-  // State for controlling the search bar and results
+  const { store } = useContext(Context);
   const [bar, setBar] = useState(false);
   const [input, setInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -177,15 +178,19 @@ export const Navbar = (props) => {
                   {showAutocomplete && (
                     <ul className="autocomplete-results form-autocomplete">
                       {searchResults.map((result) => (
-                        <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
+                        <li key={result.id} className="li-search" onClick={() => handleAutocompleteSelection(result.name)}>
                           {result.name}
                         </li>
                       ))}
                     </ul>
                   )}
-                  <Link className="show-buttons link-collapse" to="/login">
+                  {store.token ? <Link className="show-buttons link-collapse" to="/profile">
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
+                  : <Link className="show-buttons link-collapse" to="/login">
+                  <i className="icon fa-regular fa-user"></i>
+                </Link>}
+                  
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>
@@ -210,6 +215,16 @@ export const Navbar = (props) => {
                 <Link className="hide-buttons link-collapse" to="/login">
                   <div className="my-hide-buttons">
                     Login
+                  </div>
+                </Link>
+                <Link className="hide-buttons link-collapse" to="/register">
+                  <div className="my-hide-buttons">
+                    Register
+                  </div>
+                </Link>
+                <Link className="hide-buttons link-collapse" to="/profile">
+                  <div className="my-hide-buttons">
+                    Profile
                   </div>
                 </Link>
                 <Link className="hide-buttons link-collapse" to="/ShoppingCart">

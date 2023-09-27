@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			user: [],
-			toke: [],
+			token: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -270,7 +270,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						//Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${token}`,
 					},
 					body: JSON.stringify({ email: email }),
 				};

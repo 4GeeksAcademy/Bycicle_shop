@@ -28,7 +28,7 @@ export const ContactUs = () => {
     const opts = {
       method: "POST",
       headers: {
-      "Content-Type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ fullName: fullName, email: email, phone: phone, issue: issue, descrption: description}),
     };
