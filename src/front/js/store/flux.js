@@ -264,6 +264,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false;
 			},
+			// Function to make the checkout
+			checkout: async (name, manufacturer, material, type, color, wheight, price, instock, quantity, reviews) => {
+				const opts = {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						name: name,
+						manufacturer: manufacturer,
+						material: material,
+						type: type,
+						color: color,
+						wheight: wheight,
+						price: price,
+						instock: instock,
+						quantity: quantity,
+						reviews: reviews,
+					}),
+				};
+				try {
+					const resp = await fetch(
+						`${process.env.BACKEND_URL}/create-checkout-session`,
+						opts
+					);
+					const data = await resp.json();
+
+					if (resp.status === 200) {
+						console.log("Checkout with success", data);
+						return true;
+					} else {
+						console.error("Checkout failed with status:", resp.status);
+					}
+				} catch (error) {
+					console.error("Error message:", error.message);
+				}
+				return false;
+			},
 			// Function to send a POST request to your server to initiate the password reset process
 			resetPassword: async (token, email) => {
 				const opts = {
@@ -292,44 +330,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 					document.getElementById("resetMessage").textContent = "Error sending reset email.";
 				}
 			},
-			// Function to change the old password that you don't remember for a new one
-			newPass: async (password, confirmPassword, token) => {
-				// Check if passwords match on the client side
-				if (password !== confirmPassword) {
-				document.getElementById("newMessage").textContent = "Passwords do not match.";
-				return; // Don't proceed with the request
-				}
-			
-				// Check if password is empty
-				if (!password) {
-				document.getElementById("newMessage").textContent = "Password cannot be empty.";
-				return;
-				}
-			
-				const opts = {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ password: password, confirmPassword: confirmPassword }),
-				};
-			
+			newPass: async (token, password) => {
 				try {
-				// Send a PUT request to your server to update the password
-				const response = await axios.put(`${process.env.BACKEND_URL}/newPassword/${token}`, opts);
-			
-				if (response.status === 200) {
+					const opts = {
+						method: "PUT",
+						headers: {
+						  "Content-Type": "application/json",
+						  Authorization: `Bearer ${token}`, // Include the token in headers if needed
+						},
+						body: JSON.stringify({ password: password }), // Simplify object construction
+					  };
+			  
+				  // Log the request body
+				  console.log(opts.body);
+			  
+				  // Send a PUT request to your server to update the password
+				  const response = await axios.options(`${process.env.BACKEND_URL}/newPassword/${token}`, opts);
+			  
+				  // Log the response
+				  console.log(response);
+			  
+				  if (response.status === 200) {
 					document.getElementById("newMessage").textContent = "Password changed successfully";
-				} else if (response.status === 404) {
+				  } else if (response.status === 404) {
 					document.getElementById("newMessage").textContent = "User not found.";
-				} else {
-					document.getElementById("newMessage").textContent = "Something went wrong.";
-				}
+				  } else {
+					// Provide a more descriptive error message
+					document.getElementById("newMessage").textContent = "Failed to change password. Please try again.";
+				  }
 				} catch (error) {
-				console.error("Something went wrong:", error);
-				document.getElementById("newMessage").textContent = "Something went wrong.";
+				  console.error("Something went wrong:", error);
+				  // Provide a more descriptive error message
+				  document.getElementById("newMessage").textContent = "Failed to change password. Please try again.";
 				}
-			},
+			  },
 			getMessage: async () => {
 				try {
 					// fetching data from the backend

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import openAI from "../../img/ai.png";
 import "../../styles/home.css";
 
 export const Home = () => {
@@ -11,12 +10,11 @@ export const Home = () => {
     <div className="container
     home-container min-height-100">
       <div className="text-center">
-        <Link to="/ai">
-          <button type="button" className="btn btn-ai my-3">
-            <img src={openAI} className="ai-icon" alt="AI Icon" />
-            Do you want help choosing the perfect bike for you?
-          </button>
-        </Link>
+          <spam className="d-flex justify-content-around btn-ai my-3">
+            <i className="fa-solid fa-person-biking"></i>
+            Bicycles Galery
+            <i className="fa-solid fa-person-biking"></i>
+          </spam>
       </div>
       <div id="carouselExampleAutoplaying" className="carousel carousel-dark slide" data-bs-ride="carousel">
         <div className="carousel-inner carousel-container">

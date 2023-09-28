@@ -149,7 +149,7 @@ li {
   }
 @media screen and (max-width: 1000px) {
     .navbar-box {
-        height: 22vh;
+        height: 28vh;
     }  
     .menu {
         width: 20%;
@@ -167,9 +167,9 @@ li {
         background-color: #7C0514;
         border-radius: 6px;
         width: 20vh;
-        height: 16vh;
-        position: absolute;
-        z-index: 3;
+        height: 35vh;
+        position:fixed;
+        z-index: 4;
     }
     .link-collapse {
         border-bottom: solid 1px black;
@@ -217,7 +217,7 @@ li {
     .my-collapse {
         font-size: small;
         z-index: 3;
-        height: 27vh;
+        height: 36vh;
     }
     .img {
         height: 100px;

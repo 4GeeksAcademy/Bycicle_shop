@@ -8,7 +8,7 @@ from .models import db
 from flask import Flask, jsonify
 from flask_mail import Mail, Message
 from flask import current_app
-#import stripe
+import stripe
 
 main = Blueprint('main', __name__)
 
@@ -239,22 +239,21 @@ def send_reset_email():
         return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
     
 # Endpoint for updating the password
-@main.route('/newPassword/<token>', methods=['PUT'])
-@cross_origin(origin="process.env.FRONTEND_URL")
-def reset_password(token):
+@main.route('/newPassword', methods=['OPTIONS'])
+@jwt_required()
+@cross_origin()
+def reset_password():
     try:
-        email = request.json.get("email", None)
         password = request.json.get("password", None)
+        email = get_jwt_identity()
 
         # Query the database to check if the email exists
         user = User.query.filter_by(email=email).first()
-
         if user is None:
             return jsonify({"msg": "User with this email does not exist."}), 404
-        
         # Update the user's password
-        user.password = password
-        print(user.password)
+        User.password = password
+        print(User.password)
         # Commit the changes to the database
         db.session.commit()
         
@@ -286,22 +285,24 @@ def send_support_email():
         return jsonify({'message': 'Error sending support email', 'error': str(e)}), 500
     
 # endpoint for checkout session
-#@main.route('/create-checkout-session', methods=['POST'])
-#def create_checkout_session():
- #   try:
-  #      checkout_session = stripe.checkout.Session.create(
-   #         line_items=[
-    #            {
+@main.route('/create-checkout-session', methods=['POST'])
+@cross_origin()
+def create_checkout_session():
+    try:
+        stripe.api_key = current_app.config['STRIPE_API_KEY']
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
                     # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-     #               'price': '{{PRICE_ID}}',
-      #              'quantity': 1,
-       #         },
-        #    ],
-         #   mode='payment',
-          #  success_url=current_app.config['YOUR_DOMAIN'] + '/success.html',
-           # cancel_url=current_app.config['YOUR_DOMAIN'] + '/cancel.html',
-        #)
-    #except Exception as e:
-     #   return str(e)
+                    'price': 'price_1NuJw3BQV4wKuzoZTMjEgqOx',
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            success_url='https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev/ShoppingCart',
+            cancel_url=current_app.config['FRONTEND_URL'],
+        )
+    except Exception as e:
+        return str(e)
 
-    #return redirect(checkout_session.url, code=303)
+    return jsonify(checkout_session), 200

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../img/logo.png";
@@ -7,7 +6,6 @@ import "../../styles/navbar.css";
 import SelectedTypeContext from "../TypeContext";
 
 export const Navbar = (props) => {
-  const { store } = useContext(Context);
   const [bar, setBar] = useState(false);
   const [input, setInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -19,6 +17,7 @@ export const Navbar = (props) => {
   const bicycleList = (type) => {
     setSelectedType(type);
     navigate('/products');
+    
   };
 
   // Handle changes in the search input
@@ -217,7 +216,7 @@ const handleAutocompleteSelection = (selectedValue) => {
                     Login
                   </div>
                 </Link>
-                <Link className="hide-buttons link-collapse" to="/register">
+                <Link className="hide-buttons link-collapse" to="/signup">
                   <div className="my-hide-buttons">
                     Register
                   </div>
