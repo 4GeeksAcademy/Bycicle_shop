@@ -19,7 +19,8 @@ import { Chatbot_button } from "./component/chatbot_button";
 import { Login } from "./pages/login"
 import Product from "./pages/products";
 import Profile from "./pages/profile";
-import { ResetPassword } from "./pages/resetPassword";
+import { NewPassword } from './pages/newPassword';
+import {ResetPassword} from "./pages/resetPassword";
 import ProductDetail from "./pages/product_detail";
 import ProfileRedirect from './component/ProfileRedirect';
 import { ShoppingCart } from "./pages/shoppingCart";
