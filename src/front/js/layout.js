@@ -5,12 +5,12 @@ import { ArrowToTop } from "./component/arrowToTop";
 import { BackendURL } from "./component/backendURL";
 import SelectedTypeContext from './TypeContext';
 import { Home } from "./pages/home";
-import { Ai } from "./pages/ai";
 import { Ai_resp } from "./pages/ai_resp";
 import { Signup } from "./pages/signup";
 import { AboutUs } from "./pages/aboutus";
 import { ContactUs } from "./pages/contactus";
 import { Terms } from "./pages/terms";
+import { ThanksMessage } from "./pages/thanksMessage";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -22,7 +22,6 @@ import Profile from "./pages/profile";
 import { NewPassword } from './pages/newPassword';
 import {ResetPassword} from "./pages/resetPassword";
 import ProductDetail from "./pages/product_detail";
-import ProfileRedirect from './component/ProfileRedirect';
 import { ShoppingCart } from "./pages/shoppingCart";
 
 const Layout = () => {
@@ -46,7 +45,7 @@ const Layout = () => {
                         <Route element={<Terms />} path="/terms" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<NewPassword />} path="/newPassword" />
-                        <Route element={<Ai />} path="/ai" />
+                        <Route element={<ThanksMessage />} path="/thanksMessage" />
                         <Route element={<Ai_resp />} path="/ai_resp" />
                         <Route element={<Product />} path="/products" />
                         <Route element={<ProductDetail />} path="/product/:id" />

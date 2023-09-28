@@ -289,19 +289,32 @@ def send_support_email():
 @cross_origin()
 def create_checkout_session():
     try:
+        # email = request.json.get("email", None)
+
+        # if not email:
+        #     return "You need to add an email.", 400
+
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         checkout_session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
             line_items=[
                 {
-                    # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                    'price': 'price_1NuJw3BQV4wKuzoZTMjEgqOx',
-                    'quantity': 1,
-                },
+                    "price": "price_1NuJw3BQV4wKuzoZTMjEgqOx",  # Replace with the correct Price ID
+                    "quantity": 1,
+                }
             ],
             mode='payment',
-            success_url='https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev/ShoppingCart',
+            success_url='https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
+        # message = Message(
+        #     subject='Invoice from Your purchase in Bicycle_Shop',
+        #     sender=current_app.config['MAIL_USERNAME'],
+        #     recipients=[email],
+        #     body='checkout_session'
+        # )
+
+        # mail.send(message)
     except Exception as e:
         return str(e)
 

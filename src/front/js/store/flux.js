@@ -265,42 +265,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (name, manufacturer, material, type, color, wheight, price, instock, quantity, reviews) => {
+			checkout: async (name) => {
 				const opts = {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						name: name,
-						manufacturer: manufacturer,
-						material: material,
-						type: type,
-						color: color,
-						wheight: wheight,
-						price: price,
-						instock: instock,
-						quantity: quantity,
-						reviews: reviews,
-					}),
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
 				};
-				try {
-					const resp = await fetch(
-						`${process.env.BACKEND_URL}/create-checkout-session`,
-						opts
-					);
-					const data = await resp.json();
 
-					if (resp.status === 200) {
-						console.log("Checkout with success", data);
-						return true;
-					} else {
-						console.error("Checkout failed with status:", resp.status);
-					}
-				} catch (error) {
-					console.error("Error message:", error.message);
+				try {
+				const resp = await fetch(
+					`${process.env.BACKEND_URL}/create-checkout-session`,
+					opts
+				);
+				console.log("Response text:", await resp.text());
+				if (resp === true)
+					navigate("https://checkout.stripe.com/c/pay/cs_test_a1V6cFACwX0Ymx7RwDDfSQgdECPGHBYyHNXg1bDDsLu2pruNcyQAgFlpVE#fidkdWxOYHwnPyd1blpxYHZxWjA0S3BPQD1HVFMxck5wf2pfc3BtMmQ0bmlGbW5XUWBEPFBTfHJoXUh2cHJic2xAYHd%2FMn9JS3JTNmZgX1Nua3BEcGNwVHFXQUBUd2FzdHJAf3FGVFRyUjRkNTVGaHVmRjREVCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbwppYWB3dic%2FcXdwYHgl")
+				if (!resp.ok) {
+					console.error("Error:", resp.status, resp.statusText);
+					// Handle the error appropriately
+					return;
 				}
-				return false;
+			
+				const data = await resp.json();
+				
+				console.log(data);
+		
+
+				} catch (error) {
+				console.error("Error message:", error.message);
+				}
 			},
 			// Function to send a POST request to your server to initiate the password reset process
 			resetPassword: async (token, email) => {
