@@ -132,6 +132,7 @@ def review_post():
 
 @main.route('/api/products/<int:bicycle_id>/reviews', methods=['GET'])
 def get_reviews(bicycle_id):
+    print("Hello")
     reviews = BicycleReview.query.filter_by(bicycle_id=bicycle_id).all()
     return jsonify([review.serialize() for review in reviews]), 200
 

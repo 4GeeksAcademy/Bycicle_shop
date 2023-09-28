@@ -13,6 +13,14 @@ export const Navbar = (props) => {
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const { setSelectedType } = useContext(SelectedTypeContext);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+  const handleDropdownClick = (type) => {
+    bicycleList(type);
+    toggleDropdown();
+  };
 
   const bicycleList = (type) => {
     setSelectedType(type);
@@ -52,27 +60,27 @@ export const Navbar = (props) => {
     console.log("handleAutocompleteSelection called with:", selectedValue);
     setInput(selectedValue);
     setShowAutocomplete(false);
+    setBar(false);
     bicycleList(selectedValue);
   };
 
-  // Handle rendering of the autocomplete dropdown
-  const renderAutocompleteDropdown = () => {
-    if (showAutocomplete && searchResults.length > 0) {
+// Handle rendering of the autocomplete dropdown
+const renderAutocompleteDropdown = () => {
+  if (showAutocomplete && searchResults.length > 0) {
       return (
-        <ul className="autocomplete-results form-autocomplete">
-          {searchResults.map((result) => (
-            <li key={result.id}>
-              <Link to={`/product/${result.id}`}>
-                {result.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+          <ul className="autocomplete-results form-autocomplete">
+              {searchResults.map((result) => (
+                  <li key={result.id} onClick={() => setShowAutocomplete(false)}>
+                      <Link to={`/product/${result.id}`}>
+                          {result.name}
+                      </Link>
+                  </li>
+              ))}
+          </ul>
       );
-    }
-    return null;
-  };
-  
+  }
+  return null;
+};
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
@@ -133,46 +141,47 @@ export const Navbar = (props) => {
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseProducts"
-                  aria-expanded="false"
+                  aria-expanded={isDropdownOpen}
                   aria-controls="collapseExample"
+                  onClick={toggleDropdown}
                 >
                   Products
                 </button>
               </div>
-              <div className="collapse" id="collapseProducts">
+              <div className={isDropdownOpen ? "collapse show" : "collapse"} id="collapseProducts">
                 <ul className="card card-body my-dropdown-menu">
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('Road Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('Road Bikes')}>
                       Road Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('Mountain Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('Mountain Bikes')}>
                       Mountain Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('Hybrid Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('Hybrid Bikes')}>
                       Hybrid Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('City Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('City Bikes')}>
                       City Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('Cyclocross Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('Cyclocross Bikes')}>
                       Cyclocross Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList("Kid's Bikes")}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick("Kid's Bikes")}>
                       Kid's Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => bicycleList('')}>
+                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('')}>
                       Other types
                     </button>
                   </li>
@@ -194,7 +203,7 @@ export const Navbar = (props) => {
                     </form>
                   )}
                   {renderAutocompleteDropdown()}
-
+                
 
                   <Link className="show-buttons link-collapse" to="/login">
                     <i className="icon fa-regular fa-user"></i>

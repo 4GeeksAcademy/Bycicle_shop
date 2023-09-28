@@ -102,71 +102,53 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-			submitReview: (name, title, review, id, setMessage, setReview, setTitle, setName, getData) => {
-				if (!name || !title || !review) {
-				  setMessage("Please fill all fields");
-				  return;
-				}
-				let flag = true;
-				if (name === "") {
-					flag = false;
-					setName(true);
-				}
-				if (title === "") {
-					flag = false;
-					setTitle(true);
-				}
-				if (review === "") {
-					flag = false;
-					setReview(true);
-				}
-				if (!flag) {
-					setMessage("Please fill all fields");
-					return;
-				}
-				const payload = {
-					rating: rating,
-					title: title,
-					review: review,
-					bicycle_id: id,
-				};
-				props.submitReview(
-					name, 
-					title, 
-					review, 
-					id, 
-					props,
-					setMessage, 
-					setReview, 
-					setTitle, 
-					setName, 
-					getData
-				);
-				console.log("Submitting Review: ", payload); // see the data of review to be sent
-				axios
-					.post(process.env.BACKEND_URL + "/review", payload, {
-						headers: { Authorization: `Bearer ${props.token}` },
+			submitReview: (name, title, review, id, rating, setMessage, setReview, setTitle, setName, getData, token) => {
+				return new Promise((resolve, reject) => {
+					if (!name || !title || !review) {
+						setMessage("Please fill all fields");
+						return reject(new Error("Please fill all fields"));
+					}
+
+					const payload = {
+						name: name,
+						rating: rating,
+						title: title,
+						review: review,
+						bicycle_id: id,
+					};
+
+					console.log('Payload:', payload);
+					console.log('Token:', token);
+
+					axios.post(`${process.env.BACKEND_URL}/review`, payload, {
+						headers: { Authorization: `Bearer ${token}` },
 					})
-					.then((response) => {
-						console.log(response);
-						if (response.data.success === true) {
-							console.log(response.data.access_token);
-							setReview("");
-							setTitle("");
-							setName("");
-							getData && getData();
-						} else {
-						}
-					})
-					.catch((error) => {
-						if (error.response) {
-							console.log(error.response.data);
-							setMessage(error.response.data.error || 'An error occurred');
-						} else {
-							console.error(error);
-							setMessage('An error occurred'); 
-						}
-					});
+						.then((response) => {
+							if (response.data.success === true) {
+								setReview("");
+								setTitle("");
+								setName("");
+								if (typeof getData === 'function') {
+									getData(id);
+								}
+								resolve(response.data);
+							} else {
+								reject(new Error('Submission was not successful'));
+							}
+						})
+						.catch((error) => {
+							
+							if(error.response && error.response.status === 422) {
+								console.error('Invalid request:', error.response.data);
+							} else if(error.response) {
+								console.error('Error Status:', error.response.status);
+								console.error('Error Data:', error.response.data);
+							} else {
+								console.error('Request Error:', error.message);
+							}
+							reject(error);
+						});
+				});
 			},
 
 			changeRating: (setRating, value) => {
@@ -208,34 +190,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
-
-			addToCart: (id, quantity, props, navigate) => {
-				const payload = {
-					bicycle_id: id,
-					quantity: quantity,
-				};
-				axios
-					.post(`${process.env.BACKEND_URL}/cart`, payload, {
-						headers: { Authorization: `Bearer ${props.token}` },
-					})
-					.then((response) => {
-						console.log(response);
-						if (response.data.success === "true") {
-							console.log(response.data.access_token);
-							navigate("/products");
-						} else {
-						}
-					})
-					.catch((error) => {
-						if (error.response) {
-							console.log(error.response);
-						}
-					});
-			},
-
 			getData: async (id) => {
 				try {
-					const resp = await fetch(`/api/products/${id}`);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/products/${id}`);
 					const data = await resp.json();
 					setStore({
 						product: data.bicycle,

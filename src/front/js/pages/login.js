@@ -87,9 +87,9 @@ export function Login(props) {
       if (response.data.success === "true") {
         // Store access token in local storage
         localStorage.setItem('access_token', response.data.access_token);
-        console.log("Login successful");
-
-        console.log(localStorage.getItem('access_token'));
+        //console.log("Login successful");
+        console.log("Stored Token: ", localStorage.getItem('access_token'));
+        //console.log(localStorage.getItem('access_token'));
 
         console.log("Navigating to profile"); // to check if Navigation function is called
 
