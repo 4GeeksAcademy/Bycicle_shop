@@ -70,9 +70,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.error('Logout failed:', response.data.msg);
 						}
 					})
-					.catch(error => {
-						console.error('Logout error:', error);
-					})
+					//.catch(error => {
+					//	console.error('Logout error:', error);
+					//})
 					.finally(() => {
 						localStorage.removeItem('access_token'); // Always remove token
 
@@ -103,51 +103,53 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-			submitReview: (name, title, review, id, props, setMessage, setReview, setTitle, setName, getData) => {
-				let flag = true;
-				if (name === "") {
-					flag = false;
-					setNameFlag(true);
-				}
-				if (title === "") {
-					flag = false;
-					setTitleFlag(true);
-				}
-				if (review === "") {
-					flag = false;
-					setReviewFlag(true);
-				}
-				if (!flag) {
-					setMessage("Please fill all fields");
-					return;
-				}
-				const payload = {
-					rating: rating,
-					name: name,
-					title: title,
-					review: review,
-					bicycle_id: id,
-				};
-				axios
-					.post(process.env.BACKEND_URL + "/review", payload, {
-						headers: { Authorization: `Bearer ${props.token}` },
+			submitReview: (name, title, review, id, rating, setMessage, setReview, setTitle, setName, getData, token) => {
+				return new Promise((resolve, reject) => {
+					if (!name || !title || !review) {
+						setMessage("Please fill all fields");
+						return reject(new Error("Please fill all fields"));
+					}
+
+					const payload = {
+						name: name,
+						rating: rating,
+						title: title,
+						review: review,
+						bicycle_id: id,
+					};
+
+					console.log('Payload:', payload);
+					console.log('Token:', token);
+
+					axios.post(`${process.env.BACKEND_URL}/review`, payload, {
+						headers: { Authorization: `Bearer ${token}` },
 					})
-					.then((response) => {
-						console.log(response);
-						if (response.data.success === "true") {
-							console.log(response.data.access_token);
-							setReview("");
-							setTitle("");
-							setName("");
-							getData();
-						} else {
-						}
-					})
-					.catch((error) => {
-						if (error.response) {
-							console.log(error.response);
-						}
-					});
+						.then((response) => {
+							if (response.data.success === true) {
+								setReview("");
+								setTitle("");
+								setName("");
+								if (typeof getData === 'function') {
+									getData(id);
+								}
+								resolve(response.data);
+							} else {
+								reject(new Error('Submission was not successful'));
+							}
+						})
+						.catch((error) => {
+							
+							if(error.response && error.response.status === 422) {
+								console.error('Invalid request:', error.response.data);
+							} else if(error.response) {
+								console.error('Error Status:', error.response.status);
+								console.error('Error Data:', error.response.data);
+							} else {
+								console.error('Request Error:', error.message);
+							}
+							reject(error);
+						});
+				});
 			},
 
 			changeRating: (setRating, value) => {
@@ -182,11 +184,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					return response.data;
 				} catch (error) {
-					console.error("Full error:", JSON.stringify(error, null, 2));
+					// console.error("Full error:", JSON.stringify(error, null, 2));
 					console.error("An error occurred while fetching the profile:", error);
 					return null;
 				}
 			},
+
 			addToCart: (id, quantity, props, navigate) => {
 				const payload = {
 					bicycle_id: id,
@@ -213,7 +216,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getData: async (id) => {
 				try {
-					const resp = await fetch(`/api/products/${id}`);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/products/${id}`);
 					const data = await resp.json();
 					setStore({
 						product: data.bicycle,

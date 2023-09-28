@@ -41,7 +41,6 @@ def get_product_by_id(id):
 @jwt_required()
 def product_post():
     user_id = get_jwt_identity()
-    # code to validate and add user to database goes here
     bicycle_id = request.json.get('bicycle_id')
     quantity = request.json.get('quantity')
     cart = ShoppingCart.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
@@ -92,27 +91,51 @@ def product_post():
 @jwt_required()
 @cross_origin(origin="process.env.FRONTEND_URL")
 def review_post():
+    print("Received Review: ", request.json)
     user_id = get_jwt_identity()
-    # code to validate and add user to database goes here
-    rating = request.json.get('rating')
-    name = request.json.get('name')
-    title = request.json.get('title')
-    review = request.json.get('review')
-    bicycle_id = request.json.get('bicycle_id')
-    new_review = BicycleReview(user_id=user_id, bicycle_id=bicycle_id, rating=rating, title=title, review_text=review)
-    # add the new user to the database
-    db.session.add(new_review)
-    db.session.commit()
     
-    response = {'success': 'true', 
-            "bicycle_review":{
-            "user_id": new_review.id,
+    # Extracting JSON data
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'Missing JSON data'}), 400
+    
+    rating = data.get('rating')
+    name = data.get('name')
+    title = data.get('title')
+    review = data.get('review')
+    bicycle_id = data.get('bicycle_id')
+    
+    # Check if required fields are provided
+    if not all([rating, name, title, review, bicycle_id]):
+        return jsonify({'error': 'Missing required fields'}), 400
+    
+    new_review = BicycleReview(user_id=user_id, bicycle_id=bicycle_id, rating=rating, title=title, review_text=review)
+    
+    try:
+        db.session.add(new_review)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Error creating review'}), 500
+    
+    response = {
+        'success': True, 
+        'bicycle_review': {
+            "user_id": new_review.user_id,
             "bicycle_id": new_review.bicycle_id,
             "rating": new_review.rating,
             "title": new_review.title,
             "review_text": new_review.review_text,
-    }}
-    return response
+        }
+    }
+    
+    return jsonify(response), 201
+
+@main.route('/api/products/<int:bicycle_id>/reviews', methods=['GET'])
+def get_reviews(bicycle_id):
+    print("Hello")
+    reviews = BicycleReview.query.filter_by(bicycle_id=bicycle_id).all()
+    return jsonify([review.serialize() for review in reviews]), 200
 
 @main.route('/cart')
 @jwt_required()
