@@ -69,9 +69,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.error('Logout failed:', response.data.msg);
 						}
 					})
-					.catch(error => {
-						console.error('Logout error:', error);
-					})
+					//.catch(error => {
+					//	console.error('Logout error:', error);
+					//})
 					.finally(() => {
 						localStorage.removeItem('access_token'); // Always remove token
 
@@ -183,7 +183,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					return response.data;
 				} catch (error) {
-					console.error("Full error:", JSON.stringify(error, null, 2));
+					// console.error("Full error:", JSON.stringify(error, null, 2));
 					console.error("An error occurred while fetching the profile:", error);
 					return null;
 				}

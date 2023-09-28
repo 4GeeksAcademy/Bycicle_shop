@@ -4,6 +4,7 @@ import axios from "axios";
 import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
 import SelectedTypeContext from "../TypeContext";
+import { useUser } from "./userContext";
 
 export const Navbar = (props) => {
   // State for controlling the search bar and results
@@ -13,6 +14,7 @@ export const Navbar = (props) => {
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const { setSelectedType } = useContext(SelectedTypeContext);
+  const { isLoggedIn } = useUser();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -64,23 +66,23 @@ export const Navbar = (props) => {
     bicycleList(selectedValue);
   };
 
-// Handle rendering of the autocomplete dropdown
-const renderAutocompleteDropdown = () => {
-  if (showAutocomplete && searchResults.length > 0) {
+  // Handle rendering of the autocomplete dropdown
+  const renderAutocompleteDropdown = () => {
+    if (showAutocomplete && searchResults.length > 0) {
       return (
-          <ul className="autocomplete-results form-autocomplete">
-              {searchResults.map((result) => (
-                  <li key={result.id} onClick={() => setShowAutocomplete(false)}>
-                      <Link to={`/product/${result.id}`}>
-                          {result.name}
-                      </Link>
-                  </li>
-              ))}
-          </ul>
+        <ul className="autocomplete-results form-autocomplete">
+          {searchResults.map((result) => (
+            <li key={result.id} onClick={() => setShowAutocomplete(false)}>
+              <Link to={`/product/${result.id}`}>
+                {result.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
       );
-  }
-  return null;
-};
+    }
+    return null;
+  };
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
@@ -203,9 +205,7 @@ const renderAutocompleteDropdown = () => {
                     </form>
                   )}
                   {renderAutocompleteDropdown()}
-                
-
-                  <Link className="show-buttons link-collapse" to="/login">
+                  <Link className="show-buttons link-collapse" to={isLoggedIn ? "/profile" : "/login"}>
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">

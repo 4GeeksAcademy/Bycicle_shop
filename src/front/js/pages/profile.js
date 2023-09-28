@@ -6,6 +6,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/profile.css";
 import LogoutComponent from "../component/logout";
+import { useUser } from "../component/userContext";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -15,6 +16,7 @@ const Profile = () => {
   const [showClass3, setShowClass3] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useUser();
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -135,6 +137,7 @@ const Profile = () => {
 
         <LogoutComponent onLogout={() => {
           actions.logout();
+          setIsLoggedIn(false)
           navigate('/');
         }} />
       </div>
