@@ -4,7 +4,6 @@ import { GoogleLogin } from 'react-google-login';
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
 import { useUser } from "../component/userContext";
-import { useUser } from "../component/userContext";
 
 export function Login(props) {
   const navigate = useNavigate();
