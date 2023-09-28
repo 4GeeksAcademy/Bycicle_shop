@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			user: [],
+			token: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -189,6 +190,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			addToCart: (id, quantity, props, navigate) => {
+				const payload = {
+					bicycle_id: id,
+					quantity: quantity,
+				};
+				axios
+					.post(`${process.env.BACKEND_URL}/cart`, payload, {
+						headers: { Authorization: `Bearer ${props.token}` },
+					})
+					.then((response) => {
+						console.log(response);
+						if (response.data.success === "true") {
+							console.log(response.data.access_token);
+							navigate("/products");
+						} else {
+						}
+					})
+					.catch((error) => {
+						if (error.response) {
+							console.log(error.response);
+						}
+					});
+			},
 
 			getData: async (id) => {
 				try {
@@ -223,7 +247,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						privacy: privacy,
 					}),
 				};
-				console.log("hello")
 				try {
 					const resp = await fetch(
 						`${process.env.BACKEND_URL}/api/create-user`,
@@ -244,7 +267,67 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false;
 			},
-
+			// Function to send a POST request to your server to initiate the password reset process
+			resetPassword: async (token, email) => {
+				const opts = {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${token}`, // Include the token in headers if needed
+					},
+					body: JSON.stringify({ email: email }),
+				};
+				console.log(email);
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + '/resetPassword', opts);
+					const data = await resp.json();
+					console.log(data);
+					if (resp.status === 200) {
+						document.getElementById("resetMessage").textContent = "Check your email for a password reset!";
+					} else if (resp.status === 404) {
+						document.getElementById("resetMessage").textContent = "User with this email does not exist.";
+					} else {
+						document.getElementById("resetMessage").textContent = 'Error sending email';
+					}
+				} catch (error) {
+					// Handle network errors or other issues
+					console.error("Error sending reset email:", error);
+					document.getElementById("resetMessage").textContent = "Error sending reset email.";
+				}
+			},
+			
+			// Function to change the old password that you don0t remenber for a new one
+			newPass: async (password, confermePassword) => {
+				// Check if passwords match on the client side
+				if (password !== confermePassword) {
+					document.getElementById("newMessage").textContent = "Passwords do not match.";
+				  return; // Don't proceed with the request
+				}
+			
+				const opts = {
+				  method: "PUT",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				  body: JSON.stringify({ password: password, confermePassword: confermePassword}),
+				};
+			  
+				try {
+				  // Send a PUT request to your server to update the password
+				  const response = await axios.put(process.env.BACKEND_URL + "/newPassword", opts);
+			  
+				  if (response.status === 200) {
+					document.getElementById("newMessage").textContent ="Password changed successfully";
+				  } else if (response.status === 404) {
+					document.getElementById("newMessage").textContent ="User not found.";
+				  } else {
+					document.getElementById("newMessage").textContent ="Something went wrong.";
+				  }
+				} catch (error) {
+				  console.error("Something went wrong:", error);
+				  document.getElementById("newMessage").textContent ="Something went wrong.";
+				}
+			  },
 			getMessage: async () => {
 				try {
 					// fetching data from the backend

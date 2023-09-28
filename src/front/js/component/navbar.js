@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../img/logo.png";
@@ -7,7 +8,7 @@ import SelectedTypeContext from "../TypeContext";
 import { useUser } from "./userContext";
 
 export const Navbar = (props) => {
-  // State for controlling the search bar and results
+  const { store } = useContext(Context);
   const [bar, setBar] = useState(false);
   const [input, setInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -205,9 +206,12 @@ export const Navbar = (props) => {
                     </form>
                   )}
                   {renderAutocompleteDropdown()}
-                  <Link className="show-buttons link-collapse" to={isLoggedIn ? "/profile" : "/login"}>
+                 <Link className="show-buttons link-collapse" to={isLoggedIn ? "/profile" : "/login"}>
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
+                  : */}<Link className="show-buttons link-collapse" to="/login">
+                  <i className="icon fa-regular fa-user"></i>
+                </Link>
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>
@@ -232,6 +236,16 @@ export const Navbar = (props) => {
                 <Link className="hide-buttons link-collapse" to="/login">
                   <div className="my-hide-buttons">
                     Login
+                  </div>
+                </Link>
+                <Link className="hide-buttons link-collapse" to="/register">
+                  <div className="my-hide-buttons">
+                    Register
+                  </div>
+                </Link>
+                <Link className="hide-buttons link-collapse" to="/profile">
+                  <div className="my-hide-buttons">
+                    Profile
                   </div>
                 </Link>
                 <Link className="hide-buttons link-collapse" to="/ShoppingCart">
