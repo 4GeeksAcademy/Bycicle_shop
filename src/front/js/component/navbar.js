@@ -6,6 +6,7 @@ import "../../styles/navbar.css";
 import SelectedTypeContext from "../TypeContext";
 import { useUser } from "./userContext";
 
+
 export const Navbar = (props) => {
   const [bar, setBar] = useState(false);
   const [input, setInput] = useState("");
@@ -13,10 +14,7 @@ export const Navbar = (props) => {
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const { setSelectedType } = useContext(SelectedTypeContext);
-<<<<<<< HEAD
-  const [token, setToken] = useState("");
-=======
-  const { isLoggedIn } = useUser();
+  //const { isLoggedIn } = useUser();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -25,7 +23,6 @@ export const Navbar = (props) => {
     bicycleList(type);
     toggleDropdown();
   };
->>>>>>> ba6827db0b99cb06587762c295297496c127836e
 
   const bicycleList = (type) => {
     setSelectedType(type);
@@ -61,24 +58,13 @@ export const Navbar = (props) => {
     }
   };
 
-<<<<<<< HEAD
-// Handle selecting an autocomplete suggestion
-const handleAutocompleteSelection = (selectedValue) => {
-  console.log("handleAutocompleteSelection called with:", selectedValue);
-  setInput(selectedValue);
-  setShowAutocomplete(false);
-  bicycleList(`/products/${selectedValue}`);
-};
-=======
   // Handle selecting an autocomplete suggestion
   const handleAutocompleteSelection = (selectedValue) => {
     console.log("handleAutocompleteSelection called with:", selectedValue);
-    setInput(selectedValue);
-    setShowAutocomplete(false);
+    setInput("");
     setBar(false);
-    bicycleList(selectedValue);
+    setShowAutocomplete(false);
   };
->>>>>>> ba6827db0b99cb06587762c295297496c127836e
 
   // Handle rendering of the autocomplete dropdown
   const renderAutocompleteDropdown = () => {
@@ -86,8 +72,8 @@ const handleAutocompleteSelection = (selectedValue) => {
       return (
         <ul className="autocomplete-results form-autocomplete">
           {searchResults.map((result) => (
-            <li key={result.id} onClick={() => setShowAutocomplete(false)}>
-              <Link to={`/product/${result.id}`}>
+            <li className="li-search" key={result.id} >
+              <Link className="link-search" onClick={handleAutocompleteSelection} to={`/product/${result.id}`}>
                 {result.name}
               </Link>
             </li>
@@ -218,33 +204,15 @@ const handleAutocompleteSelection = (selectedValue) => {
                       />
                     </form>
                   )}
-<<<<<<< HEAD
-
-                  {showAutocomplete && (
-                    <ul className="autocomplete-results form-autocomplete">
-                      {searchResults.map((result) => (
-                        <li key={result.id} className="li-search" onClick={() => handleAutocompleteSelection(result.name)}>
-                          {result.name}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {token ? <Link className="show-buttons link-collapse" to="/profile">
-=======
                   {renderAutocompleteDropdown()}
-                 <Link className="show-buttons link-collapse" to={isLoggedIn ? "/profile" : "/login"}>
->>>>>>> ba6827db0b99cb06587762c295297496c127836e
+                 <Link className="show-buttons link-collapse" > {/*to={//isLoggedIn ? "/profile" : "/login"}*/} 
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
-                  : <Link className="show-buttons link-collapse" to="/login">
-                  <i className="icon fa-regular fa-user"></i>
-                </Link>}
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>
                 </div>
               </div>
-              {/* Hidden buttons */}
               <div className="hide-buttons link-collapse">
                 <div className="my-hide-buttons" onClick={() => setBar(true)}>
                   {bar && (
@@ -253,11 +221,7 @@ const handleAutocompleteSelection = (selectedValue) => {
                       <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
                     </form>
                   )}
-                  {searchResults.map((result) => (
-                    <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
-                      {result.name}
-                    </li>
-                  ))}
+                  {renderAutocompleteDropdown()}
                   <i className="icon fa-solid fa-magnifying-glass"></i> Search
                 </div>
                 <Link className="hide-buttons link-collapse" to="/login">

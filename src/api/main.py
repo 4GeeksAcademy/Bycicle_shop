@@ -327,7 +327,7 @@ def create_checkout_session():
                 }
             ],
             mode='payment',
-            success_url='https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev/thanksMessage',
+            success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
         # message = Message(

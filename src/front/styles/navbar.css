@@ -129,6 +129,10 @@ li {
     border-bottom: solid 1px #484545;
     font-size: small;
 }
+.link-search {
+    text-decoration: none;
+    color: #484545;
+}
 .custom-dropdown-toggle::after {
     border: 0 !important;
 }
