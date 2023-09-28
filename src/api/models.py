@@ -48,6 +48,15 @@ class BicycleReview(db.Model):
     rating = db.Column(db.Integer)
     title = db.Column(db.String(100))
     review_text = db.Column(db.String(1000))
+    def serialize(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'bicycle_id': self.bicycle_id,
+            'rating': self.rating,
+            'title': self.title,
+            'review_text': self.review_text
+        }
 
 class ShoppingCart(db.Model):
     __tablename__ = 'shopping_cart'  

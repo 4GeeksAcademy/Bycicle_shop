@@ -5,18 +5,17 @@ import { ArrowToTop } from "./component/arrowToTop";
 import { BackendURL } from "./component/backendURL";
 import SelectedTypeContext from './TypeContext';
 import { Home } from "./pages/home";
-import { Ai_resp } from "./pages/ai_resp";
 import { Signup } from "./pages/signup";
 import { AboutUs } from "./pages/aboutus";
 import { ContactUs } from "./pages/contactus";
 import { Terms } from "./pages/terms";
 import { ThanksMessage } from "./pages/thanksMessage";
 import injectContext from "./store/appContext";
-
+import { UserProvider } from './component/userContext';
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { Chatbot_button} from "./component/chatbot_button";
-import {Login} from "./pages/login"
+import { Chatbot_button } from "./component/chatbot_button";
+import { Login } from "./pages/login"
 import Product from "./pages/products";
 import Profile from "./pages/profile";
 import { NewPassword } from './pages/newPassword';
@@ -46,7 +45,6 @@ const Layout = () => {
                         <Route element={<Login />} path="/login" />
                         <Route element={<NewPassword />} path="/newPassword" />
                         <Route element={<ThanksMessage />} path="/thanksMessage" />
-                        <Route element={<Ai_resp />} path="/ai_resp" />
                         <Route element={<Product />} path="/products" />
                         <Route element={<ProductDetail />} path="/product/:id" />
                         <Route element={<Profile />} path="/profile" />
