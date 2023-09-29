@@ -29,7 +29,7 @@ function ProductDetail(props) {
       const token = localStorage.getItem('access_token'); 
       console.log("Token before calling submitReview: ", token);
       
-      actions.submitReview(name, title, reviewText, rating, id, setMessage, setReviewText, setTitle, setName, props.getData, token)
+      actions.submitReview(name, title, reviewText, id, rating,  setMessage, setReviewText, setTitle, setName, props.getData, token)
         .then(() => {
           console.log("Received Token in Action: ", token);
           if (props.getData && typeof props.getData === 'function') {

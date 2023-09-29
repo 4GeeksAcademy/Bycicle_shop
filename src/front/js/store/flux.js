@@ -70,9 +70,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.error('Logout failed:', response.data.msg);
 						}
 					})
-					//.catch(error => {
-					//	console.error('Logout error:', error);
-					//})
 					.finally(() => {
 						localStorage.removeItem('access_token'); // Always remove token
 
@@ -112,10 +109,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const payload = {
 						name: name,
+						bicycle_id: id,
 						rating: rating,
 						title: title,
 						review: review,
-						bicycle_id: id,
+						
 					};
 
 					console.log('Payload:', payload);
