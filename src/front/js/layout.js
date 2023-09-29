@@ -32,6 +32,7 @@ const Layout = () => {
 
     return (
         <div>
+            <userProvider>
             <SelectedTypeContext.Provider value={{ selectedType, setSelectedType }}>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
@@ -60,6 +61,7 @@ const Layout = () => {
                 </ScrollToTop>
             </BrowserRouter>
             </SelectedTypeContext.Provider>
+            </userProvider>
         </div>
     );
 };

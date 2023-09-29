@@ -295,7 +295,7 @@ def send_support_email():
         # Create a support email message
         message = Message(
             subject='Support Request',
-            recipients=['mariana.placito@gmail.com'],  # Replace with your support email address
+            recipients=['mariana.placito@gmail.com', 'aleksandr.klenin@gmail.com'],  # Replace with your support email address
             sender=current_app.config['MAIL_USERNAME'],
             body= f"Support request: {email_data}"
         )
