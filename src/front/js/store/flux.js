@@ -80,10 +80,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-			addToCart: (id, quantity, props, navigate) => {
+			addToCart: (id, quantity, price_id, props) => {
 				const payload = {
 					bicycle_id: id,
 					quantity: quantity,
+					price_id: price_id,
 				};
 				axios
 					.post(process.env.BACKEND_URL + "/cart", payload, {
@@ -93,7 +94,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(response);
 						if (response.data.success === "true") {
 							console.log(response.data.access_token);
-							navigate("/products");
 						} else {
 						}
 					})
@@ -153,11 +153,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						});
 				});
 			},
-
 			changeRating: (setRating, value) => {
 				setRating(value);
 			},
-
+			// function to retrive personal data to profile
 			getUserProfile: async (token) => {
 				console.log("Token before API call: ", token);
 				if (!token) {
@@ -191,7 +190,58 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
-
+			// function to retrive Shipping data to profile
+			getShipping_addressToProfile: async (token) => {
+				console.log("Token before API call: ", token);
+				if (!token) {
+					return null;
+				}
+				try {
+					const response = await axios.get(process.env.BACKEND_URL + "/profile",
+						{
+							headers: {
+								Authorization: "Bearer " + token
+							}
+						});
+					console.log("Response data: ", response.data);
+					if (response.data) {
+						setStore({ shipping_address: response.data });
+					} else {
+						console.log("Received empty response.data from API");
+					}
+					return response.data;
+				} catch (error) {
+					// console.error("Full error:", JSON.stringify(error, null, 2));
+					console.error("An error occurred while fetching the profile:", error);
+					return null;
+				}
+			},
+			// function to retrive orders data to profile
+			getOrdersToProfile: async (token) => {
+				console.log("Token before API call: ", token);
+				if (!token) {
+					return null;
+				}
+				try {
+					const response = await axios.get(process.env.BACKEND_URL + "/profile",
+						{
+							headers: {
+								Authorization: "Bearer " + token
+							}
+						});
+					console.log("Response data: ", response.data);
+					if (response.data) {
+						setStore({ orders: response.data });
+					} else {
+						console.log("Received empty response.data from API");
+					}
+					return response.data;
+				} catch (error) {
+					// console.error("Full error:", JSON.stringify(error, null, 2));
+					console.error("An error occurred while fetching the profile:", error);
+					return null;
+				}
+			},
 			addToCart: (id, quantity, props, navigate) => {
 				const payload = {
 					bicycle_id: id,

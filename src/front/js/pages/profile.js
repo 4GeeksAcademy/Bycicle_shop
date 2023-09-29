@@ -90,10 +90,10 @@ const Profile = () => {
                 <p>Order: Nº{store.orders.id} </p>
                 <p>Date: {store.orders.date} </p>
                 <p>Price: {store.orders.price} </p>
-                <p>Product: </p>
+                <p>Product: {store.orders.product}</p>
               </div>
               <div className="status">
-                <p>Status: {store.order.status} </p>
+                <p>Status: {store.orders.status} </p>
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@ const Profile = () => {
           <div className="order">
             <h4>Personal Data</h4>
             <div className="details-data">
-              <p>Username: {store.user.username} </p>
+              <p>Username: {store.user.name} </p>
               <p>Email: {store.user.email} </p>
             </div>
           </div>
