@@ -312,11 +312,11 @@ def send_support_email():
 @cross_origin()
 def create_checkout_session():
     try:
-        # email = request.json.get("email", None)
+        #email = request.json.get("email", None)
 
-        # if not email:
-        #     return "You need to add an email.", 400
-
+        #if not email:
+            # return "You need to add an email.", 400
+        
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
@@ -330,14 +330,20 @@ def create_checkout_session():
             success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
-        # message = Message(
-        #     subject='Invoice from Your purchase in Bicycle_Shop',
-        #     sender=current_app.config['MAIL_USERNAME'],
-        #     recipients=[email],
-        #     body='checkout_session'
-        # )
+        # Create an email message with a link to the checkout session URL
+        #message = Message(
+            #subject='Invoice from Your purchase in Bicycle_Shop',
+            #sender=current_app.config['MAIL_USERNAME'],
+            #recipients=[email],
+            #body=f'Checkout session URL: {checkout_session.url}'
+             # Attach the invoice PDF
+            # pdf_path = 'path/to/invoice.pdf'
+           # with open(pdf_path, 'rb') as pdf_file:
+         #   message.attach('invoice.pdf', 'application/pdf', pdf_file.read())
+        #)
 
-        # mail.send(message)
+        # Send the email
+        #mail.send(message)
     except Exception as e:
         return str(e)
 

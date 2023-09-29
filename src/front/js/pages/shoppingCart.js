@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { ShoppingCartOne } from "../component/shoopingCartOne";
 import "../../styles/shoppingCart.css";
 
 export const ShoppingCart = () => {
   const { actions } = useContext(Context);
+  const [email, setEmail] = useState("");
+
   // call function checkout
   const handleCheckout = () => {
-    actions.checkout();
+    actions.checkout(email);
   }
 
   return (

@@ -14,7 +14,7 @@ export const Navbar = (props) => {
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const { setSelectedType } = useContext(SelectedTypeContext);
-  const { isLoggedIn } = useUser();
+  //const { isLoggedIn } = useUser();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -205,7 +205,8 @@ export const Navbar = (props) => {
                     </form>
                   )}
                   {renderAutocompleteDropdown()}
-                 <Link className="show-buttons link-collapse" to={isLoggedIn ? "/profile" : "/login"} > 
+                  {/*to={isLoggedIn ? "/profile" : "/login"}*/}
+                 <Link className="show-buttons link-collapse" to="/login" > 
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">

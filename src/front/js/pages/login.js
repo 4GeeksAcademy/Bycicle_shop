@@ -3,7 +3,7 @@ import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
-import { useUser } from "../component/userContext";
+//import { useUser } from "../component/userContext";
 
 export function Login(props) {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export function Login(props) {
   const [passwordFlag, setPasswordFlag] = useState(false);
   const [apiFlag, setAPIFlag] = useState(false);
   const [message, setMessage] = useState("Wrong credential");
-  const { setIsLoggedIn } = useUser();
+ // const { setIsLoggedIn } = useUser();
 
   const onChangeEmail = (event) => {
     setEmailFlag(false);
@@ -96,7 +96,7 @@ export function Login(props) {
         console.log("Navigating to profile"); // to check if Navigation function is called
 
         if (localStorage.getItem('access_token')) {
-          setIsLoggedIn(true);
+          //setIsLoggedIn(true);
           navigate("/profile");
 
         } else {
