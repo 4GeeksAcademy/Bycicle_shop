@@ -25,7 +25,7 @@ function ProductDetail(props) {
   const onChangeReview = (e) => setReviewText(e.target.value);
 
     
-    const submitReview = () => {
+    const submitReview = (event) => {
       const token = localStorage.getItem('access_token'); 
       console.log("Token before calling submitReview: ", token);
       
@@ -214,15 +214,15 @@ function ProductDetail(props) {
                 </div>
                 <div className="form-outline mb-2">
                   <label className="form-label d-flex text-center" htmlFor="name">
-                    Name (displayed publicly)
+                    Name
                   </label>
-                  <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                  <input type="text" className="input-review"  id="name" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="form-outline mb-2">
                   <label className="form-label d-flex text-center" htmlFor="title">
                     Review Title
                   </label>
-                  <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                  <input type="text" className="input-review" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className="form-outline mb-2">
                   <label className="form-label d-flex text-center" htmlFor="review">
@@ -231,13 +231,13 @@ function ProductDetail(props) {
                   <textarea className="form-control" id="review" value={reviewText} onChange={(e) => setReviewText(e.target.value)} rows="4"></textarea>
                 </div>
 
-                <div className="form-outline mb-2">
-                  <button onClick={submitReview} className="btn-review">
+                <div className="form-outline row d-flex justify-content-between p-2 mb-2">
+                  <button onClick={submitReview} className="btn-review col-6 ">
                     Submit Review
                   </button>
 
                   <button
-                    className="btn-review"
+                    className="btn-review col-6 "
                   >
                     Cancel Review
                   </button>
@@ -245,7 +245,7 @@ function ProductDetail(props) {
                 {/* Render fetched reviews */}
                 <div className="reviews-list">
                   {reviews.map((review, index) => (
-                    <div key={index} className="review-item">
+                    <div key={index} className="review-item ">
                       <div>{review.username}: {review.title}</div>
                       <div>{review.review_text}</div>
                       <div>Rating: {review.rating}</div>
@@ -256,12 +256,12 @@ function ProductDetail(props) {
             </div>
             {Array.isArray(reviews) && reviews.length > 0
               ? reviews.map((item, index) => (
-                <div key={index} className="row bg-primary text-start mb-3">
+                <div key={index} className="row review-color text-start mb-3">
                   <div className="h2 d-flex  justify-content-center pb-3">
                     {[...Array(5)].map((_, index) => (
                       <div key={index}>
                         {index < item.rating ? (
-                          <FontAwesomeIcon key={index} icon={faStar} color="yellow" />
+                          <FontAwesomeIcon key={index} icon={faStar} color="#7C0514" />
                         ) : (
                           <FontAwesomeIcon key={index} icon={faStar} color="dark" />
                         )}

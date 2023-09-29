@@ -5,12 +5,11 @@ import { ArrowToTop } from "./component/arrowToTop";
 import { BackendURL } from "./component/backendURL";
 import SelectedTypeContext from './TypeContext';
 import { Home } from "./pages/home";
-import { Ai } from "./pages/ai";
-import { Ai_resp } from "./pages/ai_resp";
 import { Signup } from "./pages/signup";
 import { AboutUs } from "./pages/aboutus";
 import { ContactUs } from "./pages/contactus";
 import { Terms } from "./pages/terms";
+import { ThanksMessage } from "./pages/thanksMessage";
 import injectContext from "./store/appContext";
 import { UserProvider } from './component/userContext';
 import { Navbar } from "./component/navbar";
@@ -22,7 +21,6 @@ import Profile from "./pages/profile";
 import { NewPassword } from './pages/newPassword';
 import {ResetPassword} from "./pages/resetPassword";
 import ProductDetail from "./pages/product_detail";
-import ProfileRedirect from './component/ProfileRedirect';
 import { ShoppingCart } from "./pages/shoppingCart";
 
 const Layout = () => {
@@ -34,37 +32,34 @@ const Layout = () => {
 
     return (
         <div>
-            <UserProvider>
-                <SelectedTypeContext.Provider value={{ selectedType, setSelectedType }}>
-                    <BrowserRouter basename={basename}>
-                        <ScrollToTop>
-                            <Navbar />
-                            <Routes>
-                                <Route element={<Home />} path="/" />
-                                <Route element={<Signup />} path="/signup" />
-                                <Route element={<AboutUs />} path="/aboutus" />
-                                <Route element={<ContactUs />} path="/contactus" />
-                                <Route element={<Terms />} path="/terms" />
-                                <Route element={<Login />} path="/login" />
-                                <Route element={<Ai />} path="/ai" />
-                                <Route element={<Ai_resp />} path="/ai_resp" />
-                                <Route element={<Product />} path="/products" />
-                                <Route element={<ProductDetail />} path="/product/:id" />
-                                <Route element={<Profile />} path="/profile" />
-                                <Route element={<Profile />} path="/profile/:orders/:id " />
-                                <Route element={<ResetPassword />} path="/resetPassword" />
-                                <Route element={<ResetPassword />} path="/resetPassword/:id" />
-                                <Route element={<ShoppingCart />} path="/shoppingCart" />
-                                <Route element={<ShoppingCart />} path="/shoppingCart/:orders/:id" />
-                                <Route element={<h1>Not found!</h1>} />
-                            </Routes>
-                            <Chatbot_button />
-                            <ArrowToTop />
-                            <Footer />
-                        </ScrollToTop>
-                    </BrowserRouter>
-                </SelectedTypeContext.Provider>
-            </UserProvider>
+            <SelectedTypeContext.Provider value={{ selectedType, setSelectedType }}>
+            <BrowserRouter basename={basename}>
+                <ScrollToTop>
+                    <Navbar />
+                    <Routes>
+                        <Route element={<Home />} path="/" />
+                        <Route element={<Signup />} path="/signup" />
+                        <Route element={<AboutUs />} path="/aboutus" />
+                        <Route element={<ContactUs />} path="/contactus" />
+                        <Route element={<Terms />} path="/terms" />
+                        <Route element={<Login />} path="/login" />
+                        <Route element={<ThanksMessage />} path="/thanksMessage" />
+                        <Route element={<Product />} path="/products" />
+                        <Route element={<ProductDetail />} path="/product/:id" />
+                        <Route element={<Profile />} path="/profile" />
+                        <Route element={<Profile/>} path="/profile/:orders/:id " />
+                        <Route element={<ResetPassword />} path="/resetPassword" />
+                        <Route element={<NewPassword/>} path="/newPassword" />
+                        <Route element={<ShoppingCart/>} path="/shoppingCart" />
+                        <Route element={<ShoppingCart/>} path="/shoppingCart/:orders/:id" />
+                        <Route element={<h1>Not found!</h1>} />
+                    </Routes>
+                    <Chatbot_button />
+                    <ArrowToTop />
+                    <Footer />
+                </ScrollToTop>
+            </BrowserRouter>
+            </SelectedTypeContext.Provider>
         </div>
     );
 };

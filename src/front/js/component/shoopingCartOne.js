@@ -3,9 +3,9 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 export const ShoppingCartOne = (props) => {
-    const { store, actions } = useContext(Context);
 	const [quantity, setQuantity] = useState(1);
 	const [textarea, setTextarea] = useState("");
+	const [message, setMessage] = useState("");
 
 	const plusQuantity = () => {
 		setQuantity(quantity + 1);
@@ -100,16 +100,16 @@ export const ShoppingCartOne = (props) => {
 					</div>
 				</form>
 				<div className="btn-set-check col-sm-6 col-md-6 col-lg-6">
-					<button
-						className="btn-Check col-sm-6 col-md-6 col-lg-12 mb-3"
-						type="submit"
-						onClick={() => {
-							// Call the callback function passed from the parent component
-							props.onClick();
-						  }}
-					>
-						Check Out
-					</button>
+						<button
+							className="btn-Check col-sm-6 col-md-6 col-lg-12 mb-3"
+							type="submit"
+							onClick={() => {
+								// Call the callback function passed from the parent component
+								props.onClick();
+							}}
+						>
+							Check Out
+						</button>
 				<Link className="link-shopping" to="/">
 					<button className="btn-Check col-sm-6 col-md-6 col-lg-12" type="submit">Continue Shopping</button>
 				</Link>

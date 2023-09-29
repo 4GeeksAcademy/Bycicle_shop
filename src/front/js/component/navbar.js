@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../img/logo.png";
@@ -7,8 +6,8 @@ import "../../styles/navbar.css";
 import SelectedTypeContext from "../TypeContext";
 import { useUser } from "./userContext";
 
+
 export const Navbar = (props) => {
-  const { store } = useContext(Context);
   const [bar, setBar] = useState(false);
   const [input, setInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -28,6 +27,7 @@ export const Navbar = (props) => {
   const bicycleList = (type) => {
     setSelectedType(type);
     navigate('/products');
+    
   };
 
   // Handle changes in the search input
@@ -61,10 +61,9 @@ export const Navbar = (props) => {
   // Handle selecting an autocomplete suggestion
   const handleAutocompleteSelection = (selectedValue) => {
     console.log("handleAutocompleteSelection called with:", selectedValue);
-    setInput(selectedValue);
-    setShowAutocomplete(false);
+    setInput("");
     setBar(false);
-    bicycleList(selectedValue);
+    setShowAutocomplete(false);
   };
 
   // Handle rendering of the autocomplete dropdown
@@ -73,8 +72,8 @@ export const Navbar = (props) => {
       return (
         <ul className="autocomplete-results form-autocomplete">
           {searchResults.map((result) => (
-            <li key={result.id} onClick={() => setShowAutocomplete(false)}>
-              <Link to={`/product/${result.id}`}>
+            <li className="li-search" key={result.id} >
+              <Link className="link-search" onClick={handleAutocompleteSelection} to={`/product/${result.id}`}>
                 {result.name}
               </Link>
             </li>
@@ -206,18 +205,15 @@ export const Navbar = (props) => {
                     </form>
                   )}
                   {renderAutocompleteDropdown()}
-                 <Link className="show-buttons link-collapse" to={isLoggedIn ? "/profile" : "/login"}>
+                 <Link className="show-buttons link-collapse" > 
                     <i className="icon fa-regular fa-user"></i>
+                    {/*to={//isLoggedIn ? "/profile" : "/login"}*/} 
                   </Link>
-                  : */}<Link className="show-buttons link-collapse" to="/login">
-                  <i className="icon fa-regular fa-user"></i>
-                </Link>
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>
                 </div>
               </div>
-              {/* Hidden buttons */}
               <div className="hide-buttons link-collapse">
                 <div className="my-hide-buttons" onClick={() => setBar(true)}>
                   {bar && (
@@ -226,11 +222,7 @@ export const Navbar = (props) => {
                       <i className="fa-solid fa-magnifying-glass fa-navbar"></i>
                     </form>
                   )}
-                  {searchResults.map((result) => (
-                    <li key={result.id} onClick={() => handleAutocompleteSelection(result.name)}>
-                      {result.name}
-                    </li>
-                  ))}
+                  {renderAutocompleteDropdown()}
                   <i className="icon fa-solid fa-magnifying-glass"></i> Search
                 </div>
                 <Link className="hide-buttons link-collapse" to="/login">
@@ -238,7 +230,7 @@ export const Navbar = (props) => {
                     Login
                   </div>
                 </Link>
-                <Link className="hide-buttons link-collapse" to="/register">
+                <Link className="hide-buttons link-collapse" to="/signup">
                   <div className="my-hide-buttons">
                     Register
                   </div>

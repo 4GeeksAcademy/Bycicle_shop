@@ -1,18 +1,35 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
+import { useSearchParams } from "react-router-dom";
 import "../../styles/resetPassword.css";
 
 export const NewPassword = () => {
   const { actions } = useContext(Context);
   const [password, setPassword] = useState("");
   const [confermePassword, setConfermePassword] = useState("");
+  const [searchParams] = useSearchParams();
 
   //function to send the data form the input to the database
   const handleNewPassword = (event) => {
+    console.log(searchParams.get('token'));
     // prevent the default form submission behavior
     event.preventDefault();
+    // Check the token exist
+    const token = searchParams.get('token');
+    if(!token)
+    document.getElementById("newMessage").textContent = "We canoot reset the password.";
+    // Check if password is empty
+    else if (!password) {
+      document.getElementById("newMessage").textContent = "Password cannot be empty.";
+      return;
+    }
+    // Check if passwords match on the client side
+    else if (password !== confermePassword) {
+      document.getElementById("newMessage").textContent = "Passwords do not match.";
+      return; // Don't proceed with the request
+    }
     //call function resetPassword from flux
-    actions.newPass(password, confermePassword);  
+    else actions.newPass(token, password);  
 };
 
   return (

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, redirect
 from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,9 +8,9 @@ from .models import db
 from flask import Flask, jsonify
 from flask_mail import Mail, Message
 from flask import current_app
+import stripe
 
 main = Blueprint('main', __name__)
-from flask import request
 
 mail=Mail()
 
@@ -261,23 +261,22 @@ def send_reset_email():
     except Exception as e:
         return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
     
-# Endpoint for the link to reset the password
-@main.route('/newPassword', methods=['PUT'])
-@cross_origin(origin="process.env.FRONTEND_URL")
+# Endpoint for updating the password
+@main.route('/newPassword', methods=['OPTIONS'])
+@jwt_required()
+@cross_origin()
 def reset_password():
     try:
-        email = request.json.get("email", None)
         password = request.json.get("password", None)
+        email = get_jwt_identity()
 
         # Query the database to check if the email exists
         user = User.query.filter_by(email=email).first()
-
         if user is None:
             return jsonify({"msg": "User with this email does not exist."}), 404
-        
         # Update the user's password
-        user.password = password
-
+        User.password = password
+        print(User.password)
         # Commit the changes to the database
         db.session.commit()
         
@@ -290,18 +289,15 @@ def reset_password():
 @cross_origin()
 def send_support_email():
     try:
-        # Get the email address from the request JSON data
-        email_data = request.json  # Get the entire JSON object
-        email = request.json.get("email")
+        # Get the body from the request JSON data
+        email_data = request.json.get("body")
 
-        print(email_data)
-        print(email)
         # Create a support email message
         message = Message(
             subject='Support Request',
             recipients=['mariana.placito@gmail.com'],  # Replace with your support email address
             sender=current_app.config['MAIL_USERNAME'],
-            body= f"Support request from: {email} \n {email_data}"
+            body= f"Support request: {email_data}"
         )
 
         # Send the email
@@ -311,3 +307,38 @@ def send_support_email():
     except Exception as e:
         return jsonify({'message': 'Error sending support email', 'error': str(e)}), 500
     
+# endpoint for checkout session
+@main.route('/create-checkout-session', methods=['POST'])
+@cross_origin()
+def create_checkout_session():
+    try:
+        # email = request.json.get("email", None)
+
+        # if not email:
+        #     return "You need to add an email.", 400
+
+        stripe.api_key = current_app.config['STRIPE_API_KEY']
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    "price": "price_1NuJqwBQV4wKuzoZyJYBge57",  # Replace with the correct Price ID
+                    "quantity": 1
+                }
+            ],
+            mode='payment',
+            success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
+            cancel_url=current_app.config['FRONTEND_URL'],
+        )
+        # message = Message(
+        #     subject='Invoice from Your purchase in Bicycle_Shop',
+        #     sender=current_app.config['MAIL_USERNAME'],
+        #     recipients=[email],
+        #     body='checkout_session'
+        # )
+
+        # mail.send(message)
+    except Exception as e:
+        return str(e)
+
+    return jsonify(checkout_session.url), 200

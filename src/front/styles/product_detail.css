@@ -43,12 +43,20 @@
     color: black;
     border-radius: 6px;
 }
+.input-review {
+    background-color: white;
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    height: 6vh;
+}
 .btn-review {
     background-color: black;
     color: #7C0514;
     text-align: center;
     padding: 3px 8px 3px 8px;
     border-radius: 6px;
+    width: 15%;
 }
 .rating-color {
     color: #7C0514;

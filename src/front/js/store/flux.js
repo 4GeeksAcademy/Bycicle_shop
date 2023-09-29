@@ -1,4 +1,5 @@
 import axios from 'axios';
+import stripe from 'stripe';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -62,7 +63,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			logout: () => {
-				axios.post('/api/logout')
+				axios.post('/logout')
 					.then(response => {
 						if (response.data.success === 'true') {
 							console.log("Logout successful");
@@ -267,6 +268,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false;
 			},
+			// Function to make the checkout
+			checkout: async () => {
+				const opts = {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				};
+			
+				try {
+				const resp = await fetch(
+					`${process.env.BACKEND_URL}/create-checkout-session`,
+					opts
+				);
+
+				if (resp.ok) {
+					const data = await resp.json();
+					console.log(data)
+					// Redirect to Stripe Checkout by replacing the current URL
+					window.location.replace(data)
+				} else {
+					console.error("Error:", resp.status, resp.statusText);
+					// Handle the error appropriately
+				}
+			
+				
+				} catch (error) {
+				console.error("Error message:", error.message);
+				}
+			},
 			// Function to send a POST request to your server to initiate the password reset process
 			resetPassword: async (token, email) => {
 				const opts = {
@@ -295,37 +326,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 					document.getElementById("resetMessage").textContent = "Error sending reset email.";
 				}
 			},
-			
-			// Function to change the old password that you don0t remenber for a new one
-			newPass: async (password, confermePassword) => {
-				// Check if passwords match on the client side
-				if (password !== confermePassword) {
-					document.getElementById("newMessage").textContent = "Passwords do not match.";
-				  return; // Don't proceed with the request
-				}
-			
-				const opts = {
-				  method: "PUT",
-				  headers: {
-					"Content-Type": "application/json",
-				  },
-				  body: JSON.stringify({ password: password, confermePassword: confermePassword}),
-				};
-			  
+			newPass: async (token, password) => {
 				try {
+					const opts = {
+						method: "PUT",
+						headers: {
+						  "Content-Type": "application/json",
+						  Authorization: `Bearer ${token}`, // Include the token in headers if needed
+						},
+						body: JSON.stringify({ password: password }), // Simplify object construction
+					  };
+			  
+				  // Log the request body
+				  console.log(opts.body);
+			  
 				  // Send a PUT request to your server to update the password
-				  const response = await axios.put(process.env.BACKEND_URL + "/newPassword", opts);
+				  const response = await axios.options(`${process.env.BACKEND_URL}/newPassword/${token}`, opts);
+			  
+				  // Log the response
+				  console.log(response);
 			  
 				  if (response.status === 200) {
-					document.getElementById("newMessage").textContent ="Password changed successfully";
+					document.getElementById("newMessage").textContent = "Password changed successfully";
 				  } else if (response.status === 404) {
-					document.getElementById("newMessage").textContent ="User not found.";
+					document.getElementById("newMessage").textContent = "User not found.";
 				  } else {
-					document.getElementById("newMessage").textContent ="Something went wrong.";
+					// Provide a more descriptive error message
+					document.getElementById("newMessage").textContent = "Failed to change password. Please try again.";
 				  }
 				} catch (error) {
 				  console.error("Something went wrong:", error);
-				  document.getElementById("newMessage").textContent ="Something went wrong.";
+				  // Provide a more descriptive error message
+				  document.getElementById("newMessage").textContent = "Failed to change password. Please try again.";
 				}
 			  },
 			getMessage: async () => {
