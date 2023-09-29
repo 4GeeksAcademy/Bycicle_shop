@@ -25,7 +25,7 @@ function ProductDetail(props) {
   const onChangeReview = (e) => setReviewText(e.target.value);
 
     
-    const submitReview = () => {
+    const submitReview = (event) => {
       const token = localStorage.getItem('access_token'); 
       console.log("Token before calling submitReview: ", token);
       
@@ -231,13 +231,13 @@ function ProductDetail(props) {
                   <textarea className="form-control" id="review" value={reviewText} onChange={(e) => setReviewText(e.target.value)} rows="4"></textarea>
                 </div>
 
-                <div className="form-outline mb-2">
-                  <button onClick={submitReview} className="btn-review">
+                <div className="form-outline row d-flex justify-content-between p-2 mb-2">
+                  <button onClick={submitReview} className="btn-review col-6 ">
                     Submit Review
                   </button>
 
                   <button
-                    className="btn-review"
+                    className="btn-review col-6 "
                   >
                     Cancel Review
                   </button>

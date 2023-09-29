@@ -139,7 +139,7 @@ li {
 /*css to make the site responsive*/
 @media screen and (max-width: 1800px) {
     .navbar-box {
-        height: 20vh;
+        height: 29vh;
     }  
     .fa-navbar {
         left: 23vh;
@@ -153,7 +153,7 @@ li {
   }
 @media screen and (max-width: 1000px) {
     .navbar-box {
-        height: 28vh;
+        height: 42vh;
     }  
     .menu {
         width: 20%;
@@ -171,7 +171,7 @@ li {
         background-color: #7C0514;
         border-radius: 6px;
         width: 20vh;
-        height: 35vh;
+        height: 41vh;
         position:fixed;
         z-index: 4;
     }
@@ -211,6 +211,11 @@ li {
         margin-left: 0;
     }
   }
+  @media screen and (max-width: 1000px) {
+    .navbar-box {
+        height: 20vh;
+    }  
+  }
 @media screen and (max-width: 550px) {
     .language {
         border-radius: 6px;
@@ -221,7 +226,7 @@ li {
     .my-collapse {
         font-size: small;
         z-index: 3;
-        height: 36vh;
+        height: 42vh;
     }
     .img {
         height: 100px;
@@ -229,11 +234,6 @@ li {
     }
     .menu {
         margin-right: 40px;
-    }
-}
-@media screen and (max-width: 400px) {
-    .my-collapse {
-        height: 25vh;
     }
 }
 @media screen and (max-width: 380px) {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import stripe from 'stripe';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -268,33 +269,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (name) => {
+			checkout: async () => {
 				const opts = {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				};
-
+			
 				try {
 				const resp = await fetch(
 					`${process.env.BACKEND_URL}/create-checkout-session`,
 					opts
 				);
-				console.log("Response text:", await resp.text());
-				if (resp === true)
-					navigate("https://checkout.stripe.com/c/pay/cs_test_a1V6cFACwX0Ymx7RwDDfSQgdECPGHBYyHNXg1bDDsLu2pruNcyQAgFlpVE#fidkdWxOYHwnPyd1blpxYHZxWjA0S3BPQD1HVFMxck5wf2pfc3BtMmQ0bmlGbW5XUWBEPFBTfHJoXUh2cHJic2xAYHd%2FMn9JS3JTNmZgX1Nua3BEcGNwVHFXQUBUd2FzdHJAf3FGVFRyUjRkNTVGaHVmRjREVCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbwppYWB3dic%2FcXdwYHgl")
-				if (!resp.ok) {
+
+				if (resp.ok) {
+					const data = await resp.json();
+					console.log(data)
+					// Redirect to Stripe Checkout by replacing the current URL
+					window.location.replace(data)
+				} else {
 					console.error("Error:", resp.status, resp.statusText);
 					// Handle the error appropriately
-					return;
 				}
 			
-				const data = await resp.json();
 				
-				console.log(data);
-		
-
 				} catch (error) {
 				console.error("Error message:", error.message);
 				}

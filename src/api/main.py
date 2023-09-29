@@ -322,8 +322,8 @@ def create_checkout_session():
             payment_method_types=["card"],
             line_items=[
                 {
-                    "price": "price_1NuJw3BQV4wKuzoZTMjEgqOx",  # Replace with the correct Price ID
-                    "quantity": 1,
+                    "price": "price_1NuJqwBQV4wKuzoZyJYBge57",  # Replace with the correct Price ID
+                    "quantity": 1
                 }
             ],
             mode='payment',
@@ -341,4 +341,4 @@ def create_checkout_session():
     except Exception as e:
         return str(e)
 
-    return jsonify(checkout_session), 200
+    return jsonify(checkout_session.url), 200
