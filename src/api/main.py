@@ -3,7 +3,7 @@ from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
-from .models import Bicycle, BicycleReview, ShoppingCart, ShoppingCartItem, User
+from .models import Bicycle, BicycleReview, Order, OrderItem, User
 from .models import db
 from flask import Flask, jsonify
 from flask_mail import Mail, Message
@@ -43,43 +43,44 @@ def product_post():
     user_id = get_jwt_identity()
     bicycle_id = request.json.get('bicycle_id')
     quantity = request.json.get('quantity')
-    cart = ShoppingCart.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
+    cart = Order.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
 
     if cart:
-        new_cart_item = ShoppingCartItem(cart_id=cart.id, bicycle_id=bicycle_id, quantity=quantity)
+        new_cart_item = OrderItem(cart_id=cart.id, bicycle_id=bicycle_id, quantity=quantity)
         # add the new user to the database
         db.session.add(new_cart_item)
         db.session.commit()
         response = {
                 'success': 'true', 
-                "shooping_cart": {
+                "Order": {
                     "id": cart.id,
                     "user_id": cart.user_id,
                 },
-                "shooping_cart_item":{
+                "Order_item":{
                     "id": new_cart_item.id,
                     "cart_id": new_cart_item.cart_id,
                     "bicycle_id": new_cart_item.bicycle_id,
+                    "price_id" : new_cart_item.price_id,
                     "quantity": new_cart_item.quantity,
             }}
         return response
     else:
-        new_cart = ShoppingCart(user_id=user_id)
+        new_cart = Order(user_id=user_id)
         # add the new user to the database
         db.session.add(new_cart)
         db.session.commit()
         print("====================")
         print(new_cart)
-        new_cart_item = ShoppingCartItem(cart_id=new_cart.id, bicycle_id=bicycle_id, quantity=quantity)
+        new_cart_item = OrderItem(cart_id=new_cart.id, bicycle_id=bicycle_id, quantity=quantity)
         # add the new user to the database
         db.session.add(new_cart_item)
         db.session.commit()
         response = {'success': 'true', 
-                "shooping_cart": {
+                "order": {
                     "id": new_cart.id,
                     "user_id": new_cart.user_id,
                 },
-                "shooping_cart_item":{
+                "order_item":{
                 "id": new_cart_item.id,
                 "cart_id": new_cart_item.cart_id,
                 "bicycle_id": new_cart_item.bicycle_id,
@@ -142,16 +143,16 @@ def get_reviews(bicycle_id):
 @jwt_required()
 def user_carts():
     user_id = get_jwt_identity()
-    cart = ShoppingCart.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
+    cart = Order.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
     if cart:
-        cartItems = ShoppingCartItem.query.filter_by(cart_id=cart.id) # if this returns a user, then the email already exists in database
+        cartItems = OrderItem.query.filter_by(cart_id=cart.id) # if this returns a user, then the email already exists in database
         response = {
                 'success': 'true', 
-                "shooping_cart": {
+                "order": {
                     "id": cart.id,
                     "user_id": cart.user_id,
                 },
-                "shooping_cart_items":
+                "order_items":
                 [
                     {
                         "id": cart.id,
@@ -165,9 +166,9 @@ def user_carts():
         return response
     else:
         response = {'success': 'true', 
-                "shooping_cart": {
+                "order": {
                 },
-                "shooping_cart_item":{
+                "order_item":{
         }}
         return response
     
@@ -313,10 +314,6 @@ def send_support_email():
 @cross_origin()
 def create_checkout_session():
     try:
-        #email = request.json.get("email", None)
-
-        #if not email:
-            # return "You need to add an email.", 400
         
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         checkout_session = stripe.checkout.Session.create(
@@ -331,20 +328,8 @@ def create_checkout_session():
             success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
-        # Create an email message with a link to the checkout session URL
-        #message = Message(
-            #subject='Invoice from Your purchase in Bicycle_Shop',
-            #sender=current_app.config['MAIL_USERNAME'],
-            #recipients=[email],
-            #body=f'Checkout session URL: {checkout_session.url}'
-             # Attach the invoice PDF
-            # pdf_path = 'path/to/invoice.pdf'
-           # with open(pdf_path, 'rb') as pdf_file:
-         #   message.attach('invoice.pdf', 'application/pdf', pdf_file.read())
-        #)
+        #)  body= request.json.get("body")
 
-        # Send the email
-        #mail.send(message)
     except Exception as e:
         return str(e)
 

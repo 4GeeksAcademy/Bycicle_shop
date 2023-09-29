@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { json } from 'react-router-dom';
 import stripe from 'stripe';
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -267,13 +268,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (email
+			checkout: async (email, items
 				) => {
 				const opts = {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
+				body: JSON.stringify(items)
 				};
 			
 				try {
