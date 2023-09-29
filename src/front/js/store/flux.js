@@ -8,6 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			message: null,
 			user: [],
 			token: [],
+			orders: [],
+			shipping_address: [],
 			demo: [
 				{
 					title: "FIRST",

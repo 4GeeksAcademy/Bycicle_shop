@@ -93,13 +93,13 @@ const Profile = () => {
                 <p>Product: </p>
               </div>
               <div className="status">
-                <p>Status: {store.orders.status} </p>
+                <p>Status: {store.order.status} </p>
               </div>
             </div>
           </div>
         )}
 
-        {show === 'personal_data' ? (
+        {show === 'personal_data' && (
           <div className="order">
             <h4>Personal Data</h4>
             <div className="details-data">
@@ -107,21 +107,19 @@ const Profile = () => {
               <p>Email: {store.user.email} </p>
             </div>
           </div>
-        ) : (
-          <p>Load the data...</p>
         )}
         {show === 'shipping_data' && (
           <div className="order">
             <h4>Shipping Data</h4>
             <div className="details-data">
-              <p>First Name: {store.orders.userFirstName} </p>
-              <p>Last Name: {store.orders.userLastName}</p>
-              <p>Country/region: {store.orders.country} </p>
-              <p>Address: {store.orders.address} </p>
-              <p>Zip code: {store.orders.zipcode} </p>
-              <p>City: {store.orders.city} </p>
-              <p>Phone: {store.orders.phone} </p>
-              <p>Email: {store.orders.email} </p>
+              <p>First Name: {store.shipping_address.userFirstName} </p>
+              <p>Last Name: {store.shipping_address.userLastName}</p>
+              <p>Country/region: {store.shipping_address.country} </p>
+              <p>Address: {store.shipping_address.address} </p>
+              <p>Zip code: {store.shipping_address.zipcode} </p>
+              <p>City: {store.shipping_address.city} </p>
+              <p>Phone: {store.shipping_address.phone} </p>
+              <p>Email: {store.shipping_address.email} </p>
             </div>
           </div>
         )}
@@ -134,7 +132,8 @@ const Profile = () => {
         )}
       </div>
       <div className="btn-container">
-
+        <br />
+        <br />
         <LogoutComponent onLogout={() => {
           actions.logout();
           setIsLoggedIn(false)
