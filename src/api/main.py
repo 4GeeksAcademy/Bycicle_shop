@@ -99,11 +99,12 @@ def review_post():
     if not data:
         return jsonify({'error': 'Missing JSON data'}), 400
     
-    rating = data.get('rating')
     name = data.get('name')
+    bicycle_id = data.get('bicycle_id')
+    rating = data.get('rating')
     title = data.get('title')
     review = data.get('review')
-    bicycle_id = data.get('bicycle_id')
+    
     
     # Check if required fields are provided
     if not all([rating, name, title, review, bicycle_id]):
