@@ -24,54 +24,60 @@ function ProductDetail(props) {
   const { store, actions } = useContext(Context);
   const onChangeReview = (e) => setReviewText(e.target.value);
 
+  const submitReview = () => {
+    const token = localStorage.getItem('access_token'); 
     
-    const submitReview = (event) => {
-      const token = localStorage.getItem('access_token'); 
-      console.log("Token before calling submitReview: ", token);
-      
-      actions.submitReview(name, title, reviewText, id, rating, setMessage, setReviewText, setTitle, setName, props.getData, token)
-        .then(() => {
-          console.log("Received Token in Action: ", token);
-          if (props.getData && typeof props.getData === 'function') {
-            props.getData(id); 
-          }
-        })
-        .catch(error => {
-          console.error('Error in submitReview:', error);
-        });
-    };
+    actions.submitReview(name, title, reviewText, id, rating, setMessage, setReviewText, setTitle, setName, props.getData, token)
+      .then(() => {
+        console.log("Received Token in Action: ", token);
+  
+        if (props.getData && typeof props.getData === 'function') {
+          props.getData(id);
+        }
+  
+        // Call the function to fetch and update reviews
+        fetchAndUpdateReviews();
+  
+        // Clear the form fields
+        setReviewText('');
+        setTitle('');
+        setName('');
+        setRating([]);
+      })
+      .catch(error => {
+        console.error('Error in submitReview:', error);
+      });
+  };
+  
+  const [reviewIds, setReviewIds] = useState([]);
+
+  useEffect(() => {
+    fetchAndUpdateReviews();
+  }, [id]);
+
+  const fetchAndUpdateReviews = () => {
+    const retrievedToken = localStorage.getItem('access_token');
+  
+    axios.get(`${process.env.BACKEND_URL}/api/products/${id}/reviews`, {
+      headers: { Authorization: `Bearer ${retrievedToken}` }
+    })
+      .then(response => {
+        
+        const newReviews = response.data.filter(review => !reviewIds.includes(review.id));
+  
+        // Update the reviewIds list 
+        setReviewIds(prevIds => [...new Set([...newReviews.map(review => review.id), ...prevIds])]);
+  
+        // Add the new reviews at the beginning of the list
+        setReviews(prevReviews => [...newReviews, ...prevReviews]);
+      })
+      .catch(error => {
+        console.error('Error fetching reviews:', error);
+      });
+  };
+  
   
 
-      useEffect(() => {
-        const retrievedToken = localStorage.getItem('access_token');
-        console.log("Retrieved Token in ProductDetail: ", retrievedToken);
-        
-        axios.get(`${process.env.BACKEND_URL}/api/products/${id}`, {
-            headers: { Authorization: `Bearer ${retrievedToken}` } 
-        })
-          .then(response => {
-            if (response.data.success === "true") {
-              setProduct(response.data.bicycle);
-              console.log('ID:', id);
-              console.log('URL:', `${process.env.BACKEND_URL}/product/${id}`);
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching product details:', error);
-          });
-    
-        // Fetch reviews for the specific product
-        axios.get(`${process.env.BACKEND_URL}/api/products/${id}/reviews`, {
-            headers: { Authorization: `Bearer ${retrievedToken}` } 
-        })
-          .then(response => {
-            setReviews(response.data);
-          })
-          .catch(error => {
-            console.error('Error fetching reviews:', error);
-          });
-    }, [id]);
-    
   return (
     <div className="container-fluid min-height-100 ">
       <div className="container  py-5 ">
@@ -216,7 +222,7 @@ function ProductDetail(props) {
                   <label className="form-label d-flex text-center" htmlFor="name">
                     Name
                   </label>
-                  <input type="text" className="input-review"  id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                  <input type="text" className="input-review" id="name" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="form-outline mb-2">
                   <label className="form-label d-flex text-center" htmlFor="title">
@@ -242,37 +248,29 @@ function ProductDetail(props) {
                     Cancel Review
                   </button>
                 </div>
-                {/* Render fetched reviews */}
-                <div className="reviews-list">
-                  {reviews.map((review, index) => (
-                    <div key={index} className="review-item ">
-                      <div>{review.username}: {review.title}</div>
-                      <div>{review.review_text}</div>
-                      <div>Rating: {review.rating}</div>
-                    </div>
-                  ))}
-                </div>
+
               </form>
             </div>
-            {Array.isArray(reviews) && reviews.length > 0
-              ? reviews.map((item, index) => (
-                <div key={index} className="row review-color text-start mb-3">
-                  <div className="h2 d-flex  justify-content-center pb-3">
-                    {[...Array(5)].map((_, index) => (
-                      <div key={index}>
-                        {index < item.rating ? (
-                          <FontAwesomeIcon key={index} icon={faStar} color="#7C0514" />
-                        ) : (
-                          <FontAwesomeIcon key={index} icon={faStar} color="dark" />
-                        )}
-                      </div>
-                    ))}
+            <div id="reviews-container">
+              {Array.isArray(reviews) && reviews.length > 0
+                ? reviews.map((item, index) => (
+                  <div key={index} className="row review-color text-start mb-3">
+                    <div className="h2 d-flex  justify-content-center pb-3">
+                      {[...Array(5)].map((_, index) => (
+                        <div key={index}>
+                          {index < item.rating ? (
+                            <FontAwesomeIcon key={index} icon={faStar} color="#7C0514" />
+                          ) : (
+                            <FontAwesomeIcon key={index} icon={faStar} color="dark" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <div>{item.title}</div>
+                    <div>{item.review_text}</div>
                   </div>
-                  <div>{item.title}</div>
-                  <div>{item.review_text}</div>
-                </div>
-              ))
-              : null}
+                ))
+                : null}</div>
           </div>
         </div>
       </div>
