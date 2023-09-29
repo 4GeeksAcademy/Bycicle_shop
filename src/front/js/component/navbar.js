@@ -209,9 +209,6 @@ export const Navbar = (props) => {
                  <Link className="show-buttons link-collapse" to={isLoggedIn ? "/profile" : "/login"}>
                     <i className="icon fa-regular fa-user"></i>
                   </Link>
-                  : */}<Link className="show-buttons link-collapse" to="/login">
-                  <i className="icon fa-regular fa-user"></i>
-                </Link>
                   <Link className="show-buttons link-collapse" to="/ShoppingCart">
                     <i className="icon fa-solid fa-cart-shopping" tabIndex="-1"></i>
                   </Link>
