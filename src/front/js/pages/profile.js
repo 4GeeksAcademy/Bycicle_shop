@@ -103,28 +103,28 @@ const Profile = () => {
           <div className="order">
             <h4>Personal Data</h4>
             <div className="details-data">
-              <p>Username: {store.user.username} </p>
+              <p>Username: {store.user.name} </p>
               <p>Email: {store.user.email} </p>
             </div>
           </div>
         ) : (
           <p>Load the data...</p>
         )}
-        {show === 'shipping_data' && (
+       {/*{show === 'shipping_data' && (
           <div className="order">
             <h4>Shipping Data</h4>
             <div className="details-data">
-              <p>First Name: {store.orders.userFirstName} </p>
-              <p>Last Name: {store.orders.userLastName}</p>
-              <p>Country/region: {store.orders.country} </p>
-              <p>Address: {store.orders.address} </p>
-              <p>Zip code: {store.orders.zipcode} </p>
-              <p>City: {store.orders.city} </p>
-              <p>Phone: {store.orders.phone} </p>
-              <p>Email: {store.orders.email} </p>
+              <p>First Name:</p>
+              <p>Last Name: </p>
+              <p>Country/region: </p>
+              <p>Address:</p>
+              <p>Zip code:</p>
+              <p>City:  </p>
+              <p>Phone:</p>
+              <p>Email:  </p>
             </div>
           </div>
-        )}
+       )}} for the future*/}
         {show === 'orders' && (
           <div className="order">
             <h4>Orders</h4>
