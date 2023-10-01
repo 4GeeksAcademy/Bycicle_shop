@@ -328,44 +328,29 @@ def send_support_email():
     except Exception as e:
         return jsonify({"message": "Error sending support email", "error": str(e)}), 500
 
-
 # endpoint for checkout session
 @main.route("/create-checkout-session", methods=["POST"])
 @cross_origin()
 def create_checkout_session():
     try:
-        #email = request.json.get("email", None)
-
-        #if not email:
-            # return "You need to add an email.", 400
         
+        # Get 'items' from the JSON request
+        items = request.json.get('items')
+
         stripe.api_key = current_app.config['STRIPE_API_KEY']
+        
+        # Get price_id and quantity from the JSON request
+        price_id = request.json.get("price_id")
+        quantity = request.json.get("quantity")
+        
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
-            line_items=[
-                {
-                    "price": "price_1NuJqwBQV4wKuzoZyJYBge57",  # Replace with the correct Price ID
-                    "quantity": 1,
-                }
-            ],
-            mode="payment",
-            success_url=current_app.config["FRONTEND_URL"] + "/thanksMessage",
-            cancel_url=current_app.config["FRONTEND_URL"],
+            line_items=items,  # Pass the 'items' from the request
+            mode='payment',
+            success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
+            cancel_url=current_app.config['FRONTEND_URL'],
         )
-        # Create an email message with a link to the checkout session URL
-        #message = Message(
-            #subject='Invoice from Your purchase in Bicycle_Shop',
-            #sender=current_app.config['MAIL_USERNAME'],
-            #recipients=[email],
-            #body=f'Checkout session URL: {checkout_session.url}'
-             # Attach the invoice PDF
-            # pdf_path = 'path/to/invoice.pdf'
-           # with open(pdf_path, 'rb') as pdf_file:
-         #   message.attach('invoice.pdf', 'application/pdf', pdf_file.read())
-        #)
 
-        # Send the email
-        #mail.send(message)
     except Exception as e:
         return str(e)
 

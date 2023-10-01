@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const ShoppingCartOne = (props) => {
 	const [quantity, setQuantity] = useState(1);
 	const [textarea, setTextarea] = useState("");
-	const [message, setMessage] = useState("");
+	const [items, setItems] = useState("");
 
 	const plusQuantity = () => {
 		setQuantity(quantity + 1);
@@ -105,7 +105,7 @@ export const ShoppingCartOne = (props) => {
 							type="submit"
 							onClick={() => {
 								// Call the callback function passed from the parent component
-								props.onClick();
+								props.onClick(props.items);
 							}}
 						>
 							Check Out

@@ -47,10 +47,9 @@ const injectContext = PassedComponent => {
 					  console.error("Error Data:", error.response.data);
 					}
 					console.error("Error details:", error.response || error.message || error);
-				  })
-				  ;
+				  });
+				  
 			}
-
 		}, []);
 
 		// The initial value for the context is not null anymore, but the current state of this component,
