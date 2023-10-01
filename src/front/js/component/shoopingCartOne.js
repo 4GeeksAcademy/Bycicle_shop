@@ -5,11 +5,7 @@ import { Link } from "react-router-dom";
 export const ShoppingCartOne = (props) => {
 	const [quantity, setQuantity] = useState(1);
 	const [textarea, setTextarea] = useState("");
-	const [items, setItems] = useState([
-		{ price: 'price_1NuJw3BQV4wKuzoZTMjEgqOx', quantity: '1' },
-		{ price: 'price_1NuJtzBQV4wKuzoZXjZdg0DI', quantity: '1' },
-		// Add more items as needed
-	  ]);
+	const [items, setItems] = useState("");
 
 	const plusQuantity = () => {
 		setQuantity(quantity + 1);
@@ -109,7 +105,7 @@ export const ShoppingCartOne = (props) => {
 							type="submit"
 							onClick={() => {
 								// Call the callback function passed from the parent component
-								props.onClick();
+								props.onClick(props.items);
 							}}
 						>
 							Check Out

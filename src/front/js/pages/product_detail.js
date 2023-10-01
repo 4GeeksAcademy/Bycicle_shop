@@ -23,61 +23,85 @@ function ProductDetail(props) {
   const [reviewText, setReviewText] = useState("");
   const { store, actions } = useContext(Context);
   const onChangeReview = (e) => setReviewText(e.target.value);
-
-  const submitReview = () => {
-    const token = localStorage.getItem('access_token'); 
+  const [reviewIds, setReviewIds] = useState([]);
     
-    actions.submitReview(name, title, reviewText, id, rating, setMessage, setReviewText, setTitle, setName, props.getData, token)
-      .then(() => {
-        console.log("Received Token in Action: ", token);
-  
-        if (props.getData && typeof props.getData === 'function') {
-          props.getData(id);
-        }
-  
-        // Call the function to fetch and update reviews
-        fetchAndUpdateReviews();
-  
-        // Clear the form fields
+    const submitReview = () => {
+      const token = localStorage.getItem('access_token'); 
+      console.log("Token before calling submitReview: ", token);
+      
+      actions.submitReview(name, title, reviewText, id, rating, setMessage, setReviewText, setTitle, setName, props.getData, token)
+        .then(() => {
+          if (props.getData && typeof props.getData === 'function') {
+            props.getData(id); 
+          }
+          // Clear the form fields
         setReviewText('');
         setTitle('');
         setName('');
         setRating([]);
-      })
-      .catch(error => {
-        console.error('Error in submitReview:', error);
-      });
-  };
-  
-  const [reviewIds, setReviewIds] = useState([]);
-
-  useEffect(() => {
-    fetchAndUpdateReviews();
-  }, [id]);
-
-  const fetchAndUpdateReviews = () => {
-    const retrievedToken = localStorage.getItem('access_token');
-  
-    axios.get(`${process.env.BACKEND_URL}/api/products/${id}/reviews`, {
-      headers: { Authorization: `Bearer ${retrievedToken}` }
-    })
-      .then(response => {
         
-        const newReviews = response.data.filter(review => !reviewIds.includes(review.id));
-  
-        // Update the reviewIds list 
-        setReviewIds(prevIds => [...new Set([...newReviews.map(review => review.id), ...prevIds])]);
-  
-        // Add the new reviews at the beginning of the list
-        setReviews(prevReviews => [...newReviews, ...prevReviews]);
-      })
-      .catch(error => {
-        console.error('Error fetching reviews:', error);
-      });
-  };
-  
+        fetchAndUpdateReviews();
+        })
+        .catch(error => {
+          console.error('Error in submitReview:', error);
+        });
+    };
   
 
+      useEffect(() => {
+        const retrievedToken = localStorage.getItem('access_token');
+        console.log("Retrieved Token in ProductDetail: ", retrievedToken);
+        
+        axios.get(`${process.env.BACKEND_URL}/api/products/${id}`, {
+            headers: { Authorization: `Bearer ${retrievedToken}` } 
+        })
+          .then(response => {
+            if (response.data.success === "true") {
+              setProduct(response.data.bicycle);
+              console.log('ID:', id);
+              console.log('URL:', `${process.env.BACKEND_URL}/product/${id}`);
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching product details:', error);
+          });
+    
+        // Fetch reviews for the specific product
+        axios.get(`${process.env.BACKEND_URL}/api/products/${id}/reviews`, {
+            headers: { Authorization: `Bearer ${retrievedToken}` } 
+        })
+          .then(response => {
+            setReviews(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching reviews:', error);
+          });
+    }, [id]);
+    
+    useEffect(() => {
+      fetchAndUpdateReviews();
+    }, [id]);
+  
+    const fetchAndUpdateReviews = () => {
+      const retrievedToken = localStorage.getItem('access_token');
+  
+      axios.get(`${process.env.BACKEND_URL}/api/products/${id}/reviews`, {
+        headers: { Authorization: `Bearer ${retrievedToken}` }
+      })
+        .then(response => {
+  
+          const newReviews = response.data.filter(review => !reviewIds.includes(review.id));
+  
+          // Update the reviewIds list 
+          setReviewIds(prevIds => [...new Set([...newReviews.map(review => review.id), ...prevIds])]);
+  
+          // Add the new reviews at the beginning of the list
+          setReviews(prevReviews => [...newReviews, ...prevReviews]);
+        })
+        .catch(error => {
+          console.error('Error fetching reviews:', error);
+        });
+    };
   return (
     <div className="container-fluid min-height-100 ">
       <div className="container  py-5 ">
@@ -246,7 +270,7 @@ function ProductDetail(props) {
                     className="btn-review col-6 "
                   >
                     Cancel Review
-                  </button>
+                    </button>
                 </div>
 
               </form>

@@ -333,6 +333,10 @@ def send_support_email():
 @cross_origin()
 def create_checkout_session():
     try:
+        
+        # Get 'items' from the JSON request
+        items = request.json.get('items')
+
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         
         # Get price_id and quantity from the JSON request
@@ -341,15 +345,10 @@ def create_checkout_session():
         
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
-            line_items=[
-                {
-                    "price": price_id,
-                    "quantity": quantity,
-                }
-            ],
-            mode="payment",
-            success_url=current_app.config["FRONTEND_URL"] + "/thanksMessage",
-            cancel_url=current_app.config["FRONTEND_URL"],
+            line_items=items,  # Pass the 'items' from the request
+            mode='payment',
+            success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
+            cancel_url=current_app.config['FRONTEND_URL'],
         )
 
     except Exception as e:

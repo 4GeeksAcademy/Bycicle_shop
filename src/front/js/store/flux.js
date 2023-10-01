@@ -312,7 +312,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (items) => {
+			checkout: async (items
+				) => {
 				const opts = {
 				  method: "POST",
 				  headers: {

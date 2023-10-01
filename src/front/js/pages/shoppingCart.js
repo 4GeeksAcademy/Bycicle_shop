@@ -5,14 +5,10 @@ import "../../styles/shoppingCart.css";
 
 export const ShoppingCart = () => {
   const { actions } = useContext(Context);
-  const [items, setItems] = useState([
-    { price: 'price_1NuJw3BQV4wKuzoZTMjEgqOx', quantity: '1' },
-    // Add more items as needed
-  ]);
-
+  const [items, setItems] = useState("");
+  
   // call function checkout
   const handleCheckout = () => {
-    setItems(items);
     actions.checkout(items);
   }
 
