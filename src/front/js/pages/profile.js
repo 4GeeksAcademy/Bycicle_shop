@@ -22,7 +22,7 @@ const Profile = () => {
 
     if (token) getData(token);
 
-  }, []);  // if token changes
+  }, []); 
 
   const getData = (token) => {
 
@@ -33,7 +33,6 @@ const Profile = () => {
         Authorization: `Bearer ${token}`
       },
     })
-
 
       .then((response) => {
         const res = response.data;
@@ -47,9 +46,7 @@ const Profile = () => {
         if (error.response) {
           console.log("Error details:", error.response);
         }
-
       });
-
   }
 
   return (
@@ -122,6 +119,5 @@ const Profile = () => {
     </div>
   );
 };
-
 
 export default Profile;
