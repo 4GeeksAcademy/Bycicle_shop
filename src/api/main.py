@@ -271,7 +271,6 @@ def send_support_email():
 @cross_origin()
 def create_checkout_session():
     try:
-        
         # Get 'items' from the JSON request
         items = request.json.get('items')
 
