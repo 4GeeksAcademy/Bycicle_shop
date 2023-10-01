@@ -3,6 +3,9 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 export const ShoppingCartOne = (props) => {
+	const { store } = useContext(Context);
+
+	console.log('store.cart in ShoppingCartOne:', store.cart);
 	console.log('Props in ShoppingCartOne:', props);
 	const [quantity, setQuantity] = useState(1);
 	const [textarea, setTextarea] = useState("");
@@ -25,7 +28,7 @@ export const ShoppingCartOne = (props) => {
 	const textareaClick = (event) => {
 		// prevent the default form submission behavior
 		event.preventDefault();
-		// actions.
+		
 	};
 
 	return (
@@ -37,11 +40,13 @@ export const ShoppingCartOne = (props) => {
 			<div>
 				{props.items.map((item, index) => (
 					<div key={index}>
-						<p>{item.product.name}</p>
+						{console.log('Item:', item)}
+						<p>{item.product ? item.product.name : 'Name not available'}</p>
 						<p>Quantity: {item.quantity}</p>
-						<p>Price: {item.product.price}</p>
+						<p>{item.product ? `Price: ${item.product.price}` : 'Price not available'}</p>
 					</div>
 				))}
+
 				<div className="cart-description">
 					<div className="product-order1">
 						<p>Product</p>

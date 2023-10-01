@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			user: [],
+			// cart: [],
 			token: [],
 			orders: [],
 			shipping_address: [
@@ -85,34 +86,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 			},
+			getCartItems: async () => {
+				try {
+				  const token = localStorage.getItem('access_token');
+				  if (!token) {
+					console.error('No token found!');
+					throw new Error('No token found!');
+				  }
+			  
+				  const response = await axios.get(`${process.env.BACKEND_URL}/cart`, {
+					headers: { 'Authorization': `Bearer ${token}` },
+				  });
+			  
+				  if (response.data && response.data.shopping_cart_items) {
+					setStore({ cart: response.data.shopping_cart_items });
+				  } else {
+					console.error('Invalid server response:', response.data);
+				  }
+				} catch (error) {
+				  console.error('Error fetching cart data:', error);
+				}
+			  },
+			  
+			
 			addToCart: (bicycle_id, quantity) => {
+				const store = getStore();
 				const token = localStorage.getItem('access_token');
-				
+
 				if (!token) {
 					console.error('Token is not available');
 					return;
 				}
-				
+
 				const payload = {
 					bicycle_id: bicycle_id,
 					quantity: quantity,
 				};
-				
+
 				axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
 					headers: { Authorization: `Bearer ${token}` },
-					withCredentials: true, 
+					withCredentials: true,
 				})
-				.then((response) => {
-					console.log('Item added to cart:', response.data);
-					sessionStorage.setItem('cart', JSON.stringify(response.data.cart));
-			
-				})
-				.catch((error) => {
-					console.error('Error adding items to cart:', error.response ? error.response.data : error.message);
-					
-				});
+					.then((response) => {
+						console.log('Item added to cart:', response.data);
+						sessionStorage.setItem('cart', JSON.stringify(response.data.cart));
+
+						setStore({ cart: response.data.cart });
+
+					})
+					.catch((error) => {
+						console.error('Error adding items to cart:', error.response ? error.response.data : error.message);
+
+					});
 			},
-			
+
 
 			submitReview: (name, title, review, id, rating, setMessage, setReview, setTitle, setName, getData, token) => {
 				return new Promise((resolve, reject) => {
@@ -127,7 +154,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						rating: rating,
 						title: title,
 						review: review,
-						
+
 					};
 
 					console.log('Payload:', payload);
@@ -150,10 +177,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 							}
 						})
 						.catch((error) => {
-							
-							if(error.response && error.response.status === 422) {
+
+							if (error.response && error.response.status === 422) {
 								console.error('Invalid request:', error.response.data);
-							} else if(error.response) {
+							} else if (error.response) {
 								console.error('Error Status:', error.response.status);
 							} else {
 								console.error('Request Error:', error.message);
@@ -245,22 +272,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					bicycle_id: id,
 					quantity: quantity,
 				};
-				
+
 				axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
 					headers: { Authorization: `Bearer ${props.token}` },
 				})
-				.then((response) => {
-					if (response.data.success === "true") {
-						// Navigate to /products
-						navigate("/products");					
-						console.log('Item purchased successfully');
-					} else {
-						console.error('Unable to purchase item', response.data);
-					}
-				})
-				.catch((error) => {
-					console.error('Error purchasing item', error.response || error);
-				});
+					.then((response) => {
+						if (response.data.success === "true") {
+							// Navigate to /products
+							navigate("/products");
+							console.log('Item purchased successfully');
+						} else {
+							console.error('Unable to purchase item', response.data);
+						}
+					})
+					.catch((error) => {
+						console.error('Error purchasing item', error.response || error);
+					});
 			},
 
 			getData: async (id) => {
@@ -316,34 +343,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			// Function to make the checkout
 			checkout: async (items
-				) => {
+			) => {
 				const opts = {
-				  method: "POST",
-				  headers: {
-					"Content-Type": "application/json",
-				  },
-				  body: JSON.stringify(items), // Convert items to JSON string
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(items), // Convert items to JSON string
 				};
 				console.log("JSON Data:", JSON.stringify(items));
 				try {
-				  const resp = await fetch(
-					`${process.env.BACKEND_URL}/create-checkout-session`,
-					opts
-				  );
-				  console.log(resp);
-				  if (resp.ok) {
-					const data = await resp.json();
-					console.log(data);
-					// Redirect to Stripe Checkout by replacing the current URL
-					window.location.replace(data);
-				  } else {
-					console.error("Error:", resp.status, resp.statusText);
-					// Handle the error appropriately
-				  }
+					const resp = await fetch(
+						`${process.env.BACKEND_URL}/create-checkout-session`,
+						opts
+					);
+					console.log(resp);
+					if (resp.ok) {
+						const data = await resp.json();
+						console.log(data);
+						// Redirect to Stripe Checkout by replacing the current URL
+						window.location.replace(data);
+					} else {
+						console.error("Error:", resp.status, resp.statusText);
+						// Handle the error appropriately
+					}
 				} catch (error) {
-				  console.error("Error message:", error.message);
+					console.error("Error message:", error.message);
 				}
-			  },
+			},
 			// Function to send a POST request to your server to initiate the password reset process
 			resetPassword: async (token, email) => {
 				const opts = {
@@ -377,35 +404,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const opts = {
 						method: "PUT",
 						headers: {
-						  "Content-Type": "application/json",
-						  Authorization: `Bearer ${token}`, // Include the token in headers if needed
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`, // Include the token in headers if needed
 						},
 						body: JSON.stringify({ password: password }), // Simplify object construction
-					  };
-			  
-				  // Log the request body
-				  console.log(opts.body);
-			  
-				  // Send a PUT request to your server to update the password
-				  const response = await axios.options(`${process.env.BACKEND_URL}/newPassword/${token}`, opts);
-			  
-				  // Log the response
-				  console.log(response);
-			  
-				  if (response.status === 200) {
-					document.getElementById("newMessage").textContent = "Password changed successfully";
-				  } else if (response.status === 404) {
-					document.getElementById("newMessage").textContent = "User not found.";
-				  } else {
+					};
+
+					// Log the request body
+					console.log(opts.body);
+
+					// Send a PUT request to your server to update the password
+					const response = await axios.options(`${process.env.BACKEND_URL}/newPassword/${token}`, opts);
+
+					// Log the response
+					console.log(response);
+
+					if (response.status === 200) {
+						document.getElementById("newMessage").textContent = "Password changed successfully";
+					} else if (response.status === 404) {
+						document.getElementById("newMessage").textContent = "User not found.";
+					} else {
+						// Provide a more descriptive error message
+						document.getElementById("newMessage").textContent = "Failed to change password. Please try again.";
+					}
+				} catch (error) {
+					console.error("Something went wrong:", error);
 					// Provide a more descriptive error message
 					document.getElementById("newMessage").textContent = "Failed to change password. Please try again.";
-				  }
-				} catch (error) {
-				  console.error("Something went wrong:", error);
-				  // Provide a more descriptive error message
-				  document.getElementById("newMessage").textContent = "Failed to change password. Please try again.";
 				}
-			  },
+			},
 			getMessage: async () => {
 				try {
 					// fetching data from the backend
