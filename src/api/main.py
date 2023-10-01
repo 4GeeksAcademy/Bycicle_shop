@@ -8,6 +8,7 @@ from .models import db
 from flask import Flask, jsonify
 from flask_mail import Mail, Message
 from flask import current_app
+from flask import session
 import stripe
 
 main = Blueprint("main", __name__)
@@ -43,55 +44,30 @@ def get_product_by_id(id):
 
 @main.route("/cart", methods=["POST"])
 @jwt_required()
-def product_post():
+def add_to_cart():
     user_id = get_jwt_identity()
     bicycle_id = request.json.get('bicycle_id')
     quantity = request.json.get('quantity')
-    cart = Order.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
-
-    if cart:
-        new_cart_item = OrderItem(cart_id=cart.id, bicycle_id=bicycle_id, quantity=quantity)
-        # add the new user to the database
-        db.session.add(new_cart_item)
-        db.session.commit()
-        response = {
-                'success': 'true', 
-                "Order": {
-                    "id": cart.id,
-                    "user_id": cart.user_id,
-                },
-                "Order_item":{
-                    "id": new_cart_item.id,
-                    "cart_id": new_cart_item.cart_id,
-                    "bicycle_id": new_cart_item.bicycle_id,
-                    "price_id" : new_cart_item.price_id,
-                    "quantity": new_cart_item.quantity,
-            }}
-        return response
-    else:
-        new_cart = Order(user_id=user_id)
-        # add the new user to the database
-        db.session.add(new_cart)
-        db.session.commit()
-        print("====================")
-        print(new_cart)
-        new_cart_item = OrderItem(cart_id=new_cart.id, bicycle_id=bicycle_id, quantity=quantity)
-        # add the new user to the database
-        db.session.add(new_cart_item)
-        db.session.commit()
-        response = {'success': 'true', 
-                "order": {
-                    "id": new_cart.id,
-                    "user_id": new_cart.user_id,
-                },
-                "order_item":{
-                "id": new_cart_item.id,
-                "cart_id": new_cart_item.cart_id,
-                "bicycle_id": new_cart_item.bicycle_id,
-                "quantity": new_cart_item.quantity,
-            },
-        }
-        return response
+    
+    # Initialize the session cart if it does not exist
+    if 'cart' not in session:
+        session['cart'] = []
+    
+    # Create a cart item
+    cart_item = {
+        'user_id': user_id,
+        'bicycle_id': bicycle_id,
+        'quantity': quantity
+    }
+    
+    # Add the item to the session cart
+    session['cart'].append(cart_item)
+    
+    # Save the session
+    session.modified = True
+    
+    return jsonify({'success': 'true', 'cart': session['cart']})
+    #return jsonify({'success': 'true', 'cart': session['cart'], 'user_id': user_id})
 
 
 @main.route("/review", methods=["POST"])
@@ -156,34 +132,16 @@ def get_reviews(bicycle_id):
 @jwt_required()
 def user_carts():
     user_id = get_jwt_identity()
-    cart = Order.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
-    if cart:
-        cartItems = OrderItem.query.filter_by(cart_id=cart.id) # if this returns a user, then the email already exists in database
-        response = {
-                'success': 'true', 
-                "shooping_cart": {
-                    "id": cart.id,
-                    "user_id": cart.user_id,
-                },
-                "shooping_cart_items":
-                [
-                    {
-                        "id": cart.id,
-                        "cart_id": cart.cart_id,
-                        "bicycle_id": cart.bicycle_id,
-                        "quantity": cart.quantity,
-                    }
-                    for cart in cartItems
-                ]
-            }
-        return response
-    else:
-        response = {'success': 'true', 
-                "shooping_cart": {
-                },
-                "shooping_cart_item":{
-        }}
-        return response
+    cart_items = [item for item in session.get('cart', []) if item['user_id'] == user_id]
+
+    response = {
+        'success': 'true',
+        "shopping_cart": {
+            "user_id": user_id,
+        },
+        "shopping_cart_items": cart_items
+    }
+    return jsonify(response)
 
 
 @main.route("/api/create-user", methods=["POST"])
@@ -333,7 +291,6 @@ def send_support_email():
 @cross_origin()
 def create_checkout_session():
     try:
-        
         # Get 'items' from the JSON request
         items = request.json.get('items')
 

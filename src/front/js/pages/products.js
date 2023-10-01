@@ -66,7 +66,7 @@ function Product(props) {
           <div className="card my-card " >
             <div key={index} className="product-card my-product-card">
               <div className="card-img-top card-producct-img" >
-                <img src={product.image_url || "placeholder-image-url.jpg"} alt={product.name} />
+                <img className="img-bike" src={product.image_url || "placeholder-image-url.jpg"} alt={product.name} />
               </div>
               <div className="card-body">
                   <h6>{product.name}</h6>

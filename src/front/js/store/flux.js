@@ -85,30 +85,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 			},
-
-			addToCart: (id, quantity, price_id, props) => {
+			addToCart: (bicycle_id, quantity) => {
+				const token = localStorage.getItem('access_token');
+				
+				if (!token) {
+					console.error('Token is not available');
+					return;
+				}
+				
 				const payload = {
-					bicycle_id: id,
+					bicycle_id: bicycle_id,
 					quantity: quantity,
-					price_id: price_id,
 				};
-				axios
-					.post(process.env.BACKEND_URL + "/cart", payload, {
-						headers: { Authorization: `Bearer ${props.token}` },
-					})
-					.then((response) => {
-						console.log(response);
-						if (response.data.success === "true") {
-							console.log(response.data.access_token);
-						} else {
-						}
-					})
-					.catch((error) => {
-						if (error.response) {
-							console.log(error.response);
-						}
-					});
+				
+				axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
+					headers: { Authorization: `Bearer ${token}` },
+					withCredentials: true, 
+				})
+				.then((response) => {
+					console.log('Item added to cart:', response.data);
+					sessionStorage.setItem('cart', JSON.stringify(response.data.cart));
+			
+				})
+				.catch((error) => {
+					console.error('Error adding items to cart:', error.response ? error.response.data : error.message);
+					
+				});
 			},
+			
 
 			submitReview: (name, title, review, id, rating, setMessage, setReview, setTitle, setName, getData, token) => {
 				return new Promise((resolve, reject) => {
@@ -241,23 +245,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					bicycle_id: id,
 					quantity: quantity,
 				};
-				axios
-					.post(`${process.env.BACKEND_URL}/cart`, payload, {
-						headers: { Authorization: `Bearer ${props.token}` },
-					})
-					.then((response) => {
-						console.log(response);
-						if (response.data.success === "true") {
-							console.log(response.data.access_token);
-							navigate("/products");
-						} else {
-						}
-					})
-					.catch((error) => {
-						if (error.response) {
-							console.log(error.response);
-						}
-					});
+				
+				axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
+					headers: { Authorization: `Bearer ${props.token}` },
+				})
+				.then((response) => {
+					if (response.data.success === "true") {
+						// Navigate to /products
+						navigate("/products");					
+						console.log('Item purchased successfully');
+					} else {
+						console.error('Unable to purchase item', response.data);
+					}
+				})
+				.catch((error) => {
+					console.error('Error purchasing item', error.response || error);
+				});
 			},
 
 			getData: async (id) => {

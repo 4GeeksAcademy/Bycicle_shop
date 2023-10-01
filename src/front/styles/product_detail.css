@@ -66,3 +66,13 @@
     color: black;
     border-radius: 6px;
 }
+.img-detail {
+    width: 70vh;
+    height: 60vh;
+}
+@media screen and (max-width: 380px) {
+    .img-detail {
+        width: 40vh;
+        height: 30vh;
+    }
+  }

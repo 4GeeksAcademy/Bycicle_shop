@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import fluxStore from "../store/flux"; // Adjust the path accordingly
+import addToCart from "../store/flux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
@@ -24,6 +24,7 @@ function ProductDetail(props) {
   const { store, actions } = useContext(Context);
   const onChangeReview = (e) => setReviewText(e.target.value);
   const [reviewIds, setReviewIds] = useState([]);
+  const[price, setPrice] = useState(null);
     
     const submitReview = () => {
       const token = localStorage.getItem('access_token'); 
@@ -58,8 +59,6 @@ function ProductDetail(props) {
           .then(response => {
             if (response.data.success === "true") {
               setProduct(response.data.bicycle);
-              console.log('ID:', id);
-              console.log('URL:', `${process.env.BACKEND_URL}/product/${id}`);
             }
           })
           .catch(error => {
@@ -102,6 +101,34 @@ function ProductDetail(props) {
           console.error('Error fetching reviews:', error);
         });
     };
+    const handleAddToCart = async () => {
+      const retrievedToken = localStorage.getItem('access_token');
+      console.log("Retrieved Token in ProductDetail: ", retrievedToken);
+    
+      try {
+        const payload = {
+          bicycle_id: id, // Assuming 'id' is defined somewhere in your component
+          quantity: quantity,
+          price_id: price, // Assuming 'price' is defined somewhere in your component
+        };
+    
+        const response = await axios.post(process.env.BACKEND_URL + "/cart", payload, {
+          headers: { Authorization: `Bearer ${props.token}` },
+        });
+    
+        if (response.data.success === true) {
+          setProduct(response.data.bicycle);
+        }
+      } catch (error) {
+        console.error('Error adding product to cart:', error);
+        // Handle and display error to the user if needed
+      }
+    };
+    /*funtion to add product tp the cart
+    useEffect(() => {
+      actions.buyNow(id, quantity, props, navigate);
+    }, []);*/
+
   return (
     <div className="container-fluid min-height-100 ">
       <div className="container  py-5 ">
@@ -109,31 +136,7 @@ function ProductDetail(props) {
           <div className="col ">
             <div className="row">
               <div className="col-lg-6 px-2 py-4">
-                <div className="d-flex align-items-center mb-5">
-                  <div className="d-flex align-items-center">
-                    <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-                      <div className="carousel-inner">
-                        <div className="carousel-item active">
-                          <img className="d-block w-100 img-fluid" src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" style={{ width: "350px" }} alt="First slide" />
-                        </div>
-                        <div className="carousel-item">
-                          <img className="d-block w-100" src="..." alt="Second slide" />
-                        </div>
-                        <div className="carousel-item">
-                          <img className="d-block w-100" src="..." alt="Third slide" />
-                        </div>
-                      </div>
-                      <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                      </button>
-                      <button className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="sr-only">Next</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <img className="img-detail" src={product && product.image_url} />
               </div>
               <div className="produt-description col-lg-6 ">
                 <h2 className="mb-3 pt-2 text-start fw-bold text-uppercase">
@@ -199,7 +202,8 @@ function ProductDetail(props) {
                   </div>
                 </div>
                 <div className="d-flex">
-                  <button
+                  <button 
+                    onClick={() => handleAddToCart()} 
                     className="btn-By"
                   >
                     Add to Cart
@@ -207,6 +211,7 @@ function ProductDetail(props) {
                   <Link to="/shoppingCart">
                     <button
                       className="btn-By"
+                      //onClick={() => buyNow()} 
                     >
                       Buy Now
                     </button>

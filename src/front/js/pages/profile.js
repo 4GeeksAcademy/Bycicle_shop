@@ -11,7 +11,6 @@ const Profile = () => {
   const { store, actions } = useContext(Context);
   const [show, setShow] = useState("last_order");
   const [showClass1, setShowClass1] = useState(false);
-  const [showClass2, setShowClass2] = useState(false);
   const [showClass3, setShowClass3] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ const Profile = () => {
 
     if (token) getData(token);
 
-  }, []);  // if token changes
+  }, []); 
 
   const getData = (token) => {
 
@@ -33,7 +32,6 @@ const Profile = () => {
         Authorization: `Bearer ${token}`
       },
     })
-
 
       .then((response) => {
         const res = response.data;
@@ -46,14 +44,8 @@ const Profile = () => {
         if (error.response) {
           console.log("Error details:", error.response);
         }
-
       });
-
   }
-console.log(store.shipping_address)
-
-console.log(store.user)
-
 
   return (
     <div className="container min-height-100 my-5">
@@ -72,13 +64,11 @@ console.log(store.user)
         <div className="order-description col-4">
           <div className="my-order-description col-8">
             <p>Personal Data</p>
-            <p>Shipping Data</p>
             <p>Orders</p>
           </div>
           <div>
-            <p><i onClick={() => { setShow('personal_data'); setShowClass1(true); setShowClass2(false); setShowClass3(false); }} className={`profile-fa fa-solid fa-chevron-down ${showClass1 ? 'profile-fa-active' : ''}`}></i></p>
-            <p><i onClick={() => { setShow('shipping_data'); setShowClass1(false); setShowClass2(true); setShowClass3(false); }} className={`profile-fa fa-solid fa-chevron-down ${showClass2 ? 'profile-fa-active' : ''}`}></i></p>
-            <p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass2(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>
+            <p><i onClick={() => { setShow('personal_data'); setShowClass1(true); setShowClass3(false); }} className={`profile-fa fa-solid fa-chevron-down ${showClass1 ? 'profile-fa-active' : ''}`}></i></p>
+            <p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>
           </div>
         </div>
         {show === 'last_order' && (
@@ -100,19 +90,6 @@ console.log(store.user)
             <h4>Personal Data</h4>
             <div className="details-data">
               <p>Username: {store.user.name} </p>
-              <p>Email: {store.user.email} </p>
-            </div>
-          </div>
-        )}
-        {show === 'shipping_data' && (
-          <div className="order">
-            <h4>Shipping Data</h4>
-            <div className="details-data">
-              <p>First Name: {store.shipping_address.Userfirstname} </p>
-              <p>Last Name: {store.shipping_address.Userlastname}</p>
-              <p>Country/region: {store.shipping_address.Country} </p>
-              <p>Zip code: {store.shipping_address.Zipcode} </p>
-              <p>Phone: {store.shipping_address.Phone} </p>
               <p>Email: {store.user.email} </p>
             </div>
           </div>
@@ -141,6 +118,5 @@ console.log(store.user)
     </div>
   );
 };
-
 
 export default Profile;
