@@ -3,9 +3,10 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 export const ShoppingCartOne = (props) => {
+	console.log('Props in ShoppingCartOne:', props);
 	const [quantity, setQuantity] = useState(1);
 	const [textarea, setTextarea] = useState("");
-	const [items, setItems] = useState("");
+
 
 	const plusQuantity = () => {
 		setQuantity(quantity + 1);
@@ -22,18 +23,25 @@ export const ShoppingCartOne = (props) => {
 
 	//function to send the textarea text from the input to the order table
 	const textareaClick = (event) => {
-        // prevent the default form submission behavior
-        event.preventDefault();
+		// prevent the default form submission behavior
+		event.preventDefault();
 		// actions.
-    };
+	};
 
 	return (
 		<div className="container min-height-100">
 			<br />
 			<div>
-              	<h1 className="cart-title">Shopping Cart</h1>
-            </div>
+				<h1 className="cart-title">Shopping Cart</h1>
+			</div>
 			<div>
+				{props.items.map((item, index) => (
+					<div key={index}>
+						<p>{item.product.name}</p>
+						<p>Quantity: {item.quantity}</p>
+						<p>Price: {item.product.price}</p>
+					</div>
+				))}
 				<div className="cart-description">
 					<div className="product-order1">
 						<p>Product</p>
@@ -56,11 +64,11 @@ export const ShoppingCartOne = (props) => {
 								<p>name</p>
 								<p className="smaller-p">d</p>
 							</div>
-						</div>	
+						</div>
 						<div className="flex-end">
 							<p>€</p>
 						</div>
-					</div>	
+					</div>
 					<div className="cart-details3">
 						<div className="set-btn">
 							<button className="btn-cart1" onClick={minusQuantity}>-</button>
@@ -88,7 +96,7 @@ export const ShoppingCartOne = (props) => {
 					<div className="cart-form">
 						<label>Add a note to your order:</label>
 						<br />
-						<textarea className="form-control mt-2" id="exampleFormControlTextarea1" rows="4"  value={textarea} onChange={(e) => setTextarea(e.target.value)}></textarea>
+						<textarea className="form-control mt-2" id="exampleFormControlTextarea1" rows="4" value={textarea} onChange={(e) => setTextarea(e.target.value)}></textarea>
 					</div>
 					<div className=" form-check cart-form-check mt-2">
 						<input className="ship-check-input form-check-input" type="checkbox" value="" id="flexCheckDefault" />
@@ -100,19 +108,18 @@ export const ShoppingCartOne = (props) => {
 					</div>
 				</form>
 				<div className="btn-set-check col-sm-6 col-md-6 col-lg-6">
-						<button
-							className="btn-Check col-sm-6 col-md-6 col-lg-12 mb-3"
-							type="submit"
-							onClick={() => {
-								// Call the callback function passed from the parent component
-								props.onClick(props.items);
-							}}
-						>
-							Check Out
-						</button>
-				<Link className="link-shopping" to="/">
-					<button className="btn-Check col-sm-6 col-md-6 col-lg-12" type="submit">Continue Shopping</button>
-				</Link>
+					<button
+						className="btn-Check col-sm-6 col-md-6 col-lg-12 mb-3"
+						type="submit"
+						onClick={() => {
+							props.onClick(props.items);
+						}}
+					>
+						Check Out
+					</button>
+					<Link className="link-shopping" to="/">
+						<button className="btn-Check col-sm-6 col-md-6 col-lg-12" type="button">Continue Shopping</button>
+					</Link>
 				</div>
 			</div>
 		</div>

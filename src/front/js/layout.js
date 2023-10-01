@@ -22,6 +22,7 @@ import { NewPassword } from './pages/newPassword';
 import {ResetPassword} from "./pages/resetPassword";
 import ProductDetail from "./pages/product_detail";
 import { ShoppingCart } from "./pages/shoppingCart";
+import { ShoppingCartOne } from './component/shoopingCartOne';
 
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
