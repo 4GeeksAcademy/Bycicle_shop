@@ -5,11 +5,11 @@ import "../../styles/shoppingCart.css";
 
 export const ShoppingCart = () => {
   const { actions } = useContext(Context);
-  const [email, setEmail] = useState("");
+  const [items, setItems] = useState("");
   
   // call function checkout
   const handleCheckout = () => {
-    actions.checkout(email, items);
+    actions.checkout(items);
   }
 
   return (
