@@ -27,10 +27,16 @@
 }
 .card-producct-img {
   border: solid 1px black;
+  border-radius: 6px;
   width: 55vh;
   height: 30vh;
   margin: auto;
+  text-align: center;
+}
+.img-bike {
   margin-top: 20px;
+  width: 25vh;
+  height: 20vh;
 }
 /*css to make the site responsive*/
 @media screen and (max-width: 1800px) {

@@ -40,53 +40,42 @@ def get_product_by_id(id):
 @main.route('/cart', methods=['POST'])
 @jwt_required()
 def product_post():
-    user_id = get_jwt_identity()
-    bicycle_id = request.json.get('bicycle_id')
-    quantity = request.json.get('quantity')
-    cart = Order.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
+    try:
+        user_id = get_jwt_identity()
+        bicycle_id = request.json.get('bicycle_id')
+        quantity = request.json.get('quantity')
 
-    if cart:
-        new_cart_item = OrderItem(cart_id=cart.id, bicycle_id=bicycle_id, quantity=quantity)
-        # add the new user to the database
+        cart = Order.query.filter_by(user_id=user_id).first()
+
+        if cart:
+            new_cart_item = OrderItem(cart_id=cart.id, bicycle_id=bicycle_id, quantity=quantity)
+        else:
+            new_cart = Order(user_id=user_id)
+            db.session.add(new_cart)
+            db.session.commit()
+            new_cart_item = OrderItem(cart_id=new_cart.id, bicycle_id=bicycle_id, quantity=quantity)
+
         db.session.add(new_cart_item)
         db.session.commit()
+
         response = {
-                'success': 'true', 
-                "Order": {
-                    "id": cart.id,
-                    "user_id": cart.user_id,
-                },
-                "Order_item":{
-                    "id": new_cart_item.id,
-                    "cart_id": new_cart_item.cart_id,
-                    "bicycle_id": new_cart_item.bicycle_id,
-                    "price_id" : new_cart_item.price_id,
-                    "quantity": new_cart_item.quantity,
-            }}
-        return response
-    else:
-        new_cart = Order(user_id=user_id)
-        # add the new user to the database
-        db.session.add(new_cart)
-        db.session.commit()
-        print("====================")
-        print(new_cart)
-        new_cart_item = OrderItem(cart_id=new_cart.id, bicycle_id=bicycle_id, quantity=quantity)
-        # add the new user to the database
-        db.session.add(new_cart_item)
-        db.session.commit()
-        response = {'success': 'true', 
-                "order": {
-                    "id": new_cart.id,
-                    "user_id": new_cart.user_id,
-                },
-                "order_item":{
-                "id": new_cart_item.id,
-                "cart_id": new_cart_item.cart_id,
-                "bicycle_id": new_cart_item.bicycle_id,
-                "quantity": new_cart_item.quantity,
-        }}
-        return response
+            'success': True,
+            'order': {
+                'id': cart.id if cart else new_cart.id,
+                'user_id': user_id,
+            },
+            'order_item': {
+                'id': new_cart_item.id,
+                'cart_id': new_cart_item.cart_id,
+                'bicycle_id': new_cart_item.bicycle_id,
+                'quantity': new_cart_item.quantity,
+            },
+        }
+
+        return jsonify(response), 200
+    except Exception as e:
+        # Handle any unexpected errors
+        return jsonify({'error': str(e)}), 500
 
 @main.route('/review', methods=['POST'])
 @jwt_required()
@@ -139,38 +128,6 @@ def get_reviews(bicycle_id):
     reviews = BicycleReview.query.filter_by(bicycle_id=bicycle_id).all()
     return jsonify([review.serialize() for review in reviews]), 200
 
-@main.route('/cart')
-@jwt_required()
-def user_carts():
-    user_id = get_jwt_identity()
-    cart = Order.query.filter_by(user_id=user_id).first() # if this returns a user, then the email already exists in database
-    if cart:
-        cartItems = OrderItem.query.filter_by(cart_id=cart.id) # if this returns a user, then the email already exists in database
-        response = {
-                'success': 'true', 
-                "order": {
-                    "id": cart.id,
-                    "user_id": cart.user_id,
-                },
-                "order_items":
-                [
-                    {
-                        "id": cart.id,
-                        "cart_id": cart.cart_id,
-                        "bicycle_id": cart.bicycle_id,
-                        "quantity": cart.quantity,
-                    }
-                    for cart in cartItems
-                ]
-            }
-        return response
-    else:
-        response = {'success': 'true', 
-                "order": {
-                },
-                "order_item":{
-        }}
-        return response
     
 @main.route('/api/create-user', methods=['POST'])
 @cross_origin(origin="process.env.FRONTEND_URL")

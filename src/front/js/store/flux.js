@@ -9,7 +9,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: [],
 			token: [],
 			orders: [],
-			shipping_address: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -79,30 +78,45 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 			},
-
-			addToCart: (id, quantity, price_id, props) => {
-				const payload = {
+			addToCart: async (id, quantity, price, props) => {
+				try {
+				  const payload = {
 					bicycle_id: id,
 					quantity: quantity,
-					price_id: price_id,
-				};
-				axios
-					.post(process.env.BACKEND_URL + "/cart", payload, {
-						headers: { Authorization: `Bearer ${props.token}` },
-					})
-					.then((response) => {
-						console.log(response);
-						if (response.data.success === "true") {
-							console.log(response.data.access_token);
-						} else {
-						}
-					})
-					.catch((error) => {
-						if (error.response) {
-							console.log(error.response);
-						}
-					});
-			},
+					price_id: price,
+				  };
+			  
+				  const response = await axios.post(process.env.BACKEND_URL + "/cart", payload, {
+					headers: { Authorization: `Bearer ${props.token}` },
+				  });
+			  
+				  console.log(response);
+			  
+				  if (response.data.success === true) {
+					setStore({ orders: response.data });
+					console.log(response.data.access_token);
+				  } else {
+					// Handle the case when the server indicates an error
+					// You can display an error message to the user.
+				  }
+				} catch (error) {
+				  console.error("Error:", error);
+			  
+				  if (error.response) {
+					// Handle server response errors (e.g., status codes other than 2xx)
+					console.error("Server Error:", error.response);
+					// You can display an error message to the user.
+				  } else if (error.request) {
+					// Handle network-related errors (e.g., server is not reachable)
+					console.error("Network Error:", error.request);
+					// You can display an error message to the user.
+				  } else {
+					// Handle other errors
+					console.error("Other Error:", error);
+					// You can display a generic error message to the user.
+				  }
+				}
+			  },
 
 			submitReview: (name, title, review, id, rating, setMessage, setReview, setTitle, setName, getData, token) => {
 				return new Promise((resolve, reject) => {
@@ -190,32 +204,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
-			// function to retrive Shipping data to profile
-			getShipping_addressToProfile: async (token) => {
-				console.log("Token before API call: ", token);
-				if (!token) {
-					return null;
-				}
-				try {
-					const response = await axios.get(process.env.BACKEND_URL + "/profile",
-						{
-							headers: {
-								Authorization: "Bearer " + token
-							}
-						});
-					console.log("Response data: ", response.data);
-					if (response.data) {
-						setStore({ shipping_address: response.data });
-					} else {
-						console.log("Received empty response.data from API");
-					}
-					return response.data;
-				} catch (error) {
-					// console.error("Full error:", JSON.stringify(error, null, 2));
-					console.error("An error occurred while fetching the profile:", error);
-					return null;
-				}
-			},
 			// function to retrive orders data to profile
 			getOrdersToProfile: async (token) => {
 				console.log("Token before API call: ", token);
@@ -242,29 +230,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
-			addToCart: (id, quantity, props, navigate) => {
-				const payload = {
+			buyNow: async (id, quantity, props, navigate) => {
+				try {
+				  const payload = {
 					bicycle_id: id,
 					quantity: quantity,
-				};
-				axios
-					.post(`${process.env.BACKEND_URL}/cart`, payload, {
-						headers: { Authorization: `Bearer ${props.token}` },
-					})
-					.then((response) => {
-						console.log(response);
-						if (response.data.success === "true") {
-							console.log(response.data.access_token);
-							navigate("/products");
-						} else {
-						}
-					})
-					.catch((error) => {
-						if (error.response) {
-							console.log(error.response);
-						}
-					});
-			},
+				  };
+			  
+				  const response = await axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
+					headers: { Authorization: `Bearer ${props.token}` },
+				  });
+			  
+				  console.log(response);
+			  
+				  if (response.data.success === true) {
+					console.log(response.data.access_token);
+					navigate("/shoppingCart");
+				  } else {
+					// Handle the case when the server indicates an error
+					// You can display an error message to the user.
+					console.error("Server Error:", response.data.message);
+					// Example: alert("Error: " + response.data.message);
+				  }
+				} catch (error) {
+				  console.error("Error:", error);
+			  
+				  if (error.response) {
+					// Handle server response errors (e.g., status codes other than 2xx)
+					console.error("Server Error:", error.response);
+					// You can display an error message to the user.
+					// Example: alert("Server Error: " + error.response.status);
+				  } else if (error.request) {
+					// Handle network-related errors (e.g., server is not reachable)
+					console.error("Network Error:", error.request);
+					// You can display an error message to the user.
+					// Example: alert("Network Error: Unable to reach the server.");
+				  } else {
+					// Handle other errors
+					console.error("Other Error:", error);
+					// You can display a generic error message to the user.
+					// Example: alert("An error occurred.");
+				  }
+				}
+			  },
 
 			getData: async (id) => {
 				try {

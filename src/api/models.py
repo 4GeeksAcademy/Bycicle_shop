@@ -23,6 +23,7 @@ class Bicycle(db.Model):
     price = db.Column(db.Numeric(precision=10, scale=2))
     price_id = db.Column(db.String(100))
     instock = db.Column(db.String(100))
+    image_url = db.Column(db.String(250))
     reviews = db.relationship('BicycleReview', backref='bicycle')
 
 
@@ -39,7 +40,7 @@ class Bicycle(db.Model):
         'price': str(self.price),  
         'price_id': self.price_id,  
         'instock': self.instock,
-        'image_url': '' 
+        'image_url': self.image_url  
         }
 
 class BicycleReview(db.Model):
