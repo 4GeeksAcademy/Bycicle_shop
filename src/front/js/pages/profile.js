@@ -1,7 +1,6 @@
 
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Order } from "../component/order";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/profile.css";
@@ -41,7 +40,6 @@ const Profile = () => {
         console.log("Profile Data:", res);
         console.log('Token in Profile:', token);
         actions.setUserProfile(res);
-
       })
       .catch((error) => {
         console.error("An error occurred in getData:", error);
@@ -52,12 +50,13 @@ const Profile = () => {
       });
 
   }
-  console.log("Rendering Profile component");
-  console.log("Current show value:", show);
-  console.log("Current store.user:", store.user);
-  console.log("Current store.orders:", store.orders);
+console.log(store.shipping_address)
+
+console.log(store.user)
+
+
   return (
-    <div className="container-fluid min-height-100 my-5">
+    <div className="container min-height-100 my-5">
       <div className="row">
         <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, {store.user.name} </h1>
         {show !== 'last_order' &&
@@ -69,9 +68,9 @@ const Profile = () => {
         }
       </div>
       <br />
-      <div className="profile">
-        <div className="order-description">
-          <div className="my-order-description">
+      <div className="profile row">
+        <div className="order-description col-4">
+          <div className="my-order-description col-8">
             <p>Personal Data</p>
             <p>Shipping Data</p>
             <p>Orders</p>
@@ -82,7 +81,7 @@ const Profile = () => {
             <p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass2(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>
           </div>
         </div>
-        {show === 'last_order' && store.orders && (
+        {show === 'last_order' && (
           <div className="order">
             <h4><i className="fa-solid fa-box-open"></i> Last Order</h4>
             <div className="details">
@@ -91,9 +90,6 @@ const Profile = () => {
                 <p>Date: {store.orders.date} </p>
                 <p>Price: {store.orders.price} </p>
                 <p>Product: {store.orders.product}</p>
-              </div>
-              <div className="status">
-                <p>Status: {store.orders.status} </p>
               </div>
             </div>
           </div>
@@ -112,22 +108,24 @@ const Profile = () => {
           <div className="order">
             <h4>Shipping Data</h4>
             <div className="details-data">
-              <p>First Name: {store.shipping_address.userFirstName} </p>
-              <p>Last Name: {store.shipping_address.userLastName}</p>
-              <p>Country/region: {store.shipping_address.country} </p>
-              <p>Address: {store.shipping_address.address} </p>
-              <p>Zip code: {store.shipping_address.zipcode} </p>
-              <p>City: {store.shipping_address.city} </p>
-              <p>Phone: {store.shipping_address.phone} </p>
-              <p>Email: {store.shipping_address.email} </p>
+              <p>First Name: {store.shipping_address.Userfirstname} </p>
+              <p>Last Name: {store.shipping_address.Userlastname}</p>
+              <p>Country/region: {store.shipping_address.Country} </p>
+              <p>Zip code: {store.shipping_address.Zipcode} </p>
+              <p>Phone: {store.shipping_address.Phone} </p>
+              <p>Email: {store.user.email} </p>
             </div>
           </div>
         )}
         {show === 'orders' && (
           <div className="order">
             <h4>Orders</h4>
-            <Order
-            />
+              <div className="details-data">
+                  <p>Order: Nº{store.orders.id}</p>
+                  <p>Date: {store.orders.date}</p>
+                  <p>Price: {store.orders.price}</p>
+                  <p>Product: {store.orders.product}</p>
+              </div>
           </div>
         )}
       </div>

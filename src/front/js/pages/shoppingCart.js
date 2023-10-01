@@ -5,11 +5,15 @@ import "../../styles/shoppingCart.css";
 
 export const ShoppingCart = () => {
   const { actions } = useContext(Context);
-  const [email, setEmail] = useState("");
-  
+  const [items, setItems] = useState([
+    { price: 'price_1NuJw3BQV4wKuzoZTMjEgqOx', quantity: '1' },
+    // Add more items as needed
+  ]);
+
   // call function checkout
   const handleCheckout = () => {
-    actions.checkout(email, items);
+    setItems(items);
+    actions.checkout(items);
   }
 
   return (

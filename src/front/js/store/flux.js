@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { json } from 'react-router-dom';
-import stripe from 'stripe';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -9,7 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: [],
 			token: [],
 			orders: [],
-			shipping_address: [],
+			shipping_address: [
+			],
 			demo: [
 				{
 					title: "FIRST",
@@ -63,6 +63,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			setUserProfile: (profileData) => {
 				setStore({ user: profileData });
+			},
+			setShipping_addressToProfile: (profileData) => {
+				setStore({ shipping_address: profileData });
+			},
+			setOrdersToProfile: (profileData) => {
+				setStore({ orders: profileData });
 			},
 
 			logout: () => {
@@ -145,7 +151,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 								console.error('Invalid request:', error.response.data);
 							} else if(error.response) {
 								console.error('Error Status:', error.response.status);
-								console.error('Error Data:', error.response.data);
 							} else {
 								console.error('Request Error:', error.message);
 							}
@@ -164,19 +169,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 				try {
-					console.log("Attempting to fetch profile with token:", token);
-					console.log("Headers being sent: ", {
-						Authorization: "Bearer " + token
-					});
-					console.log("About to make API call");
 					const response = await axios.get(process.env.BACKEND_URL + "/profile",
 						{
 							headers: {
 								Authorization: "Bearer " + token
 							}
-
 						});
-					console.log("Response data: ", response.data);
 					if (response.data) {
 						console.log("Setting user profile in store:", response.data);
 						setStore({ user: response.data });
@@ -191,11 +189,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			// function to retrive Shipping data to profile
-			getShipping_addressToProfile: async (token) => {
-				console.log("Token before API call: ", token);
-				if (!token) {
-					return null;
-				}
+			getShipping_addressToProfile: async () => {
 				try {
 					const response = await axios.get(process.env.BACKEND_URL + "/profile",
 						{
@@ -242,7 +236,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
-			addToCart: (id, quantity, props, navigate) => {
+			buyNow: (id, quantity, props, navigate) => {
 				const payload = {
 					bicycle_id: id,
 					quantity: quantity,
@@ -314,43 +308,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				} catch (error) {
 					console.error("An error occurred while signing up", error);
-					console.error("Error name:", error.name);
-					console.error("Error message:", error.message);
 				}
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (email, items
-				) => {
+			checkout: async (items) => {
 				const opts = {
-				method: "POST",
-				headers: {
+				  method: "POST",
+				  headers: {
 					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(items)
+				  },
+				  body: JSON.stringify(items), // Convert items to JSON string
 				};
-			
+				console.log("JSON Data:", JSON.stringify(items));
 				try {
-				const resp = await fetch(
+				  const resp = await fetch(
 					`${process.env.BACKEND_URL}/create-checkout-session`,
 					opts
-				);
-
-				if (resp.ok) {
+				  );
+				  console.log(resp);
+				  if (resp.ok) {
 					const data = await resp.json();
-					console.log(data)
+					console.log(data);
 					// Redirect to Stripe Checkout by replacing the current URL
-					window.location.replace(data)
-				} else {
+					window.location.replace(data);
+				  } else {
 					console.error("Error:", resp.status, resp.statusText);
 					// Handle the error appropriately
-				}
-			
-				
+				  }
 				} catch (error) {
-				console.error("Error message:", error.message);
+				  console.error("Error message:", error.message);
 				}
-			},
+			  },
 			// Function to send a POST request to your server to initiate the password reset process
 			resetPassword: async (token, email) => {
 				const opts = {
