@@ -251,7 +251,7 @@ function ProductDetail(props) {
                   <label className="form-label d-flex text-center" htmlFor="name">
                     Name
                   </label>
-                  <input type="text" className="input-review"  id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                  <input type="text" className="input-review" id="name" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="form-outline mb-2">
                   <label className="form-label d-flex text-center" htmlFor="title">
