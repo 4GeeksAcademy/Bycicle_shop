@@ -8,162 +8,173 @@ from .models import db
 from flask import Flask, jsonify
 from flask_mail import Mail, Message
 from flask import current_app
+from flask import session
 import stripe
 
-main = Blueprint('main', __name__)
+main = Blueprint("main", __name__)
 
-mail=Mail()
+mail = Mail()
 
-@main.route('/api/products', methods=['GET'])
+
+@main.route("/api/products", methods=["GET"])
 @cross_origin()
 def get_all_products():
-    bicycle_type = request.args.get('type')  # Get the bicycle type from the query parameters
+    bicycle_type = request.args.get(
+        "type"
+    )  # Get the bicycle type from the query parameters
     if bicycle_type:
         # Filter products : bicycle type
         all_bicycles = Bicycle.query.filter_by(type=bicycle_type).all()
     else:
         # If no type is specified, send all products
         all_bicycles = Bicycle.query.all()
-    
+
     bicycles_list = [bicycle.serialize() for bicycle in all_bicycles]
-    return jsonify({'success': 'true', 'bicycles': bicycles_list})
+    return jsonify({"success": "true", "bicycles": bicycles_list})
 
 
-@main.route('/api/products/<int:id>', methods=['GET'])
+@main.route("/api/products/<int:id>", methods=["GET"])
 @cross_origin()
 def get_product_by_id(id):
     bicycle = Bicycle.query.get(id)
     if bicycle is None:
-        return jsonify({'success': 'false', 'message': 'Product not found'}), 404
-    return jsonify({'success': 'true', 'bicycle': bicycle.serialize()})
+        return jsonify({"success": "false", "message": "Product not found"}), 404
+    return jsonify({"success": "true", "bicycle": bicycle.serialize()})
 
-@main.route('/cart', methods=['POST'])
+
+@main.route("/cart", methods=["POST"])
 @jwt_required()
-def product_post():
-    try:
-        user_id = get_jwt_identity()
-        bicycle_id = request.json.get('bicycle_id')
-        quantity = request.json.get('quantity')
+def add_to_cart():
+    user_id = get_jwt_identity()
+    bicycle_id = request.json.get('bicycle_id')
+    quantity = request.json.get('quantity')
+    
+    # Initialize the session cart if it does not exist
+    if 'cart' not in session:
+        session['cart'] = []
+    
+    # Create a cart item
+    cart_item = {
+        'user_id': user_id,
+        'bicycle_id': bicycle_id,
+        'quantity': quantity
+    }
+    
+    # Add the item to the session cart
+    session['cart'].append(cart_item)
+    
+    # Save the session
+    session.modified = True
+    
+    return jsonify({'success': 'true', 'cart': session['cart']})
+    #return jsonify({'success': 'true', 'cart': session['cart'], 'user_id': user_id})
 
-        cart = Order.query.filter_by(user_id=user_id).first()
 
-        if cart:
-            new_cart_item = OrderItem(cart_id=cart.id, bicycle_id=bicycle_id, quantity=quantity)
-        else:
-            new_cart = Order(user_id=user_id)
-            db.session.add(new_cart)
-            db.session.commit()
-            new_cart_item = OrderItem(cart_id=new_cart.id, bicycle_id=bicycle_id, quantity=quantity)
-
-        db.session.add(new_cart_item)
-        db.session.commit()
-
-        response = {
-            'success': True,
-            'order': {
-                'id': cart.id if cart else new_cart.id,
-                'user_id': user_id,
-            },
-            'order_item': {
-                'id': new_cart_item.id,
-                'cart_id': new_cart_item.cart_id,
-                'bicycle_id': new_cart_item.bicycle_id,
-                'quantity': new_cart_item.quantity,
-            },
-        }
-
-        return jsonify(response), 200
-    except Exception as e:
-        # Handle any unexpected errors
-        return jsonify({'error': str(e)}), 500
-
-@main.route('/review', methods=['POST'])
+@main.route("/review", methods=["POST"])
 @jwt_required()
 @cross_origin(origin="process.env.FRONTEND_URL")
 def review_post():
     print("Received Review: ", request.json)
     user_id = get_jwt_identity()
-    
+
     # Extracting JSON data
     data = request.get_json()
     if not data:
-        return jsonify({'error': 'Missing JSON data'}), 400
-    
-    name = data.get('name')
-    bicycle_id = data.get('bicycle_id')
-    rating = data.get('rating')
-    title = data.get('title')
-    review = data.get('review')
-    
-    
+        return jsonify({"error": "Missing JSON data"}), 400
+
+    name = data.get("name")
+    bicycle_id = data.get("bicycle_id")
+    rating = data.get("rating")
+    title = data.get("title")
+    review = data.get("review")
+
     # Check if required fields are provided
     if not all([rating, name, title, review, bicycle_id]):
-        return jsonify({'error': 'Missing required fields'}), 400
-    
-    new_review = BicycleReview(user_id=user_id, bicycle_id=bicycle_id, rating=rating, title=title, review_text=review)
-    
+        return jsonify({"error": "Missing required fields"}), 400
+
+    new_review = BicycleReview(
+        user_id=user_id,
+        bicycle_id=bicycle_id,
+        rating=rating,
+        title=title,
+        review_text=review,
+    )
+
     try:
         db.session.add(new_review)
         db.session.commit()
     except Exception as e:
         print(e)
-        return jsonify({'error': 'Error creating review'}), 500
-    
+        return jsonify({"error": "Error creating review"}), 500
+
     response = {
-        'success': True, 
-        'bicycle_review': {
+        "success": True,
+        "bicycle_review": {
             "user_id": new_review.user_id,
             "bicycle_id": new_review.bicycle_id,
             "rating": new_review.rating,
             "title": new_review.title,
             "review_text": new_review.review_text,
-        }
+        },
     }
-    
+
     return jsonify(response), 201
 
-@main.route('/api/products/<int:bicycle_id>/reviews', methods=['GET'])
+
+@main.route("/api/products/<int:bicycle_id>/reviews", methods=["GET"])
 def get_reviews(bicycle_id):
     print("Hello")
     reviews = BicycleReview.query.filter_by(bicycle_id=bicycle_id).all()
     return jsonify([review.serialize() for review in reviews]), 200
 
-    
-@main.route('/api/create-user', methods=['POST'])
+
+@main.route("/cart")
+@jwt_required()
+def user_carts():
+    user_id = get_jwt_identity()
+    cart_items = [item for item in session.get('cart', []) if item['user_id'] == user_id]
+
+    response = {
+        'success': 'true',
+        "shopping_cart": {
+            "user_id": user_id,
+        },
+        "shopping_cart_items": cart_items
+    }
+    return jsonify(response)
+
+
+@main.route("/api/create-user", methods=["POST"])
 @cross_origin(origin="process.env.FRONTEND_URL")
 def create_user():
     data = request.json
 
-    email = data.get('email')
-    password = data.get('password')
-    print(f"Received password in create_user: {password}") 
-    username = data.get('username')
-    fullName = data.get('fullName')
+    email = data.get("email")
+    password = data.get("password")
+    print(f"Received password in create_user: {password}")
+    username = data.get("username")
+    fullName = data.get("fullName")
     # You can also include subscribe and privacy data if you want to store those
 
     # Validation to check if the email already exists
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
-        return jsonify({'success': 'false', 'message': 'Email already exists'}), 409
+        return jsonify({"success": "false", "message": "Email already exists"}), 409
 
     # Hash the password for security
-    hashed_password = generate_password_hash(password, method='sha256')
+    hashed_password = generate_password_hash(password, method="sha256")
 
     # Create a new user object
-    new_user = User(
-        email=email,
-        password=hashed_password,
-        username=username
-       
-    )
+    new_user = User(email=email, password=hashed_password, username=username)
 
     # Save the new user object to the database
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({'success': 'true', 'message': 'User created successfully'}), 201
+    return jsonify({"success": "true", "message": "User created successfully"}), 201
 
-@main.route('/profile', methods=['GET'])
+
+@main.route("/profile", methods=["GET"])
 @jwt_required()
 @cross_origin()
 def my_profile():
@@ -174,54 +185,59 @@ def my_profile():
     user = User.query.filter_by(id=current_user_id).first()
 
     if not user:
-        return jsonify({'success': 'false', 'message': 'User not found'}), 404
+        return jsonify({"success": "false", "message": "User not found"}), 404
 
-    response_body = {
-        "name": user.username,
-        "email": user.email
-        
-    }
+    response_body = {"name": user.username, "email": user.email}
 
     return jsonify(response_body), 200
 
-#endpoint for send an email with a link to reset password
-@main.route('/resetPassword', methods=['POST'])
+
+# endpoint for send an email with a link to reset password
+@main.route("/resetPassword", methods=["POST"])
 @cross_origin(origin="process.env.FRONTEND_URL")
 def send_reset_email():
     try:
         # Ensure that the request has the correct Content-Type header
-        if request.headers['Content-Type'] != 'application/json':
-            return jsonify({"error": "415 Unsupported Media Type: Content-Type must be 'application/json'"}), 415
+        if request.headers["Content-Type"] != "application/json":
+            return (
+                jsonify(
+                    {
+                        "error": "415 Unsupported Media Type: Content-Type must be 'application/json'"
+                    }
+                ),
+                415,
+            )
 
-        email = request.json.get('email')
+        email = request.json.get("email")
         print(email)
-        
+
         # Query the database to check if the email exists
         user = User.query.filter_by(email=email).first()
         print(user)
-        
+
         if user is None:
             return jsonify({"msg": "User with this email does not exist."}), 404
         else:
             # Generate an access token and construct the reset link
             token = create_access_token(identity=user.email)
             link = f"https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev/newPassword?token={token}"
-            
+
             message = Message(
-                subject='Password Reset Link',
-                sender=current_app.config['MAIL_USERNAME'], 
-                recipients=[email], 
-                body='Hey, this is a link for resetting the password.',
-                html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>"
+                subject="Password Reset Link",
+                sender=current_app.config["MAIL_USERNAME"],
+                recipients=[email],
+                body="Hey, this is a link for resetting the password.",
+                html=f"Reset your password with this link: <a href='{link}'>Reset Password</a>",
             )
 
             mail.send(message)
-            return jsonify({'message': 'Password reset email sent successfully'}), 200
+            return jsonify({"message": "Password reset email sent successfully"}), 200
     except Exception as e:
-        return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
-    
+        return jsonify({"message": "An error occurred", "error": str(e)}), 500
+
+
 # Endpoint for updating the password
-@main.route('/newPassword', methods=['OPTIONS'])
+@main.route("/newPassword", methods=["OPTIONS"])
 @jwt_required()
 @cross_origin()
 def reset_password():
@@ -238,13 +254,14 @@ def reset_password():
         print(User.password)
         # Commit the changes to the database
         db.session.commit()
-        
+
         return jsonify({"msg": "Password reset successful."}), 200
     except Exception as e:
         return jsonify({"msg": "An error occurred", "error": str(e)}), 500
-    
-#endpoint for sending an email for support
-@main.route('/contactus', methods=['POST'])
+
+
+# endpoint for sending an email for support
+@main.route("/contactus", methods=["POST"])
 @cross_origin()
 def send_support_email():
     try:
@@ -253,21 +270,24 @@ def send_support_email():
 
         # Create a support email message
         message = Message(
-            subject='Support Request',
-            recipients=['mariana.placito@gmail.com', 'aleksandr.klenin@gmail.com'],  # Replace with your support email address
-            sender=current_app.config['MAIL_USERNAME'],
-            body= f"Support request: {email_data}"
+            subject="Support Request",
+            recipients=[
+                "mariana.placito@gmail.com",
+                "aleksandr.klenin@gmail.com",
+            ],  # Replace with your support email address
+            sender=current_app.config["MAIL_USERNAME"],
+            body=f"Support request: {email_data}",
         )
 
         # Send the email
         mail.send(message)
 
-        return jsonify({'message': 'Support email sent successfully'})
+        return jsonify({"message": "Support email sent successfully"})
     except Exception as e:
-        return jsonify({'message': 'Error sending support email', 'error': str(e)}), 500
-    
+        return jsonify({"message": "Error sending support email", "error": str(e)}), 500
+
 # endpoint for checkout session
-@main.route('/create-checkout-session', methods=['POST'])
+@main.route("/create-checkout-session", methods=["POST"])
 @cross_origin()
 def create_checkout_session():
     try:
@@ -276,6 +296,11 @@ def create_checkout_session():
         items = request.json.get('items')
 
         stripe.api_key = current_app.config['STRIPE_API_KEY']
+        
+        # Get price_id and quantity from the JSON request
+        price_id = request.json.get("price_id")
+        quantity = request.json.get("quantity")
+        
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=items,  # Pass the 'items' from the request
@@ -283,7 +308,6 @@ def create_checkout_session():
             success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
-        #)  body= request.json.get("body")
 
     except Exception as e:
         return str(e)

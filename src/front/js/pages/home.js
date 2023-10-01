@@ -6,7 +6,7 @@ import "../../styles/home.css";
 export const Home = () => {
   const { store } = useContext(Context);
   return (
-    <div className="container
+    <div className="container-fluid
     home-container min-height-100">
       <div className="text-center">
           <div className="d-flex justify-content-around btn-ai my-3">

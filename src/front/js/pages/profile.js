@@ -1,7 +1,6 @@
 
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Order } from "../component/order";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/profile.css";
@@ -39,7 +38,6 @@ const Profile = () => {
         console.log("Profile Data:", res);
         console.log('Token in Profile:', token);
         actions.setUserProfile(res);
-
       })
       .catch((error) => {
         console.error("An error occurred in getData:", error);
@@ -62,9 +60,9 @@ const Profile = () => {
         }
       </div>
       <br />
-      <div className="profile">
-        <div className="order-description">
-          <div className="my-order-description">
+      <div className="profile row">
+        <div className="order-description col-4">
+          <div className="my-order-description col-8">
             <p>Personal Data</p>
             <p>Orders</p>
           </div>
@@ -73,7 +71,7 @@ const Profile = () => {
             <p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>
           </div>
         </div>
-        {show === 'last_order' && store.orders && (
+        {show === 'last_order' && (
           <div className="order">
             <h4><i className="fa-solid fa-box-open"></i> Last Order</h4>
             <div className="details">
@@ -82,9 +80,6 @@ const Profile = () => {
                 <p>Date: {store.orders.date} </p>
                 <p>Price: {store.orders.price} </p>
                 <p>Product: {store.orders.product}</p>
-              </div>
-              <div className="status">
-                <p>Status: {store.orders.status} </p>
               </div>
             </div>
           </div>
@@ -102,8 +97,12 @@ const Profile = () => {
         {show === 'orders' && (
           <div className="order">
             <h4>Orders</h4>
-            <Order
-            />
+              <div className="details-data">
+                  <p>Order: Nº{store.orders.id}</p>
+                  <p>Date: {store.orders.date}</p>
+                  <p>Price: {store.orders.price}</p>
+                  <p>Product: {store.orders.product}</p>
+              </div>
           </div>
         )}
       </div>
