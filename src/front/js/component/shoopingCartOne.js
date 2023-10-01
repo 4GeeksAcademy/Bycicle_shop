@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export const ShoppingCartOne = (props) => {
 	const [quantity, setQuantity] = useState(1);
 	const [textarea, setTextarea] = useState("");
+	const [items, setItems] = useState("");
 
 	const plusQuantity = () => {
 		setQuantity(quantity + 1);
