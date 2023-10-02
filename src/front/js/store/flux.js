@@ -85,7 +85,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 			},
-			addToCart: (bicycle_id, quantity) => {
+			addToCart: (price, quantity) => {
 				const token = localStorage.getItem('access_token');
 				
 				if (!token) {
@@ -94,7 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				
 				const payload = {
-					bicycle_id: bicycle_id,
+					price: price,
 					quantity: quantity,
 				};
 				

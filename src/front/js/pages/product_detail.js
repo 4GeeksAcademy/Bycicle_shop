@@ -106,15 +106,17 @@ function ProductDetail(props) {
       console.log("Retrieved Token in ProductDetail: ", retrievedToken);
     
       try {
-        const payload = {
-          bicycle_id: id, // Assuming 'id' is defined somewhere in your component
-          quantity: quantity,
-          price_id: price, // Assuming 'price' is defined somewhere in your component
-        };
-    
-        const response = await axios.post(process.env.BACKEND_URL + "/cart", payload, {
-          headers: { Authorization: `Bearer ${props.token}` },
-        });
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${retrievedToken}`, // Include the token in headers if needed
+          },
+          body: JSON.stringify({ price: price,
+            quantity: quantity,}), // Simplify object construction
+          };
+      
+          const response = await axios.post(process.env.BACKEND_URL + "/cart", opts);
     
         if (response.data.success === true) {
           setProduct(response.data.bicycle);

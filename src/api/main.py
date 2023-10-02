@@ -44,30 +44,30 @@ def get_product_by_id(id):
 
 @main.route("/cart", methods=["POST"])
 @jwt_required()
+@cross_origin(
+    origins="https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev",
+    supports_credentials=True,
+)
 def add_to_cart():
     user_id = get_jwt_identity()
-    bicycle_id = request.json.get('bicycle_id')
-    quantity = request.json.get('quantity')
-    
+    bicycle_id = request.json.get("bicycle_id")
+    quantity = request.json.get("quantity")
+
     # Initialize the session cart if it does not exist
-    if 'cart' not in session:
-        session['cart'] = []
-    
+    if "cart" not in session:
+        session["cart"] = []
+
     # Create a cart item
-    cart_item = {
-        'user_id': user_id,
-        'bicycle_id': bicycle_id,
-        'quantity': quantity
-    }
-    
+    cart_item = {"user_id": user_id, "bicycle_id": bicycle_id, "quantity": quantity}
+
     # Add the item to the session cart
-    session['cart'].append(cart_item)
-    
+    session["cart"].append(cart_item)
+
     # Save the session
     session.modified = True
-    
-    return jsonify({'success': 'true', 'cart': session['cart']})
-    #return jsonify({'success': 'true', 'cart': session['cart'], 'user_id': user_id})
+
+    return jsonify({"success": "true", "cart": session["cart"]})
+    # return jsonify({'success': 'true', 'cart': session['cart'], 'user_id': user_id})
 
 
 @main.route("/review", methods=["POST"])
@@ -130,16 +130,22 @@ def get_reviews(bicycle_id):
 
 @main.route("/cart")
 @jwt_required()
+@cross_origin(
+    origins="https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev",
+    supports_credentials=True,
+)
 def user_carts():
     user_id = get_jwt_identity()
-    cart_items = [item for item in session.get('cart', []) if item['user_id'] == user_id]
+    cart_items = [
+        item for item in session.get("cart", []) if item["user_id"] == user_id
+    ]
 
     response = {
-        'success': 'true',
+        "success": "true",
         "shopping_cart": {
             "user_id": user_id,
         },
-        "shopping_cart_items": cart_items
+        "shopping_cart_items": cart_items,
     }
     return jsonify(response)
 
@@ -296,9 +302,8 @@ def create_checkout_session():
 
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         
-        # Get price_id and quantity from the JSON request
-        price_id = request.json.get("price_id")
-        quantity = request.json.get("quantity")
+        # Get items from the JSON request
+        items = request.json.get("items")
         
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
