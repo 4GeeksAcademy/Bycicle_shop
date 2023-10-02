@@ -6,6 +6,7 @@ export const ShoppingCartOne = (props) => {
 	const [quantity, setQuantity] = useState(1);
 	const [textarea, setTextarea] = useState("");
 	const [items, setItems] = useState("");
+	const { store, actions } = useContext(Context);
 
 	const plusQuantity = () => {
 		setQuantity(quantity + 1);
@@ -48,17 +49,17 @@ export const ShoppingCartOne = (props) => {
 					<div className="cart-details1">
 						<div className="cart-details2">
 							<img
-								src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
+								src={store.order && store.order.image_url} 
 								className="img-cart"
 								alt="Generic placeholder image"
 							/>
 							<div>
 								<p>name</p>
-								<p className="smaller-p">d</p>
+								<p className="smaller-p">{store.order && store.order.name} </p>
 							</div>
 						</div>	
 						<div className="flex-end">
-							<p>€</p>
+							<p>{store.order && store.order.price} €</p>
 						</div>
 					</div>	
 					<div className="cart-details3">
@@ -68,20 +69,17 @@ export const ShoppingCartOne = (props) => {
 								className="btn-middle"
 								min="0"
 								name="quantity"
-								value={quantity}
+								value={store.order && store.order.quantity} 
 								onChange={onChangeQuantity}
 								type="text"
 							/>
 							<button className="btn-cart2" onClick={plusQuantity}>+</button>
 						</div>
 						<div>
-							<p>€</p>
+							<p>{items}€</p>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div className="subtotal mt-2">
-				<p>Subtotal:</p>
 			</div>
 			<div className="row">
 				<form className="col-sm-6 col-md-6 col-lg-6" onSubmit={textareaClick}>
