@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const ShoppingCartOne = (props) => {
 	const [quantity, setQuantity] = useState(1);
 	const [textarea, setTextarea] = useState("");
-	const [items, setItems] = useState("");
+	const [items, setItems] = useState([]);
 	const { store, actions } = useContext(Context);
 
 	const plusQuantity = () => {
@@ -49,17 +49,17 @@ export const ShoppingCartOne = (props) => {
 					<div className="cart-details1">
 						<div className="cart-details2">
 							<img
-								src={store.order && store.order.image_url} 
+								src={store.orders && store.orders.image_url} 
 								className="img-cart"
 								alt="Generic placeholder image"
 							/>
 							<div>
 								<p>name</p>
-								<p className="smaller-p">{store.order && store.order.name} </p>
+								<p className="smaller-p">{store.orders && store.orders.name} </p>
 							</div>
 						</div>	
 						<div className="flex-end">
-							<p>{store.order && store.order.price} €</p>
+							<p>{store.orders && store.orders.price} €</p>
 						</div>
 					</div>	
 					<div className="cart-details3">
@@ -69,14 +69,14 @@ export const ShoppingCartOne = (props) => {
 								className="btn-middle"
 								min="0"
 								name="quantity"
-								value={store.order && store.order.quantity} 
+								value={store.orders && store.orders.quantity} 
 								onChange={onChangeQuantity}
 								type="text"
 							/>
 							<button className="btn-cart2" onClick={plusQuantity}>+</button>
 						</div>
 						<div>
-							<p>{items}€</p>
+							<p>{store.orders && store.orders.price_id} €</p>
 						</div>
 					</div>
 				</div>
@@ -102,6 +102,7 @@ export const ShoppingCartOne = (props) => {
 							className="btn-Check col-sm-6 col-md-6 col-lg-12 mb-3"
 							type="submit"
 							onClick={() => {
+								setItems(price_id);
 								// Call the callback function passed from the parent component
 								props.onClick(props.items);
 							}}
