@@ -5,7 +5,7 @@ import "../../styles/shoppingCart.css";
 
 export const ShoppingCart = (props) => {
   const { store, actions } = useContext(Context);
-  const cart = store.orders
+  const cart = store.orders;
   
   // call function checkout
   const handleCheckout = (items) => {
@@ -14,7 +14,7 @@ export const ShoppingCart = (props) => {
 
   return (
     <div className="min-height-100 container">
-       <ShoppingCartOne cart={cart} actions={actions} onClick={handleCheckout} />
+       <ShoppingCartOne cart={cart} actions={actions} onClick={() => handleCheckout(cart)}/>
     </div>
   );
 };

@@ -335,6 +335,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${props.token}` 
 					},
 					body: JSON.stringify(items), // Convert items to JSON string
 				};
@@ -349,7 +350,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const data = await resp.json();
 						console.log(data);
 						// Redirect to Stripe Checkout by replacing the current URL
-						window.location.replace(data);
+						window.location.href = data.checkout_url;
 					} else {
 						console.error("Error:", resp.status, resp.statusText);
 						// Handle the error appropriately

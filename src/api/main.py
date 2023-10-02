@@ -288,25 +288,28 @@ def send_support_email():
     except Exception as e:
         return jsonify({"message": "Error sending support email", "error": str(e)}), 500
 
-# endpoint for checkout session
+# Define the endpoint for checkout session
 @main.route("/create-checkout-session", methods=["POST"])
 @cross_origin()
 def create_checkout_session():
     try:
-        # Get 'items' from the JSON request
+        # Get the Stripe API key from the Flask app's configuration
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         
         # Get items from the JSON request
-        OrderItem = request.json.get('items') 
+        order_items = request.json.get('items')  # Note: Changed 'OrderItem' to 'order_items'
+        
+        # Create a Stripe checkout session
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
-            line_items=OrderItem,  # Pass the 'items' from the request
+            line_items=order_items,  # Pass the 'items' from the request
             mode='payment',
-            success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
+            success_url=current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
 
     except Exception as e:
-        return str(e)
+        return str(e), 400  # Return the error message with a 400 status code for bad requests
 
-    return jsonify(checkout_session.url), 200
+    # Return the checkout session's URL in a JSON response with a 200 status code
+    return jsonify({'checkout_url': checkout_session.url}), 200

@@ -127,9 +127,7 @@ export const ShoppingCartOne = (props) => {
           <button
             className="btn-Check col-sm-6 col-md-6 col-lg-12 mb-3"
             type="submit"
-            onClick={() => {
-              {props.onClick()}
-            }}
+            onClick={() => props.onClick()} // Call the onClick function directly
           >
             Check Out
           </button>
