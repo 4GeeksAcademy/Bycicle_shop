@@ -324,7 +324,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (
+			checkout: async (token
 				) => {
 					let items = []
 				let store = getStore()
@@ -335,7 +335,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${props.token}` 
+						Authorization: `Bearer ${token}` 
 					},
 					body: JSON.stringify(items), // Convert items to JSON string
 				};
@@ -350,7 +350,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const data = await resp.json();
 						console.log(data);
 						// Redirect to Stripe Checkout by replacing the current URL
-						window.location.href = data.checkout_url;
+						window.location.replace(checkout_session.url);
+						console.log(checkout_session.url)
 					} else {
 						console.error("Error:", resp.status, resp.statusText);
 						// Handle the error appropriately
