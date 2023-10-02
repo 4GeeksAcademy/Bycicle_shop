@@ -66,6 +66,10 @@
 .cart-details2 .smaller-p {
     font-size: x-small;
 }
+.set-btn {
+    display: flex;
+    height: 3vh;
+}
 .btn-cart1 {
     background-color: white;
     color: black;
