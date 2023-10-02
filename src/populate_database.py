@@ -17,7 +17,8 @@ def populate_db():
             weight=bicycle['weight'],
             price=bicycle['price'],
             price_id=bicycle['price_id'],
-            instock=bicycle['instock']
+            instock=bicycle['instock'],
+            image_url=bicycle['image_url']
         )
         db.session.add(bicycle_instance)
     db.session.commit()
