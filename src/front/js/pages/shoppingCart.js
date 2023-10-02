@@ -7,8 +7,8 @@ export const ShoppingCart = () => {
   const { actions } = useContext(Context);
   
   // call function checkout
-  const handleCheckout = () => {
-    actions.checkout();
+  const handleCheckout = (items) => {
+    actions.checkout(items);
   }
 
   return (

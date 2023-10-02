@@ -106,26 +106,7 @@ export const Navbar = (props) => {
         </Link>
         <div className="menu col-sm-11 col-md-11 col-lg-8 col-xl-8">
           {/* Dropdown and navigation buttons */}
-          <div className="dropleft mb-3 language">
-            <button
-              className="btnlanguage dropdown-toggle"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Euro <i className="fa-solid fa-chevron-down"></i>
-            </button>
-            <ul className="dropdown-language dropdown-menu">
-              <li>
-                <label className="form-label my-form-label">Currency</label>
-                <input type="text" className="form-control" id="exampleFormControlInput1" />
-              </li>
-              <br />
-              <button className="form-btn">
-                APPLY
-              </button>
-            </ul>
-          </div >
+        
           <button
             className="navbar-toggler my-navbar-toggler"
             type="button"
