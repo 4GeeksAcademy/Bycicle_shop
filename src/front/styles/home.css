@@ -41,10 +41,6 @@
     padding: 10px;
     margin: auto;
  }
- .ai-icon {
-    height: 60px;
-    width: 90px;
- }
 /*css to make the site responsive*/
 @media screen and (max-width: 2000px) {
    .btn-ai {
@@ -63,20 +59,12 @@
       width: 45vh;
       font-weight: 100;
    }
-   .ai-icon {
-      height: 30px;
-      width: 45px;
-   }
  }
  @media screen and (max-width: 500px) {
    .btn-ai {
       font-size: 10px;
       width: 45vh;
       font-weight: 100;
-   }
-   .ai-icon {
-      height: 30px;
-      width: 45px;
    }
    .arrow-control {
       position: inherit;

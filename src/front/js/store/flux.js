@@ -80,10 +80,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.error('Logout failed:', response.data.msg);
 						}
 					})
-					.finally(() => {
 						localStorage.removeItem('access_token'); // Always remove token
 
-					});
 			},
 			addToCart: (price, quantity) => {
 				const token = localStorage.getItem('access_token');
