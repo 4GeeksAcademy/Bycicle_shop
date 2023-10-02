@@ -325,11 +325,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			// Function to make the checkout
 			checkout: async (
-			) => {
-				let items = []
+				) => {
+					let items = []
 				let store = getStore()
 				store.cart.forEach(c => {
-					items.push({ price_id: c.price_id, quantity: c.quantity, name: c.name })
+					items.push({ price_id: c.price_id, quantity: c.quantity })
 				})
 				const opts = {
 					method: "POST",

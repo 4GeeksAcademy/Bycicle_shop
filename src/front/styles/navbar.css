@@ -167,12 +167,12 @@ li {
         font-size: small;
     }
     .my-collapse {
-        margin-top: 70px;
+        margin-top: 40px;
         background-color: #7C0514;
         border-radius: 6px;
         width: 20vh;
         height: 41vh;
-        position:fixed;
+        position:absolute;
         z-index: 4;
     }
     .link-collapse {
@@ -214,7 +214,10 @@ li {
   @media screen and (max-width: 1000px) {
     .navbar-box {
         height: 20vh;
-    }  
+    }
+    .my-collapse {
+        height: 290.vh;
+    }
   }
 @media screen and (max-width: 550px) {
     .language {
