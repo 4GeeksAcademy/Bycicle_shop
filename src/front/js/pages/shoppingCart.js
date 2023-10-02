@@ -1,19 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { ShoppingCartOne } from "../component/shoopingCartOne";
 import "../../styles/shoppingCart.css";
 
-export const ShoppingCart = () => {
-  const { actions } = useContext(Context);
+export const ShoppingCart = (props) => {
+  const { store, actions } = useContext(Context);
+  const cart = store.orders
   
-  // call function checkout
+   
+  // Call function checkout
   const handleCheckout = () => {
     actions.checkout();
   }
 
   return (
     <div className="min-height-100 container">
-      <ShoppingCartOne onClick={handleCheckout} />
+       <ShoppingCartOne cart={cart} actions={actions} onClick={handleCheckout} />
     </div>
   );
 };

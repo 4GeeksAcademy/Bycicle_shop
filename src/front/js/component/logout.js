@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
 function LogoutComponent({ onLogout }) {
-    console.log("LogoutComponent is rendered");
+    // console.log("LogoutComponent is rendered");
     const navigate = useNavigate();
     const { actions } = useContext(Context);
 

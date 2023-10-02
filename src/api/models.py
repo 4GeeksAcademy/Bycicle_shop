@@ -81,14 +81,14 @@ class Shipping_data(db.Model):
             'phone': self.phone,
         }
 class Order(db.Model):
-    __tablename__ = 'shopping_cart'  
+    __tablename__ = 'order'  
     id = db.Column(db.Integer, primary_key=True) 
-    user_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 class OrderItem(db.Model):
-    __tablename__ = 'shopping_cart_item'  
+    __tablename__ = 'order_item'  
     id = db.Column(db.Integer, primary_key=True)
-    cart_id = db.Column(db.Integer)
+    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
     bicycle_id = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
 
