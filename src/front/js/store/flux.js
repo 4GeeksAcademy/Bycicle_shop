@@ -80,40 +80,45 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.error('Logout failed:', response.data.msg);
 						}
 					})
-					.finally(() => {
 						localStorage.removeItem('access_token'); // Always remove token
 
-					});
 			},
-			addToCart: (bicycle_id, quantity) => {
+			addToCart: (name, price, quantity, image_url) => {
+				const store = getStore();
 				const token = localStorage.getItem('access_token');
-				
+			  
 				if (!token) {
-					console.error('Token is not available');
-					return;
+				  console.error('Token is not available');
+				  return;
 				}
-				
+			  
 				const payload = {
-					bicycle_id: bicycle_id,
-					quantity: quantity,
+				  name: name,
+				  price: price,
+				  quantity: quantity,
+				  image_url: image_url,
 				};
-				
+			  
+				console.log('Payload:', payload);
+				console.log('Backend URL:', process.env.BACKEND_URL);
+			  
 				axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
-					headers: { Authorization: `Bearer ${token}` },
-					withCredentials: true, 
+				  headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`
+				  },
+				  withCredentials: true,
 				})
 				.then((response) => {
-					console.log('Item added to cart:', response.data);
-					sessionStorage.setItem('cart', JSON.stringify(response.data.cart));
-			
+				  console.log(response);
+				  console.log('Item added to cart:', response.data);
+				  sessionStorage.setItem('cart', JSON.stringify(response.data.orders));
+				  setStore({ orders: response.data.orders });
 				})
 				.catch((error) => {
-					console.error('Error adding items to cart:', error.response ? error.response.data : error.message);
-					
+				  console.error('Error adding items to cart:', error.response ? error.response.data : error.message);
 				});
-			},
-			
-
+			  },
 			submitReview: (name, title, review, id, rating, setMessage, setReview, setTitle, setName, getData, token) => {
 				return new Promise((resolve, reject) => {
 					if (!name || !title || !review) {

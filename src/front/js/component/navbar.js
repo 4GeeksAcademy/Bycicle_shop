@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../img/logo.png";
@@ -14,8 +14,9 @@ export const Navbar = (props) => {
   const navigate = useNavigate();
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const { setSelectedType } = useContext(SelectedTypeContext);
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn, setIsLoggedIn } = useUser(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -83,6 +84,19 @@ export const Navbar = (props) => {
     }
     return null;
   };
+
+  useEffect(() => {
+    console.log("ProfileRedirect triggered.");
+    const token = localStorage.getItem('access_token');
+    console.log("Token:", token);
+
+    if (token) {
+      console.log("Token found, navigating to /profile");
+      setIsLoggedIn(true); 
+    } else {
+      console.log("No token found, not navigating.");
+    }
+  }, [isLoggedIn]);
 
   return (
     <nav className="navbar navbar-box navbar-dark navbar-expand-lg">

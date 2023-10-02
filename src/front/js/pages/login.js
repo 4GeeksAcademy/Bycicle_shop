@@ -13,7 +13,7 @@ export function Login(props) {
   const [passwordFlag, setPasswordFlag] = useState(false);
   const [apiFlag, setAPIFlag] = useState(false);
   const [message, setMessage] = useState("Wrong credential");
- const { setIsLoggedIn } = useUser();
+ const { setIsLoggedIn } = useUser(false);
 
   const onChangeEmail = (event) => {
     setEmailFlag(false);
@@ -96,7 +96,7 @@ export function Login(props) {
         console.log("Navigating to profile"); // to check if Navigation function is called
 
         if (localStorage.getItem('access_token')) {
-          //setIsLoggedIn(true);
+          setIsLoggedIn(true);
           navigate("/profile");
 
         } else {
@@ -113,7 +113,7 @@ export function Login(props) {
       }
     }
   }
-  
+
     return (
           <div className="container-fluid min-height-100 ">
               <h1 className="text-login">Login</h1>

@@ -101,29 +101,6 @@ function ProductDetail(props) {
           console.error('Error fetching reviews:', error);
         });
     };
-    const handleAddToCart = async () => {
-      const retrievedToken = localStorage.getItem('access_token');
-      console.log("Retrieved Token in ProductDetail: ", retrievedToken);
-    
-      try {
-        const payload = {
-          bicycle_id: id, // Assuming 'id' is defined somewhere in your component
-          quantity: quantity,
-          price_id: price, // Assuming 'price' is defined somewhere in your component
-        };
-    
-        const response = await axios.post(process.env.BACKEND_URL + "/cart", payload, {
-          headers: { Authorization: `Bearer ${props.token}` },
-        });
-    
-        if (response.data.success === true) {
-          setProduct(response.data.bicycle);
-        }
-      } catch (error) {
-        console.error('Error adding product to cart:', error);
-        // Handle and display error to the user if needed
-      }
-    };
     /*funtion to add product tp the cart
     useEffect(() => {
       actions.buyNow(id, quantity, props, navigate);
@@ -203,7 +180,7 @@ function ProductDetail(props) {
                 </div>
                 <div className="d-flex">
                   <button 
-                    onClick={() => handleAddToCart()} 
+                    onClick={() => actions.addToCart(product.name, product.price, quantity, product.image_url)}
                     className="btn-By"
                   >
                     Add to Cart
