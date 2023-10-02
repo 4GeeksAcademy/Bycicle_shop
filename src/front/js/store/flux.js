@@ -84,7 +84,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem('access_token'); // Always remove token
 
 			},
-			addToCart: (name, price, quantity, image_url, price_id) => {
+			addToCart: (image_url, name, price, quantity, price_id) => {
 				const store = getStore();
 				const token = localStorage.getItem('access_token');
 
@@ -94,10 +94,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 				const payload = {
+					image_url: image_url,
 					name: name,
 					price: price,
 					quantity: quantity,
-					image_url: image_url,
 					price_id: price_id
 				};
 
