@@ -297,21 +297,34 @@ def create_checkout_session():
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         
         # Get items from the JSON request
-        OrderItem = request.json.get('items') 
+        items = request.json.get('items') 
 
-        # Ensure that 'OrderItem' is a list (array)
-        if not isinstance(OrderItem, list):
-            return jsonify({'error': 'OrderItem should be an array'}), 400
+        # Add each item to the database
+        for item_data in items:
+            price_id = item_data['price_id']
+            quantity = item_data['quantity']
+            
+            item = Order()
+            item.price_id = price_id
+            item.quantity = quantity
 
+            db.session.add(item)
+
+        # Commit all changes to the database
+        db.session.commit()
+
+        # Create a Stripe checkout session
         checkout_session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
-            line_items=OrderItem,  # Pass the 'items' from the request
             mode='payment',
-            success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
+            payment_method_types=["card"],
+            line_items=items,
+            success_url=current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
 
-    except Exception as e:
-        return str(e)
+        # Return the checkout session ID as a JSON response
+        return jsonify({'checkout_session_id': checkout_session.id})
 
-    return jsonify(checkout_session.url), 200
+    except Exception as e:
+        # Handle exceptions gracefully and return an error response
+        return jsonify({'error': str(e)}), 500  # 500 Internal Server Error

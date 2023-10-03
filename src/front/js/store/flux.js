@@ -325,7 +325,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (items) => {
+			checkout: async () => {
 				const token = localStorage.getItem('access_token');
 				try {
 				  let items = [];
@@ -336,10 +336,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  }
 			  
 				  store.cart.forEach(c => {
-					if (typeof c.price_id !== "string" || typeof c.quantity !== "number") {
-					  throw new Error("Invalid item in store.cart");
-					}
-			  
 					// Push each item to the 'items' array
 					items.push({ price_id: c.price_id, quantity: c.quantity });
 				  });
@@ -347,13 +343,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  if (items.length === 0) {
 					throw new Error("No items in the cart");
 				  }
-			  
+				  console.log("Items:", items); // Debugging line
 				  const opts = {
 					method: "POST",
 					headers: {
-					  "Content-Type": "application/json", // Ensure that Content-Type is set to application/json
-					  Authorization: `Bearer ${token}` 
-					},
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`
+					  },
 					body: JSON.stringify(items), // Convert items to JSON string
 				  };
 			  
@@ -364,14 +360,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					opts
 				  );
 			  
-				  console.log(resp);
-			  
 				  if (resp.ok) {
 					const data = await resp.json();
-					console.log("Response Data:", data);
-			  
+					console.log(data)
 					// Redirect to Stripe Checkout by replacing the current URL
-					window.location.replace(data);
+					window.location.replace(data)
 				  } else {
 					console.error("Error:", resp.status, resp.statusText);
 					// Handle the error appropriately
