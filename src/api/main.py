@@ -297,7 +297,7 @@ def create_checkout_session():
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         
         # Get items from the JSON request
-        OrderItem = request.json.get('items') 
+        OrderItem = request.json.get('items')  # Remove the square brackets around 'items'
 
         # Ensure that 'OrderItem' is a list (array)
         if not isinstance(OrderItem, list):
@@ -307,7 +307,7 @@ def create_checkout_session():
             payment_method_types=["card"],
             line_items=OrderItem,  # Pass the 'items' from the request
             mode='payment',
-            success_url= current_app.config['FRONTEND_URL'] + '/thanksMessage',
+            success_url=current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
 

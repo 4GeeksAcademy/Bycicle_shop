@@ -325,7 +325,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (items) => {
+			checkout: async () => {
 				const token = localStorage.getItem('access_token');
 				try {
 				  let items = [];
@@ -347,7 +347,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  if (items.length === 0) {
 					throw new Error("No items in the cart");
 				  }
-			  
+				  console.log("Items:", items); // Debugging line
 				  const opts = {
 					method: "POST",
 					headers: {
@@ -364,14 +364,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					opts
 				  );
 			  
-				  console.log(resp);
 			  
 				  if (resp.ok) {
-					const data = await resp.json();
-					console.log("Response Data:", data);
 			  
 					// Redirect to Stripe Checkout by replacing the current URL
-					window.location.replace(data);
+					window.location.replace(resp.url);
 				  } else {
 					console.error("Error:", resp.status, resp.statusText);
 					// Handle the error appropriately
