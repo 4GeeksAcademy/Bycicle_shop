@@ -325,7 +325,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async () => {
+			checkout: async (items) => {
 				const token = localStorage.getItem('access_token');
 				try {
 				  let items = [];
@@ -340,6 +340,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					  throw new Error("Invalid item in store.cart");
 					}
 			  
+					// Push each item to the 'items' array
 					items.push({ price_id: c.price_id, quantity: c.quantity });
 				  });
 			  
@@ -365,9 +366,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				  console.log(resp);
 			  
-				if (resp.ok) {
+				  if (resp.ok) {
 					const data = await resp.json();
-					console.log(data)
+					console.log("Response Data:", data);
+			  
 					// Redirect to Stripe Checkout by replacing the current URL
 					window.location.replace(data);
 				  } else {
