@@ -26,7 +26,7 @@ stripe = "*"
 python_version = "3.10"
 
 [scripts]
-start="flask run -p 3001 -h 0.0.0.0"
+start="flask run -p 5432 -h 0.0.0.0"
 init="flask db init"
 migrate="flask db migrate"
 local="heroku local"
