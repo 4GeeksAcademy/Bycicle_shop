@@ -1,70 +1,116 @@
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
+from flask import Flask, jsonify, send_from_directory
 import os
-from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
-from flask_swagger import swagger
 from flask_cors import CORS
-from api.utils import APIException, generate_sitemap
-from api.models import db
-from api.routes import api
-from api.admin import setup_admin
+from flask_jwt_extended import JWTManager
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import json
 from api.commands import setup_commands
+from api.utils import APIException, generate_sitemap
+from flask_mail import Mail, Message
+import stripe
 
-#from models import Person
+# Importing configurations
+from api.config import Config
 
-ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
-static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
-app = Flask(__name__)
-app.url_map.strict_slashes = False
+# Importing blueprints
+from api.routes import api as api_blueprint
+from api.main import main as main_blueprint
+from api.auth import auth as auth_blueprint
 
-# database condiguration
-db_url = os.getenv("DATABASE_URL")
-if db_url is not None:
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://")
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
+# Importing admin setup function
+from api.admin import setup_admin  
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-MIGRATE = Migrate(app, db, compare_type = True)
-db.init_app(app)
+# Importing models
+from api.models import db
 
-# Allow CORS requests to this API
-CORS(app)
+# Load environment variables
+load_dotenv()
 
-# add the admin
-setup_admin(app)
+def create_app():
+    app = Flask(__name__)
+    
+    # Load configurations
+    app.config.from_object(Config)
 
-# add the admin
-setup_commands(app)
+    # Initialize database
+    db.init_app(app)
+    migrate = Migrate(app, db)
 
-# Add all endpoints form the API with a "api" prefix
-app.register_blueprint(api, url_prefix='/api')
+    # Initialize JWT
+    jwt = JWTManager(app)
 
-# Handle/serialize errors like a JSON object
-@app.errorhandler(APIException)
-def handle_invalid_usage(error):
-    return jsonify(error.to_dict()), error.status_code
+    # Initialize CORS
+    #CORS(app, origins="*")
+    CORS(app, origins=[os.getenv("FRONTEND_URL")])
+    
+    # Initialize Admin
+    setup_admin(app)  
 
-# generate sitemap with all your endpoints
-@app.route('/')
-def sitemap():
-    if ENV == "development":
-        return generate_sitemap(app)
-    return send_from_directory(static_file_dir, 'index.html')
+    # add the admin
+    setup_commands(app)
 
-# any other endpoint will try to serve it like a static file
-@app.route('/<path:path>', methods=['GET'])
-def serve_any_other_file(path):
-    if not os.path.isfile(os.path.join(static_file_dir, path)):
-        path = 'index.html'
-    response = send_from_directory(static_file_dir, path)
-    response.cache_control.max_age = 0 # avoid cache memory
-    return response
+    #inatialize mail instance
+    mail = Mail(app) 
 
+    # Register blueprints
+    app.register_blueprint(api_blueprint)
+    app.register_blueprint(main_blueprint)
+    app.register_blueprint(auth_blueprint)
 
-# this only runs if `$ python src/main.py` is executed
+    @app.route('/import-data', methods=['POST'])
+    def import_data():
+        try:
+            import_data_from_json('bicycles.json')
+            return jsonify({'message': 'Data imported successfully'}), 200
+        except Exception as e:
+            return jsonify({'message': 'Error importing data', 'error': str(e)}), 500
+
+    def import_data_from_json(json_file):
+        # Open and read the JSON file
+        with open(json_file, 'r') as file:
+            data = json.load(file)
+
+        
+        from api.models import Bicycle
+
+        # Iterate over the JSON data and create Bicycle objects
+        for item in data:
+            bicycle = Bicycle(
+                name=item['name'],
+                manufacturer=item['manufacturer'],
+                material=item['material'],
+                gender=item['gender'],
+                type=item['type'],
+                color=item['color'],
+                weight=item['weight'],
+                price=item['price'],
+                instock=item['instock']
+            )
+            db.session.add(bicycle)
+
+        # Commit the changes to the database
+        db.session.commit()
+
+    # generate sitemap with all your endpoints
+    @app.route('/')
+    def sitemap():
+        
+            return generate_sitemap(app)
+       
+
+    static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
+    @app.route('/<path:path>', methods=['GET'])
+    def serve_any_other_file(path):
+        if not os.path.isfile(os.path.join(static_file_dir, path)):
+            path = 'index.html'
+        response = send_from_directory(static_file_dir, path)
+        response.cache_control.max_age = 0  
+        return response
+
+    return app
+
 if __name__ == '__main__':
-    PORT = int(os.environ.get('PORT', 3001))
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    app = create_app()
+    app.run(port=4242)

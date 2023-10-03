@@ -1,0 +1,61 @@
+.big-box {
+    background-color: #484545;
+    color: black;
+    height: 10vh;
+    width: 100%;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 0;
+}
+.link {
+    color: black;
+    text-decoration: none;
+}
+.link:hover {
+    color: black;
+}
+.terms {
+    width: 100%;
+}
+p {
+    width: 100%;
+    margin: 0;
+}
+.footerLinks {
+    justify-content: end;
+    gap: 30px;
+}
+.develop {
+    display: flex;
+    gap: 10px;
+}
+.my-fa-copyright {
+    margin-top: 18px;
+}
+/*css to make the site responsive*/
+@media screen and (max-width: 995px) {
+    .my-fa-comment-dots {
+       display: none;
+    }
+    .link {
+        border: none;
+    }
+}
+@media screen and (max-width: 600px) {
+    .big-box {
+        height: 8vh;
+    }
+    .my-fa-copyright {
+        margin: 0px;
+    }
+    p {
+        font-size: x-small;
+    }
+}
+@media screen and (max-width: 400px) {
+    .my-fa-copyright {
+        width: 20px;
+    }
+}

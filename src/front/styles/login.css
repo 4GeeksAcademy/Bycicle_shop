@@ -1,0 +1,71 @@
+.my-login {
+  background-color: black;
+  border-radius: 6px;
+  width: 80%;
+  height: 32rem;
+  margin: auto;
+  padding: 20px;
+  color: #484545;
+}
+.text-login {
+  color: white;
+  text-align: center;
+  font-size: 80px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 2px;
+}
+.form-check-input-container {
+   margin-right: 10px;
+  }
+  .form-input-login {
+    background-color: #484545;
+    width: 100%;
+    border: none;
+    outline: #484545;
+  }
+  .form-check-input-login  {
+    background-color: #484545;
+  }
+  .btn-login {
+    background-color: #7C0514;
+    color: black;
+    padding: 3px;
+    font-weight: 700;
+    text-align: center;
+    padding: 3px 7px 3px 7px;
+    border-radius: 6px;
+    border: 0px;
+  }
+  .btn-login-google {
+    text-align: center;
+  }
+  .login-google {
+    background-color: black;
+    padding: 0;
+
+  }
+  .line-login {
+    border: solid 1px #484545;
+    height: 1px;
+  }
+  .forgot-link {
+    color: #484545;
+    font-style: italic;
+    text-decoration: none;
+    font-size: smaller;
+    text-align: end;
+    padding-left: 20px;
+  }
+  .forgot-link:hover {
+    color: #484545;
+    font-weight: 700;
+  }
+  /*css to make the site responsive*/
+@media screen and (max-width: 1000px) {
+  .text-login {
+    font-size: 50px;
+  }
+  .btn-login-google {
+    height: 40px;
+  }
+}

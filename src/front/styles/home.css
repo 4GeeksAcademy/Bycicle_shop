@@ -1,7 +1,90 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+.home-container {
+    justify-items: center;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+.my-carousel {
+   transition: transform .3s ease-in;
+}
+.carousel-text {
+      text-align: center;
+      color: #7C0514;
+      font-size: 30px;
+      font-weight: 600;
+      border-bottom: solid 3px #7C0514;
+      width: 39vh;
+      margin:auto;
+      position: absolute;
+      text-decoration: none;
+    }
+    .carousel-text:hover {
+      color: black;
+    }
+ .carousel-container {
+    border-radius: 6px;
+    margin: auto;
+    height: 80vh;
+    z-index: 0;
+ }  
+ .equal-height-img {
+   width: 100%;
+   height: 80vh;
+  }
+ .btn-ai {
+    background-color: black;
+    color: white;
+    border-radius: 6px;
+    font-weight: 500;
+    padding: 0;
+    width: 58vh;
+    padding: 10px;
+    margin: auto;
+ }
+/*css to make the site responsive*/
+@media screen and (max-width: 2000px) {
+   .btn-ai {
+      width: 80vh;
+      height: 6vh;
+   }
+   .carousel-container {
+      width: 80%;
+      margin: auto;
+   } 
+ }
+ /*css to make the site responsive*/
+@media screen and (max-width: 1000px) {
+   .btn-ai {
+      font-size: 10px;
+      width: 45vh;
+      font-weight: 100;
+   }
+ }
+ @media screen and (max-width: 500px) {
+   .btn-ai {
+      font-size: 10px;
+      width: 45vh;
+      font-weight: 100;
+   }
+   .arrow-control {
+      position: inherit;
+      bottom: 60vh;
+   }
+ }
+ @media screen and (max-width: 375px) {
+   .home-container {
+      display:flow-root;
+  }
+    .carousel-container {
+      margin-top: 10px;
+      height: 50vh;
+      width: 50vh;
+   }  
+   .btn-ai {
+      margin-left: 40px;
+   } 
+   .equal-height-img {
+      width: 100%;
+      height: 50vh;
+     }
+}
