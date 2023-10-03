@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { json } from 'react-router-dom';
+import stripe from 'stripe';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -364,12 +365,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				  console.log(resp);
 			  
-				  if (resp.ok) {
-					const data = await resp.json(); 
-					console.log(data);
-			  
-					// Redirect to the Stripe Checkout URL
-					window.location.replace(data.url);
+				if (resp.ok) {
+					const data = await resp.json();
+					console.log(data)
+					// Redirect to Stripe Checkout by replacing the current URL
+					window.location.replace(data);
 				  } else {
 					console.error("Error:", resp.status, resp.statusText);
 					// Handle the error appropriately
