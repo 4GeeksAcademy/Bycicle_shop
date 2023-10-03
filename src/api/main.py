@@ -293,11 +293,17 @@ def send_support_email():
 @cross_origin()
 def create_checkout_session():
     try:
-        # Get 'items' from the JSON request
+        # Set the Stripe API key
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         
-        # Get items from the JSON request
+        # Get 'items' from the JSON request
         OrderItem = request.json.get('items') 
+
+        # Ensure that 'OrderItem' is a list (array)
+        if not isinstance(OrderItem, list):
+            return jsonify({'error': 'OrderItem should be an array'}), 400
+
+        # Create a Stripe Checkout session
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=OrderItem,  # Pass the 'items' from the request

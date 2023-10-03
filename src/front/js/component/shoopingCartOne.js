@@ -71,7 +71,7 @@ export const ShoppingCartOne = (props) => {
             </button>
           </div>
           <div>
-            <p>{item.totalPrice}€</p>
+            <p>{item.price} €</p>
           </div>
         </div>
       </div>
