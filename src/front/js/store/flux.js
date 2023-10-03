@@ -350,7 +350,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  const opts = {
 					method: "POST",
 					headers: {
-					  "Content-Type": "application/json", // Ensure that Content-Type is set to application/json
+					  'Content-Type': 'application/json', // Ensure that Content-Type is set to application/json
 					  Authorization: `Bearer ${token}` 
 					},
 					body: JSON.stringify(items), // Convert items to JSON string

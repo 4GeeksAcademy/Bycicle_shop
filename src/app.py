@@ -38,6 +38,8 @@ def create_app():
     db.init_app(app)
     migrate = Migrate(app, db)
 
+    db = SQLAlchemy(app)
+
     # Initialize JWT
     jwt = JWTManager(app)
 
