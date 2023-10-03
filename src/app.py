@@ -33,6 +33,8 @@ def create_app():
     
     # Load configurations
     app.config.from_object(Config)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://gitpod:postgres@localhost:5432/bicycle'
+
 
     # Initialize database
     db.init_app(app)
