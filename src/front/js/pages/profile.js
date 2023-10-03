@@ -72,19 +72,18 @@ const Profile = () => {
           </div>
         </div>
         {show === 'last_order' && (
-          <div className="order">
+          store.cart.map((item, index) => (
+          <div key={index} className="order">
             <h4><i className="fa-solid fa-box-open"></i> Last Order</h4>
             <div className="details">
               <div className="my-details">
-                <p>Order: Nº{store.orders.id} </p>
-                <p>Date: {store.orders.date} </p>
-                <p>Price: {store.orders.price} </p>
-                <p>Product: {store.orders.product}</p>
+                <p>Order: Nº{index} </p>
+                <p>Price: {item.price} </p>
+                <p>Product: {item.name}</p>
               </div>
             </div>
           </div>
-        )}
-
+        )))}
         {show === 'personal_data' && (
           <div className="order">
             <h4>Personal Data</h4>
@@ -95,16 +94,16 @@ const Profile = () => {
           </div>
         )}
         {show === 'orders' && (
-          <div className="order">
+          store.cart.map((item, index) => (
+          <div key={index} className="order">
             <h4>Orders</h4>
               <div className="details-data">
-                  <p>Order: Nº{store.orders.id}</p>
-                  <p>Date: {store.orders.date}</p>
-                  <p>Price: {store.orders.price}</p>
-                  <p>Product: {store.orders.product}</p>
+              <p>Order: Nº{index} </p>
+                <p>Price: {item.price} </p>
+                <p>Product: {item.name}</p>
               </div>
           </div>
-        )}
+        )))}
       </div>
       <div className="btn-container">
         <br />

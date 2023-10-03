@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { json } from 'react-router-dom';
+import stripe from 'stripe';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -324,42 +325,59 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return false;
 			},
 			// Function to make the checkout
-			checkout: async (token
-				) => {
-					let items = []
-				let store = getStore()
-				store.cart.forEach(c => {
-					items.push({ price_id: c.price_id, quantity: c.quantity })
-				})
-				const opts = {
+			checkout: async () => {
+				const token = localStorage.getItem('access_token');
+				try {
+				  let items = [];
+				  let store = getStore();
+			  
+				  if (!Array.isArray(store.cart)) {
+					throw new Error("store.cart is not an array");
+				  }
+			  
+				  store.cart.forEach(c => {
+					if (typeof c.price_id !== "string" || typeof c.quantity !== "number") {
+					  throw new Error("Invalid item in store.cart");
+					}
+			  
+					items.push({ price_id: c.price_id, quantity: c.quantity });
+				  });
+			  
+				  if (items.length === 0) {
+					throw new Error("No items in the cart");
+				  }
+			  
+				  const opts = {
 					method: "POST",
 					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}` 
+					  "Content-Type": "application/json", // Ensure that Content-Type is set to application/json
+					  Authorization: `Bearer ${token}` 
 					},
 					body: JSON.stringify(items), // Convert items to JSON string
-				};
-				console.log("JSON Data:", JSON.stringify(items));
-				try {
-					const resp = await fetch(
-						`${process.env.BACKEND_URL}/create-checkout-session`,
-						opts
-					);
-					console.log(resp);
-					if (resp.ok) {
-						const data = await resp.json();
-						console.log(data);
-						// Redirect to Stripe Checkout by replacing the current URL
-						window.location.replace(checkout_session.url);
-						console.log(checkout_session.url)
-					} else {
-						console.error("Error:", resp.status, resp.statusText);
-						// Handle the error appropriately
-					}
+				  };
+			  
+				  console.log("JSON Data:", JSON.stringify(items));
+			  
+				  const resp = await fetch(
+					`${process.env.BACKEND_URL}/create-checkout-session`,
+					opts
+				  );
+			  
+				  console.log(resp);
+			  
+				if (resp.ok) {
+					const data = await resp.json();
+					console.log(data)
+					// Redirect to Stripe Checkout by replacing the current URL
+					window.location.replace(data);
+				  } else {
+					console.error("Error:", resp.status, resp.statusText);
+					// Handle the error appropriately
+				  }
 				} catch (error) {
-					console.error("Error message:", error.message);
+				  console.error("Error message:", error.message);
 				}
-			},
+			  },
 			// Function to send a POST request to your server to initiate the password reset process
 			resetPassword: async (token, email) => {
 				const opts = {
