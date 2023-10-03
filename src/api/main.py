@@ -299,14 +299,10 @@ def create_checkout_session():
         # Get items from the JSON request
         OrderItem = request.json.get('items')  # Remove the square brackets around 'items'
 
-        # Ensure that 'OrderItem' is a list (array)
-        if not isinstance(OrderItem, list):
-            return jsonify({'error': 'OrderItem should be an array'}), 400
-
         checkout_session = stripe.checkout.Session.create(
+            mode='payment',
             payment_method_types=["card"],
             line_items=OrderItem,  # Pass the 'items' from the request
-            mode='payment',
             success_url=current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )

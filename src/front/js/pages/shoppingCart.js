@@ -8,8 +8,8 @@ export const ShoppingCart = (props) => {
   const cart = store.orders;
 
   // call function checkout
-  const handleCheckout = () => {
-    actions.checkout();
+  const handleCheckout = (items) => {
+    actions.checkout(items);
   }
 
   return (

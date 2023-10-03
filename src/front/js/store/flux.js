@@ -336,10 +336,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  }
 			  
 				  store.cart.forEach(c => {
-					if (typeof c.price_id !== "string" || typeof c.quantity !== "number") {
-					  throw new Error("Invalid item in store.cart");
-					}
-			  
 					// Push each item to the 'items' array
 					items.push({ price_id: c.price_id, quantity: c.quantity });
 				  });
@@ -364,9 +360,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					opts
 				  );
 			  
-			  
 				  if (resp.ok) {
-			  
 					// Redirect to Stripe Checkout by replacing the current URL
 					window.location.replace(resp.url);
 				  } else {
