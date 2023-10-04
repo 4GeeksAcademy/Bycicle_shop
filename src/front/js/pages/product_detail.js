@@ -180,7 +180,7 @@ function ProductDetail(props) {
                 </div>
                 <div className="d-flex">
                   <button 
-                    onClick={() => actions.addToCart(product.image_url, product.name, product.price, quantity, product.price_id)}
+                    onClick={() => actions.addToCart(product.image_url, product.name, product.price, quantity, product.price_id, id)}
                     className="btn-By"
                   >
                     Add to Cart
@@ -188,7 +188,7 @@ function ProductDetail(props) {
                   <Link to="/shoppingCart">
                     <button
                       className="btn-By"
-                      onClick={() => actions.addToCart(product.image_url, product.name, product.price, quantity, product.price_id)}
+                      onClick={() => actions.addToCart(product.image_url, product.name, product.price, quantity, product.price_id, id)}
                     >
                       Buy Now
                     </button>

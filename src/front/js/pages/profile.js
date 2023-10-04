@@ -46,6 +46,7 @@ const Profile = () => {
         }
       });
   }
+  
 
   return (
     <div className="container min-height-100 my-5">
