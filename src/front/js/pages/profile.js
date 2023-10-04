@@ -15,6 +15,7 @@ const Profile = () => {
   const params = useParams();
   const navigate = useNavigate();
   const { setIsLoggedIn } = useUser();
+  const [cart, setCart] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -64,26 +65,12 @@ const Profile = () => {
         <div className="order-description col-4">
           <div className="my-order-description col-8">
             <p>Personal Data</p>
-            <p>Orders</p>
           </div>
           <div>
             <p><i onClick={() => { setShow('personal_data'); setShowClass1(true); setShowClass3(false); }} className={`profile-fa fa-solid fa-chevron-down ${showClass1 ? 'profile-fa-active' : ''}`}></i></p>
-            <p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>
+       
           </div>
         </div>
-        {show === 'last_order' && (
-          store.cart.map((item, index) => (
-          <div key={index} className="order">
-            <h4><i className="fa-solid fa-box-open"></i> Last Order</h4>
-            <div className="details">
-              <div className="my-details">
-                <p>Order: Nº{index} </p>
-                <p>Price: {item.price} </p>
-                <p>Product: {item.name}</p>
-              </div>
-            </div>
-          </div>
-        )))}
         {show === 'personal_data' && (
           <div className="order">
             <h4>Personal Data</h4>
@@ -93,17 +80,6 @@ const Profile = () => {
             </div>
           </div>
         )}
-        {show === 'orders' && (
-          store.cart.map((item, index) => (
-          <div key={index} className="order">
-            <h4>Orders</h4>
-              <div className="details-data">
-              <p>Order: Nº{index} </p>
-                <p>Price: {item.price} </p>
-                <p>Product: {item.name}</p>
-              </div>
-          </div>
-        )))}
       </div>
       <div className="btn-container">
         <br />

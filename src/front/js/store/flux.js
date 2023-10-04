@@ -85,7 +85,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem('access_token'); // Always remove token
 
 			},
-			addToCart: (image_url, name, price, quantity, price_id) => {
+			addToCart: (image_url, name, price, quantity, price_id, bicycle_id) => {
 				const store = getStore();
 				const token = localStorage.getItem('access_token');
 
@@ -99,7 +99,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					name: name,
 					price: price,
 					quantity: quantity,
-					price_id: price_id
+					price_id: price_id,
+					bicycle_id: bicycle_id
 				};
 
 				setStore({ cart: store.cart.concat(payload) })
@@ -324,36 +325,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false;
 			},
-			// Function to make the checkout
+			
 			checkout: async () => {
 				const token = localStorage.getItem('access_token');
 				try {
 				  let items = [];
 				  let store = getStore();
 			  
+				  // Validate if store.cart is an array
 				  if (!Array.isArray(store.cart)) {
-					throw new Error("store.cart is not an array");
+					throw new Error("Cart is not an array");
 				  }
 			  
+				  // Validate and format cart items
 				  store.cart.forEach(c => {
+					if (typeof c.price_id !== 'string' || typeof c.quantity !== 'number') {
+					  throw new Error("Invalid cart item");
+					}
+					console.log(c)
 					// Push each item to the 'items' array
-					items.push({ price_id: c.price_id, quantity: c.quantity });
+					items.push({ price: c.price_id, quantity: c.quantity, id:c.bicycle_id});
 				  });
 			  
+				  // Check if there are items in the cart
 				  if (items.length === 0) {
 					throw new Error("No items in the cart");
 				  }
+			  
 				  console.log("Items:", items); // Debugging line
 				  const opts = {
 					method: "POST",
 					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`
-					  },
-					body: JSON.stringify(items), // Convert items to JSON string
+					  "Content-Type": "application/json", // Set the Content-Type header to JSON
+					  Authorization: `Bearer ${token}`
+					},
+					body: JSON.stringify({ items }), // Convert items to JSON string
 				  };
 			  
-				  console.log("JSON Data:", JSON.stringify(items));
+				  console.log("JSON Data:", JSON.stringify({ items }));
 			  
 				  const resp = await fetch(
 					`${process.env.BACKEND_URL}/create-checkout-session`,
@@ -362,15 +371,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 				  if (resp.ok) {
 					const data = await resp.json();
-					console.log(data)
+					console.log(data);
 					// Redirect to Stripe Checkout by replacing the current URL
-					window.location.replace(data)
+					window.location.replace(data.url); // Assuming 'url' is the correct property
 				  } else {
 					console.error("Error:", resp.status, resp.statusText);
-					// Handle the error appropriately
+					// Handle the error appropriately, e.g., show an error message to the user
 				  }
 				} catch (error) {
 				  console.error("Error message:", error.message);
+				  // Handle the error appropriately, e.g., show an error message to the user
 				}
 			  },
 			// Function to send a POST request to your server to initiate the password reset process

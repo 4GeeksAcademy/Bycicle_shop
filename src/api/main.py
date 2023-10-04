@@ -291,6 +291,7 @@ def send_support_email():
 # endpoint for checkout session
 @main.route("/create-checkout-session", methods=["POST"])
 @cross_origin()
+@jwt_required()
 def create_checkout_session():
     try:
         # Get 'items' from the JSON request
@@ -298,32 +299,41 @@ def create_checkout_session():
         
         # Get items from the JSON request
         items = request.json.get('items') 
-
-        # Add each item to the database
-        for item_data in items:
-            price_id = item_data['price_id']
-            quantity = item_data['quantity']
-            
-            item = Order()
-            item.price_id = price_id
-            item.quantity = quantity
-
-            db.session.add(item)
-
-        # Commit all changes to the database
-        db.session.commit()
-
+        line_items = []
+        for i in items:
+            line_items.append({ "price": i["price"], "quantity": i["quantity"]})
+           
+        print(line_items)
+        print(items) 
         # Create a Stripe checkout session
         checkout_session = stripe.checkout.Session.create(
             mode='payment',
             payment_method_types=["card"],
-            line_items=items,
+            line_items=line_items,
             success_url=current_app.config['FRONTEND_URL'] + '/thanksMessage',
             cancel_url=current_app.config['FRONTEND_URL'],
         )
 
+        # Prepare line items for Stripe checkout session
+        order = Order()
+        order.user_id = get_jwt_identity()
+        db.session.add(order)
+        db.session.commit()
+        print(order.id)
+        for i in items:
+            order_item = OrderItem()
+            order_item.order_id = order.id
+            order_item.user_id = get_jwt_identity()
+            order_item.bicycle_id = i["id"]
+            order_item.quantity = i["quantity"]
+
+            db.session.add(order_item)
+            db.session.commit()
+        
+        print(checkout_session.url)
         # Return the checkout session ID as a JSON response
-        return jsonify({'checkout_session_id': checkout_session.id})
+        return jsonify({ "url": checkout_session.url })
+
 
     except Exception as e:
         # Handle exceptions gracefully and return an error response
