@@ -4,6 +4,7 @@
     width: 100%;
     padding-left: 5vh;
     padding-right: 5vh;
+    padding-top: 30px;
 }   
 .navbar-container {
     padding: 0; 
@@ -175,8 +176,8 @@ li {
         margin-top: 40px;
         background-color: #7C0514;
         border-radius: 6px;
-        width: 20vh;
-        height: 41vh;
+        width: 22vh;
+        height: 44vh;
         position:absolute;
         z-index: 4;
     }
@@ -185,13 +186,14 @@ li {
         margin-left: 10px;
         margin-right: 10px;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 30px;
         text-decoration: none;
         color: black;
     }  
     .icon {
         margin: 0;
-        font-size: small;
+        font-size: 30px;
+
     }
     .my-btn {
         margin: 0px;
@@ -212,25 +214,13 @@ li {
     .chatbot-control {
         width: 80%;
     }
-    .dropdown-language {
-        margin-left: 0;
-    }
   }
   @media screen and (max-width: 1000px) {
     .navbar-box {
         height: 20vh;
     }
-    .my-collapse {
-        height: 290.vh;
-    }
   }
 @media screen and (max-width: 550px) {
-    .language {
-        border-radius: 6px;
-        margin-left: 2rem;
-        font-size: xx-small;
-        z-index: 3;
-    } 
     .my-collapse {
         font-size: small;
         z-index: 3;
@@ -254,9 +244,5 @@ li {
     }
     .menu {
         margin-right: 40px;
-    }
-    .dropdown-language {
-        left: 50rem;
-        top: 0;
     }
 }

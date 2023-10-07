@@ -1,5 +1,6 @@
 .hello {
     color: white;
+    font-size: 70px;
 }
 .profile {
     color: black;
@@ -11,14 +12,15 @@
 .order-description {
     display: flex;
     gap: 50px;
-    width: 20%;
-    font-size: large;
+    width: 30%;
+    font-size: 30px;
 }
 .order {
-    border: solid 1px black;
+    border: solid 2px black;
     border-radius: 6px;
-    padding: 3px;
+    padding: 9px;
     width: 65%;
+    font-size: 20px;
     height: fit-content;
 }
 .details {
@@ -57,16 +59,18 @@
 }
 .return-second {
     text-decoration: none;
+    font-size: 20px;
     color: black;
     padding: 3px;
 }  
 .return-second:hover {
-    color: #484545;
     font-weight: 500;
+    color: black;
 } 
 .details-data {
     padding: 3px;
     width: 100%;
+    font-size: 18px;
     position: static;
 }
 /*css to make the site responsive*/

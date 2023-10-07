@@ -117,8 +117,8 @@ export function Login(props) {
     return (
           <div className="container-fluid min-height-100 ">
               <h1 className="text-login">Login</h1>
-              <div className="container my-login">
-                <div className="btn-login-google">
+             <div className="container my-login">
+               {/* <div className="btn-login-google">
                   <GoogleLogin
                     clientId="YOUR_GOOGLE_CLIENT_ID"
                     buttonText="LOGIN WITH GOOGLE "
@@ -132,7 +132,7 @@ export function Login(props) {
                   <div className="col-5 line-login"></div>
                   <div className="col-2 p-0">or</div>
                   <div className="col-5 line-login"></div>
-                </div>
+    </div>*/}
                 <br />
                 <div className="form-outline mb-4">
                   <input
@@ -156,6 +156,7 @@ export function Login(props) {
                     required
                   />
                 </div>
+                <br/>
                 <div className="form-check d-flex row mt-4 p-0 ms-0">
                   <div className="d-flex ">
                     <div className=" d-flex col-6 ">
@@ -179,6 +180,9 @@ export function Login(props) {
                   </Link>
                 </div>
                 </div>
+                <br/>
+                <br/>
+                <br/>
                 <br/>
                 <br/>
                 <br/>

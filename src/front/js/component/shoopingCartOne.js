@@ -33,11 +33,10 @@ export const ShoppingCartOne = (props) => {
             <img
               src={item.image_url}
               className="img-cart"
-              alt="Generic placeholder image"
+              alt={`Image of ${item.name}`}
             />
             <div>
               <p>{item.name}</p>
-              <p className="smaller-p">{item.description}</p>
             </div>
           </div>
           <div className="flex-end">
@@ -117,7 +116,7 @@ export const ShoppingCartOne = (props) => {
               id="flexCheckDefault"
             />
             <Link className="link" to="/terms">
-              <label className="form-check-label link-shopping my-form-check-label">
+              <label className="link-shopping ">
                 I approve terms and conditions
               </label>
             </Link>

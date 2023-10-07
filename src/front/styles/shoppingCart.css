@@ -6,7 +6,8 @@
     color: white;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     letter-spacing: 2px;
-    font-size: 60px;
+    font-size: 80px;
+    margin-bottom: 20px;
 }
 .cart-description {
     display: flex;
@@ -15,9 +16,11 @@
     color: black;
     border-bottom: solid 1px black;
     padding: 5px;
+    font-size: 30px;
 }
 .img-cart {
     width: 85px;
+    border-radius: 6px;
 }
 .product-order1 {
     display: flex;
@@ -48,6 +51,7 @@
     width: 60%;
     margin: 15px 0 15px 0;
     line-height: 15px;
+    font-size: 20px;
 }    
 .cart-details2 {
     display: flex;
@@ -68,31 +72,38 @@
 }
 .set-btn {
     display: flex;
-    height: 29px;
+    height: 44px;
 }
-.btn-cart1 {
+.btn-detail1 {
     background-color: white;
     color: black;
+    font-size: 20px;
     border-radius: 6px 0 0 6px;
     border: solid 1px black;
+    padding: 6px;
     text-align: center;
 }
-.btn-cart2 {
+.btn-detail2 {
     background-color: white;
     color: black;
+    font-size: 20px;
     border: solid 1px black;
     border-radius: 0 6px 6px 0;
     text-align: center;
+    padding: 6px;
 }
-.btn-middle {
+.btn-detail-middle {
     background-color: white;
     color: black;
     border: solid 1px black;
     width: 30px;
+    font-size: 20px;
     text-align: center;
+    padding: 6px;
 }
 .cart-form {
     color: black;
+    font-size: 20px;
 }
 .cart-form-check {
     margin: 0;
@@ -109,10 +120,11 @@
     background-color: black;
     color: #7C0514;
     font-weight: 500;
-    padding: 6px 21px 6px 21px;
+    font-size: 30px;
+    margin-left: 20px;
+    padding: 7px 25px 7px 25px;
     border-radius: 6px;
-    border: 0px;
-    height: auto;
+    border: none;
 }
 .btn-set-check {
     display: grid;
@@ -169,40 +181,8 @@
     width: 90%;
     padding: 5px;
 }
-.ship-check-input {
-    background-color: #484545;
-}
-.ship-check-radio {
-    background-color: #484545;
-}
-.ship-check-label {
-    display: flex;
-    justify-content: space-between;
-}
-.last-ship {
-    margin-top: 35vh;
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    width: 100%;
-}
-.shipping-dropdown-toggle {
-    border: none;
-    background-color: transparent;
-}
-.shipping-dropdown-toggle::after {
-    border: 0 !important;
-}
-.shipping-collapse {
-    background-color: #B1AFAF;
-    z-index: 3;
-}
-.shipping-collapse-payment {
-    height: 60px;
-    justify-content: center;
-}
-.shipping-form {
-    font-size: 16px;
+.link-shopping  {
+    color: black;
 }
 .return-shipping {
     cursor: pointer;
