@@ -119,31 +119,31 @@ function ProductDetail(props) {
                 <h2 className="mb-3 pt-2 text-start fw-bold text-uppercase">
                   {product && product.name}
                 </h2>
-                <h6>
+                <h4>
                   Color: {product && product.color}
-                </h6>
-                <h6>
+                </h4>
+                <h4>
                   Manufacturer: {product && product.manufacturer}
-                </h6>
-                <h6>
+                </h4>
+                <h4>
                   Material: {product && product.material}
-                </h6>
-                <h6>
+                </h4>
+                <h4>
                   Weight: {product && product.weight}
-                </h6>
-                <h6>
+                </h4>
+                <h4>
                   price: {product && product.price}
-                </h6>
+                </h4>
                 <br />
                 <br />
-                <h6>
+                <h4>
                   {reviews.length} reviews
-                </h6>
+                </h4>
                 <br />
                 <br />
-                <h6 className="d-flex justify-content-start  w-100">
+                <h4 className="d-flex justify-content-start  w-100">
                   Quantity
-                </h6>
+                </h4>
                 <div className="d-flex justify-content-between p-2 mb-2">
                   <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <div

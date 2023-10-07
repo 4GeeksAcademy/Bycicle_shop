@@ -12,18 +12,21 @@
 .btn-product-card {
   background-color: #7C0514;
   color: black;
-  padding: 3px;
+  font-weight: 500;
+  font-size: 18px;
   margin-left: 20px;
-  padding: 6px 14px 6px 14px;
+  padding: 7px 25px 7px 25px;
   border-radius: 6px;
-  border: 0px;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
   z-index: 3;
   position: absolute;
   left: 45vh;
-  top: 40vh;
+  top: 37vh;
 }
-.card-paragraf {
-  font-size: 14px;
+.card-product {
+  font-size: 20px;
+  margin-left: 10px;
 }
 .card-producct-img {
   border: solid 1px black;

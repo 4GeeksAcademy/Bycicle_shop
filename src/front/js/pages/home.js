@@ -11,9 +11,7 @@ export const Home = () => {
     home-container min-height-100">
       <div className="text-center">
           <div className="d-flex justify-content-around btn-ai my-3">
-            <i className="fa-solid fa-person-biking"></i>
             Bicycles Galery
-            <i className="fa-solid fa-person-biking"></i>
           </div>
       </div>
       <div id="carouselExampleAutoplaying" className="carousel carousel-dark slide" data-bs-ride="carousel">

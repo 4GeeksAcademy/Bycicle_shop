@@ -76,19 +76,17 @@ export const ContactUs = () => {
                   <input className="control-contact" type="text" placeholder="The issue/problem" aria-label="default input example" value={issue} onChange={(e) => setIssue(e.target.value)} />
                   <br />
                   <br />
-                  <textarea className="textarea-contact" name="story" rows="4" placeholder="Description"  value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                  <textarea className="textarea-contact" name="story" rows="8" placeholder="Description"  value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                   </div>
                   
-                  <div className="row me-3">
+                  <div className="row ">
                   <p className="text-danger">{result}</p>
                       <div >
-                        <button className="btn-contact" onClick={handleSendEmail}>Send</button>
+                        <button className="btn-contact mb-3" onClick={handleSendEmail}>Send</button>
                       </div>
                   </div>
               </form>
               </div>
-              <br/ >
-              <br/ >
               <div>
                 <h1 className="title-contactus text-center">Our Contacts</h1>
                 <div className="our-contacts"> 

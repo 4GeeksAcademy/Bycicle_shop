@@ -13,22 +13,24 @@
     background-color: black;
     border-radius: 6px;
     width: 80%;
-    height: 32rem;
+    height: 49rem;
     margin: auto;
     z-index: 0;
   }
   .control-contact {
     background-color: #484545;
     color: #1A1919;
+    font-size: 20px;
     padding: 0px 10px 0px 10px;
     width: 95%;
     border-radius: 6px;
     border: 0px;
-    height: 40px;
+    height: 70px;
   }
   .textarea-contact {
     background-color: #484545;
     color: #1A1919;
+    font-size: 20px;
     padding: 0px 10px 0px 10px;
     border-radius: 6px;
     width: 95%;
@@ -37,17 +39,16 @@
   .btn-contact {
     background-color: #7C0514;
     color: black;
-    padding: 3px;
-    font-weight: 700;
-    margin-left: 20px;
-    padding: 3px 7px 3px 7px;
+    font-weight: 500;
+    font-size: 30px;
+    padding: 7px 25px 7px 25px;
     border-radius: 6px;
-    border: 0px;
-    margin-top: 10vh;
+    border: none;
   }
   .our-contacts {
     color: black;
-    width: 50%;
+    width: 60%;
+    font-size: 20px;
     margin: auto;
   }
   /*css to make the site responsive*/

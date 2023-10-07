@@ -1,6 +1,6 @@
 .navbar-box {
     background-color: #484545;
-    height: 21vh;
+    height: 16vh;
     width: 100%;
     padding-left: 5vh;
     padding-right: 5vh;
@@ -18,14 +18,15 @@
 .my-btn {
     background-color: #7C0514;
     color: black;
-    padding: 3px;
     font-weight: 500;
+    font-size: 30px;
     margin-left: 20px;
-    padding: 2px 5px 2px 5px;
+    padding: 7px 25px 7px 25px;
+    border-radius: 6px;
 }
 .icon {
     color: black;
-    font-size: xx-large;
+    font-size: 50px;
     margin-left: 20px;
 }
 .my-dropdown-menu {
@@ -41,6 +42,7 @@ li {
 }
 .my-dropdown-item {
     border-bottom: solid 1px black;
+    font-size: 25px;
     color: black;
     padding-left: 0;
 }
@@ -95,8 +97,8 @@ li {
 }
 .img {
     margin-top: 2px;
-    height:180px;
-    width: 200px; 
+    height: 220px;
+    width: 220px; 
 }
 .search {
     position: absolute;
@@ -111,6 +113,8 @@ li {
     font-size: large;
     border-radius: 36px;
     padding-left: 10px;
+    height: 4vh;
+    font-size: 20px;
 }
 .form-autocomplete {
     position:absolute;
@@ -124,10 +128,11 @@ li {
     padding-left: 10px;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
     border: solid 1px black;
+    margin-top: 40px;
 }
 .li-search {
     border-bottom: solid 1px #484545;
-    font-size: small;
+    font-size: 20px;
 }
 .link-search {
     text-decoration: none;

@@ -104,7 +104,7 @@ export const ShoppingCartOne = (props) => {
             <textarea
               className="form-control mt-2"
               id="exampleFormControlTextarea1"
-              rows="4"
+              rows="6"
               value={textarea}
               onChange={(e) => setTextarea(e.target.value)}
             ></textarea>
