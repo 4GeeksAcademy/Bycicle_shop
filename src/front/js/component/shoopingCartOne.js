@@ -1,20 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import CartItem from "./cartItem";
 export const ShoppingCartOne = (props) => {
   const [quantity, setQuantity] = useState(1);
   const [textarea, setTextarea] = useState("");
   const { store, actions } = useContext(Context);
-  const plusQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-  const minusQuantity = () => {
-    if (quantity < 2) return;
-    setQuantity(quantity - 1);
-  };
-  const onChangeQuantity = (e) => {
-    setQuantity(e.target.value);
-  };
   const textareaClick = () => {
     const note = textarea;
     console.log('Textarea clicked');
@@ -24,59 +15,13 @@ export const ShoppingCartOne = (props) => {
   // Function to render the items in the cart
   const renderCartItems = () => {
     if (!store.cart || store.cart.length === 0) {
-      return <p>Your cart is empty.</p>;
+        return <p>Your cart is empty.</p>;
     }
+
     return store.cart.map((item, index) => (
-      <div key={index} className="shopping-cart">
-        <div className="cart-details1">
-          <div className="cart-details2">
-            <img
-              src={item.image_url}
-              className="img-cart"
-              alt="Generic placeholder image"
-            />
-            <div>
-              <p>{item.name}</p>
-              <p className="smaller-p">{item.description}</p>
-            </div>
-          </div>
-          <div className="flex-end">
-            <p>{item.price} €</p>
-          </div>
-        </div>
-        <div className="cart-details3 d-flex mb-4">
-          <div className="set-btn">
-            <button
-              className="btn-detail1"
-              onClick={() => actions.minusQuantity(quantity, setQuantity)}
-            >
-              -
-            </button>
-            <div className="form-outline">
-              <input
-                id="form1"
-                min="0"
-                name="quantity"
-                value={quantity}
-                onChange={(e) => actions.onChangeQuantity(setQuantity, e.target.value)}
-                type="text"
-                className="btn-detail-middle"
-              />
-            </div>
-            <button
-              className="btn-detail2"
-              onClick={() => actions.plusQuantity(quantity, setQuantity)}
-            >
-              +
-            </button>
-          </div>
-          <div>
-            <p>{item.price} €</p>
-          </div>
-        </div>
-      </div>
+        <CartItem item={item} index={index} key={index} />
     ));
-  };
+    }
   return (
     <div className="container min-height-100">
       <br />
@@ -140,4 +85,4 @@ export const ShoppingCartOne = (props) => {
       </div>
     </div>
   );
-};
+  }

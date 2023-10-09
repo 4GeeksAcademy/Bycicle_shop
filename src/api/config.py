@@ -16,4 +16,4 @@ class Config:
     MAIL_USE_SSL = True
     # Stripe key
     STRIPE_API_KEY = 'sk_test_51NuJE8BQV4wKuzoZSh21SCxrw0naH6tIETz7Uut69IahYTU3UaJPzPS4gs2ANWRiAQJZTJU62vxepIrqVplkm5iG00BZCwAVLG'
-    FRONTEND_URL = 'https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev'
+    FRONTEND_URL = os.environ.get('FRONTEND_URL')
