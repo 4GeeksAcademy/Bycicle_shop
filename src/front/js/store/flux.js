@@ -62,7 +62,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			onChangeQuantity: (setQuantity, value) => {
 				setQuantity(value);
 			},
-
+			removeItemFromCart : (index) => {
+				const store = getStore(); 
+				const newCart = [...store.cart];
+				newCart.splice(index, 1);
+				setStore({ ...store, cart: newCart });
+			},
+			
 			setUserProfile: (profileData) => {
 				setStore({ user: profileData });
 			},

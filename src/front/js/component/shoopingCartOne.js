@@ -1,20 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import CartItem from "./cartItem";
 export const ShoppingCartOne = (props) => {
   const [quantity, setQuantity] = useState(1);
   const [textarea, setTextarea] = useState("");
   const { store, actions } = useContext(Context);
-  const plusQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-  const minusQuantity = () => {
-    if (quantity < 2) return;
-    setQuantity(quantity - 1);
-  };
-  const onChangeQuantity = (e) => {
-    setQuantity(e.target.value);
-  };
   const textareaClick = () => {
     const note = textarea;
     console.log('Textarea clicked');
@@ -24,9 +15,11 @@ export const ShoppingCartOne = (props) => {
   // Function to render the items in the cart
   const renderCartItems = () => {
     if (!store.cart || store.cart.length === 0) {
-      return <p>Your cart is empty.</p>;
+        return <p>Your cart is empty.</p>;
     }
+
     return store.cart.map((item, index) => (
+<<<<<<< HEAD
       <div key={index} className="shopping-cart">
         <div className="cart-details1">
           <div className="cart-details2">
@@ -74,8 +67,11 @@ export const ShoppingCartOne = (props) => {
           </div>
         </div>
       </div>
+=======
+        <CartItem item={item} index={index} key={index} />
+>>>>>>> 830ae679760ec516d2d98a8b9ebc5e7a1ed22162
     ));
-  };
+    }
   return (
     <div className="container min-height-100">
       <br />
@@ -139,4 +135,4 @@ export const ShoppingCartOne = (props) => {
       </div>
     </div>
   );
-};
+  }

@@ -10,10 +10,14 @@ from flask_mail import Mail, Message
 from flask import current_app
 from flask import session
 import stripe
+from dotenv import load_dotenv
+import os
 
 main = Blueprint("main", __name__)
-
 mail = Mail()
+
+# Load variables from .env
+load_dotenv()
 
 
 @main.route("/api/products", methods=["GET"])
@@ -44,7 +48,7 @@ def get_product_by_id(id):
 @main.route("/cart")
 @jwt_required()
 @cross_origin(
-    origins="https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev",
+    origins=os.environ.get('FRONTEND_URL'),
     supports_credentials=True,
 )
 def user_carts():
@@ -65,7 +69,7 @@ def user_carts():
 @main.route("/cart", methods=["POST"])
 @jwt_required()
 @cross_origin(
-    origins="https://cautious-carnival-xpqwxwxp9p4h65xp-3000.app.github.dev",
+    origins=os.environ.get('FRONTEND_URL'),
     supports_credentials=True,
 )
 def add_to_cart():
@@ -222,7 +226,7 @@ def send_reset_email():
         else:
             # Generate an access token and construct the reset link
             token = create_access_token(identity=user.email)
-            link = f"https://silver-cod-gvp74jvvwjqc9vxp-3000.app.github.dev/newPassword?token={token}"
+            link = f"{os.environ.get('FRONTEND_URL')}/newPassword?token={token}"
 
             message = Message(
                 subject="Password Reset Link",

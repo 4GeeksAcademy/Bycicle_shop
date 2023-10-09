@@ -57,11 +57,11 @@ export function Login(props) {
       });
   };
 
-  // Handle Google login failure
-  const responseGoogleFailure = (error) => {
-    console.error("Google login failed:", error);
+ // Handle Google login failure
+const responseGoogleFailure = (error) => {
+  console.error("Google login failed:", error);
+};
 
-  };
 
   async function login(event) {
     event.preventDefault();
@@ -120,7 +120,7 @@ export function Login(props) {
              <div className="container my-login">
                {/* <div className="btn-login-google">
                   <GoogleLogin
-                    clientId="YOUR_GOOGLE_CLIENT_ID"
+                    clientId="1024574470833-2aouoemahgn91lk4g61j4qfkvukigan0.apps.googleusercontent.com"
                     buttonText="LOGIN WITH GOOGLE "
                     onSuccess={responseGoogleSuccess}
                     onFailure={responseGoogleFailure}

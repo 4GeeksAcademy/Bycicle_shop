@@ -141,6 +141,7 @@ function ProductDetail(props) {
                 </h4>
                 <br />
                 <br />
+<<<<<<< HEAD
                 <h4 className="d-flex justify-content-start  w-100">
                   Quantity
                 </h4>
@@ -178,6 +179,8 @@ function ProductDetail(props) {
                     </div>
                   </div>
                 </div>
+=======
+>>>>>>> 830ae679760ec516d2d98a8b9ebc5e7a1ed22162
                 <div className="d-flex">
                   <button 
                     onClick={() => actions.addToCart(product.image_url, product.name, product.price, quantity, product.price_id, id)}
