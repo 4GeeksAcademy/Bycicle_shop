@@ -141,43 +141,6 @@ function ProductDetail(props) {
                 </h6>
                 <br />
                 <br />
-                <h6 className="d-flex justify-content-start  w-100">
-                  Quantity
-                </h6>
-                <div className="d-flex justify-content-between p-2 mb-2">
-                  <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <div
-                      className="d-flex mb-4"
-                      style={{ maxWidth: "500px" }}
-                    >
-                      <button
-                        className="btn-detail1"
-                        onClick={() => actions.minusQuantity(quantity, setQuantity)}
-                      >
-                        -
-                      </button>
-
-                      <div className="form-outline">
-                        <input
-                          id="form1"
-                          min="0"
-                          name="quantity"
-                          value={quantity}
-                          onChange={(e) => actions.onChangeQuantity(setQuantity, e.target.value)}
-                          type="text"
-                          className="btn-detail-middle"
-                        />
-                      </div>
-
-                      <button
-                        className="btn-detail2"
-                        onClick={() => actions.plusQuantity(quantity, setQuantity)}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </div>
                 <div className="d-flex">
                   <button 
                     onClick={() => actions.addToCart(product.image_url, product.name, product.price, quantity, product.price_id, id)}
