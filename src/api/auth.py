@@ -81,3 +81,4 @@ def logout():
     response = jsonify({"success":'true',"msg": "logout successful"})
     unset_jwt_cookies(response)
     return response
+

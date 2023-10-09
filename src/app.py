@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory
 import os
+from flask_cors import cross_origin
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -42,8 +43,8 @@ def create_app():
     jwt = JWTManager(app)
 
     # Initialize CORS
-    #CORS(app, origins="*")
-    CORS(app, origins=[os.getenv("FRONTEND_URL")])
+    CORS(app, origins="*")
+    #CORS(app, origins=[os.getenv("FRONTEND_URL")])
     
     # Initialize Admin
     setup_admin(app)  
@@ -59,6 +60,16 @@ def create_app():
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
 
+    @app.route('/auth/google/callback', methods=['GET'])
+    @cross_origin()
+    def google_callback():
+   
+        authorization_code = request.args.get('code')
+        print(f'Authorization Code: {authorization_code}')
+
+    
+        return "Callback Successful"  
+    
     @app.route('/import-data', methods=['POST'])
     def import_data():
         try:
