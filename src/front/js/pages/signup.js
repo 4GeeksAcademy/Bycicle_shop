@@ -37,25 +37,25 @@ export const Signup = () => {
 
     return (
         <div className="container min-height-100">
-            <h1 className="title">
+            <h1 className="title mb-3">
                 Registration
             </h1>
             <form className="form my-form" onSubmit={handleClick}>
                 <div>
                 <br />
-                <input className="control" type="text" placeholder="Full Name" aria-label="default input example" value={fullName} onChange={(e) => setFullName(e.target.value)} required/>
+                <input className="control control-input-signup" type="text" placeholder="Full Name" aria-label="default input example" value={fullName} onChange={(e) => setFullName(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="text" placeholder="Username" aria-label="default input example" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+                <input className="control control-input-signup" type="text" placeholder="Username" aria-label="default input example" value={username} onChange={(e) => setUsername(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="text" placeholder="Email" aria-label="default input example" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                <input className="control control-input-signup" type="text" placeholder="Email" aria-label="default input example" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                <input className="control control-input-signup" type="password" placeholder="Password" aria-label="default input example" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 <br />
                 <br />
-                <input className="control" type="password" placeholder="Confirm Password" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
+                <input className="control control-input-signup" type="password" placeholder="Confirm Password" aria-label="default input example" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
                 </div>
                 <br />
                 <div className="form-check">
@@ -72,12 +72,15 @@ export const Signup = () => {
                         </label>
                     </Link>    
                 </div>
+                <br />
+                <br />
+                <br />
                 <div className="row me-3">
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <button className="btn-register" type="submit" >REGISTER</button>
+                        <button className="btn-register" id="submitRegister" aria-label="submitRegister" type="submit" >REGISTER</button>
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-end cancel-btn">
-                        <button className="btn-register"  onClick={resetForm} >CANCEL</button>
+                        <button className="btn-register" id="cancelRegister" aria-label="cancelRegister" onClick={resetForm} >CANCEL</button>
                     </div>
                 </div>
             </form>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import addToCart from "../store/flux";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
@@ -11,21 +10,16 @@ function ProductDetail(props) {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("Please fill all fields");
-  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState([]);
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
-  const onChangeName = (e) => setName(e.target.value);
-  const onChangeTitle = (e) => setTitle(e.target.value);
   const changeRating = (value) => setRating(value);
   const [reviewText, setReviewText] = useState("");
-  const { store, actions } = useContext(Context);
-  const onChangeReview = (e) => setReviewText(e.target.value);
+  const { actions } = useContext(Context);
   const [reviewIds, setReviewIds] = useState([]);
-  const[price, setPrice] = useState(null);
-    
+
     const submitReview = () => {
       const token = localStorage.getItem('access_token'); 
       console.log("Token before calling submitReview: ", token);
@@ -113,44 +107,90 @@ function ProductDetail(props) {
           <div className="col ">
             <div className="row">
               <div className="col-lg-6 px-2 py-4">
-                <img className="img-detail" src={product && product.image_url} />
+                <img className="img-detail" src={product && product.image_url} alt={product && product.name}/>
               </div>
               <div className="produt-description col-lg-6 ">
-                <h2 className="mb-3 pt-2 text-start fw-bold text-uppercase">
+                <h1 className="mb-3 pt-2 text-start fw-bold text-uppercase">
                   {product && product.name}
-                </h2>
-                <h6>
-                  Color: {product && product.color}
-                </h6>
-                <h6>
-                  Manufacturer: {product && product.manufacturer}
-                </h6>
-                <h6>
-                  Material: {product && product.material}
-                </h6>
-                <h6>
-                  Weight: {product && product.weight}
-                </h6>
-                <h6>
-                  price: {product && product.price}
-                </h6>
+                </h1>
+                <h5>
+                  <i>Color: </i> {product && product.color}
+                </h5>
+                <h5>
+                  <i>Manufacturer: </i> {product && product.manufacturer}
+                </h5>
+                <h5>
+                  <i>Material: </i> {product && product.material}
+                </h5>
+                <h5>
+                  <i>Weight: </i> {product && product.weight}
+                </h5>
+                <h5>
+                  <i>price: </i> {product && product.price} €
+                </h5>
                 <br />
                 <br />
-                <h6>
+                <h5>
                   {reviews.length} reviews
-                </h6>
+                </h5>
                 <br />
                 <br />
+                <h5 className="d-flex justify-content-start  w-100">
+                  Quantity
+                </h5>
+                <div className="d-flex justify-content-between p-2 mb-2">
+                  <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div
+                      className="d-flex mb-4"
+                      style={{ maxWidth: "500px" }}
+                    >
+                      <button
+                        className="btn-detail1"
+                        id="minus1"
+                        aria-label="minus1"
+                        onClick={() => actions.minusQuantity(quantity, setQuantity)}
+                      >
+                        -
+                      </button>
+
+                      <div className="form-outline">
+                        <input
+                          id="form2"
+                          aria-label="form2"
+                          min="0"
+                          name="quantity"
+                          value={quantity}
+                          onChange={(e) => actions.onChangeQuantity(setQuantity, e.target.value)}
+                          type="text"
+                          className="btn-detail-middle"
+                        />
+                      </div>
+
+                      <button
+                        className="btn-detail2"
+                        id="plus1"
+                        aria-label="plus1"
+                        onClick={() => actions.plusQuantity(quantity, setQuantity)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 <div className="d-flex">
                   <button 
                     onClick={() => actions.addToCart(product.image_url, product.name, product.price, quantity, product.price_id, id)}
                     className="btn-By"
+                    id="addToCart"
+                    aria-label="addToCart"
                   >
                     Add to Cart
                   </button>
                   <Link to="/shoppingCart">
                     <button
                       className="btn-By"
+                      id="buyNow"
+                      aria-label="buyNow"
                       onClick={() => actions.addToCart(product.image_url, product.name, product.price, quantity, product.price_id, id)}
                     >
                       Buy Now
@@ -173,7 +213,7 @@ function ProductDetail(props) {
                         <FontAwesomeIcon
                           key={index}
                           icon={faStar}
-                          color="yellow"
+                          style={{ color: "#731924" }}
                           onClick={() => changeRating(index + 1)}
                         />
                       ) : (
@@ -188,31 +228,33 @@ function ProductDetail(props) {
                   ))}
                 </div>
                 <div className="form-outline mb-2">
-                  <label className="form-label d-flex text-center" htmlFor="name">
+                  <label className="form-label d-flex text-center" for="name">
                     Name
                   </label>
                   <input type="text" className="input-review" id="name" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="form-outline mb-2">
-                  <label className="form-label d-flex text-center" htmlFor="title">
+                  <label className="form-label d-flex text-center" for="title">
                     Review Title
                   </label>
                   <input type="text" className="input-review" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className="form-outline mb-2">
-                  <label className="form-label d-flex text-center" htmlFor="review">
+                  <label className="form-label d-flex text-center" for="review">
                     Review
                   </label>
                   <textarea className="form-control" id="review" value={reviewText} onChange={(e) => setReviewText(e.target.value)} rows="4"></textarea>
                 </div>
 
                 <div className="form-outline row d-flex justify-content-between p-2 mb-2">
-                  <button onClick={submitReview} className="btn-review col-6 ">
+                  <button onClick={submitReview} className="btn-review col-6" id="submitReview" aria-label="submitReview">
                     Submit Review
                   </button>
 
                   <button
-                    className="btn-review col-6 "
+                    className="btn-review col-6"
+                    id="cancelReview"
+                    aria-label="cancelReview"
                   >
                     Cancel Review
                     </button>

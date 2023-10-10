@@ -68,15 +68,15 @@ function Product(props) {
               <div className="card-img-top card-producct-img" >
                 <img className="img-bike " src={product.image_url || "placeholder-image-url.jpg"} alt={product.name} />
               </div>
-              <div className="card-body">
-                  <h6>{product.name}</h6>
-                  <p className="card-paragraf"><strong>Color:</strong> {product.color}</p>
-                  <p className="card-paragraf"><strong>Price:</strong> $ {product.price}</p>
-                  <p className="card-paragraf"><strong>In stock:</strong> {product.instock}</p>
+              <div className="card-body card-product">
+                  <p><strong>{product.name}</strong></p>
+                  <p><strong>Color:</strong> {product.color}</p>
+                  <p><strong>Price:</strong> $ {product.price}</p>
+                  <p><strong>In stock:</strong> {product.instock}</p>
             </div> 
           </div>  
           <Link to={`/product/${product.id}`}>
-            <button tipe="button" className="btn-product-card">See details</button>
+            <button tipe="button" id="seeDetails" aria-label="seeDetails" className="btn-product-card">See details</button>
           </Link>
       </div> 
         ))}

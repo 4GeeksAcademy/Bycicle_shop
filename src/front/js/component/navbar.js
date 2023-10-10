@@ -110,6 +110,7 @@ export const Navbar = (props) => {
           <button
             className="navbar-toggler my-navbar-toggler"
             type="button"
+            id="collapse-menu"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup"
@@ -121,12 +122,12 @@ export const Navbar = (props) => {
           <div className='collapse my-collapse navbar-collapse' id="navbarNavAltMarkup">
             <div className="navbar-nav ">
               <Link className="link-collapse" to="/contactus">
-                <button className="btn my-btn toggler">
+                <button className="btn my-btn toggler" id="contactUs" aria-label="contactUs">
                   Contact Us
                 </button>
               </Link>
               <Link className="link-collapse" to="/aboutus">
-                <button className="btn my-btn toggler">
+                <button className="btn my-btn toggler" id="aboutUs" aria-label="aboutUs">
                   About Us
                 </button>
               </Link>
@@ -136,8 +137,10 @@ export const Navbar = (props) => {
                 <button
                   className="btn my-btn toggler custom-dropdown-toggle"
                   type="button"
+                  id="dropdownProducts"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseProducts"
+                  aria-label="dropdownProducts"
                   aria-expanded={isDropdownOpen}
                   aria-controls="collapseExample"
                   onClick={toggleDropdown}
@@ -148,37 +151,37 @@ export const Navbar = (props) => {
               <div className={isDropdownOpen ? "collapse show" : "collapse"} id="collapseProducts">
                 <ul className="card card-body my-dropdown-menu">
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('Road Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" id="roadBikes" aria-label="roadBikes" onClick={() => handleDropdownClick('Road Bikes')}>
                       Road Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('Mountain Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" id="mountainBikes" aria-label="mountainBikes" onClick={() => handleDropdownClick('Mountain Bikes')}>
                       Mountain Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('Hybrid Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" id="hybridBikes" aria-label="hybridBikes" onClick={() => handleDropdownClick('Hybrid Bikes')}>
                       Hybrid Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('City Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" id="cityBikes" aria-label="cityBikes" onClick={() => handleDropdownClick('City Bikes')}>
                       City Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('Cyclocross Bikes')}>
+                    <button className="dropdown-item my-dropdown-item" id="cyclocrossBikes" aria-label="cyclocrossBikes" onClick={() => handleDropdownClick('Cyclocross Bikes')}>
                       Cyclocross Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick("Kid's Bikes")}>
+                    <button className="dropdown-item my-dropdown-item" id="kidsBikes" aria-label="kidsBikes" onClick={() => handleDropdownClick("Kid's Bikes")}>
                       Kid's Bikes
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item my-dropdown-item" onClick={() => handleDropdownClick('')}>
+                    <button className="dropdown-item my-dropdown-item" id="otherTypes" aria-label="otherTypes" onClick={() => handleDropdownClick('')}>
                       Other types
                     </button>
                   </li>

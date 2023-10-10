@@ -15,7 +15,7 @@ function LogoutComponent({ onLogout }) {
 
     return (
         <div>
-            <button className="btn-logout" onClick={onLogout}>
+            <button id="logout" aria-label="logout" className="btn-logout" onClick={onLogout}>
                 Logout
             </button>
         </div>

@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios"; 
-import { Context } from "../store/appContext";
 import "../../styles/contactus.css";
 
 export const ContactUs = () => {
-  const { actions } = useContext(Context);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -76,19 +74,17 @@ export const ContactUs = () => {
                   <input className="control-contact" type="text" placeholder="The issue/problem" aria-label="default input example" value={issue} onChange={(e) => setIssue(e.target.value)} />
                   <br />
                   <br />
-                  <textarea className="textarea-contact" name="story" rows="4" placeholder="Description"  value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                  <textarea className="textarea-contact" name="story" rows="7" placeholder="Description"  value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                   </div>
                   
-                  <div className="row me-3">
+                  <div className="row m-3">
                   <p className="text-danger">{result}</p>
                       <div >
-                        <button className="btn-contact" onClick={handleSendEmail}>Send</button>
+                        <button className="btn-contact mb-3" id="sendEmail" aria-label="sendEmail" onClick={handleSendEmail}>Send</button>
                       </div>
                   </div>
               </form>
               </div>
-              <br/ >
-              <br/ >
               <div>
                 <h1 className="title-contactus text-center">Our Contacts</h1>
                 <div className="our-contacts"> 

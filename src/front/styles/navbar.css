@@ -1,9 +1,10 @@
 .navbar-box {
     background-color: #484545;
-    height: 21vh;
+    height: 16vh;
     width: 100%;
     padding-left: 5vh;
     padding-right: 5vh;
+    padding-top: 30px;
 }   
 .navbar-container {
     padding: 0; 
@@ -18,14 +19,17 @@
 .my-btn {
     background-color: #7C0514;
     color: black;
-    padding: 3px;
     font-weight: 500;
+    font-size: 30px;
     margin-left: 20px;
-    padding: 2px 5px 2px 5px;
+    padding: 7px 25px 7px 25px;
+    border-radius: 6px;
+    border: solid 2px black;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
 }
 .icon {
     color: black;
-    font-size: xx-large;
+    font-size: 50px;
     margin-left: 20px;
 }
 .my-dropdown-menu {
@@ -41,6 +45,7 @@ li {
 }
 .my-dropdown-item {
     border-bottom: solid 1px black;
+    font-size: 25px;
     color: black;
     padding-left: 0;
 }
@@ -63,23 +68,6 @@ li {
     visibility: visible;
     cursor: pointer;
 }
-.btnlanguage {
-    border-radius: 6px;
-    padding: 2px 6px 2px 6px;
-}
-.btnlanguage::after {
-    border: 0 !important;
-}
-.language {
-    justify-content: end;
-}
-.dropdown-language {
-    background-color: white;
-    color: black;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 110vh;
-    margin-top: 0;
-}
 .form-btn {
     width: 90%;
     border-radius: 6px;
@@ -95,8 +83,8 @@ li {
 }
 .img {
     margin-top: 2px;
-    height:180px;
-    width: 200px; 
+    height: 220px;
+    width: 220px; 
 }
 .search {
     position: absolute;
@@ -111,6 +99,8 @@ li {
     font-size: large;
     border-radius: 36px;
     padding-left: 10px;
+    height: 4vh;
+    font-size: 20px;
 }
 .form-autocomplete {
     position:absolute;
@@ -124,10 +114,11 @@ li {
     padding-left: 10px;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
     border: solid 1px black;
+    margin-top: 40px;
 }
 .li-search {
     border-bottom: solid 1px #484545;
-    font-size: small;
+    font-size: 20px;
 }
 .link-search {
     text-decoration: none;
@@ -144,12 +135,6 @@ li {
     .fa-navbar {
         left: 23vh;
     }
-    .dropdown-language {
-        position: absolute;
-        margin-left: 65vh;
-        margin-top: 0;
-        z-index: 4;
-    }
   }
 @media screen and (max-width: 1000px) {
     .navbar-box {
@@ -161,17 +146,12 @@ li {
     .navbar-container {
         margin: auto;
     }
-    .language {
-        border-radius: 6px;
-        margin-left: 2rem;
-        font-size: small;
-    }
     .my-collapse {
         margin-top: 40px;
         background-color: #7C0514;
         border-radius: 6px;
-        width: 20vh;
-        height: 41vh;
+        width: 22vh;
+        height: 44vh;
         position:absolute;
         z-index: 4;
     }
@@ -180,13 +160,14 @@ li {
         margin-left: 10px;
         margin-right: 10px;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 30px;
         text-decoration: none;
         color: black;
     }  
     .icon {
         margin: 0;
-        font-size: small;
+        font-size: 30px;
+
     }
     .my-btn {
         margin: 0px;
@@ -207,27 +188,14 @@ li {
     .chatbot-control {
         width: 80%;
     }
-    .dropdown-language {
-        margin-left: 0;
-    }
   }
   @media screen and (max-width: 1000px) {
     .navbar-box {
         height: 20vh;
     }
-    .my-collapse {
-        height: 290.vh;
-    }
   }
 @media screen and (max-width: 550px) {
-    .language {
-        border-radius: 6px;
-        margin-left: 2rem;
-        font-size: xx-small;
-        z-index: 3;
-    } 
     .my-collapse {
-        font-size: small;
         z-index: 3;
         height: 42vh;
     }
@@ -241,17 +209,22 @@ li {
 }
 @media screen and (max-width: 380px) {
     .navbar-container {
-        display: flex;
-        flex-wrap: nowrap;
+        height: 10vh; 
     }
     .my-collapse {
-        height: 34vh;
+        height: 40vh;
+    }
+    .link-collapse {
+        font-weight: 500;
+        font-size: 20px;
+    } 
+    .icon {
+        font-size: 20px;
+    } 
+    .my-btn {
+        font-size: 20px;
     }
     .menu {
         margin-right: 40px;
-    }
-    .dropdown-language {
-        left: 50rem;
-        top: 0;
     }
 }

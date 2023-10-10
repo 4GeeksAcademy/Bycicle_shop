@@ -1,23 +1,19 @@
-import React, { useContext } from "react";
-import { Context } from "../store/appContext";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Home = () => {
-  const { store } = useContext(Context);
 
   return (
     <div className="container-fluid
     home-container min-height-100">
       <div className="text-center">
           <div className="d-flex justify-content-around btn-ai my-3">
-            <i className="fa-solid fa-person-biking"></i>
             Bicycles Galery
-            <i className="fa-solid fa-person-biking"></i>
           </div>
       </div>
       <div id="carouselExampleAutoplaying" className="carousel carousel-dark slide" data-bs-ride="carousel">
-        <div className="carousel-inner carousel-container">
+        <div className="carousel-inner carousel-container my-4">
           <div className="carousel-item my-carousel active" data-bs-interval="1000">
                 <Link className="carousel-text" to="/products">
                   <p>Road Bikes</p>

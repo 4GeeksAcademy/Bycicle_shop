@@ -1,6 +1,5 @@
 .home-container {
     justify-items: center;
-    margin-top: 10px;
     position: relative;
     z-index: 1;
 }
@@ -11,7 +10,7 @@
       text-align: center;
       color: #7C0514;
       font-size: 30px;
-      font-weight: 600;
+      font-weight: 800;
       border-bottom: solid 3px #7C0514;
       width: 39vh;
       margin:auto;
@@ -24,6 +23,7 @@
  .carousel-container {
     border-radius: 6px;
     margin: auto;
+    padding: 10px;
     height: 80vh;
     z-index: 0;
  }  
@@ -36,6 +36,7 @@
     color: white;
     border-radius: 6px;
     font-weight: 500;
+    font-size: 35px;
     padding: 0;
     width: 58vh;
     padding: 10px;
@@ -71,15 +72,19 @@
       bottom: 60vh;
    }
  }
- @media screen and (max-width: 375px) {
+ @media screen and (max-width: 380px) {
    .home-container {
       display:flow-root;
   }
     .carousel-container {
       margin-top: 10px;
-      height: 50vh;
-      width: 50vh;
+      height: 30vh;
+      width: 30vh;
    }  
+   .equal-height-img {
+      width: 100%;
+      height: 40vh;
+     }
    .btn-ai {
       margin-left: 40px;
    } 
