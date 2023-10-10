@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
-import { Context } from "../store/appContext";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Home = () => {
-  const { store } = useContext(Context);
 
   return (
     <div className="container-fluid

@@ -55,11 +55,9 @@ export const ResetPassword = () => {
               />
             </div>
             <br />
-            <br />
-            <br />
             <div>
               {/* Button trigger modal and send email */}
-              <button onClick={handleResetPassword} className="btn-send">
+              <button onClick={handleResetPassword} id="reset" aria-label="reset" className="btn-send">
                 Send
               </button>
             </div>

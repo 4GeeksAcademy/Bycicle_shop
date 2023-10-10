@@ -77,10 +77,10 @@ export const Signup = () => {
                 <br />
                 <div className="row me-3">
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <button className="btn-register" type="submit" >REGISTER</button>
+                        <button className="btn-register" id="submitRegister" aria-label="submitRegister" type="submit" >REGISTER</button>
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-end cancel-btn">
-                        <button className="btn-register"  onClick={resetForm} >CANCEL</button>
+                        <button className="btn-register" id="cancelRegister" aria-label="cancelRegister" onClick={resetForm} >CANCEL</button>
                     </div>
                 </div>
             </form>

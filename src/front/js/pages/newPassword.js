@@ -58,7 +58,7 @@ export const NewPassword = () => {
             <br />
             <div >
               {/* Button trigger modal and send email */}
-              <button onClick={handleNewPassword} className="btn-pass">
+              <button onClick={handleNewPassword} id="newPass" aria-label="newPass" className="btn-pass">
                 Send
               </button>
               <p className="text-danger" id="newMessage"></p>

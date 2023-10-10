@@ -24,6 +24,8 @@
     margin-left: 20px;
     padding: 7px 25px 7px 25px;
     border-radius: 6px;
+    border: solid 2px black;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
 }
 .icon {
     color: black;
@@ -65,23 +67,6 @@ li {
 .show-buttons {
     visibility: visible;
     cursor: pointer;
-}
-.btnlanguage {
-    border-radius: 6px;
-    padding: 2px 6px 2px 6px;
-}
-.btnlanguage::after {
-    border: 0 !important;
-}
-.language {
-    justify-content: end;
-}
-.dropdown-language {
-    background-color: white;
-    color: black;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 110vh;
-    margin-top: 0;
 }
 .form-btn {
     width: 90%;
@@ -150,12 +135,6 @@ li {
     .fa-navbar {
         left: 23vh;
     }
-    .dropdown-language {
-        position: absolute;
-        margin-left: 65vh;
-        margin-top: 0;
-        z-index: 4;
-    }
   }
 @media screen and (max-width: 1000px) {
     .navbar-box {
@@ -166,11 +145,6 @@ li {
     }
     .navbar-container {
         margin: auto;
-    }
-    .language {
-        border-radius: 6px;
-        margin-left: 2rem;
-        font-size: small;
     }
     .my-collapse {
         margin-top: 40px;
@@ -222,7 +196,6 @@ li {
   }
 @media screen and (max-width: 550px) {
     .my-collapse {
-        font-size: small;
         z-index: 3;
         height: 42vh;
     }
@@ -236,11 +209,20 @@ li {
 }
 @media screen and (max-width: 380px) {
     .navbar-container {
-        display: flex;
-        flex-wrap: nowrap;
+        height: 10vh; 
     }
     .my-collapse {
-        height: 34vh;
+        height: 40vh;
+    }
+    .link-collapse {
+        font-weight: 500;
+        font-size: 20px;
+    } 
+    .icon {
+        font-size: 20px;
+    } 
+    .my-btn {
+        font-size: 20px;
     }
     .menu {
         margin-right: 40px;

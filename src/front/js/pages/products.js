@@ -76,7 +76,7 @@ function Product(props) {
             </div> 
           </div>  
           <Link to={`/product/${product.id}`}>
-            <button tipe="button" className="btn-product-card">See details</button>
+            <button tipe="button" id="seeDetails" aria-label="seeDetails" className="btn-product-card">See details</button>
           </Link>
       </div> 
         ))}

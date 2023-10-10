@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ScrollToTop from "./component/scrollToTop";
 import { ArrowToTop } from "./component/arrowToTop";
 import { BackendURL } from "./component/backendURL";

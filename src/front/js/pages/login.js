@@ -13,7 +13,7 @@ export function Login(props) {
   const [passwordFlag, setPasswordFlag] = useState(false);
   const [apiFlag, setAPIFlag] = useState(false);
   const [message, setMessage] = useState("Wrong credential");
- const { setIsLoggedIn } = useUser(false);
+ const { setIsLoggedIn } = useUser();
 
   const onChangeEmail = (event) => {
     setEmailFlag(false);
@@ -57,11 +57,11 @@ export function Login(props) {
       });
   };
 
- // Handle Google login failure
-const responseGoogleFailure = (error) => {
-  console.error("Google login failed:", error);
-};
+  // Handle Google login failure
+  const responseGoogleFailure = (error) => {
+    console.error("Google login failed:", error);
 
+  };
 
   async function login(event) {
     event.preventDefault();
@@ -96,7 +96,7 @@ const responseGoogleFailure = (error) => {
         console.log("Navigating to profile"); // to check if Navigation function is called
 
         if (localStorage.getItem('access_token')) {
-          setIsLoggedIn(true);
+          //setIsLoggedIn(true);
           navigate("/profile");
 
         } else {
@@ -113,26 +113,28 @@ const responseGoogleFailure = (error) => {
       }
     }
   }
-
+  
     return (
           <div className="container-fluid min-height-100 ">
               <h1 className="text-login">Login</h1>
-             <div className="container my-login">
-               {/* <div className="btn-login-google">
+              <div className="container my-login">
+                <div className="btn-login-google">
                   <GoogleLogin
-                    clientId="1024574470833-2aouoemahgn91lk4g61j4qfkvukigan0.apps.googleusercontent.com"
+                    clientId="YOUR_GOOGLE_CLIENT_ID"
                     buttonText="LOGIN WITH GOOGLE "
                     onSuccess={responseGoogleSuccess}
                     onFailure={responseGoogleFailure}
                     cookiePolicy={'single_host_origin'}
                     className="login-google"
+                    id="googleLogin"
+                    aria-label="googleLogin"
                   />
                 </div>
                 <div className="row mt-5 text-center">
                   <div className="col-5 line-login"></div>
                   <div className="col-2 p-0">or</div>
                   <div className="col-5 line-login"></div>
-    </div>*/}
+                </div>
                 <br />
                 <div className="form-outline mb-4">
                   <input
@@ -156,7 +158,6 @@ const responseGoogleFailure = (error) => {
                     required
                   />
                 </div>
-                <br/>
                 <div className="form-check d-flex row mt-4 p-0 ms-0">
                   <div className="d-flex ">
                     <div className=" d-flex col-6 ">
@@ -184,9 +185,6 @@ const responseGoogleFailure = (error) => {
                 <br/>
                 <br/>
                 <br/>
-                <br/>
-                <br/>
-                <br/>
                 {emailFlag || apiFlag || passwordFlag ? (
                   <p className="text-danger">{message}</p>
                 ) : null}
@@ -194,6 +192,8 @@ const responseGoogleFailure = (error) => {
                   <button
                     onClick={login}
                     className="btn-login"
+                    id="login"
+                    aria-label="login"
                   >
                     Login
                   </button>
@@ -201,6 +201,8 @@ const responseGoogleFailure = (error) => {
                     <button
                       className="btn-login"
                       type="submit"
+                      id="register"
+                      aria-label="register"
                     >
                       Register
                     </button>
@@ -210,4 +212,3 @@ const responseGoogleFailure = (error) => {
             </div>
   );
 }
-

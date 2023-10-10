@@ -1,7 +1,7 @@
 
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/profile.css";
 import LogoutComponent from "../component/logout";
@@ -12,7 +12,6 @@ const Profile = () => {
   const [show, setShow] = useState("last_order");
   const [showClass1, setShowClass1] = useState(false);
   const [showClass3, setShowClass3] = useState(false);
-  const params = useParams();
   const navigate = useNavigate();
   const { setIsLoggedIn } = useUser();
 
@@ -46,30 +45,12 @@ const Profile = () => {
         }
       });
   }
- /* 
-  const getOrdersToProfile = (token) => {
 
-    axios({
-      method: "GET",
-      url: process.env.BACKEND_URL + "/profile",
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    })
+  useEffect(() => {
+    actions.getOrdersToProfile()
 
-      .then((response) => {
-        const res = response.data;
-        console.log("Profile Data:", res);
-        console.log('Token in Profile:', token);
-        actions.setOrdersToProfile (res);
-      })
-      .catch((error) => {
-        console.error("An error occurred in getData:", error);
-        if (error.response) {
-          console.log("Error details:", error.response);
-        }
-      });
-  }*/
+  }, []); 
+
   return (
     <div className="container min-height-100 my-5">
       <div className="row">
@@ -87,16 +68,16 @@ const Profile = () => {
         <div className="order-description col-4">
           <div className="my-order-description col-8">
             <p>Personal Data</p>
-            {/*<p>Orders</p>*/}
+            <p>Orders</p>
           </div>
           <div>
             <p><i onClick={() => { setShow('personal_data'); setShowClass1(true); setShowClass3(false); }} className={`profile-fa fa-solid fa-chevron-down ${showClass1 ? 'profile-fa-active' : ''}`}></i></p>
-            {/*<p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>*/}
+            <p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>
           </div>
         </div>
-        {/*{show === 'last_order' && (
+        {show === 'last_order' && (
           <div className="order">
-            <h4><i className="fa-solid fa-box-open"></i> Last Order</h4>
+            <h3><i className="fa-solid fa-box-open"></i> Last Order</h3>
             <div className="details">
               <div className="my-details">
                 <p>Order: Nº {store.cart.id} </p>
@@ -105,26 +86,26 @@ const Profile = () => {
               </div>
             </div>
           </div>
-        )}*/}
+        )}
         {show === 'personal_data' && (
           <div className="order">
-            <h4>Personal Data</h4>
+            <h3>Personal Data</h3>
             <div className="details-data">
               <p>Username: {store.user.name} </p>
               <p>Email: {store.user.email} </p>
             </div>
           </div>
         )}
-        {/*{show === 'orders' && (
-          <div  className="order">
-            <h4>Orders</h4>
+        {show === 'orders' && (
+          <div className="order">
+            <h3>Orders</h3>
               <div className="details-data">
               <p>Order: Nº {store.cart.id}</p>
                 <p>Price: {store.cart.price} </p>
                 <p>Product: {store.cart.name}</p>
               </div>
         </div>
-        )}*/}
+        )}
       </div>
       <div className="btn-container">
         <br />

@@ -20,7 +20,7 @@
     border-radius: 6px;
     padding: 9px;
     width: 65%;
-    font-size: 20px;
+    font-size: 25px;
     height: fit-content;
 }
 .details {
@@ -48,7 +48,7 @@
     padding: 3px;
     font-size: 36px;
     font-weight: 500;
-    padding: 9px 41px 9px 41px;
+    padding: 10px 60px 10px 60px;
     border-radius: 6px;
     border: 0px;
 }

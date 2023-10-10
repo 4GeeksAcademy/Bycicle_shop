@@ -1,5 +1,5 @@
 .produt-description {
-    color: black;
+    color: white;
 }
 .btn-detail1 {
     background-color: white;
@@ -27,9 +27,10 @@
     font-size: 20px;
     text-align: center;
     padding: 6px;
+    width: 40px;
 }
 .btn-By {
-    background-color: #D9D9D9;
+    background-color: black;
     color: #7C0514;
     font-weight: 500;
     font-size: 30px;
@@ -37,15 +38,16 @@
     border-radius: 6px;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
     margin-right: 100px;
+    border: navy;
 }
 .btn-By:hover {
-    background-color: black;
+    background-color: #D9D9D9;
     border: none;
 }
 .form-review {
     background-color: #D9D9D9;
     color: black;
-    font-size: 20px;
+    font-size: 30px;
     border-radius: 6px;
 }
 .input-review {
@@ -59,12 +61,12 @@
     background-color: #7C0514;
     color: black;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 30px;
     margin-left: 20px;
     padding: 7px 25px 7px 25px;
     border-radius: 6px;
     border: none;
-    width: 15%;
+    width: 25%;
 }
 .review-color {
     background-color: #D9D9D9;

@@ -11,7 +11,7 @@
 }
 .btn-product-card {
   background-color: #7C0514;
-  color: black;
+  color: white;
   font-weight: 500;
   font-size: 18px;
   margin-left: 20px;
@@ -43,16 +43,24 @@
   height: 20vh;
 }
 /*css to make the site responsive*/
-@media screen and (max-width: 2000px) {
+@media screen and (max-width: 2200px) {
   .btn-product-card {
-      left: 43vh;
-      top: 42vh;
+      left: 20vh;
+      top: 37vh;
     }
     .card-producct-img {
-      width: 55vh;
+      width: 50vh;
     }
     .btn-product-card {
       left: 42vh;
+    }
+}
+@media screen and (max-width: 1900px) {
+    .card-producct-img {
+      width: 42vh;
+    }
+    .btn-product-card {
+      left: 30vh;
     }
 }
 @media screen and (max-width: 1500px) {
