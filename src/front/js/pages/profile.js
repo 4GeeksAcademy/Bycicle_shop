@@ -1,4 +1,3 @@
-
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,18 +11,20 @@ const Profile = () => {
   const [show, setShow] = useState("last_order");
   const [showClass1, setShowClass1] = useState(false);
   const [showClass3, setShowClass3] = useState(false);
+  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const { setIsLoggedIn } = useUser();
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
 
-    if (token) getData(token);
-
+    if (token) {
+      getData(token);
+      getOrdersToProfile(token); // Retrieve orders for the user.
+    }
   }, []); 
 
   const getData = (token) => {
-
     axios({
       method: "GET",
       url: process.env.BACKEND_URL + "/profile",
@@ -31,11 +32,9 @@ const Profile = () => {
         Authorization: `Bearer ${token}`
       },
     })
-
       .then((response) => {
         const res = response.data;
         console.log("Profile Data:", res);
-        console.log('Token in Profile:', token);
         actions.setUserProfile(res);
       })
       .catch((error) => {
@@ -45,11 +44,27 @@ const Profile = () => {
         }
       });
   }
-
-  useEffect(() => {
-    actions.getOrdersToProfile()
-
-  }, []); 
+  const getOrdersToProfile = (token) => {
+    axios({
+      method: "GET",
+      url: process.env.BACKEND_URL + "/cart",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    })
+      .then((response) => {
+        const res = response.data;
+        console.log("Orders Data:", res);
+        setCart(res);
+        console.log(cart);
+      })
+      .catch((error) => {
+        console.error("An error occurred in getData:", error);
+        if (error.response) {
+          console.log("Error details:", error.response);
+        }
+      });
+  }
 
   return (
     <div className="container min-height-100 my-5">
@@ -79,9 +94,9 @@ const Profile = () => {
           <div className="order">
             <h3><i className="fa-solid fa-box-open"></i> Last Order</h3>
             <div className="details">
-              <div className="my-details">
-                <p>Order: Nº {store.cart.id} </p>
-                <p>Price: {store.cart.price} </p>
+              <div className="details-data" >
+                <p>Order: Nº {store.cart.id}</p>
+                <p>Price: {store.cart.price}</p>
                 <p>Product: {store.cart.name}</p>
               </div>
             </div>
@@ -100,11 +115,11 @@ const Profile = () => {
           <div className="order">
             <h3>Orders</h3>
               <div className="details-data">
-              <p>Order: Nº {store.cart.id}</p>
-                <p>Price: {store.cart.price} </p>
+                <p>Order: Nº {store.cart.id}</p>
+                <p>Price: {store.cart.price}</p>
                 <p>Product: {store.cart.name}</p>
               </div>
-        </div>
+          </div>
         )}
       </div>
       <div className="btn-container">
