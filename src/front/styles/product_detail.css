@@ -78,6 +78,11 @@
     border-radius: 6px;
     width: 80%;
 }
+@media screen and (max-width: 1400px) {
+    .btn-By {
+        font-size: 25px;
+    }
+  }
 @media screen and (max-width: 380px) {
     .img-detail {
         width: 40vh;

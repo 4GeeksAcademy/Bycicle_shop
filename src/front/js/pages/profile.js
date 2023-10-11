@@ -95,7 +95,7 @@ const Profile = () => {
             <h3><i className="fa-solid fa-box-open"></i> Last Order</h3>
             <div className="details">
               <div className="details-data" >
-                <p>Order: Nº {store.cart.id}</p>
+                <p>Order: Nº {store.cart.bicycle_id}</p>
                 <p>Price: {store.cart.price}</p>
                 <p>Product: {store.cart.name}</p>
               </div>
