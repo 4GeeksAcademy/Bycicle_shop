@@ -76,7 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ shipping_address: profileData });
 			},
 			setOrdersToProfile: (profileData) => {
-				setStore({ orders: profileData });
+				setStore({ cart: profileData });
 			},
 
 			logout: () => {
@@ -246,8 +246,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						});
 					console.log("Response data: ", response.data);
 					if (response.data) {
-						setStore({ orders: response.data });
-						console.log(orders)
+						setStore({ cart: response.data });
+						console.log(cart)
 					} else {
 						console.log("Received empty response.data from API");
 					}
@@ -257,28 +257,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error occurred while fetching the profile:", error);
 					return null;
 				}
-			},
-			buyNow: (id, quantity, props, navigate) => {
-				const payload = {
-					bicycle_id: id,
-					quantity: quantity,
-				};
-
-				axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
-					headers: { Authorization: `Bearer ${props.token}` },
-				})
-					.then((response) => {
-						if (response.data.success === "true") {
-							// Navigate to /products
-							navigate("/products");
-							console.log('Item purchased successfully');
-						} else {
-							console.error('Unable to purchase item', response.data);
-						}
-					})
-					.catch((error) => {
-						console.error('Error purchasing item', error.response || error);
-					});
 			},
 
 			getData: async (id) => {

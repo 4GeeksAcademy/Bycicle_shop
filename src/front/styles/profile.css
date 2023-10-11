@@ -12,11 +12,15 @@
 .order-description {
     display: flex;
     gap: 50px;
-    width: 30%;
+    width: 28%;
     font-size: 30px;
+    background-color: white;
+    border-radius: 6px;
+    height: 100px;
 }
 .order {
     border: solid 2px black;
+    background-color: white;
     border-radius: 6px;
     padding: 9px;
     width: 65%;

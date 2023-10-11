@@ -45,7 +45,7 @@ def get_product_by_id(id):
         return jsonify({"success": "false", "message": "Product not found"}), 404
     return jsonify({"success": "true", "bicycle": bicycle.serialize()})
 
-@main.route("/cart")
+@main.route("/cart", methods=["GET"])
 @jwt_required()
 @cross_origin(
     origins=os.environ.get('FRONTEND_URL'),
@@ -53,7 +53,7 @@ def get_product_by_id(id):
 )
 def user_carts():
     user_id = get_jwt_identity()
-    cart_items = [
+    cart = [
         item for item in session.get("cart", []) if item["user_id"] == user_id
     ]
 
@@ -62,7 +62,7 @@ def user_carts():
         "shopping_cart": {
             "user_id": user_id,
         },
-        "shopping_cart_items": cart_items,
+        "shopping_cart_items": cart,
     }
     return jsonify(response)
 
