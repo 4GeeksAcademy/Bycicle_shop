@@ -136,6 +136,14 @@ li {
         left: 23vh;
     }
   }
+  @media screen and (max-width: 1400px) {
+    .navbar-nav {
+        width: 100%;
+    }  
+    .my-btn {
+        font-size: 25px;
+    }
+  }
 @media screen and (max-width: 1000px) {
     .navbar-box {
         height: 42vh;

@@ -53,7 +53,11 @@
       margin: auto;
    } 
  }
- /*css to make the site responsive*/
+ @media screen and (max-width: 1500px) {
+   .btn-ai {
+      height: 8vh;
+   }
+ }
 @media screen and (max-width: 1000px) {
    .btn-ai {
       font-size: 10px;
