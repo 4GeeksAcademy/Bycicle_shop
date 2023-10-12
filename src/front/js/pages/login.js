@@ -13,7 +13,7 @@ export function Login(props) {
   const [passwordFlag, setPasswordFlag] = useState(false);
   const [apiFlag, setAPIFlag] = useState(false);
   const [message, setMessage] = useState("Wrong credential");
- const { setIsLoggedIn } = useUser();
+  const { setIsLoggedIn } = useUser();
 
   const onChangeEmail = (event) => {
     setEmailFlag(false);
@@ -39,7 +39,7 @@ export function Login(props) {
       .post(`/google-login`, { tokenId })
       .then((response) => {
         console.log(response);
-        if (response.data.success === "true") {
+        if (response.data.success) {
           console.log(response.data.access_token);
           console.log("Login successful");
           props.setToken(response.data.access_token);
@@ -51,16 +51,13 @@ export function Login(props) {
         }
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        }
+        console.error("API error:", error.response);
       });
   };
 
   // Handle Google login failure
   const responseGoogleFailure = (error) => {
     console.error("Google login failed:", error);
-
   };
 
   async function login(event) {
@@ -113,102 +110,102 @@ export function Login(props) {
       }
     }
   }
-  
-    return (
-          <div className="container-fluid min-height-100 ">
-              <h1 className="text-login">Login</h1>
-              <div className="container my-login">
-                <div className="btn-login-google">
-                  <GoogleLogin
-                    clientId="1024574470833-2aouoemahgn91lk4g61j4qfkvukigan0.apps.googleusercontent.com"
-                    buttonText="LOGIN WITH GOOGLE "
-                    onSuccess={responseGoogleSuccess}
-                    onFailure={responseGoogleFailure}
-                    cookiePolicy={'single_host_origin'}
-                    className="login-google"
-                    id="googleLogin"
-                    aria-label="googleLogin"
-                  />
-                </div>
-                <div className="row mt-5 text-center">
-                  <div className="col-5 line-login"></div>
-                  <div className="col-2 p-0">or</div>
-                  <div className="col-5 line-login"></div>
-                </div>
-                <br />
-                <div className="form-outline mb-4">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={onChangeEmail}
-                    id="typeEmailX-2"
-                    className="form-control-lg form-input-login"
-                    placeholder="Email"
-                    required
-                  />
-                </div>
-                <div className="form-outline mb-4">
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={onChangePassword}
-                    id="typePasswordX"
-                    className="form-control-lg form-input-login"
-                    placeholder="Password"
-                    required
-                  />
-                </div>
-                <div className="form-check d-flex row mt-4 p-0 ms-0">
-                  <div className="d-flex ">
-                    <div className=" d-flex col-6 ">
-                      <input
-                        className="form-check-input-login me-2"
-                        type="checkbox"
-                        value=""
-                        id="form1Example3"
-                      />
-                        <label className="form-check-label" htmlFor="form1Example3">
-                          {" "}
-                          Remember password{" "}
-                        </label>
-                  </div>
-                  <Link
-                    className="forgot-link link col-6"
-                    to="/resetPassword"
-                    type="submit"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
-                </div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                {emailFlag || apiFlag || passwordFlag ? (
-                  <p className="text-danger">{message}</p>
-                ) : null}
-                <div className="d-flex justify-content-between">
-                  <button
-                    onClick={login}
-                    className="btn-login"
-                    id="login"
-                    aria-label="login"
-                  >
-                    Login
-                  </button>
-                  <Link className="link" to="/signup">
-                    <button
-                      className="btn-login"
-                      type="submit"
-                      id="register"
-                      aria-label="register"
-                    >
-                      Register
-                    </button>
-                  </Link>
-                </div>
-              </div>
+
+  return (
+    <div className="container-fluid min-height-100 ">
+      <h1 className="text-login">Login</h1>
+      <div className="container my-login">
+        <div className="btn-login-google">
+          <GoogleLogin
+            clientId="1024574470833-2aouoemahgn91lk4g61j4qfkvukigan0.apps.googleusercontent.com"
+            buttonText="LOGIN WITH GOOGLE"
+            onSuccess={responseGoogleSuccess}
+            onFailure={responseGoogleFailure}
+            cookiePolicy={'single_host_origin'}
+            className="login-google"
+            id="googleLogin"
+            aria-label="googleLogin"
+          />
+        </div>
+        <div className="row mt-5 text-center">
+          <div className="col-5 line-login"></div>
+          <div className="col-2 p-0">or</div>
+          <div className="col-5 line-login"></div>
+        </div>
+        <br />
+        <div className="form-outline mb-4">
+          <input
+            type="email"
+            value={email}
+            onChange={onChangeEmail}
+            id="typeEmailX-2"
+            className="form-control-lg form-input-login"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div className="form-outline mb-4">
+          <input
+            type="password"
+            value={password}
+            onChange={onChangePassword}
+            id="typePasswordX"
+            className="form-control-lg form-input-login"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div className="form-check d-flex row mt-4 p-0 ms-0">
+          <div className="d-flex ">
+            <div className=" d-flex col-6 ">
+              <input
+                className="form-check-input-login me-2"
+                type="checkbox"
+                value=""
+                id="form1Example3"
+              />
+              <label className="form-check-label" htmlFor="form1Example3">
+                {" "}
+                Remember password{" "}
+              </label>
             </div>
+            <Link
+              className="forgot-link link col-6"
+              to="/resetPassword"
+              type="submit"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        {emailFlag || apiFlag || passwordFlag ? (
+          <p className="text-danger">{message}</p>
+        ) : null}
+        <div className="d-flex justify-content-between">
+          <button
+            onClick={login}
+            className="btn-login"
+            id="login"
+            aria-label="login"
+          >
+            Login
+          </button>
+          <Link className="link" to="/signup">
+            <button
+              className="btn-login"
+              type="submit"
+              id="register"
+              aria-label="register"
+            >
+              Register
+            </button>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }

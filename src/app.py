@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request, send_from_directory
+import email
+from flask import Flask, jsonify, make_response, request, send_from_directory
 import os
 from flask_cors import cross_origin
 from flask_migrate import Migrate
@@ -7,10 +8,16 @@ from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import json
+from api.models import User
+from api.models import db
+
+
+import requests
 from api.commands import setup_commands
 from api.utils import APIException, generate_sitemap
 from flask_mail import Mail, Message
 import stripe
+from flask_jwt_extended import create_access_token
 
 # Importing configurations
 from api.config import Config
@@ -21,17 +28,19 @@ from api.main import main as main_blueprint
 from api.auth import auth as auth_blueprint
 
 # Importing admin setup function
-from api.admin import setup_admin  
+from api.admin import setup_admin
 
 # Importing models
-from api.models import db
+from api.models import User, db
 
 # Load environment variables
 load_dotenv()
 
+
+
 def create_app():
     app = Flask(__name__)
-    
+
     # Load configurations
     app.config.from_object(Config)
 
@@ -44,60 +53,79 @@ def create_app():
 
     # Initialize CORS
     CORS(app, origins="*")
-    #CORS(app, origins=[os.getenv("FRONTEND_URL")])
-    
+    # CORS(app, origins=[os.getenv("FRONTEND_URL")])
+
     # Initialize Admin
-    setup_admin(app)  
+    setup_admin(app)
 
     # add the admin
     setup_commands(app)
 
-    #inatialize mail instance
-    mail = Mail(app) 
+    # inatialize mail instance
+    mail = Mail(app)
 
     # Register blueprints
     app.register_blueprint(api_blueprint)
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
 
-    @app.route('/auth/google/callback', methods=['GET'])
+    
+    
+    @app.route('/google-login', methods=['POST'])
     @cross_origin()
-    def google_callback():
-   
-        authorization_code = request.args.get('code')
-        print(f'Authorization Code: {authorization_code}')
+    def google_login():
+        try:
+            # Get tokenId from client request
+            payload = request.get_json()
+            token_id = payload.get('tokenId')
 
+            # Verify the tokenId with Google
+            client_id = os.getenv("GOOGLE_CLIENT_ID")
+
+            google_info = requests.get('https://oauth2.googleapis.com/tokeninfo', params={'id_token': token_id})
+            google_user_info = google_info.json()
+                   
+            if 'error_description' in google_user_info:
+                return jsonify(google_user_info), 400
+        
+            email = google_user_info.get('email')
+            user = User.query.filter_by(email=email).first()
+       
+            access_token = create_access_token(identity=user.id)
+
+            return jsonify({"message": "Success!", "access_token": access_token})
+        except Exception as e:
+                    # Log the exception for debugging
+                print(str(e))
+                return jsonify({"error": "Internal Server Error"}), 500
     
-        return "Callback Successful"  
-    
-    @app.route('/import-data', methods=['POST'])
+    @app.route("/import-data", methods=["POST"])
     def import_data():
         try:
-            import_data_from_json('bicycles.json')
-            return jsonify({'message': 'Data imported successfully'}), 200
+            import_data_from_json("bicycles.json")
+            return jsonify({"message": "Data imported successfully"}), 200
         except Exception as e:
-            return jsonify({'message': 'Error importing data', 'error': str(e)}), 500
+            return jsonify({"message": "Error importing data", "error": str(e)}), 500
 
     def import_data_from_json(json_file):
         # Open and read the JSON file
-        with open(json_file, 'r') as file:
+        with open(json_file, "r") as file:
             data = json.load(file)
 
-        
         from api.models import Bicycle
 
         # Iterate over the JSON data and create Bicycle objects
         for item in data:
             bicycle = Bicycle(
-                name=item['name'],
-                manufacturer=item['manufacturer'],
-                material=item['material'],
-                gender=item['gender'],
-                type=item['type'],
-                color=item['color'],
-                weight=item['weight'],
-                price=item['price'],
-                instock=item['instock']
+                name=item["name"],
+                manufacturer=item["manufacturer"],
+                material=item["material"],
+                gender=item["gender"],
+                type=item["type"],
+                color=item["color"],
+                weight=item["weight"],
+                price=item["price"],
+                instock=item["instock"],
             )
             db.session.add(bicycle)
 
@@ -105,23 +133,25 @@ def create_app():
         db.session.commit()
 
     # generate sitemap with all your endpoints
-    @app.route('/')
+    @app.route("/")
     def sitemap():
-        
-            return generate_sitemap(app)
-       
+        return generate_sitemap(app)
 
-    static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
-    @app.route('/<path:path>', methods=['GET'])
+    static_file_dir = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "../public/"
+    )
+
+    @app.route("/<path:path>", methods=["GET"])
     def serve_any_other_file(path):
         if not os.path.isfile(os.path.join(static_file_dir, path)):
-            path = 'index.html'
+            path = "index.html"
         response = send_from_directory(static_file_dir, path)
-        response.cache_control.max_age = 0  
+        response.cache_control.max_age = 0
         return response
 
     return app
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = create_app()
     app.run(port=4242)
