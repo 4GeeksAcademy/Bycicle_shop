@@ -82,7 +82,9 @@
       width: 33vh;
     }
   .btn-product-card {
-      left: 22vh;
+      left: 21vh;
+      top: 42vh;
+      font-size: 15px;
     }
 }
 @media screen and (max-width: 1300px) {

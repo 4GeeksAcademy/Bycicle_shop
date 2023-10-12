@@ -53,18 +53,23 @@ def get_product_by_id(id):
 )
 def user_carts():
     user_id = get_jwt_identity()
+
+    # Initialize the session cart if it does not exist
+    if "cart" not in session:
+        session["orders"] = []
+
     cart = [
         item for item in session.get("cart", []) if item["user_id"] == user_id
     ]
 
     response = {
-        "success": "true",
+        "success": True,
         "shopping_cart": {
-            "user_id": user_id,
+            "user_id": user_id
         },
         "shopping_cart_items": cart,
     }
-    return jsonify(response)
+    return jsonify(response.serialize())
 
 @main.route("/cart", methods=["POST"])
 @jwt_required()
