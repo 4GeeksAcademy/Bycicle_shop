@@ -37,7 +37,7 @@ export const Signup = () => {
 
     return (
         <div className="container min-height-100">
-            <h1 className="title mb-3">
+            <h1 className="title-r mb-3">
                 Registration
             </h1>
             <form className="form my-form" onSubmit={handleClick}>

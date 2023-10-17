@@ -56,9 +56,9 @@ export const ShoppingCartOne = (props) => {
               onChange={(e) => setTextarea(e.target.value)}
             ></textarea>
           </div>
-          <div className="form-check pmt-2">
+          <div className="d-flex mt-2">
             <input
-              className="bg-dark form-check-input"
+              className="bg-dark form-shooping "
               type="checkbox"
               value=""
               id="flexCheckDefault"

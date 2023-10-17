@@ -1,5 +1,5 @@
 .navbar-box {
-    background-color: #484545;
+    background-color: #635B5B;
     height: 16vh;
     width: 100%;
     padding-left: 5vh;
@@ -17,9 +17,9 @@
     z-index: 3;
 }
 .my-btn {
-    background-color: #7C0514;
+    background-color: #B90118;
     color: black;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 30px;
     margin-left: 20px;
     padding: 7px 25px 7px 25px;
@@ -27,13 +27,16 @@
     border: solid 2px black;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
 }
+.my-btn:hover {
+    color: black;
+}
 .icon {
     color: black;
     font-size: 50px;
     margin-left: 20px;
 }
 .my-dropdown-menu {
-    background-color: #7C0514;
+    background-color: #B90118;
     border-radius: 6px;
     position: absolute;
     z-index: 3;
@@ -44,14 +47,15 @@ li {
     list-style: none;
 }
 .my-dropdown-item {
-    border-bottom: solid 1px black;
+    border-bottom: solid 2px black;
     font-size: 25px;
+    font-weight: 500;
     color: black;
     padding-left: 0;
 }
 .my-dropdown-item:hover {
-    background-color: #7C0514;
-    font-weight: 500;
+    background-color: #B90118;
+    color: white;
   }
 .hide-buttons {
     display: none;
@@ -71,7 +75,7 @@ li {
 .form-btn {
     width: 90%;
     border-radius: 6px;
-    background-color: #7C0514;
+    background-color: #EA011D;
     margin: 0 5px 0 5px;
 }
 .my-form-label {
@@ -96,7 +100,7 @@ li {
     z-index:3;
     color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: large;
+    font-size: 25px;
     border-radius: 36px;
     padding-left: 10px;
     height: 4vh;
@@ -117,12 +121,12 @@ li {
     margin-top: 40px;
 }
 .li-search {
-    border-bottom: solid 1px #484545;
+    border-bottom: solid 1px #635B5B;
     font-size: 20px;
 }
 .link-search {
     text-decoration: none;
-    color: #484545;
+    color: #635B5B;
 }
 .custom-dropdown-toggle::after {
     border: 0 !important;
@@ -156,12 +160,16 @@ li {
     }
     .my-collapse {
         margin-top: 40px;
-        background-color: #7C0514;
+        background-color: #EA011D;
         border-radius: 6px;
         width: 22vh;
         height: 44vh;
         position:absolute;
         z-index: 4;
+    }
+    .my-btn {
+        border: none;
+        box-shadow: none;
     }
     .link-collapse {
         border-bottom: solid 1px black;

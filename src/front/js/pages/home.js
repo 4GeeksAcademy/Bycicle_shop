@@ -7,11 +7,6 @@ export const Home = () => {
   return (
     <div className="container-fluid
     home-container min-height-100">
-      <div className="text-center">
-          <div className="d-flex justify-content-around btn-ai my-3">
-            Bicycles Galery
-          </div>
-      </div>
       <div id="carouselExampleAutoplaying" className="carousel carousel-dark slide" data-bs-ride="carousel">
         <div className="carousel-inner carousel-container my-4">
           <div className="carousel-item my-carousel active" data-bs-interval="1000">

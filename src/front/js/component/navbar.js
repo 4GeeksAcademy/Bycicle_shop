@@ -120,7 +120,7 @@ export const Navbar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className='collapse my-collapse navbar-collapse' id="navbarNavAltMarkup">
-            <div className="navbar-nav ">
+            <div className="navbar-nav">
               <Link className="link-collapse" to="/contactus">
                 <button className="btn my-btn toggler" id="contactUs" aria-label="contactUs">
                   Contact Us

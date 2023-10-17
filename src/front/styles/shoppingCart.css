@@ -112,7 +112,7 @@
 }
 .btn-Check {
     background-color: black;
-    color: #7C0514;
+    color: #B90118;
     font-weight: 500;
     font-size: 30px;
     margin-left: 20px;
@@ -143,8 +143,15 @@
     font-size: 25px;
 }
 .link-shopping  {
-    color: black;
+    color: white;
+    font-size: 25px;
     cursor: pointer;
+}
+.form-shooping  {
+    color: white;
+    margin: 8px;
+    font-size: 25px;
+    border-radius: 6px;
 }
 .return-shipping {
     cursor: pointer;
@@ -164,7 +171,7 @@
 }
 .thanks-message {
     text-align: center;
-    color: #7C0514;
+    color: #B90118;
     background-color: #B1AFAF;
     border-radius: 6px;
     padding: 20px;
