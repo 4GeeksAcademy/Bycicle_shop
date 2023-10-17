@@ -54,12 +54,11 @@ export const ContactUs = () => {
           <div className="min-height-100 container-fluid">
             <div className="text-center m-2">
               <h1 className="title-contactus">Send us a message</h1>
-              <h5 className="subtitle-contactus">
-                We'd happy to answer your questions! Fill out the form bellow with your
-                contact details and contact us.
-              </h5>
-              <br />
               <form className="form my-form" >
+                  <h5 className="subtitle-contactus ">
+                    We be happy to answer your questions! Fill out the form bellow with your
+                    contact details and contact us.
+                  </h5>
                   <div>
                   <br />
                   <input className="control-contact" type="text" placeholder="Full Name" aria-label="default input example" value={fullName} onChange={(e) => setFullName(e.target.value)} />

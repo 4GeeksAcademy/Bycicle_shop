@@ -19,19 +19,19 @@
    margin-right: 10px;
   }
   .form-input-login {
-    background-color: #484545;
+    background-color: #635B5B;
     width: 100%;
     height: 80px;
     font-size: 30px;
     border: none;
-    outline: #484545;
+    outline: #635B5B;
   }
   .form-check-input-login  {
-    background-color: #484545;
+    background-color: #635B5B;
   }
   .btn-login {
-    background-color: #7C0514;
-    color: black;
+    background-color: #9A0013;
+    color: white;
     font-weight: 500;
     font-size: 30px;
     margin-left: 20px;
@@ -48,11 +48,11 @@
 
   }
   .line-login {
-    border: solid 1px #484545;
+    border: solid 1px #635B5B;
     height: 1px;
   }
   .forgot-link {
-    color: #484545;
+    color: white;
     font-style: italic;
     text-decoration: none;
     font-size: smaller;
@@ -62,7 +62,7 @@
     font-weight: 700;
   }
   .forgot-link:hover {
-    color: #484545;
+    color: #635B5B;
   }
   /*css to make the site responsive*/
 @media screen and (max-width: 1000px) {

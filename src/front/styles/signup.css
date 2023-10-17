@@ -6,16 +6,17 @@
     margin: auto;
   }
   .control-input-signup {
-    background-color: #484545;
+    background-color: #635B5B;
     color: #1A1919;
     margin: 0px 20px 0px 20px;
     width: 95%;
     border-radius: 6px;
     border: 6px;
     height: 60px;
-    font-size: 30px;
+    font-size: 25px;
+    padding-left: 10px;
   }
-  .title {
+  .title-r {
     text-align: center;
     color: white;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -26,15 +27,17 @@
     margin-left: 20px;
   }
   .form-check-input {
-    background-color: #484545;
+    background-color: #635B5B;
+    margin-top: 8px;
   }
   .my-form-check-label {
-    color: #484545;
+    color: #635B5B;
     margin-left: 0;
+    font-size: 20px;
   }
   .btn-register {
-    background-color: #7C0514;
-    color: black;
+    background-color: #B90118;
+    color: white;
     font-weight: 500;
     font-size: 30px;
     margin-left: 20px;

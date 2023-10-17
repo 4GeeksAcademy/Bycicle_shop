@@ -8,7 +8,7 @@ import { useUser } from "../component/userContext";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
-  const [show, setShow] = useState("last_order");
+  const [show, setShow] = useState("personal_data");
   const [showClass1, setShowClass1] = useState(false);
   const [showClass3, setShowClass3] = useState(false);
   const [cart, setCart] = useState([]);
@@ -70,24 +70,24 @@ const Profile = () => {
     <div className="container min-height-100 my-5">
       <div className="row">
         <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, {store.user.name} </h1>
-        {show !== 'last_order' &&
+        {/*{show !== 'last_order' &&
           <div className="return-second col-sm-10 col-md-10 col-lg-8 col-xl-8">
             <Link onClick={() => setShow('last_order')} className="return-second" to="/profile">
               <i className="fa-solid fa-arrow-left"></i> Return to my profile
             </Link>
           </div>
-        }
+        }*/}
       </div>
       <br />
       <div className="profile row">
         <div className="order-description col-4">
           <div className="my-order-description col-8">
             <p>Personal Data</p>
-            <p>Orders</p>
+            {/*<p>Orders</p>*/}
           </div>
           <div>
             <p><i onClick={() => { setShow('personal_data'); setShowClass1(true); setShowClass3(false); }} className={`profile-fa fa-solid fa-chevron-down ${showClass1 ? 'profile-fa-active' : ''}`}></i></p>
-            <p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>
+            {/*<p><i onClick={() => { setShow('orders'); setShowClass1(false); setShowClass3(true); }} className={`profile-fa fa-solid fa-chevron-down ${showClass3 ? 'profile-fa-active' : ''}`}></i></p>*/}
           </div>
         </div>
         {show === 'last_order' && (

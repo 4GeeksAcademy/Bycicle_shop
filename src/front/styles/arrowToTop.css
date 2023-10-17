@@ -8,13 +8,14 @@
 .back-to-top{
     border-radius: 50%;
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     background-color: black;
      box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
      perspective: 5.5cm;
 }
 .my-fa-solid {
   padding: 3px;
-  color: #7C0514;
+  font-size: 30px;
+  color: #B90118;
 }
