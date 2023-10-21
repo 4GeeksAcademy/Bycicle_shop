@@ -1,13 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../../styles/chatbot_button.css";
+import { useTheme } from "../themeContext"; 
 
 export const Chatbot_button = () => {
+    const { theme } = useTheme();
 
     return (
         <>
             {/* Default dropup button */}
-            <div className="dropup contentChat">
+            <div className="dropup contentChat" data-theme={theme}>
                 <button id="chatbot" aria-label="chatbot" type="button" className="chatbot-btn dropdown-toggle-chat dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <i className="fa-chatbot fa-regular fa-comment-dots"></i>
                 </button>

@@ -2,12 +2,14 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useSearchParams } from "react-router-dom";
 import "../../styles/resetPassword.css";
+import { useTheme } from "../themeContext"; 
 
 export const NewPassword = () => {
   const { actions } = useContext(Context);
   const [password, setPassword] = useState("");
   const [confermePassword, setConfermePassword] = useState("");
   const [searchParams] = useSearchParams();
+  const { theme } = useTheme();
 
   //function to send the data form the input to the database
   const handleNewPassword = (event) => {
@@ -33,7 +35,7 @@ export const NewPassword = () => {
 };
 
   return (
-          <div className="container-fluid min-height-100">
+          <div className="container-fluid min-height-100 reset-container " data-theme={theme}>
             <br />
             <label className="password">New password</label>
               <input

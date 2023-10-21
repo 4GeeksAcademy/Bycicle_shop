@@ -1,12 +1,14 @@
 import React  from "react";
 import "../../styles/terms.css";
+import { useTheme } from "../themeContext"; 
 
 export const Terms = () => {
+    const { theme } = useTheme();
 
 	return (
-		<div className="min-height-100 container my-container">
+		<div className="my-container terms-container min-height-100" data-theme={theme}>
             <br/> 
-            <div className="main-terms">
+            <div className="main-terms container">
                 <h1 className="title">
                     Terms and Conditions
                 </h1>

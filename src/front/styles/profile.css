@@ -1,3 +1,7 @@
+@import url('index.css');
+.profile-container {
+    background-color: var(--background);
+  }
 .hello {
     color: white;
     font-size: 70px;
@@ -48,7 +52,7 @@
 }
 .btn-logout {
     background-color: black;
-    color: #B90118;
+    color: var(--background);;
     padding: 3px;
     font-size: 36px;
     font-weight: 500;

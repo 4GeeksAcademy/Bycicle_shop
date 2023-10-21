@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import logo from "../../img/logo.png";
 import "../../styles/resetPassword.css";
+import { useTheme } from "../themeContext";
 
 export const ResetPassword = () => {
   const { actions } = useContext(Context);
@@ -9,6 +10,7 @@ export const ResetPassword = () => {
   const [hideContainer, setHideContainer] = useState(true);
   const [resetStatus, setResetStatus] = useState(false);
   const [token, setToken] = useState("");
+  const { theme } = useTheme();
 
   //function to send the data form the input to the database
   const handleResetPassword = (event) => {
@@ -22,7 +24,7 @@ export const ResetPassword = () => {
 };
 
   return (
-    <div className="min-height-100 container reset-big-box">
+    <div className="min-height-100 container-fluid reset-big-box reset-container " data-theme={theme}>
       {/* Modal */}
       {resetStatus && (
         <div className="my-modal">

@@ -9,7 +9,7 @@
       border: solid 1px black;
       width: 60px;
       height: 60px;
-      background-color: #B90118;
+      background-color: var(--background);
       box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
       align-content: center;
   }
@@ -29,7 +29,7 @@
     border: 0 !important;
 }
 .chatbot-header {
-  background-color: #EA011D;
+  background-color: #B90118;
   text-align: center;
   padding: 5px;
   width: 100%;

@@ -1,5 +1,9 @@
+@import url('index.css');
+.productDetail-container {
+    background-color: var(--background);
+  }
 .produt-description {
-    color: white;
+    color: var(--text-primary);
 }
 .btn-detail1 {
     background-color: white;
@@ -31,7 +35,7 @@
 }
 .btn-By {
     background-color: black;
-    color: #B90118;
+    color: var(--background);;
     font-weight: 500;
     font-size: 30px;
     padding: 7px 25px 7px 25px;
@@ -41,7 +45,8 @@
     border: navy;
 }
 .btn-By:hover {
-    background-color: #D9D9D9;
+    background-color: var(--secondary-bg-color);
+    color: var(--text-secondary);
     border: none;
 }
 .form-review {
@@ -58,7 +63,7 @@
     height: 6vh;
 }
 .btn-review {
-    background-color: #B90118;
+    background-color: var(--background);
     color: black;
     font-weight: 500;
     font-size: 30px;

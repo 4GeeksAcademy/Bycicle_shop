@@ -1,16 +1,39 @@
-@font-face {
-    font-family: 'Pacifico';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Pacifico Regular'), local('Pacifico-Regular'),
-      url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2)
-        format('woff2');
-    font-display: swap;
-  }
-body {
-    background-color: #B90118;
-    position: relative;
+:root {
+  --background: #B90118;
+  --text-primary: white;
+  --text-secondary: #B90118;
+  --form-bg: black;
+  --btn: white;
+  --main-bg-color: #635B5B;
+  --secondary-bg-color:  #D9D9D9;;
 }
+
+[data-theme="dark"] {
+  --background: white;
+  --text-primary: black;
+  --text-secondary: black;
+  --form-bg: #635B5B;
+  --btn: black;
+  --main-bg-color: white;
+  --secondary-bg-color: #B90118;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
 .min-height-100 {
-    min-height: 100vh;
+  min-height: 100vh;
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Pacifico Regular'), local('Pacifico-Regular'),
+  url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2)
+      format('woff2');
+  font-display: swap;
 }

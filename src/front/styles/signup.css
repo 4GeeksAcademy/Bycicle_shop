@@ -1,12 +1,16 @@
+@import url('index.css');
+.signup-container {
+  background-color: var(--background);
+}
 .my-form {
-    background-color: black;
+    background-color: var(--form-bg);
     border-radius: 6px;
     width: 80%;
     height: 32rem;
     margin: auto;
   }
   .control-input-signup {
-    background-color: #635B5B;
+    background-color: var(--main-bg-color);
     color: #1A1919;
     margin: 0px 20px 0px 20px;
     width: 95%;
@@ -27,17 +31,17 @@
     margin-left: 20px;
   }
   .form-check-input {
-    background-color: #635B5B;
+    background-color: var(--main-bg-color);
     margin-top: 8px;
   }
   .my-form-check-label {
-    color: #635B5B;
+    color: var(--main-bg-color);
     margin-left: 0;
     font-size: 20px;
   }
   .btn-register {
-    background-color: #B90118;
-    color: white;
+    background-color: var(--background);
+    color: var(--btn);
     font-weight: 500;
     font-size: 30px;
     margin-left: 20px;

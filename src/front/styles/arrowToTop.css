@@ -1,9 +1,8 @@
 .contentDiv {
-  display: flex;
-  flex-wrap: nowrap;
-  float: right;
-  position: relative;
-  bottom: -17px;
+  position: absolute;
+  left: 92%;
+  bottom: 8vh;
+  padding-left: 5vh;
 }
 .back-to-top{
     border-radius: 50%;
@@ -17,5 +16,5 @@
 .my-fa-solid {
   padding: 3px;
   font-size: 30px;
-  color: #B90118;
+  color: var(--background);
 }

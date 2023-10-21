@@ -1,5 +1,9 @@
+@import url('index.css');
+.contactus-container {
+  background-color: var(--background);
+}
 .title-contactus {
-    color: white;
+    color: var(--text-primary);
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     letter-spacing: 2px;
     font-size: 60px;
@@ -8,10 +12,10 @@
     padding-top: 10px;
     font-size: 25px;
     font-weight: 400;
-    color: white;
+    color: var(--text-primary);
 }
 .my-form {
-    background-color: black;
+    background-color: var(--form-bg);
     border-radius: 6px;
     width: 80%;
     height: 54rem;
@@ -19,7 +23,7 @@
     z-index: 0;
   }
   .control-contact {
-    background-color: #635B5B;
+    background-color: var(--main-bg-color);
     color: #1A1919;
     font-size: 30px;
     padding: 0px 10px 0px 10px;
@@ -32,7 +36,7 @@
     color: black;
   }
   .textarea-contact {
-    background-color: #635B5B;
+    background-color: var(--main-bg-color);
     color: #1A1919;
     font-size: 30px;
     padding: 0px 10px 0px 10px;
@@ -41,8 +45,8 @@
     border: 0px;
   }
   .btn-contact {
-    background-color: #9A0013;
-    color: white;
+    background-color: var(--background);;
+    color: var(--btn);
     font-weight: 500;
     font-size: 30px;
     padding: 7px 35px 7px 35px;
@@ -50,7 +54,7 @@
     border: none;
   }
   .our-contacts {
-    color: white;
+    color: var(--text-primary);
     width: 60%;
     font-size: 25px;
     margin: auto;
