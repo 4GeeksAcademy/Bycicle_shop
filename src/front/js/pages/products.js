@@ -3,11 +3,13 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import SelectedTypeContext from "../TypeContext";
 import "../../styles/product.css";
+import { useTheme } from "../themeContext";
 
 function Product(props) {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const { selectedType } = useContext(SelectedTypeContext);
+  const { theme } = useTheme(); 
 
   function getData() {
     console.log("getData called");
@@ -60,8 +62,8 @@ function Product(props) {
 
 
   return (
-    <div className="container-fluid min-height-100 ">
-      <div className="row row-card">
+    <div className="container-fluid min-height-100 product-container " data-theme={theme}>
+      <div className="row row-card m-0">
         {Array.isArray(products) && products.map((product, index) => (
           <div className="card my-card " >
             <div key={index} className="product-card my-product-card">

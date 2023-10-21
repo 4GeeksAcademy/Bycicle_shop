@@ -1,3 +1,4 @@
+@import url('index.css');
 .big-box {
     background-color: #635B5B;
     color: black;
@@ -34,6 +35,14 @@ p {
 .my-fa-copyright {
     margin-top: 18px;
 }
+.theme-toggle i {
+    font-size: 2rem;
+    cursor: pointer;
+}
+.theme-toggle i:active {
+    transition: transform .3s ease-in;
+    color: white;
+ }
 /*css to make the site responsive*/
 @media screen and (max-width: 995px) {
     .my-fa-comment-dots {

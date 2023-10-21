@@ -5,6 +5,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import "../../styles/product_detail.css";
 import { Context } from "../store/appContext";
+import { useTheme } from "../themeContext";
 
 function ProductDetail(props) {
   const { id } = useParams();
@@ -19,6 +20,7 @@ function ProductDetail(props) {
   const [reviewText, setReviewText] = useState("");
   const { actions } = useContext(Context);
   const [reviewIds, setReviewIds] = useState([]);
+  const { theme } = useTheme();
 
     const submitReview = () => {
       const token = localStorage.getItem('access_token'); 
@@ -97,7 +99,7 @@ function ProductDetail(props) {
     };
     
   return (
-    <div className="container-fluid min-height-100 ">
+    <div className="container-fluid min-height-100 productDetail-container" data-theme={theme}>
       <div className="container  py-5 ">
         <div className="row d-flex justify-content-center align-items-center ">
           <div className="col ">
@@ -209,7 +211,7 @@ function ProductDetail(props) {
                         <FontAwesomeIcon
                           key={index}
                           icon={faStar}
-                          style={{ color: "#731924" }}
+                          style={{ color: "#B90118" }}
                           onClick={() => changeRating(index + 1)}
                         />
                       ) : (
@@ -266,7 +268,7 @@ function ProductDetail(props) {
                       {[...Array(5)].map((_, index) => (
                         <div key={index}>
                           {index < item.rating ? (
-                            <FontAwesomeIcon key={index} icon={faStar} color="#7C0514" />
+                            <FontAwesomeIcon key={index} icon={faStar} color="#B90118" />
                           ) : (
                             <FontAwesomeIcon key={index} icon={faStar} color="dark" />
                           )}

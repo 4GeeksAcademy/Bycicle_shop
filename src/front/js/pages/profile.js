@@ -1,10 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/profile.css";
 import LogoutComponent from "../component/logout";
 import { useUser } from "../component/userContext";
+import { useTheme } from "../themeContext";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -14,6 +15,7 @@ const Profile = () => {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const { setIsLoggedIn } = useUser();
+  const { theme } = useTheme(); 
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -67,8 +69,8 @@ const Profile = () => {
   }
 
   return (
-    <div className="container min-height-100 my-5">
-      <div className="row">
+    <div className="container-fluid min-height-100 my-5 profile-container " data-theme={theme}>
+      <div className="row m-0">
         <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, {store.user.name} </h1>
         {/*{show !== 'last_order' &&
           <div className="return-second col-sm-10 col-md-10 col-lg-8 col-xl-8">

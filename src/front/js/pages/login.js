@@ -4,6 +4,7 @@ import { GoogleLogin } from 'react-google-login';
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
 import { useUser } from "../component/userContext";
+import { useTheme } from "../themeContext"; 
 
 export function Login(props) {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export function Login(props) {
   const [apiFlag, setAPIFlag] = useState(false);
   const [message, setMessage] = useState("Wrong credential");
   const { setIsLoggedIn } = useUser();
+  const { theme } = useTheme();
 
   const onChangeEmail = (event) => {
     setEmailFlag(false);
@@ -112,7 +114,7 @@ export function Login(props) {
   }
 
   return (
-    <div className="container-fluid min-height-100 ">
+    <div className="container-fluid min-height-100 login-container" data-theme={theme}>
       <h1 className="text-login">Login</h1>
       <div className="container my-login">
         <div className="btn-login-google">
@@ -127,7 +129,7 @@ export function Login(props) {
             aria-label="googleLogin"
           />
         </div>
-        <div className="row mt-5 text-center">
+        <div className="row m-0 text-center">
           <div className="col-5 line-login"></div>
           <div className="col-2 p-0">or</div>
           <div className="col-5 line-login"></div>

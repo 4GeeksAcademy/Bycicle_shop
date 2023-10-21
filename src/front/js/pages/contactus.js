@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios"; 
 import "../../styles/contactus.css";
+import { useTheme } from "../themeContext"; 
 
 export const ContactUs = () => {
   const [fullName, setFullName] = useState("");
@@ -9,6 +10,7 @@ export const ContactUs = () => {
   const [issue, setIssue] = useState("");
   const [description, setDescription] = useState("");
   const [result, setResult ] = useState("");
+  const { theme } = useTheme(); // Access theme
 
   //function to reset the form
   const resetForm = () => {
@@ -51,8 +53,8 @@ export const ContactUs = () => {
   }
 
   return (
-          <div className="min-height-100 container-fluid">
-            <div className="text-center m-2">
+          <div className="container-fluid contactus-container" data-theme={theme}>
+            <div className="text-center ">
               <h1 className="title-contactus">Send us a message</h1>
               <form className="form my-form" >
                   <h5 className="subtitle-contactus ">

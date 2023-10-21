@@ -1,3 +1,4 @@
+@import url('index.css');
 .navbar-box {
     background-color: #635B5B;
     height: 16vh;
@@ -6,9 +7,8 @@
     padding-right: 5vh;
     padding-top: 30px;
 }   
-.navbar-container {
-    padding: 0; 
-    height: 20vh; 
+.height-nav {
+    height: 14vh;
 }
 .menu {
     display: grid;
@@ -17,7 +17,7 @@
     z-index: 3;
 }
 .my-btn {
-    background-color: #B90118;
+    background-color: var(--background);
     color: black;
     font-weight: 700;
     font-size: 30px;
@@ -36,7 +36,7 @@
     margin-left: 20px;
 }
 .my-dropdown-menu {
-    background-color: #B90118;
+    background-color: var(--background);
     border-radius: 6px;
     position: absolute;
     z-index: 3;
@@ -54,7 +54,7 @@ li {
     padding-left: 0;
 }
 .my-dropdown-item:hover {
-    background-color: #B90118;
+    background-color: none;
     color: white;
   }
 .hide-buttons {
@@ -75,7 +75,7 @@ li {
 .form-btn {
     width: 90%;
     border-radius: 6px;
-    background-color: #EA011D;
+    background-color: var(--background);;
     margin: 0 5px 0 5px;
 }
 .my-form-label {
@@ -86,7 +86,6 @@ li {
     background-color: black;
 }
 .img {
-    margin-top: 2px;
     height: 220px;
     width: 220px; 
 }
@@ -160,7 +159,7 @@ li {
     }
     .my-collapse {
         margin-top: 40px;
-        background-color: #EA011D;
+        background-color: var(--background);;
         border-radius: 6px;
         width: 22vh;
         height: 44vh;

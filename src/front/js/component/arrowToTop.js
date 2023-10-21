@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/arrowToTop.css";
+import { useTheme } from "../themeContext"; 
 
 export const ArrowToTop = () => {
     const [showButton, setShowButton] = useState(false);
+    const { theme } = useTheme();
 
     useEffect(() => {
         // button is displayed after scrolling for 300 pixels
@@ -24,7 +26,7 @@ export const ArrowToTop = () => {
     };
 
     return (
-        <div className="contentDiv px-5">
+        <div className="contentDiv px-5" data-theme={theme}>
             {showButton && (
                 <button className="back-to-top" aria-label="fa-arrow-up" type="button" onClick={handleScrollToTop}><i className="my-fa-solid fa-solid fa-arrow-up"></i></button>
             )}

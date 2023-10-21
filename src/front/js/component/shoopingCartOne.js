@@ -3,10 +3,13 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import CartItem from "./cartItem";
 import "../../styles/shoppingCart.css"
+import { useTheme } from "../themeContext"; 
 
 export const ShoppingCartOne = (props) => {
   const [textarea, setTextarea] = useState("");
   const { store, actions } = useContext(Context);
+  const { theme } = useTheme();
+
   const textareaClick = () => {
     const note = textarea;
     console.log('Textarea clicked');
@@ -25,7 +28,7 @@ export const ShoppingCartOne = (props) => {
     }
     
   return (
-    <div className="container min-height-100">
+    <div className="container min-height-100 shoppingcart-container" data-theme={theme}>
       <br />
       <div>
         <h1 className="cart-title">Shopping Cart</h1>

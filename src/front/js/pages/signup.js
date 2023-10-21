@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/signup.css";
+import { useTheme } from "../themeContext"; 
 
 export const Signup = () => {
     const { actions } = useContext(Context);
@@ -13,6 +14,7 @@ export const Signup = () => {
     const [subscribe, setSubscribe] = useState(false);
     const [privacy, setPrivacy] = useState(false);
     const navigate = useNavigate();
+    const { theme } = useTheme();
 
     //function to send the data form the input to the database
     const handleClick = (event) => {
@@ -36,7 +38,7 @@ export const Signup = () => {
     };
 
     return (
-        <div className="container min-height-100">
+        <div className=" min-height-100 signup-container " data-theme={theme}>
             <h1 className="title-r mb-3">
                 Registration
             </h1>

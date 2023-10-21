@@ -1,6 +1,11 @@
+/* styles.css (or any other CSS file) */
+@import url('index.css');
+.about-container {
+    background-color: var(--background);
+  }
 .aboutus-container {
     position: relative;
-    margin-left: 30vh;
+    margin-left: 15vh;
 }
 .aboutus-title{
     color: black;
@@ -16,6 +21,7 @@
 }
 .text-about {
     font-size: 30px;
+    color: var(--text-primary);
 }
 .aboutus-img-1 {
     border-radius: 16%;

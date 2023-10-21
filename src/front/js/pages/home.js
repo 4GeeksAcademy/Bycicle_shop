@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
+import { useTheme } from "../themeContext";
 
 export const Home = () => {
+  const { theme } = useTheme(); 
 
   return (
-    <div className="container-fluid
-    home-container">
+    <div className="home-container min-height-100 " data-theme={theme}>
       <div id="carouselExampleAutoplaying" className="carousel carousel-dark slide" data-bs-ride="carousel">
-        <div className="carousel-inner carousel-container my-4">
+        <div className="carousel-inner carousel-container">
           <div className="carousel-item my-carousel active" data-bs-interval="1000">
                 <Link className="carousel-text" to="/products">
                   <p>Road Bikes</p>

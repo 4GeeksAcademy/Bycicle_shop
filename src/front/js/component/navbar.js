@@ -5,6 +5,7 @@ import logo from "../../img/logo.png";
 import "../../styles/navbar.css";
 import SelectedTypeContext from "../TypeContext";
 import { useUser } from "./userContext";
+import { useTheme } from "../themeContext"; 
 
 
 export const Navbar = (props) => {
@@ -16,6 +17,7 @@ export const Navbar = (props) => {
   const { setSelectedType } = useContext(SelectedTypeContext);
   const { isLoggedIn, setIsLoggedIn } = useUser(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const { theme } = useTheme();
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -99,8 +101,8 @@ export const Navbar = (props) => {
   }, [isLoggedIn]);
 
   return (
-    <nav className="navbar navbar-box navbar-dark navbar-expand-lg">
-      <div className="container-fluid navbar-container d-flex">
+    <nav className="navbar navbar-box navbar-dark navbar-expand-lg" data-theme={theme}>
+      <div className="container-fluid height-nav d-flex">
         <Link to="/">
           <img src={logo} className="img" alt="logo" />
         </Link>
@@ -242,6 +244,7 @@ export const Navbar = (props) => {
                     <i className="icon fa-solid fa-cart-shopping"></i> Cart
                   </div>
                 </Link>
+                
               </div>
             </div>
           </div>
