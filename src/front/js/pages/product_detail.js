@@ -95,11 +95,7 @@ function ProductDetail(props) {
           console.error('Error fetching reviews:', error);
         });
     };
-    /*funtion to add product tp the cart
-    useEffect(() => {
-      actions.buyNow(id, quantity, props, navigate);
-    }, []);*/
-
+    
   return (
     <div className="container-fluid min-height-100 ">
       <div className="container  py-5 ">

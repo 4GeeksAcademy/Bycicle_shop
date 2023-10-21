@@ -6,7 +6,7 @@ export const Home = () => {
 
   return (
     <div className="container-fluid
-    home-container min-height-100">
+    home-container">
       <div id="carouselExampleAutoplaying" className="carousel carousel-dark slide" data-bs-ride="carousel">
         <div className="carousel-inner carousel-container my-4">
           <div className="carousel-item my-carousel active" data-bs-interval="1000">
@@ -98,7 +98,9 @@ export const Home = () => {
             <span className="carousel-control-next-icon arrow-control" aria-hidden="true"></span>
             <span className="visually-hidden">Next</span>
           </button>
+          <br/>
         </div>
+        <br/>
       </div>
     </div>
 );
