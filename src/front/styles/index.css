@@ -5,7 +5,10 @@
   --form-bg: black;
   --btn: white;
   --main-bg-color: #635B5B;
-  --secondary-bg-color:  #D9D9D9;;
+  --secondary-bg-color:  #D9D9D9;
+  --icon: black;
+  --cart: white;
+  --text: black;
 }
 
 [data-theme="dark"] {
@@ -16,6 +19,9 @@
   --btn: black;
   --main-bg-color: white;
   --secondary-bg-color: #B90118;
+  --icon: white;
+  --cart: white;
+  --text: white;
 }
 
 body, html {
