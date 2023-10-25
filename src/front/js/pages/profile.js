@@ -69,7 +69,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="container-fluid min-height-100 my-5 profile-container " data-theme={theme}>
+    <div className="container-fluid min-height-100 profile-container " data-theme={theme}>
       <div className="row m-0">
         <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, {store.user.name} </h1>
         {/*{show !== 'last_order' &&

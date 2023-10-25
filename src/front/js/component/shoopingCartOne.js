@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import CartItem from "./cartItem";
-import "../../styles/shoppingCart.css"
+import "../../styles/shoppingCart.css";
 import { useTheme } from "../themeContext"; 
 
 export const ShoppingCartOne = (props) => {

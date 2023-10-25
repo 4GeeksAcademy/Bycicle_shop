@@ -12,6 +12,7 @@ from flask import session
 import stripe
 from dotenv import load_dotenv
 import os
+import json
 
 main = Blueprint("main", __name__)
 mail = Mail()
@@ -347,3 +348,32 @@ def create_checkout_session():
     except Exception as e:
         # Handle exceptions gracefully and return an error response
         return jsonify({'error': str(e)}), 500  # 500 Internal Server Error
+
+
+# Route for handling Stripe webhooks
+@main.route('/stripe-webhook', methods=['POST'])
+def my_webhook_view():
+    payload = request.data
+    event = None
+
+    try:
+        event = stripe.Event.construct_from(
+            json.loads(payload), stripe.api_key
+        )
+    except ValueError as e:
+        # Invalid payload
+        return jsonify({'error': 'Invalid payload'}), 400
+
+    # Handle the event
+    if event.type == 'payment_intent.succeeded':
+        payment_intent = event.data.object
+        # Define and call a method to handle the successful payment intent.
+        handle_payment_intent_succeeded(payment_intent)  # Uncomment and implement this method
+    elif event.type == 'payment_method.attached':
+        payment_method = event.data.object
+        # Define and call a method to handle the successful attachment of a PaymentMethod.
+        handle_payment_method_attached(payment_method)  # Uncomment and implement this method
+    else:
+        print('Unhandled event type {}'.format(event.type))
+
+    return jsonify({'message': 'Webhook received'}), 200

@@ -17,6 +17,9 @@ class Config:
     MAIL_USE_SSL = True
     # Stripe key
     STRIPE_API_KEY = "sk_test_51NuJE8BQV4wKuzoZSh21SCxrw0naH6tIETz7Uut69IahYTU3UaJPzPS4gs2ANWRiAQJZTJU62vxepIrqVplkm5iG00BZCwAVLG"
+    # This is your Stripe CLI webhook secret for testing your endpoint locally.
+    endpoint_secret = 'whsec_ee490927f66d7e77e87520efdfbe0fd69ea39763b5f4b0c09834492fee42a0ea'
+
     FRONTEND_URL = os.environ.get("FRONTEND_URL")
     GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
     GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
