@@ -91,7 +91,7 @@
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.16.0",
 		"react-scroll-parallax": "^3.4.2",
-		"stripe": "^13.9.0",
+		"stripe": "^13.11.0",
 		"use-local-storage": "^3.0.0"
 	}
 }

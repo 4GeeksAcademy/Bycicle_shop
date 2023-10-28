@@ -117,7 +117,7 @@ export function Login(props) {
     <div className="container-fluid min-height-100 login-container" data-theme={theme}>
       <h1 className="text-login">Login</h1>
       <div className="container my-login">
-        <div className="btn-login-google">
+        {/*<div className="btn-login-google">
           <GoogleLogin
             clientId="1024574470833-2aouoemahgn91lk4g61j4qfkvukigan0.apps.googleusercontent.com"
             buttonText="LOGIN WITH GOOGLE"
@@ -133,7 +133,7 @@ export function Login(props) {
           <div className="col-5 line-login"></div>
           <div className="col-2 p-0">or</div>
           <div className="col-5 line-login"></div>
-        </div>
+        </div>*/}
         <br />
         <div className="form-outline mb-4">
           <input
