@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/profile.css";
 import LogoutComponent from "../component/logout";
@@ -9,10 +9,9 @@ import { useTheme } from "../themeContext";
 
 const Profile = () => {
   const { store, actions } = useContext(Context);
-  const [show, setShow] = useState("personal_data");
+  const [show, setShow] = useState("last_order");
   const [showClass1, setShowClass1] = useState(false);
   const [showClass3, setShowClass3] = useState(false);
-  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const { setIsLoggedIn } = useUser();
   const { theme } = useTheme(); 
@@ -49,7 +48,7 @@ const Profile = () => {
   const getOrdersToProfile = (token) => {
     axios({
       method: "GET",
-      url: process.env.BACKEND_URL + "/cart",
+      url: process.env.BACKEND_URL + "/webwook",
       headers: {
         Authorization: `Bearer ${token}`
       },
@@ -57,8 +56,8 @@ const Profile = () => {
       .then((response) => {
         const res = response.data;
         console.log("Orders Data:", res);
-        setCart(res);
-        console.log(cart);
+        actions.setOrdersToProfile(res);
+        console.log(actions.setOrdersToProfile(res));
       })
       .catch((error) => {
         console.error("An error occurred in getData:", error);
@@ -69,7 +68,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="container-fluid min-height-100 my-5 profile-container " data-theme={theme}>
+    <div className="container-fluid min-height-100 profile-container " data-theme={theme}>
       <div className="row m-0">
         <h1 className="hello col-sm-2 col-md-2 col-lg-4 col-xl-4"> Hello, {store.user.name} </h1>
         {show !== 'last_order' &&
@@ -97,9 +96,10 @@ const Profile = () => {
             <h3><i className="fa-solid fa-box-open"></i> Last Order</h3>
             <div className="details">
               <div className="details-data" >
-                <p>Order: Nº {store.cart.bicycle_id}</p>
-                <p>Price: {store.cart.price}</p>
-                <p>Product: {store.cart.name}</p>
+                <p>Order: Nº {store.orders.id}</p>
+                <p>Price: {store.orders.amount_total}</p>
+                <p>Product: {store.orders.object}</p>
+                <p>Status: {store.orders.status}</p>
               </div>
             </div>
           </div>
@@ -117,9 +117,10 @@ const Profile = () => {
           <div className="order">
             <h3>Orders</h3>
               <div className="details-data">
-                <p>Order: Nº {store.cart.id}</p>
-                <p>Price: {store.cart.price}</p>
-                <p>Product: {store.cart.name}</p>
+                <p>Order: Nº {store.orders.id}</p>
+                <p>Price: {store.orders.amount_total}</p>
+                <p>Product: {store.orders.object}</p>
+                <p>Status: {store.orders.status}</p>
               </div>
           </div>
         )}

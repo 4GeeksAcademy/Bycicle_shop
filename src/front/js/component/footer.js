@@ -24,7 +24,8 @@ export const Footer = () => {
 						<p className="terms">terms & conditions</p>
 					</Link>
 					<div className="theme-toggle text-center">
-					<i onClick={switchTheme} className="fas fa-toggle-on"></i>
+						<p className="theme">Choose your theme</p>
+						<i onClick={switchTheme} className="fas fa-toggle-on"></i>
 					</div>
 				</div>	
 			</div>

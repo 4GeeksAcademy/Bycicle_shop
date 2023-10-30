@@ -1,10 +1,11 @@
-import React, { useEffect, useContext } from "react";
-import { Context } from "../store/appContext";
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from "../themeContext";
+import "../../styles/shoppingCart.css"
 
 export const ThanksMessage = () => {
-    const { store, actions } = useContext(Context);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { theme } = useTheme(); 
 
     //function to return to main page after showing the thanks messsage after 4 seconds
     useEffect(() => {
@@ -14,7 +15,7 @@ export const ThanksMessage = () => {
       }, [])
 
 	return (
-		<div className="container">
+		<div className="container" data-theme={theme}>
 			<div className="thanks">
                 <div className="thanks-message">
                     <p>Thank you for purchasing with us!</p>

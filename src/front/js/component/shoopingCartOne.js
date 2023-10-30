@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import CartItem from "./cartItem";
 import "../../styles/shoppingCart.css"
-import { useTheme } from "../themeContext"; 
+import { useTheme } from "../themeContext";
 
 export const ShoppingCartOne = (props) => {
   const [textarea, setTextarea] = useState("");
@@ -18,15 +18,16 @@ export const ShoppingCartOne = (props) => {
   };
   // Function to render the items in the cart
   const renderCartItems = () => {
+    console.log(store.cart)
     if (!store.cart || store.cart.length === 0) {
-        return <p className="cart">Your cart is empty.</p>;
+      return <p className="cart">Your cart is empty.</p>;
     }
 
     return store.cart.map((item, index) => (
-        <CartItem item={item} index={index} key={index} />
+      <CartItem item={item} index={index} key={index} />
     ));
-    }
-    
+  }
+
   return (
     <div className="container min-height-100 shoppingcart-container" data-theme={theme}>
       <br />
@@ -92,4 +93,4 @@ export const ShoppingCartOne = (props) => {
       </div>
     </div>
   );
-  }
+}
