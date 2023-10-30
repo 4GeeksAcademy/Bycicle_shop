@@ -209,7 +209,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
-			// function to retrive orders data to profile
+			/* function to retrive orders data to profile
 			getOrdersToProfile: async (token) => {
 				console.log("Token before API call: ", token);
 				if (!token) {
@@ -224,8 +224,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						});
 					console.log("Response data: ", response.data);
 					if (response.data) {
-						setStore({ cart: response.data });
-						console.log(cart)
+						setStore({ orders: response.data });
+						console.log(orders)
 					} else {
 						console.log("Received empty response.data from API");
 					}
@@ -235,7 +235,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error occurred while fetching the profile:", error);
 					return null;
 				}
-			},
+			}*/
 
 			getData: async (id) => {
 				try {

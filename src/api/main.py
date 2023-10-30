@@ -340,7 +340,6 @@ def create_checkout_session():
             db.session.add(order_item)
             db.session.commit()
         
-        print(checkout_session.url)
         # Return the checkout session ID as a JSON response
         return jsonify({ "url": checkout_session.url })
 
@@ -350,17 +349,15 @@ def create_checkout_session():
         return jsonify({'error': str(e)}), 500  # 500 Internal Server Error
 
 # Route for handling Stripe webhooks
-@main.route('/webhook', methods=['GET', 'POST'])
+@main.route('/webhook', methods=['POST'])
 @cross_origin()
-@jwt_required()
 def webhook():
-    if request.method == 'POST':
         try:
             payload = request.data
+            print(payload)
             # Verify that the request came from Stripe
             sig_header = request.headers.get("stripe-signature")
-            event = stripe.Event.construct_from(payload, sig_header, current_app.config['WEBHOOK_KEY'])
-            print(event, sig_header)
+           # event = stripe.Event.construct_from(payload, sig_header, current_app.config['WEBHOOK_KEY'])
         except ValueError:
             return "Bad payload"
         except stripe.error.SignatureVerificationError:
@@ -368,12 +365,3 @@ def webhook():
             return "Bad signature!"
     
         return "Success"
-    elif request.method == 'GET':
-        current_user_id = get_jwt_identity()
-        print("Current User ID: ", current_user_id)
-        user = User.query.filter_by(id=current_user_id).first()
-
-        if not user:
-            return jsonify({"success": "false", "message": "User not found"}), 404
-
-        return "GET request received"

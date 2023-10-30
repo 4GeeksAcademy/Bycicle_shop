@@ -12,7 +12,6 @@ const Profile = () => {
   const [show, setShow] = useState("last_order");
   const [showClass1, setShowClass1] = useState(false);
   const [showClass3, setShowClass3] = useState(false);
-  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const { setIsLoggedIn } = useUser();
   const { theme } = useTheme(); 
@@ -57,8 +56,8 @@ const Profile = () => {
       .then((response) => {
         const res = response.data;
         console.log("Orders Data:", res);
-        setCart(res);
-        console.log(cart);
+        actions.setOrdersToProfile(res);
+        console.log(actions.setOrdersToProfile(res));
       })
       .catch((error) => {
         console.error("An error occurred in getData:", error);
@@ -97,10 +96,10 @@ const Profile = () => {
             <h3><i className="fa-solid fa-box-open"></i> Last Order</h3>
             <div className="details">
               <div className="details-data" >
-                <p>Order: Nº {store.cart.id}</p>
-                <p>Price: {store.cart.amount_total}</p>
-                <p>Product: {store.cart.object}</p>
-                <p>Status: {store.cart.status}</p>
+                <p>Order: Nº {store.orders.id}</p>
+                <p>Price: {store.orders.amount_total}</p>
+                <p>Product: {store.orders.object}</p>
+                <p>Status: {store.orders.status}</p>
               </div>
             </div>
           </div>
@@ -118,10 +117,10 @@ const Profile = () => {
           <div className="order">
             <h3>Orders</h3>
               <div className="details-data">
-                <p>Order: Nº {store.cart.id}</p>
-                <p>Price: {store.cart.amount_total}</p>
-                <p>Product: {store.cart.object}</p>
-                <p>Status: {store.cart.status}</p>
+                <p>Order: Nº {store.orders.id}</p>
+                <p>Price: {store.orders.amount_total}</p>
+                <p>Product: {store.orders.object}</p>
+                <p>Status: {store.orders.status}</p>
               </div>
           </div>
         )}
