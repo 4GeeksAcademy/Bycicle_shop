@@ -12,6 +12,7 @@ from flask import session
 import stripe
 from dotenv import load_dotenv
 import os
+import json
 
 main = Blueprint("main", __name__)
 mail = Mail()
@@ -339,7 +340,6 @@ def create_checkout_session():
             db.session.add(order_item)
             db.session.commit()
         
-        print(checkout_session.url)
         # Return the checkout session ID as a JSON response
         return jsonify({ "url": checkout_session.url })
 
@@ -347,3 +347,21 @@ def create_checkout_session():
     except Exception as e:
         # Handle exceptions gracefully and return an error response
         return jsonify({'error': str(e)}), 500  # 500 Internal Server Error
+
+# Route for handling Stripe webhooks
+@main.route('/webhook', methods=['POST'])
+@cross_origin()
+def webhook():
+        try:
+            payload = request.data
+            print(payload)
+            # Verify that the request came from Stripe
+            sig_header = request.headers.get("stripe-signature")
+           # event = stripe.Event.construct_from(payload, sig_header, current_app.config['WEBHOOK_KEY'])
+        except ValueError:
+            return "Bad payload"
+        except stripe.error.SignatureVerificationError:
+            print("Invalid signature!")
+            return "Bad signature!"
+    
+        return "Success"
