@@ -356,8 +356,8 @@ def webhook():
             payload = request.data
             print(payload)
             # Verify that the request came from Stripe
-            sig_header = request.headers.get("stripe-signature")
-           # event = stripe.Event.construct_from(payload, sig_header, current_app.config['WEBHOOK_KEY'])
+            # sig_header = request.headers.get("stripe-signature")
+            # event = stripe.Event.construct_from(payload, sig_header, current_app.config['WEBHOOK_KEY'])
         except ValueError:
             return "Bad payload"
         except stripe.error.SignatureVerificationError:
