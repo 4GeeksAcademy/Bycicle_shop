@@ -9,7 +9,7 @@ function Product(props) {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const { selectedType } = useContext(SelectedTypeContext);
-  const { theme } = useTheme(); 
+  const { theme } = useTheme();
 
   function getData() {
     console.log("getData called");
@@ -71,19 +71,19 @@ function Product(props) {
                 <img src={product.image_url || "placeholder-image-url.jpg"} alt={product.name} />
               </div>
               <div className="card-body">
-                  <h6>{product.name}</h6>
-                  <p className="card-paragraf"><strong>Color:</strong> {product.color}</p>
-                  <p className="card-paragraf"><strong>Price:</strong> $ {product.price}</p>
-                  <p className="card-paragraf"><strong>In stock:</strong> {product.instock}</p>
-            </div> 
-          </div>  
-          <Link to={`/product/${product.id}`}>
-            <button tipe="button" className="btn-product-card">See details</button>
-          </Link>
-      </div> 
+                <h6>{product.name}</h6>
+                <p className="card-paragraf"><strong>Color:</strong> {product.color}</p>
+                <p className="card-paragraf"><strong>Price:</strong> $ {product.price}</p>
+                <p className="card-paragraf"><strong>In stock:</strong> {product.instock}</p>
+              </div>
+            </div>
+            <Link to={`/product/${product.id}`}>
+              <button tipe="button" className="btn-product-card">See details</button>
+            </Link>
+          </div>
         ))}
-        </div>
-  </div>
+      </div>
+    </div>
   );
 }
 
