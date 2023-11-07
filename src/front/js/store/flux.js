@@ -1,15 +1,14 @@
 import axios from 'axios';
 import { json } from 'react-router-dom';
-import stripe from 'stripe';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
 			user: [],
+			// cart: [],
 			token: [],
 			orders: [],
-			cart: [],
 			shipping_address: [
 			],
 			demo: [
@@ -62,13 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			onChangeQuantity: (setQuantity, value) => {
 				setQuantity(value);
 			},
-			removeItemFromCart : (index) => {
-				const store = getStore(); 
-				const newCart = [...store.cart];
-				newCart.splice(index, 1);
-				setStore({ ...store, cart: newCart });
-			},
-			
+
 			setUserProfile: (profileData) => {
 				setStore({ user: profileData });
 			},
@@ -76,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ shipping_address: profileData });
 			},
 			setOrdersToProfile: (profileData) => {
-				setStore({ cart: profileData });
+				setStore({ orders: profileData });
 			},
 
 			logout: () => {
@@ -88,10 +81,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.error('Logout failed:', response.data.msg);
 						}
 					})
-				localStorage.removeItem('access_token'); // Always remove token
+					.finally(() => {
+						localStorage.removeItem('access_token'); // Always remove token
 
+					});
 			},
-			addToCart: (image_url, name, price, quantity, price_id, bicycle_id) => {
+			getCartItems: async () => {
+				try {
+					const token = localStorage.getItem('access_token');
+					if (!token) {
+						console.error('No token found!');
+						throw new Error('No token found!');
+					}
+
+					const response = await axios.get(`${process.env.BACKEND_URL}/cart`, {
+						headers: { 'Authorization': `Bearer ${token}` },
+					});
+
+					if (response.data && response.data.shopping_cart_items) {
+						setStore({ cart: response.data.shopping_cart_items });
+					} else {
+						console.error('Invalid server response:', response.data);
+					}
+				} catch (error) {
+					console.error('Error fetching cart data:', error);
+				}
+			},
+
+
+			addToCart: (bicycle_id, quantity) => {
 				const store = getStore();
 				const token = localStorage.getItem('access_token');
 
@@ -101,35 +119,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 				const payload = {
-					image_url: image_url,
-					name: name,
-					price: price,
+					bicycle_id: bicycle_id,
 					quantity: quantity,
-					price_id: price_id,
-					bicycle_id: bicycle_id
 				};
 
-				setStore({ cart: store.cart.concat(payload) })
-				/*console.log('Payload:', payload);
-				console.log('Backend URL:', process.env.BACKEND_URL);
-			  
 				axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
-				  headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`
-				  },
-				  withCredentials: true,
+					headers: { Authorization: `Bearer ${token}` },
+					withCredentials: true,
 				})
-				.then((response) => {
-				  console.log(response);
-				  console.log('Item added to cart:', response.data);
-				  sessionStorage.setItem('cart', JSON.stringify(response.data.orders));
-				  setStore({ orders: response.data.orders });
-				})
-				.catch((error) => {
-				  console.error('Error adding items to cart:', error.response ? error.response.data : error.message);
-				});*/
+					.then((response) => {
+						console.log('Item added to cart:', response.data);
+						sessionStorage.setItem('cart', JSON.stringify(response.data.cart));
+
+						setStore({ cart: response.data.cart });
+
+					})
+					.catch((error) => {
+						console.error('Error adding items to cart:', error.response ? error.response.data : error.message);
+
+					});
 			},
+
 
 			submitReview: (name, title, review, id, rating, setMessage, setReview, setTitle, setName, getData, token) => {
 				return new Promise((resolve, reject) => {
@@ -209,14 +219,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
-			/* function to retrive orders data to profile
-			getOrdersToProfile: async (token) => {
-				console.log("Token before API call: ", token);
-				if (!token) {
-					return null;
-				}
+			// function to retrive Shipping data to profile
+			getShipping_addressToProfile: async () => {
 				try {
-					const response = await axios.get(process.env.BACKEND_URL + "/webhook",
+					const response = await axios.get(process.env.BACKEND_URL + "/profile",
 						{
 							headers: {
 								Authorization: "Bearer " + token
@@ -224,8 +230,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						});
 					console.log("Response data: ", response.data);
 					if (response.data) {
-						setStore({ orders: response.data });
-						console.log(orders)
+						setStore({ shipping_address: response.data });
 					} else {
 						console.log("Received empty response.data from API");
 					}
@@ -235,7 +240,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error occurred while fetching the profile:", error);
 					return null;
 				}
-			}*/
+			},
+			// function to retrive orders data to profile
+			getOrdersToProfile: async (token) => {
+				console.log("Token before API call: ", token);
+				if (!token) {
+					return null;
+				}
+				try {
+					const response = await axios.get(process.env.BACKEND_URL + "/profile",
+						{
+							headers: {
+								Authorization: "Bearer " + token
+							}
+						});
+					console.log("Response data: ", response.data);
+					if (response.data) {
+						setStore({ orders: response.data });
+					} else {
+						console.log("Received empty response.data from API");
+					}
+					return response.data;
+				} catch (error) {
+					// console.error("Full error:", JSON.stringify(error, null, 2));
+					console.error("An error occurred while fetching the profile:", error);
+					return null;
+				}
+			},
+			buyNow: (id, quantity, props, navigate) => {
+				const payload = {
+					bicycle_id: id,
+					quantity: quantity,
+				};
+
+				axios.post(`${process.env.BACKEND_URL}/cart`, payload, {
+					headers: { Authorization: `Bearer ${props.token}` },
+				})
+					.then((response) => {
+						if (response.data.success === "true") {
+							// Navigate to /products
+							navigate("/products");
+							console.log('Item purchased successfully');
+						} else {
+							console.error('Unable to purchase item', response.data);
+						}
+					})
+					.catch((error) => {
+						console.error('Error purchasing item', error.response || error);
+					});
+			},
 
 			getData: async (id) => {
 				try {
@@ -288,64 +341,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false;
 			},
-			
-			checkout: async () => {
-				const token = localStorage.getItem('access_token');
-				try {
-				  let items = [];
-				  let store = getStore();
-			  
-				  // Validate if store.cart is an array
-				  if (!Array.isArray(store.cart)) {
-					throw new Error("Cart is not an array");
-				  }
-			  
-				  // Validate and format cart items
-				  store.cart.forEach(c => {
-					if (typeof c.price_id !== 'string' || typeof c.quantity !== 'number') {
-					  throw new Error("Invalid cart item");
-					}
-					console.log(c)
-					// Push each item to the 'items' array
-					items.push({ price: c.price_id, quantity: c.quantity, id:c.bicycle_id});
-				  });
-			  
-				  // Check if there are items in the cart
-				  if (items.length === 0) {
-					throw new Error("No items in the cart");
-				  }
-			  
-				  console.log("Items:", items); // Debugging line
-				  const opts = {
+			// Function to make the checkout
+			checkout: async (items
+			) => {
+				const opts = {
 					method: "POST",
 					headers: {
-					  "Content-Type": "application/json", // Set the Content-Type header to JSON
-					  Authorization: `Bearer ${token}`
+						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ items }), // Convert items to JSON string
-				  };
-			  
-				  console.log("JSON Data:", JSON.stringify({ items }));
-			  
-				  const resp = await fetch(
-					`${process.env.BACKEND_URL}/create-checkout-session`,
-					opts
-				  );
-			  
-				  if (resp.ok) {
-					const data = await resp.json();
-					console.log(data);
-					// Redirect to Stripe Checkout by replacing the current URL
-					window.location.replace(data.url); // Assuming 'url' is the correct property
-				  } else {
-					console.error("Error:", resp.status, resp.statusText);
-					// Handle the error appropriately, e.g., show an error message to the user
-				  }
+					body: JSON.stringify(items), // Convert items to JSON string
+				};
+				console.log("JSON Data:", JSON.stringify(items));
+				try {
+					const resp = await fetch(
+						`${process.env.BACKEND_URL}/create-checkout-session`,
+						opts
+					);
+					console.log(resp);
+					if (resp.ok) {
+						const data = await resp.json();
+						console.log(data);
+						// Redirect to Stripe Checkout by replacing the current URL
+						window.location.replace(data);
+					} else {
+						console.error("Error:", resp.status, resp.statusText);
+						// Handle the error appropriately
+					}
 				} catch (error) {
-				  console.error("Error message:", error.message);
-				  // Handle the error appropriately, e.g., show an error message to the user
+					console.error("Error message:", error.message);
 				}
-			  },
+			},
 			// Function to send a POST request to your server to initiate the password reset process
 			resetPassword: async (token, email) => {
 				const opts = {
